@@ -2,6 +2,7 @@ import "@/app/globals.css";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "DogNutriSmart",
@@ -20,7 +21,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className="bg-canvas text-txt min-h-screen antialiased">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
     </html>
