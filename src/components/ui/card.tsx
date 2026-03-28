@@ -1,21 +1,20 @@
 import type { HTMLAttributes } from "react";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  as?: "div" | "button";
+  className?: string;
 }
 
 export function Card({
   className = "",
   children,
-  as: Tag = "div",
   ...props
 }: CardProps) {
   return (
-    <Tag
+    <div
       className={`rounded-card border border-border bg-surface shadow-sm ${className}`}
       {...props}
     >
       {children}
-    </Tag>
+    </div>
   );
 }

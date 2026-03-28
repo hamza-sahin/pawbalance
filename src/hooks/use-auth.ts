@@ -70,16 +70,20 @@ export function useAuth() {
     if (isNative) {
       // Capacitor native Apple Sign-In
       const { SignInWithApple: SIWAPlugin } = await import(
-        "@capacitor/sign-in-with-apple"
+        "@capacitor-community/apple-sign-in"
       );
+      const nonce = crypto.randomUUID();
       const result = await SIWAPlugin.authorize({
+        clientId: "com.petpal.dognutrismart",
+        redirectURI: "",
         scopes: "email name",
-        nonce: crypto.randomUUID(),
+        nonce,
       });
       const supabase = getSupabase();
       const { error } = await supabase.auth.signInWithIdToken({
         provider: "apple",
         token: result.response.identityToken,
+        nonce,
       });
       if (error) throw error;
     }
