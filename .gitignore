@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+ios/
+android/
+.env.development
+.env.production
+.env.local
+*.tsbuildinfo
