@@ -47,14 +47,14 @@ If no code changes are detected (only docs, config, etc.), report "No testable c
 
 2. **Serve the static export:**
    ```bash
-   npx serve out -p 3000 &
+   npx serve out -p 3001 &
    SERVE_PID=$!
    ```
    Wait for the server to be ready before proceeding.
 
 3. **Test affected flows using browser-use skill:**
    - Invoke the `browser-use` skill
-   - Navigate to `http://localhost:3000` and test each affected flow
+   - Navigate to `http://localhost:3001` and test each affected flow
    - For each flow, check:
      - Page loads without errors
      - Layout is not broken (no overlapping elements, no missing content)
@@ -69,25 +69,29 @@ If no code changes are detected (only docs, config, etc.), report "No testable c
 
 ### Step 3: iOS Verification
 
-1. **Sync to Capacitor:**
+1. **Ensure a simulator is booted:**
+   - Check for booted simulators: `xcrun simctl list devices booted`
+   - If none are booted, boot one: `python3 .claude/skills/ios-simulator-skill/scripts/simctl_boot.py`
+
+2. **Sync to Capacitor:**
    ```bash
    npx cap sync ios
    ```
 
-2. **Build and launch using ios-simulator-skill:**
+3. **Build and launch using ios-simulator-skill:**
    - Invoke the `ios-simulator-skill` skill
-   - Build the app: `python3 .claude/skills/ios-simulator-skill/scripts/build_and_test.py --build-only`
-   - Launch in simulator: `python3 .claude/skills/ios-simulator-skill/scripts/app_launcher.py --action launch --bundle-id com.pawbalance.app`
+   - Build the app: `python3 .claude/skills/ios-simulator-skill/scripts/build_and_test.py --workspace ios/App/App.xcworkspace`
+   - Launch in simulator: `python3 .claude/skills/ios-simulator-skill/scripts/app_launcher.py --launch com.pawbalance.app`
 
-3. **Test affected flows on iOS:**
-   - Use `screen_mapper.py` to analyze current screen
-   - Use `navigator.py` to navigate to each affected flow
+4. **Test affected flows on iOS:**
+   - Use `python3 .claude/skills/ios-simulator-skill/scripts/screen_mapper.py` to analyze current screen
+   - Use `python3 .claude/skills/ios-simulator-skill/scripts/navigator.py` to navigate to each affected flow
    - For each flow, check:
      - Screen renders correctly in native wrapper
      - No safe area issues (content not hidden behind notch/home indicator)
      - No Capacitor bridge errors in logs
      - The specific change works as intended on iOS
-   - Use `log_monitor.py` to check for runtime errors if needed
+   - Use `python3 .claude/skills/ios-simulator-skill/scripts/log_monitor.py` to check for runtime errors if needed
 
 ### Step 4: Report Results
 
