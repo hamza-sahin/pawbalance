@@ -9,3 +9,4 @@ android/
 *.tsbuildinfo
 build/
 **/__pycache__/
+!screenshots/ios
