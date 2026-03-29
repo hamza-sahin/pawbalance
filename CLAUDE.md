@@ -123,6 +123,44 @@ Copied from Flutter app's `.env.development` with `NEXT_PUBLIC_` prefix.
 - Create App Store Connect app with bundle ID `com.pawbalance.app`
 - App Store API Key ID: `4NH42JUWM6`, auth key at `~/.private_keys/`
 
+## QA & Verification Rules
+
+### When to Verify
+
+- **After implementing a feature** — when the brainstorming workflow reaches its verification phase, invoke `/qa` before claiming the work is done.
+- **After fixing a bug** — when the systematic-debugging workflow reaches its verification phase, invoke `/qa` before claiming the fix is done.
+- **When explicitly asked** — the user can run `/qa` at any time.
+
+### How Verification Works
+
+The `/qa` skill (`.claude/skills/qa/SKILL.md`) runs this sequence:
+
+1. Analyze `git diff` to determine which files changed and map them to affected screens/flows
+2. Build the static export (`npm run build`) and serve `out/` locally
+3. Test affected flows in the browser using the `browser-use` skill
+4. Run full iOS build cycle (`npx cap sync ios` → Xcode build → simulator launch)
+5. Test the same affected flows on iOS using the `ios-simulator-skill`
+6. Report pass/fail per flow, per platform
+
+Testing is **context-aware** — only flows affected by the change are tested, not a full sweep.
+
+If any check fails, autonomously diagnose, fix, and re-run `/qa`. Stop after 3 failed attempts on the same issue and ask the user.
+
+### When to Deploy
+
+- **When finishing a development branch** — after `/qa` passes, invoke `/deploy` to push and ship to TestFlight.
+- **When explicitly asked** — the user can run `/deploy` at any time.
+
+### How Deployment Works
+
+The `/deploy` skill (`.claude/skills/deploy/SKILL.md`) runs:
+
+1. Push the current branch to remote (`git push -u origin HEAD`)
+2. Run `./scripts/deploy-testflight.sh` (build → archive → upload to App Store Connect)
+3. Report success or failure
+
+`/deploy` requires `/qa` to have passed first. If not, it runs `/qa` automatically.
+
 ## Out of Scope (deferred to future)
 
 - Payment/subscription (Stripe + RevenueCat)
