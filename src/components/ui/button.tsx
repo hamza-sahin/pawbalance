@@ -24,10 +24,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const base =
       "inline-flex items-center justify-center font-semibold transition-colors rounded-button disabled:opacity-50 disabled:cursor-not-allowed";
     const variants = {
-      primary: "bg-primary text-white hover:bg-primary-dark shadow-sm",
-      secondary: "bg-secondary text-white hover:bg-secondary-dark",
-      outline: "border border-border text-txt hover:bg-surface-variant",
-      ghost: "text-txt hover:bg-surface-variant",
+      primary: "bg-primary-btn text-white hover:bg-primary-dark shadow-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+      secondary: "bg-secondary text-white hover:bg-secondary-dark focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
+      outline: "border border-border text-txt hover:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+      ghost: "text-txt hover:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
     };
     const sizes = {
       sm: "px-3 py-1.5 text-sm",
@@ -40,10 +40,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={`${base} ${variants[variant]} ${sizes[size]} ${fullWidth ? "w-full" : ""} ${className}`}
         disabled={disabled || isLoading}
+        aria-busy={isLoading || undefined}
         {...props}
       >
         {isLoading ? (
-          <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true" />
         ) : null}
         {children}
       </button>
