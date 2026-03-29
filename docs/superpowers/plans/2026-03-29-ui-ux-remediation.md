@@ -6,7 +6,7 @@
 
 **Goal:** Fix 147 UI/UX issues identified in the comprehensive audit, focusing on the 8 systemic root causes that affect ~80% of all issues.
 
-**Architecture:** Install lucide-react as the single icon library. Fix iOS safe areas via CSS `env()` + viewport-fit meta. Upgrade base UI components (Input, Button, Dialog) with accessibility built in. Replace all emoji with SVG icons. Add missing i18n keys. Make layouts responsive.
+**Architecture:** Install lucide-react as the single icon library. Add Lora + Raleway web fonts for brand typography. Fix iOS safe areas via CSS `env()` + viewport-fit meta. Upgrade base UI components (Input, Button, Dialog, BreedSelector) with accessibility built in. Replace all emoji with SVG icons. Add missing i18n keys. Make layouts responsive. Add onboarding wizard with progress indicator.
 
 **Tech Stack:** Next.js 15, Tailwind CSS 4, lucide-react, next-intl, Capacitor 7
 
@@ -18,6 +18,8 @@
 
 ### New files
 - `src/components/ui/icon.tsx` — Centralized icon component mapping category names to Lucide icons
+- `src/components/ui/password-input.tsx` — Password input with show/hide toggle
+- `src/components/ui/progress-steps.tsx` — Step indicator for onboarding wizard
 
 ### Modified files (by task)
 
@@ -41,6 +43,9 @@
 | 16 | `src/app/(auth)/login/page.tsx`, `src/app/(auth)/register/page.tsx`, `src/app/(auth)/forgot-password/page.tsx`, `src/app/(app)/search/page.tsx`, `src/components/pet/pet-card.tsx`, `src/components/food/food-card.tsx`, `src/components/food/category-grid.tsx` |
 | 17 | `src/messages/en.json`, `src/messages/tr.json` |
 | 18 | `src/app/(auth)/register/page.tsx`, `src/app/(auth)/login/page.tsx`, `src/app/(auth)/forgot-password/page.tsx`, `src/components/food/food-request-dialog.tsx`, `src/components/pet/pet-card.tsx`, `src/app/(app)/search/category/page.tsx`, `src/components/pet/bcs-slider.tsx`, `src/components/pet/photo-picker.tsx` |
+| 19 | `src/components/pet/breed-selector.tsx` |
+| 20 | `src/app/globals.css`, `tailwind.config.js`, `src/app/layout.tsx` |
+| 21 | `src/components/ui/progress-steps.tsx` (create), `src/app/onboarding/page.tsx`, `src/components/pet/pet-form.tsx` |
 
 ---
 
@@ -79,7 +84,7 @@ cd /Users/hamzasahin/src/petpal/web && git add package.json package-lock.json &&
 - Modify: `src/app/globals.css`
 - Modify: `src/app/layout.tsx`
 
-This fixes: Dynamic Island/status bar collision on iPhone 16 and Pro Max (audit issue #2, CRITICAL).
+This fixes: Dynamic Island/status bar collision on iPhone 16 and Pro Max (audit issue #2, CRITICAL). Also adds global `cursor-pointer` rule, `prefers-reduced-motion` support, and autofill styling override.
 
 - [ ] **Step 1: Read layout.tsx**
 
@@ -122,6 +127,21 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 30px var(--color-surface-variant) inset !important;
   -webkit-text-fill-color: var(--color-txt) !important;
+}
+
+/* Cursor pointer on all interactive elements (UI/UX Pro Max anti-pattern: missing cursor-pointer) */
+a, button, [role="button"], [role="tab"], [role="radio"], summary {
+  cursor: pointer;
+}
+
+/* Respect reduced motion preference (UI/UX Pro Max guideline: HIGH severity) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 ```
 
@@ -749,12 +769,19 @@ cd /Users/hamzasahin/src/petpal/web && git add src/components/food/safety-badge.
 
 ---
 
-## Task 8: Replace emoji in pet components
+## Task 8: Replace emoji in pet components + fix ARIA roles
 
 **Files:**
 - Modify: `src/components/pet/pet-card.tsx`
 - Modify: `src/components/pet/photo-picker.tsx`
 - Modify: `src/components/pet/activity-level-selector.tsx`
+- Modify: `src/components/pet/pet-form.tsx`
+
+Additional fixes in this task (from UI/UX Pro Max review):
+- Add `role="radiogroup"` / `role="radio"` + `aria-checked` to ActivityLevelSelector
+- Add `role="radiogroup"` / `role="radio"` + `aria-checked` to gender toggle in PetForm
+- Change `type="number"` to `type="text" inputmode="decimal"` for weight and `inputmode="numeric"` for age in PetForm
+- Add `loading="lazy"` and `onError` fallback to all `<img>` avatar elements
 
 - [ ] **Step 1: Rewrite pet-card.tsx**
 
@@ -788,9 +815,12 @@ export function PetCard({ pet, onEdit, onDelete }: PetCardProps) {
             <img
               src={pet.avatar_url}
               alt={pet.name}
+              loading="lazy"
+              onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.removeAttribute('class'); }}
               className="h-12 w-12 rounded-full object-cover"
             />
-          ) : (
+          ) : null}
+          {!pet.avatar_url && (
             <Icons.paw className="h-6 w-6 text-txt-tertiary" aria-hidden="true" />
           )}
         </div>
@@ -880,19 +910,47 @@ Replace line 46 (`"Add photo"`) with:
 
 Add `aria-label={t("addPhoto")}` to the pick button (the button/div that triggers photo selection).
 
-- [ ] **Step 3: Update activity-level-selector.tsx**
+- [ ] **Step 3: Update activity-level-selector.tsx with ARIA roles**
 
-In `src/components/pet/activity-level-selector.tsx`, replace line 40 (`"✓"`) with:
+In `src/components/pet/activity-level-selector.tsx`:
 
+Add import:
+```tsx
+import { Icons } from "@/components/ui/icon";
+```
+
+Replace line 40 (`"✓"`) with:
 ```tsx
 <Icons.check className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" />
 ```
 
-And add the import at the top:
-
+Add `role="radiogroup"` to the parent container div, and for each option button add:
 ```tsx
-import { Icons } from "@/components/ui/icon";
+role="radio"
+aria-checked={value === level.key}
 ```
+
+- [ ] **Step 3b: Fix gender toggle ARIA in pet-form.tsx**
+
+In `src/components/pet/pet-form.tsx`, on the gender grid container (line 117), add `role="radiogroup"` and `aria-label={t("petGender")}`.
+
+On each gender button (line 119), add:
+```tsx
+role="radio"
+aria-checked={gender === g}
+```
+
+- [ ] **Step 3c: Fix inputmode on number fields in pet-form.tsx**
+
+In `src/components/pet/pet-form.tsx`:
+
+Replace the age Input (line 94-101):
+- Change `type="number"` to `type="text" inputmode="numeric" pattern="[0-9]*"`
+
+Replace the weight Input (line 103-110):
+- Change `type="number" step="0.1"` to `type="text" inputmode="decimal" pattern="[0-9.]*"`
+
+This triggers the correct mobile keyboard without showing native number spinners.
 
 - [ ] **Step 4: Build and verify**
 
@@ -1244,7 +1302,16 @@ export default function LearnPage() {
 }
 ```
 
-Key changes: All emoji → Lucide icons. Disabled search input has `opacity-50` and `aria-label`. Chips have `aria-pressed`. Checkmark uses Icon. Focus-visible on chips.
+Key changes: All emoji → Lucide icons. Disabled search input has `opacity-50` and `aria-label`. Chips have `aria-pressed`. Checkmark uses Icon. Focus-visible on chips. Empty state content vertically centered with `flex-1` on the container.
+
+- [ ] **Step 4b: Vertically center all empty state / placeholder content**
+
+In scan, bowl, and learn pages, wrap the main content area in a flex column that grows to fill the space between the header and bottom nav. Change the outer `<div className="p-4">` to:
+```tsx
+<div className="flex min-h-[calc(100vh-5rem)] flex-col p-4">
+```
+
+And wrap the coming-soon / empty-state section in `<div className="flex flex-1 flex-col items-center justify-center">`. This prevents the content from sitting in the top 30% with 70% empty space below.
 
 - [ ] **Step 5: Build and verify**
 
@@ -1357,7 +1424,80 @@ cd /Users/hamzasahin/src/petpal/web && git add src/app/\(app\)/layout.tsx src/co
 - Modify: `src/app/(auth)/register/page.tsx`
 - Modify: `src/app/(auth)/forgot-password/page.tsx`
 
-This fixes: No card container, no branding, wasted desktop space, touch targets on auth links.
+This fixes: No card container, no branding, wasted desktop space, touch targets on auth links, missing password visibility toggle.
+
+- [ ] **Step 0: Create PasswordInput component**
+
+Create `src/components/ui/password-input.tsx`:
+
+```tsx
+"use client";
+
+import { type InputHTMLAttributes, forwardRef, useId, useState } from "react";
+import { Icons } from "@/components/ui/icon";
+
+interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+  label?: string;
+  error?: string;
+}
+
+export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
+  ({ label, error, className = "", id: externalId, ...props }, ref) => {
+    const autoId = useId();
+    const id = externalId ?? autoId;
+    const errorId = error ? `${id}-error` : undefined;
+    const [visible, setVisible] = useState(false);
+
+    return (
+      <div className="flex flex-col gap-1.5">
+        {label && (
+          <label htmlFor={id} className="text-sm font-medium text-txt-secondary">
+            {label}
+          </label>
+        )}
+        <div className="relative">
+          <input
+            ref={ref}
+            id={id}
+            type={visible ? "text" : "password"}
+            aria-invalid={error ? true : undefined}
+            aria-describedby={errorId}
+            className={`w-full rounded-input border border-border bg-surface-variant px-4 py-3 pr-12 text-txt outline-none placeholder:text-txt-tertiary focus:border-primary focus:ring-1 focus:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${error ? "border-error" : ""} ${className}`}
+            {...props}
+          />
+          <button
+            type="button"
+            onClick={() => setVisible(!visible)}
+            aria-label={visible ? "Hide password" : "Show password"}
+            className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-txt-tertiary hover:text-txt focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            {visible ? (
+              <Icons.close className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <Icons.search className="h-4 w-4" aria-hidden="true" />
+            )}
+          </button>
+        </div>
+        {error && (
+          <p id={errorId} role="alert" className="text-sm text-error">
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  },
+);
+PasswordInput.displayName = "PasswordInput";
+```
+
+Note: The icon for show/hide should use `Eye` and `EyeOff` from lucide-react. Add these to the Icons object in `icon.tsx`:
+```tsx
+import { Eye, EyeOff } from "lucide-react";
+// In the Icons object:
+  eye: Eye,
+  eyeOff: EyeOff,
+```
+Then use `Icons.eye` / `Icons.eyeOff` instead of `Icons.close` / `Icons.search` in the toggle.
 
 - [ ] **Step 1: Update auth layout with Card container**
 
@@ -1444,6 +1584,41 @@ Add import and touch target padding to "Sign In" link.
 
 Same pattern for the forgot password page header.
 
+- [ ] **Step 4b: Replace password Input with PasswordInput in login + register**
+
+In `src/app/(auth)/login/page.tsx`, replace the password `<Input>` with `<PasswordInput>`:
+```tsx
+import { PasswordInput } from "@/components/ui/password-input";
+// ...
+<PasswordInput
+  label={t("password")}
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  autoComplete="current-password"
+  required
+/>
+```
+
+In `src/app/(auth)/register/page.tsx`, replace both password `<Input>`s with `<PasswordInput>`:
+```tsx
+<PasswordInput
+  label={t("password")}
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  autoComplete="new-password"
+  required
+/>
+<PasswordInput
+  label={t("confirmPassword")}
+  value={confirmPassword}
+  onChange={(e) => setConfirmPassword(e.target.value)}
+  autoComplete="new-password"
+  required
+/>
+```
+
+Also add `autoComplete="email"` to all email Input fields across login, register, and forgot-password pages.
+
 - [ ] **Step 5: Build and verify**
 
 ```bash
@@ -1486,7 +1661,7 @@ cd /Users/hamzasahin/src/petpal/web && git add src/app/onboarding/page.tsx && gi
 **Files:**
 - Modify: `src/components/ui/dialog.tsx`
 
-This fixes: Dialog not centered on iOS, no close button, missing aria-labelledby, no safe area.
+This fixes: Dialog not centered on iOS, no close button, missing aria-labelledby, no safe area, missing backdrop blur (per UI/UX Pro Max design system).
 
 - [ ] **Step 1: Rewrite dialog.tsx**
 
@@ -1521,7 +1696,7 @@ export function Dialog({ open, onClose, title, children }: DialogProps) {
       ref={dialogRef}
       onClose={onClose}
       aria-labelledby={titleId}
-      className="safe-top m-auto w-[calc(100%-2rem)] max-w-md rounded-card border border-border bg-surface p-0 shadow-xl backdrop:bg-black/40"
+      className="safe-top m-auto w-[calc(100%-2rem)] max-w-md rounded-card border border-border bg-surface p-0 shadow-xl backdrop:bg-black/40 backdrop:backdrop-blur-sm"
     >
       <div className="p-6">
         <div className="mb-4 flex items-center justify-between">
@@ -1771,13 +1946,31 @@ with:
 t("foodRequestFailed")
 ```
 
-- [ ] **Step 5: Fix bcs-slider.tsx hardcoded strings**
+- [ ] **Step 5: Fix bcs-slider.tsx hardcoded strings + ARIA**
 
 In `src/components/pet/bcs-slider.tsx`, replace:
 - `"Rate your dog's body condition (1-9)"` → `t("bcsTitle")`
 - `"1 Thin"` → `"1 " + t("bcsThin")`
 - `"5 Ideal"` → `"5 " + t("bcsIdeal")`
 - `"9 Obese"` → `"9 " + t("bcsObese")`
+- `"Score {bcs.score}"` → `t("bcsScore", { score: bcs.score })`
+
+Also add ARIA attributes to the `<input type="range">` element:
+```tsx
+<input
+  type="range"
+  min={1}
+  max={9}
+  value={value}
+  onChange={(e) => onChange(Number(e.target.value))}
+  aria-label={t("bodyConditionScore")}
+  aria-valuemin={1}
+  aria-valuemax={9}
+  aria-valuenow={value}
+  aria-valuetext={bcs ? `${t("bcsScore", { score: value })} - ${bcs.label}` : undefined}
+  className="h-2 w-full cursor-pointer appearance-none rounded-full bg-border accent-primary"
+/>
+```
 
 - [ ] **Step 6: Fix photo-picker.tsx hardcoded text**
 
@@ -1793,6 +1986,339 @@ cd /Users/hamzasahin/src/petpal/web && npm run build
 
 ```bash
 cd /Users/hamzasahin/src/petpal/web && git add -A && git commit -m "fix: replace all hardcoded English strings with i18n t() calls"
+```
+
+---
+
+## Task 19: Rewrite BreedSelector with combobox accessibility
+
+**Files:**
+- Modify: `src/components/pet/breed-selector.tsx`
+
+This fixes: CRITICAL — BreedSelector has no keyboard navigation, no combobox ARIA, no "no results" feedback, doesn't close on outside click/Escape.
+
+- [ ] **Step 1: Rewrite breed-selector.tsx**
+
+Replace the entire content of `src/components/pet/breed-selector.tsx`:
+
+```tsx
+"use client";
+
+import { useState, useMemo, useRef, useEffect, useId } from "react";
+import { DOG_BREEDS } from "@/lib/constants";
+import { useTranslations } from "next-intl";
+
+interface BreedSelectorProps {
+  value: string | null;
+  onChange: (value: string | null) => void;
+}
+
+export function BreedSelector({ value, onChange }: BreedSelectorProps) {
+  const t = useTranslations();
+  const [search, setSearch] = useState(value ?? "");
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const listboxRef = useRef<HTMLDivElement>(null);
+  const inputId = useId();
+  const listboxId = useId();
+
+  const filtered = useMemo(() => {
+    if (!search) return DOG_BREEDS;
+    const lower = search.toLowerCase();
+    return DOG_BREEDS.filter((b) => b.toLowerCase().includes(lower)).slice(0, 20);
+  }, [search]);
+
+  // Close on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  // Scroll active option into view
+  useEffect(() => {
+    if (activeIndex >= 0 && listboxRef.current) {
+      const el = listboxRef.current.children[activeIndex] as HTMLElement;
+      el?.scrollIntoView({ block: "nearest" });
+    }
+  }, [activeIndex]);
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (!isOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+      setIsOpen(true);
+      setActiveIndex(0);
+      e.preventDefault();
+      return;
+    }
+    if (!isOpen) return;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setActiveIndex((prev) => Math.min(prev + 1, filtered.length - 1));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setActiveIndex((prev) => Math.max(prev - 1, 0));
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (activeIndex >= 0 && filtered[activeIndex]) {
+          onChange(filtered[activeIndex]);
+          setSearch(filtered[activeIndex]);
+          setIsOpen(false);
+        }
+        break;
+      case "Escape":
+        e.preventDefault();
+        setIsOpen(false);
+        break;
+    }
+  }
+
+  return (
+    <div ref={containerRef} className="relative flex flex-col gap-1.5">
+      <label htmlFor={inputId} className="text-sm font-medium text-txt-secondary">
+        {t("petBreed")}
+      </label>
+      <input
+        id={inputId}
+        type="text"
+        role="combobox"
+        aria-expanded={isOpen}
+        aria-controls={listboxId}
+        aria-activedescendant={activeIndex >= 0 ? `${listboxId}-${activeIndex}` : undefined}
+        aria-autocomplete="list"
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setIsOpen(true);
+          setActiveIndex(-1);
+        }}
+        onFocus={() => { if (search) setIsOpen(true); }}
+        onKeyDown={handleKeyDown}
+        placeholder={t("selectBreed")}
+        className="rounded-input border border-border bg-surface-variant px-4 py-3 text-txt outline-none placeholder:text-txt-tertiary focus:border-primary focus:ring-1 focus:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      />
+      {isOpen && search && (
+        <div
+          ref={listboxRef}
+          id={listboxId}
+          role="listbox"
+          className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded-card border border-border bg-surface shadow-lg"
+        >
+          {filtered.length > 0 ? (
+            filtered.map((breed, i) => (
+              <div
+                key={breed}
+                id={`${listboxId}-${i}`}
+                role="option"
+                aria-selected={value === breed}
+                onClick={() => {
+                  onChange(breed);
+                  setSearch(breed);
+                  setIsOpen(false);
+                }}
+                className={`cursor-pointer px-4 py-2 text-sm ${
+                  i === activeIndex ? "bg-primary/10 text-primary" : ""
+                } ${value === breed ? "font-medium text-primary" : "text-txt"} hover:bg-surface-variant`}
+              >
+                {breed}
+              </div>
+            ))
+          ) : (
+            <div className="px-4 py-3 text-sm text-txt-tertiary">
+              {t("noResults")}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+Key changes: Full combobox ARIA pattern. Arrow key + Enter + Escape keyboard navigation. Outside-click-to-close. "No results" feedback. `role="listbox"` / `role="option"`. `aria-expanded`, `aria-controls`, `aria-activedescendant`. Proper `<label htmlFor>`.
+
+- [ ] **Step 2: Build and verify**
+
+```bash
+cd /Users/hamzasahin/src/petpal/web && npm run build
+```
+
+- [ ] **Step 3: Commit**
+
+```bash
+cd /Users/hamzasahin/src/petpal/web && git add src/components/pet/breed-selector.tsx && git commit -m "fix: rewrite BreedSelector with full combobox accessibility pattern"
+```
+
+---
+
+## Task 20: Add Lora + Raleway typography
+
+**Files:**
+- Modify: `src/app/globals.css`
+- Modify: `tailwind.config.js`
+- Modify: `src/app/layout.tsx`
+
+This adds: Professional typography recommended by UI/UX Pro Max for health/wellness apps.
+
+- [ ] **Step 1: Add Google Fonts import to globals.css**
+
+In `src/app/globals.css`, add at the top before `@import "tailwindcss"`:
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+```
+
+- [ ] **Step 2: Add font-family theme tokens to globals.css**
+
+Inside the `@theme` block, add:
+
+```css
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Raleway', system-ui, sans-serif;
+```
+
+- [ ] **Step 3: Apply fonts globally**
+
+In `src/app/layout.tsx`, add `font-family` via the root `<html>` or `<body>` class. If using Tailwind, add to the `<body>`:
+
+```tsx
+<body className="font-body antialiased">
+```
+
+And add a Tailwind utility for headings. In `src/app/globals.css` after the theme block:
+
+```css
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+```
+
+- [ ] **Step 4: Build and verify**
+
+```bash
+cd /Users/hamzasahin/src/petpal/web && npm run build
+```
+
+- [ ] **Step 5: Commit**
+
+```bash
+cd /Users/hamzasahin/src/petpal/web && git add src/app/globals.css tailwind.config.js src/app/layout.tsx && git commit -m "feat: add Lora + Raleway typography for wellness brand identity"
+```
+
+---
+
+## Task 21: Onboarding multi-step wizard with progress indicator
+
+**Files:**
+- Create: `src/components/ui/progress-steps.tsx`
+- Modify: `src/app/onboarding/page.tsx`
+- Modify: `src/components/pet/pet-form.tsx`
+
+This fixes: No progress indicator, submit button below fold on all devices, form too long for single page.
+
+- [ ] **Step 1: Create ProgressSteps component**
+
+Create `src/components/ui/progress-steps.tsx`:
+
+```tsx
+interface ProgressStepsProps {
+  steps: string[];
+  currentStep: number;
+}
+
+export function ProgressSteps({ steps, currentStep }: ProgressStepsProps) {
+  return (
+    <div className="mb-6 flex items-center gap-2" role="progressbar" aria-valuenow={currentStep + 1} aria-valuemin={1} aria-valuemax={steps.length}>
+      {steps.map((label, i) => (
+        <div key={label} className="flex flex-1 flex-col items-center gap-1">
+          <div
+            className={`h-1.5 w-full rounded-full transition-colors ${
+              i <= currentStep ? "bg-primary" : "bg-border"
+            }`}
+          />
+          <span className={`text-[10px] ${i <= currentStep ? "text-primary font-medium" : "text-txt-tertiary"}`}>
+            {label}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+- [ ] **Step 2: Convert PetForm to multi-step**
+
+In `src/components/pet/pet-form.tsx`, add step state and navigation:
+
+```tsx
+const [step, setStep] = useState(0);
+const stepLabels = [t("petName"), t("petGender"), t("activityLevel")];
+```
+
+Organize fields into 3 steps:
+- **Step 0 — Identity:** PhotoPicker, Name, Breed, Age, Weight
+- **Step 1 — Demographics:** Gender, Neutered
+- **Step 2 — Health:** Activity Level, BCS
+
+Show only the fields for the current step. Replace the single submit button with:
+- Steps 0-1: "Next" button (type="button")
+- Step 2: Submit button (type="submit")
+- Steps 1-2: "Back" text button
+
+```tsx
+<div className="flex gap-3">
+  {step > 0 && (
+    <Button variant="outline" type="button" onClick={() => setStep(step - 1)}>
+      {t("back")}
+    </Button>
+  )}
+  {step < 2 ? (
+    <Button type="button" fullWidth onClick={() => setStep(step + 1)}>
+      {t("next")}
+    </Button>
+  ) : (
+    <Button type="submit" fullWidth isLoading={isLoading}>
+      {pet ? t("saveChanges") : t("getStarted")}
+    </Button>
+  )}
+</div>
+```
+
+- [ ] **Step 3: Add ProgressSteps to onboarding page**
+
+In `src/app/onboarding/page.tsx`, import and render ProgressSteps above the PetForm:
+
+```tsx
+import { ProgressSteps } from "@/components/ui/progress-steps";
+// ...
+<ProgressSteps steps={["Info", "Details", "Health"]} currentStep={currentStep} />
+```
+
+Pass `currentStep` from PetForm via a callback prop or lift the step state to the onboarding page.
+
+- [ ] **Step 4: Add "next" translation key**
+
+In `en.json`: `"next": "Next"`
+In `tr.json`: `"next": "İleri"`
+
+- [ ] **Step 5: Build and verify**
+
+```bash
+cd /Users/hamzasahin/src/petpal/web && npm run build
+```
+
+- [ ] **Step 6: Commit**
+
+```bash
+cd /Users/hamzasahin/src/petpal/web && git add src/components/ui/progress-steps.tsx src/app/onboarding/page.tsx src/components/pet/pet-form.tsx src/messages/en.json src/messages/tr.json && git commit -m "feat: convert onboarding to multi-step wizard with progress indicator"
 ```
 
 ---
@@ -1820,20 +2346,23 @@ After all 18 tasks are complete:
 | Task | Description | Issues Fixed |
 |------|-------------|-------------|
 | 1 | Install lucide-react | Foundation for all icon work |
-| 2 | iOS safe area + viewport-fit | #2 CRITICAL — Dynamic Island collision |
-| 3 | Button contrast ratio | WCAG AA compliance |
-| 4 | Input component upgrade | Auto-ID, aria-describedby, focus-visible |
+| 2 | iOS safe area + viewport-fit + cursor-pointer + reduced-motion | #2 CRITICAL — Dynamic Island collision, cursor-pointer anti-pattern, motion a11y |
+| 3 | Button contrast ratio | WCAG AA compliance, focus-visible rings |
+| 4 | Input component upgrade | Auto-ID, aria-describedby, focus-visible, error alerts |
 | 5 | Icon component + constants | Foundation for emoji replacement |
-| 6 | BottomNav fixes | Bowl icon, aria, touch targets, labels |
-| 7 | Food component emoji → SVG | Safety badge, food card, category grid |
-| 8 | Pet component emoji → SVG | Pet card, photo picker, activity selector |
-| 9 | Search pages emoji → SVG | Search home, food detail, category browse |
-| 10 | Profile + tabs emoji → SVG | Profile, scan, bowl, learn |
-| 11 | Auth emoji → SVG | Forgot password envelope |
+| 6 | BottomNav fixes | Bowl icon, aria-label, aria-current, touch targets, label size |
+| 7 | Food component emoji → SVG | Safety badge, food card, category grid, focus-visible |
+| 8 | Pet component emoji → SVG + ARIA roles | Pet card, photo picker, activity selector, gender toggle radiogroup, inputmode, image lazy loading |
+| 9 | Search pages emoji → SVG | Search home, food detail, category browse, aria-labels |
+| 10 | Profile + tabs emoji → SVG + empty state centering | Profile, scan, bowl, learn, vertically centered placeholders |
+| 11 | Auth emoji → SVG | Forgot password envelope, touch targets |
 | 12 | App layout responsive | #3 HIGH — desktop wasted space |
-| 13 | Auth layout Card + branding | #4 HIGH — no branding, no card |
+| 13 | Auth layout Card + branding + password toggle | #4 HIGH — no branding, no card, PasswordInput component |
 | 14 | Onboarding safe area | Safe area for onboarding page |
-| 15 | Dialog component | Centering, close button, aria |
+| 15 | Dialog component | Centering, close button, aria-labelledby, backdrop blur, safe area |
 | 16 | Touch targets | #7 CRITICAL — 44px minimum |
 | 17 | i18n keys | #6 HIGH — add missing keys |
-| 18 | Hardcoded strings → t() | #6 HIGH — replace in components |
+| 18 | Hardcoded strings → t() + BCS ARIA | #6 HIGH — replace in components, slider aria-valuetext |
+| 19 | BreedSelector accessibility rewrite | CRITICAL — combobox pattern, keyboard nav, no-results feedback |
+| 20 | Typography (Lora + Raleway) | Brand identity, wellness font pairing |
+| 21 | Onboarding multi-step wizard | Progress indicator, submit above fold, step navigation |
