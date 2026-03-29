@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
+import { Icons } from "@/components/ui/icon";
 
 export default function ForgotPasswordPage() {
   const t = useTranslations();
@@ -33,11 +34,11 @@ export default function ForgotPasswordPage() {
     return (
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-safe-bg text-3xl">
-          ✉️
+          <Icons.mail className="h-8 w-8 text-safe-text" aria-hidden="true" />
         </div>
         <h1 className="text-2xl font-bold text-txt">{t("checkYourEmail")}</h1>
         <p className="text-sm text-txt-secondary">{t("resetEmailSent")}</p>
-        <Link href="/login" className="text-sm font-medium text-primary hover:underline">
+        <Link href="/login" className="min-h-[44px] inline-flex items-center text-sm font-medium text-primary hover:underline focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-lg">
           {t("backToSignIn")}
         </Link>
       </div>
@@ -64,7 +65,7 @@ export default function ForgotPasswordPage() {
       </form>
 
       <p className="mt-6 text-center text-sm text-txt-secondary">
-        <Link href="/login" className="font-medium text-primary hover:underline">
+        <Link href="/login" className="min-h-[44px] inline-flex items-center text-sm font-medium text-primary hover:underline focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-lg">
           {t("backToSignIn")}
         </Link>
       </p>
