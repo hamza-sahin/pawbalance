@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "app-store-connect": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "appstore-connect-mcp-server"
+      ],
+      "env": {
+        "APP_STORE_CONNECT_KEY_ID": "4NH42JUWM6",
+        "APP_STORE_CONNECT_ISSUER_ID": "0b5bf398-ce6b-47b4-988a-386910acf728",
+        "APP_STORE_CONNECT_P8_PATH": "/Users/hamzasahin/Documents/AuthKey_4NH42JUWM6.p8"
+      }
+    }
+  }
+}
