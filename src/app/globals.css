@@ -8,6 +8,7 @@
   --color-primary: #7C9A82;
   --color-primary-light: #A8C4AE;
   --color-primary-dark: #526B57;
+  --color-primary-btn: #4A7C59;
 
   --color-secondary: #D4A373;
   --color-secondary-light: #E8C9A8;
@@ -47,4 +48,36 @@
   --radius-card: 16px;
   --radius-button: 12px;
   --radius-input: 12px;
+}
+
+/* Safe area utilities for iOS Capacitor */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Autofill override to match design system */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px var(--color-surface-variant) inset !important;
+  -webkit-text-fill-color: var(--color-txt) !important;
+}
+
+/* Cursor pointer on all interactive elements */
+a, button, [role="button"], [role="tab"], [role="radio"], summary {
+  cursor: pointer;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -27,7 +27,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="mx-auto min-h-screen max-w-md bg-canvas p-4">
+    <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas p-4">
       <div className="mb-6 text-center">
         <h1 className="text-2xl font-bold text-txt">{t("onboardingWelcome")}</h1>
         <p className="mt-2 text-sm text-txt-secondary">
