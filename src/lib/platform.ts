@@ -1,11 +1,18 @@
-import { Capacitor } from "@capacitor/core";
-
 /**
  * True when running inside a Capacitor native shell (iOS/Android).
  * False when running in a regular browser.
  */
+export function getIsNative(): boolean {
+  try {
+    const { Capacitor } = require("@capacitor/core");
+    return Capacitor.isNativePlatform();
+  } catch {
+    return false;
+  }
+}
+
 export const isNative =
-  typeof window !== "undefined" && Capacitor.isNativePlatform();
+  typeof window !== "undefined" && getIsNative();
 
 /**
  * Pick an image via native camera (Capacitor) or file input (web).
