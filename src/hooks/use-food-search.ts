@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import { getSupabase } from "@/lib/supabase";
 import type { Food, FoodCategory } from "@/lib/types";
-import { getCategoryIcon } from "@/lib/constants";
 
 export function useFoodSearch() {
   const [results, setResults] = useState<Food[]>([]);
@@ -46,9 +45,7 @@ export function useSimilarFoods() {
 }
 
 export function useCategories() {
-  const [categories, setCategories] = useState<
-    (FoodCategory & { icon: string })[]
-  >([]);
+  const [categories, setCategories] = useState<FoodCategory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchCategories = useCallback(async () => {
@@ -58,12 +55,7 @@ export function useCategories() {
       .from("food_categories")
       .select("id, name_en, name_tr, food_count");
     if (error) throw error;
-    setCategories(
-      (data ?? []).map((cat: FoodCategory) => ({
-        ...cat,
-        icon: getCategoryIcon(cat.name_en),
-      })),
-    );
+    setCategories((data as FoodCategory[]) ?? []);
     setIsLoading(false);
   }, []);
 

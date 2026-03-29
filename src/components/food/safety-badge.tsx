@@ -1,11 +1,12 @@
 import type { SafetyLevel } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
+import { Icons } from "@/components/ui/icon";
 import { useTranslations } from "next-intl";
 
-const iconMap: Record<SafetyLevel, string> = {
-  SAFE: "✓",
-  MODERATE: "⚠",
-  TOXIC: "✕",
+const iconMap: Record<SafetyLevel, React.ComponentType<{ className?: string }>> = {
+  SAFE: Icons.safe,
+  MODERATE: Icons.caution,
+  TOXIC: Icons.toxic,
 };
 
 const variantMap: Record<SafetyLevel, "safe" | "caution" | "toxic"> = {
@@ -26,10 +27,12 @@ export function SafetyBadge({ level, className }: SafetyBadgeProps) {
     MODERATE: t("caution"),
     TOXIC: t("toxic"),
   };
+  const Icon = iconMap[level];
 
   return (
     <Badge variant={variantMap[level]} className={className}>
-      {iconMap[level]} {labels[level]}
+      <Icon className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" />
+      {labels[level]}
     </Badge>
   );
 }

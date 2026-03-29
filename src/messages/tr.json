@@ -114,5 +114,6 @@
   "resetEmailSent": "E-posta adresinize şifre sıfırlama bağlantısı gönderdik.",
   "backToSignIn": "Girişe Dön",
   "orContinueWith": "Veya şununla devam et",
-  "addPhoto": "Fotoğraf Ekle"
+  "foodCount": "{count} yiyecek",
+  "back": "Geri"
 }
