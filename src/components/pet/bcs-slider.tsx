@@ -24,7 +24,7 @@ export function BCSSlider({ value, onChange }: BCSSliderProps) {
       <label className="text-sm font-medium text-txt-secondary">
         {t("bodyConditionScore")}
       </label>
-      <p className="text-xs text-txt-tertiary">Rate your dog&apos;s body condition (1-9)</p>
+      <p className="text-xs text-txt-tertiary">{t("bcsTitle")}</p>
       <input
         type="range"
         min={1}
@@ -32,17 +32,19 @@ export function BCSSlider({ value, onChange }: BCSSliderProps) {
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         className="h-2 w-full cursor-pointer appearance-none rounded-full bg-border accent-primary"
+        aria-label={t("bodyConditionScore")}
+        aria-valuetext={bcs ? t("bcsScore", { score: value }) + " - " + bcs.label : undefined}
       />
       <div className="flex justify-between text-xs text-txt-tertiary">
-        <span>1 Thin</span>
-        <span>5 Ideal</span>
-        <span>9 Obese</span>
+        <span>{"1 " + t("bcsThin")}</span>
+        <span>{"5 " + t("bcsIdeal")}</span>
+        <span>{"9 " + t("bcsObese")}</span>
       </div>
       {bcs && (
         <div
           className={`flex items-center gap-2 rounded-button px-3 py-2 text-sm ${categoryColors[category]}`}
         >
-          <span className="font-bold">Score {bcs.score}</span>
+          <span className="font-bold">{t("bcsScore", { score: bcs.score })}</span>
           <span className="font-semibold">{bcs.label}</span>
         </div>
       )}

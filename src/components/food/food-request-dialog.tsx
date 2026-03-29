@@ -27,14 +27,14 @@ export function FoodRequestDialog({
     e.preventDefault();
     const trimmed = foodName.trim();
     if (trimmed.length < 2) {
-      setError("Food name must be at least 2 characters");
+      setError(t("foodNameMinLength"));
       return;
     }
     try {
       await submitRequest(trimmed);
       onClose();
     } catch {
-      setError("Failed to submit request. Please try again.");
+      setError(t("foodRequestFailed"));
     }
   }
 

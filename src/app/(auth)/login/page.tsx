@@ -25,7 +25,7 @@ export default function LoginPage() {
     try {
       await signInWithEmail(email, password);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Sign in failed");
+      setError(err instanceof Error ? err.message : t("signInFailed"));
     } finally {
       setIsLoading(false);
     }

@@ -24,18 +24,18 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
     if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+      setError(t("passwordMinLength"));
       return;
     }
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("passwordsNoMatch"));
       return;
     }
     setIsLoading(true);
     try {
       await signUpWithEmail(email, password, displayName);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Sign up failed");
+      setError(err instanceof Error ? err.message : t("signUpFailed"));
     } finally {
       setIsLoading(false);
     }
