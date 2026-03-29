@@ -56,7 +56,7 @@ export default function PetsPage() {
             <PetCard
               key={pet.id}
               pet={pet}
-              onEdit={() => router.push(`/profile/pets/${pet.id}/edit`)}
+              onEdit={() => router.push(`/profile/pets/edit?id=${pet.id}`)}
               onDelete={() => setDeleteTarget({ id: pet.id, name: pet.name })}
             />
           ))}

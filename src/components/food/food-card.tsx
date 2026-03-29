@@ -23,7 +23,7 @@ export function FoodCard({ food }: FoodCardProps) {
 
   return (
     <Link
-      href={`/search/food/${food.id}`}
+      href={`/search/food?id=${food.id}`}
       className={`flex items-center gap-3 rounded-card border border-border bg-surface p-4 shadow-sm transition-colors hover:bg-surface-variant border-l-4 ${borderColorMap[food.safety_level]}`}
     >
       <span className="text-2xl">{icon}</span>

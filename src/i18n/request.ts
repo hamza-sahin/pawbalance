@@ -1,9 +1,9 @@
 import { getRequestConfig } from "next-intl/server";
-import { cookies } from "next/headers";
 
 export default getRequestConfig(async () => {
-  const cookieStore = await cookies();
-  const locale = cookieStore.get("locale")?.value ?? "en";
+  // Static export can't use cookies() — default to English.
+  // Locale switching is handled client-side via useLocale hook.
+  const locale = "en";
 
   return {
     locale,

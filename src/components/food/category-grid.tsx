@@ -15,7 +15,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
       {categories.map((cat) => (
         <Link
           key={cat.id}
-          href={`/search/${cat.name_en}`}
+          href={`/search/category?name=${encodeURIComponent(cat.name_en)}`}
           className="flex flex-col items-center gap-2 rounded-card border border-border bg-surface px-2 py-4 shadow-sm transition-colors hover:bg-surface-variant"
         >
           <span className="text-3xl">{cat.icon}</span>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useFoodDetail } from "@/hooks/use-food-search";
@@ -10,14 +10,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { localise, splitBullets } from "@/lib/types";
 import { getCategoryIcon } from "@/lib/constants";
 
-export default function FoodDetailClient() {
+export default function FoodDetailPage() {
   const t = useTranslations();
   const locale = useLocale();
-  const { id } = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id") ?? "";
   const { food, isLoading, fetchFood } = useFoodDetail();
 
   useEffect(() => {
-    fetchFood(id);
+    if (id) fetchFood(id);
   }, [id, fetchFood]);
 
   if (isLoading || !food) {

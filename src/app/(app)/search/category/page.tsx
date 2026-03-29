@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useFoodsByCategory } from "@/hooks/use-food-search";
@@ -10,14 +10,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getCategoryIcon } from "@/lib/constants";
 import { Badge } from "@/components/ui/badge";
 
-export default function CategoryClient() {
+export default function CategoryPage() {
   const t = useTranslations();
-  const { category } = useParams<{ category: string }>();
-  const categoryName = decodeURIComponent(category);
+  const searchParams = useSearchParams();
+  const categoryName = searchParams.get("name") ?? "";
   const { foods, isLoading, fetchByCategory } = useFoodsByCategory();
 
   useEffect(() => {
-    fetchByCategory(categoryName);
+    if (categoryName) fetchByCategory(categoryName);
   }, [categoryName, fetchByCategory]);
 
   const icon = getCategoryIcon(categoryName);

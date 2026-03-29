@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePets } from "@/hooks/use-pets";
@@ -9,9 +9,10 @@ import { PetForm } from "@/components/pet/pet-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { PetFormValues } from "@/lib/validators";
 
-export default function EditPetClient() {
+export default function EditPetPage() {
   const t = useTranslations();
-  const { id } = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id") ?? "";
   const router = useRouter();
   const { pets, editPet } = usePets();
   const [isLoading, setIsLoading] = useState(false);
