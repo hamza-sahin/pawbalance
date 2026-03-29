@@ -7,6 +7,7 @@ import type { ActivityLevel } from "@/lib/types";
 import { petFormSchema, type PetFormValues } from "@/lib/validators";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ProgressSteps } from "@/components/ui/progress-steps";
 import { BreedSelector } from "./breed-selector";
 import { ActivityLevelSelector } from "./activity-level-selector";
 import { BCSSlider } from "./bcs-slider";
@@ -34,6 +35,9 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
     (pet?.activity_level as ActivityLevel) ?? "MODERATE",
   );
   const [bcs, setBcs] = useState(pet?.body_condition_score ?? 5);
+
+  const [step, setStep] = useState(0);
+  const stepLabels = [t("petName"), t("petGender"), t("activityLevel")];
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -70,90 +74,116 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-      <PhotoPicker
-        currentUrl={displayPhoto}
-        onPick={(url) => {
-          setPhotoDataUrl(url);
-          setRemovePhoto(false);
-        }}
-        onRemove={() => {
-          setPhotoDataUrl(null);
-          setRemovePhoto(true);
-        }}
-      />
+      <ProgressSteps steps={stepLabels} currentStep={step} />
 
-      <Input
-        label={`${t("petName")} *`}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        error={errors.name}
-      />
+      {step === 0 && (
+        <>
+          <PhotoPicker
+            currentUrl={displayPhoto}
+            onPick={(url) => {
+              setPhotoDataUrl(url);
+              setRemovePhoto(false);
+            }}
+            onRemove={() => {
+              setPhotoDataUrl(null);
+              setRemovePhoto(true);
+            }}
+          />
 
-      <BreedSelector value={breed} onChange={setBreed} />
+          <Input
+            label={`${t("petName")} *`}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            error={errors.name}
+          />
 
-      <Input
-        label={t("petAge")}
-        type="text"
-        inputMode="numeric"
-        pattern="[0-9]*"
-        value={ageMonths}
-        onChange={(e) => setAgeMonths(e.target.value)}
-        placeholder="months"
-        error={errors.age_months}
-      />
+          <BreedSelector value={breed} onChange={setBreed} />
 
-      <Input
-        label={`${t("petWeight")} *`}
-        type="text"
-        inputMode="decimal"
-        pattern="[0-9.]*"
-        value={weightKg}
-        onChange={(e) => setWeightKg(e.target.value)}
-        placeholder="kg"
-        error={errors.weight_kg}
-      />
+          <Input
+            label={t("petAge")}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={ageMonths}
+            onChange={(e) => setAgeMonths(e.target.value)}
+            placeholder="months"
+            error={errors.age_months}
+          />
 
-      <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-txt-secondary">
-          {t("petGender")}
-        </label>
-        <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label={t("petGender")}>
-          {(["MALE", "FEMALE"] as const).map((g) => (
-            <button
-              key={g}
-              type="button"
-              role="radio"
-              aria-checked={gender === g}
-              onClick={() => setGender(g)}
-              className={`flex items-center justify-center gap-2 rounded-card border p-3 text-sm font-medium transition-colors ${
-                gender === g
-                  ? "border-primary bg-primary/5 text-primary"
-                  : "border-border text-txt hover:bg-surface-variant"
-              }`}
-            >
-              {g === "MALE" ? "♂" : "♀"} {g === "MALE" ? t("male") : t("female")}
-            </button>
-          ))}
-        </div>
+          <Input
+            label={`${t("petWeight")} *`}
+            type="text"
+            inputMode="decimal"
+            pattern="[0-9.]*"
+            value={weightKg}
+            onChange={(e) => setWeightKg(e.target.value)}
+            placeholder="kg"
+            error={errors.weight_kg}
+          />
+        </>
+      )}
+
+      {step === 1 && (
+        <>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-txt-secondary">
+              {t("petGender")}
+            </label>
+            <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label={t("petGender")}>
+              {(["MALE", "FEMALE"] as const).map((g) => (
+                <button
+                  key={g}
+                  type="button"
+                  role="radio"
+                  aria-checked={gender === g}
+                  onClick={() => setGender(g)}
+                  className={`flex items-center justify-center gap-2 rounded-card border p-3 text-sm font-medium transition-colors ${
+                    gender === g
+                      ? "border-primary bg-primary/5 text-primary"
+                      : "border-border text-txt hover:bg-surface-variant"
+                  }`}
+                >
+                  {g === "MALE" ? "♂" : "♀"} {g === "MALE" ? t("male") : t("female")}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <label className="flex items-center gap-2 text-sm text-txt">
+            <input
+              type="checkbox"
+              checked={isNeutered}
+              onChange={(e) => setIsNeutered(e.target.checked)}
+              className="h-4 w-4 rounded accent-primary"
+            />
+            {t("neutered")}
+          </label>
+        </>
+      )}
+
+      {step === 2 && (
+        <>
+          <ActivityLevelSelector value={activityLevel} onChange={setActivityLevel} />
+          <BCSSlider value={bcs} onChange={setBcs} />
+        </>
+      )}
+
+      <div className="flex gap-3">
+        {step > 0 && (
+          <Button variant="outline" type="button" onClick={() => setStep(step - 1)} className="flex-1">
+            {t("back")}
+          </Button>
+        )}
+        {step < 2 ? (
+          <Button type="button" fullWidth={step === 0} onClick={() => setStep(step + 1)} className={step > 0 ? "flex-1" : ""}>
+            {t("next")}
+          </Button>
+        ) : (
+          <Button type="submit" fullWidth={step === 0} isLoading={isLoading} className={step > 0 ? "flex-1" : ""}>
+            {pet ? t("saveChanges") : t("getStarted")}
+          </Button>
+        )}
       </div>
-
-      <label className="flex items-center gap-2 text-sm text-txt">
-        <input
-          type="checkbox"
-          checked={isNeutered}
-          onChange={(e) => setIsNeutered(e.target.checked)}
-          className="h-4 w-4 rounded accent-primary"
-        />
-        {t("neutered")}
-      </label>
-
-      <ActivityLevelSelector value={activityLevel} onChange={setActivityLevel} />
-
-      <BCSSlider value={bcs} onChange={setBcs} />
-
-      <Button type="submit" fullWidth isLoading={isLoading}>
-        {pet ? t("saveChanges") : t("getStarted")}
-      </Button>
     </form>
   );
 }
