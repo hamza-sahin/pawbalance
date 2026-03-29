@@ -7,5 +7,5 @@ android/
 .env.production
 .env.local
 *.tsbuildinfo
-screenshots/
 build/
+**/__pycache__/
