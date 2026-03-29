@@ -60,23 +60,48 @@ export function useAuth() {
   const signInWithGoogle = useCallback(async () => {
     const supabase = getSupabase();
     if (isNative) {
-      try {
-        const { GoogleAuth } = await import(
-          "@southdevs/capacitor-google-auth"
-        );
-        await GoogleAuth.initialize();
-        const user = await GoogleAuth.signIn({
-          scopes: ["email", "profile"],
-        });
-        const { error } = await supabase.auth.signInWithIdToken({
-          provider: "google",
-          token: user.authentication.idToken,
-        });
-        if (error) throw error;
-      } catch (e) {
-        console.error("[GoogleAuth] Native sign-in failed:", e);
-        throw e;
-      }
+      const { Browser } = await import("@capacitor/browser");
+      const { App } = await import("@capacitor/app");
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: "com.pawbalance.app://login-callback",
+          skipBrowserRedirect: true,
+        },
+      });
+      if (error || !data.url) throw error ?? new Error("No OAuth URL");
+
+      // Set up listener before opening browser
+      const listener = await App.addListener(
+        "appUrlOpen",
+        async ({ url }) => {
+          if (!url.includes("login-callback")) return;
+          await listener.remove();
+          try {
+            // Handle PKCE flow (code param) or implicit flow (hash tokens)
+            const parsed = new URL(url.replace("#", "?"));
+            const code = parsed.searchParams.get("code");
+            if (code) {
+              await supabase.auth.exchangeCodeForSession(code);
+            } else {
+              const accessToken = parsed.searchParams.get("access_token");
+              const refreshToken = parsed.searchParams.get("refresh_token");
+              if (accessToken && refreshToken) {
+                await supabase.auth.setSession({
+                  access_token: accessToken,
+                  refresh_token: refreshToken,
+                });
+              }
+            }
+          } catch (e) {
+            console.error("[GoogleAuth] Session exchange failed:", e);
+          }
+          await Browser.close();
+        },
+      );
+
+      await Browser.open({ url: data.url, presentationStyle: "popover" });
     } else {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
