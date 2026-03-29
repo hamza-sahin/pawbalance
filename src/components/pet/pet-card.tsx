@@ -1,6 +1,7 @@
 import type { Pet } from "@/lib/types";
 import { calculateDER, type ActivityLevel } from "@/lib/types";
 import { Card } from "@/components/ui/card";
+import { Icons } from "@/components/ui/icon";
 import { useTranslations } from "next-intl";
 
 interface PetCardProps {
@@ -19,15 +20,16 @@ export function PetCard({ pet, onEdit, onDelete }: PetCardProps) {
   return (
     <Card className="p-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-variant text-2xl">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-variant">
           {pet.avatar_url ? (
             <img
               src={pet.avatar_url}
               alt={pet.name}
+              loading="lazy"
               className="h-12 w-12 rounded-full object-cover"
             />
           ) : (
-            "🐾"
+            <Icons.paw className="h-6 w-6 text-txt-tertiary" aria-hidden="true" />
           )}
         </div>
         <div className="flex-1">
@@ -38,15 +40,23 @@ export function PetCard({ pet, onEdit, onDelete }: PetCardProps) {
                 <p className="text-sm text-txt-secondary">{pet.breed}</p>
               )}
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-1">
               {onEdit && (
-                <button onClick={onEdit} className="text-txt-secondary hover:text-txt">
-                  ✏️
+                <button
+                  onClick={onEdit}
+                  aria-label={`${t("editPet")} ${pet.name}`}
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-txt-secondary hover:bg-surface-variant hover:text-txt focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <Icons.edit className="h-4 w-4" aria-hidden="true" />
                 </button>
               )}
               {onDelete && (
-                <button onClick={onDelete} className="text-error hover:text-error/80">
-                  🗑️
+                <button
+                  onClick={onDelete}
+                  aria-label={`${t("deletePet")} ${pet.name}`}
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-error hover:bg-error/5 focus-visible:ring-2 focus-visible:ring-error"
+                >
+                  <Icons.delete className="h-4 w-4" aria-hidden="true" />
                 </button>
               )}
             </div>
@@ -55,27 +65,28 @@ export function PetCard({ pet, onEdit, onDelete }: PetCardProps) {
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
         {pet.age_months != null && (
-          <span className="rounded-full bg-surface-variant px-2.5 py-1 text-xs text-txt-secondary">
-            🎂 {pet.age_months} months
+          <span className="inline-flex items-center gap-1 rounded-full bg-surface-variant px-2.5 py-1 text-xs text-txt-secondary">
+            <Icons.age className="h-3 w-3" aria-hidden="true" /> {pet.age_months} {t("months")}
           </span>
         )}
         {pet.weight_kg != null && (
-          <span className="rounded-full bg-surface-variant px-2.5 py-1 text-xs text-txt-secondary">
-            ⚖️ {pet.weight_kg} kg
+          <span className="inline-flex items-center gap-1 rounded-full bg-surface-variant px-2.5 py-1 text-xs text-txt-secondary">
+            <Icons.weight className="h-3 w-3" aria-hidden="true" /> {pet.weight_kg} {t("kg")}
           </span>
         )}
         {pet.gender && (
-          <span className="rounded-full bg-surface-variant px-2.5 py-1 text-xs text-txt-secondary">
-            {pet.gender === "MALE" ? "♂" : "♀"} {pet.is_neutered ? t("neutered") : "Intact"}
+          <span className="inline-flex items-center gap-1 rounded-full bg-surface-variant px-2.5 py-1 text-xs text-txt-secondary">
+            {pet.gender === "MALE" ? "♂" : "♀"} {pet.is_neutered ? t("neutered") : t("intact")}
           </span>
         )}
-        <span className="rounded-full bg-surface-variant px-2.5 py-1 text-xs text-txt-secondary">
-          ⚡ {pet.activity_level}
+        <span className="inline-flex items-center gap-1 rounded-full bg-surface-variant px-2.5 py-1 text-xs text-txt-secondary">
+          <Icons.activity className="h-3 w-3" aria-hidden="true" /> {pet.activity_level}
         </span>
       </div>
       {der != null && (
         <div className="mt-3 flex items-center gap-1.5 rounded-button bg-primary-light/15 px-3 py-2 text-sm text-primary-dark">
-          🏠 Daily Calories: <span className="font-semibold text-primary">{t("kcalPerDay", { kcal: der })}</span>
+          <Icons.calories className="h-4 w-4" aria-hidden="true" />
+          {t("dailyCalories")}: <span className="font-semibold text-primary">{t("kcalPerDay", { kcal: der })}</span>
         </div>
       )}
     </Card>

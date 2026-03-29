@@ -26,6 +26,9 @@
   "male": "Male",
   "female": "Female",
   "neutered": "Neutered",
+  "intact": "Intact",
+  "months": "months",
+  "kg": "kg",
   "activityLevel": "Activity Level",
   "bodyConditionScore": "Body Condition Score",
   "dailyCalories": "Daily Calories",
@@ -41,6 +44,8 @@
   "selectBreed": "Select breed",
   "takePhoto": "Take a photo",
   "chooseFromGallery": "Choose from gallery",
+  "addPhoto": "Add photo",
+  "petPhoto": "Pet photo",
   "removePhoto": "Remove photo",
   "imageTooLarge": "Image too large. Maximum size is 5MB.",
   "petSaved": "Pet profile saved successfully",
@@ -108,5 +113,7 @@
   "checkYourEmail": "Check Your Email",
   "resetEmailSent": "We've sent a password reset link to your email address.",
   "backToSignIn": "Back to Sign In",
-  "orContinueWith": "Or continue with"
+  "orContinueWith": "Or continue with",
+  "foodCount": "{count} foods",
+  "back": "Back"
 }

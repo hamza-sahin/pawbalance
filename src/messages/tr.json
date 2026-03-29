@@ -26,6 +26,9 @@
   "male": "Erkek",
   "female": "Dişi",
   "neutered": "Kısırlaştırılmış",
+  "intact": "Kısırlaştırılmamış",
+  "months": "ay",
+  "kg": "kg",
   "activityLevel": "Aktivite Seviyesi",
   "bodyConditionScore": "Vücut Kondisyon Skoru",
   "dailyCalories": "Günlük Kalori",
@@ -41,6 +44,8 @@
   "selectBreed": "Irk seçin",
   "takePhoto": "Fotoğraf çek",
   "chooseFromGallery": "Galeriden seç",
+  "addPhoto": "Fotoğraf ekle",
+  "petPhoto": "Evcil hayvan fotoğrafı",
   "removePhoto": "Fotoğrafı kaldır",
   "imageTooLarge": "Resim çok büyük. Maksimum boyut 5MB.",
   "petSaved": "Hayvan profili başarıyla kaydedildi",
@@ -108,5 +113,6 @@
   "checkYourEmail": "E-postanızı Kontrol Edin",
   "resetEmailSent": "E-posta adresinize şifre sıfırlama bağlantısı gönderdik.",
   "backToSignIn": "Girişe Dön",
-  "orContinueWith": "Veya şununla devam et"
+  "orContinueWith": "Veya şununla devam et",
+  "addPhoto": "Fotoğraf Ekle"
 }

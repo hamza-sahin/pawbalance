@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { pickImage } from "@/lib/platform";
+import { Icons } from "@/components/ui/icon";
 import { MAX_PET_PHOTO_SIZE_BYTES } from "@/lib/constants";
 
 interface PhotoPickerProps {
@@ -36,14 +37,14 @@ export function PhotoPicker({ currentUrl, onPick, onRemove }: PhotoPickerProps) 
         {currentUrl ? (
           <img
             src={currentUrl}
-            alt="Pet photo"
+            alt={t("petPhoto")}
             className="h-full w-full object-cover"
           />
         ) : (
-          <span className="text-3xl text-txt-tertiary">🐾</span>
+          <Icons.paw className="h-8 w-8 text-txt-tertiary" aria-hidden="true" />
         )}
       </button>
-      <p className="text-xs text-txt-tertiary">Add photo</p>
+      <p className="text-xs text-txt-tertiary">{t("addPhoto")}</p>
       {currentUrl && (
         <button
           type="button"

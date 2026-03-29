@@ -3,6 +3,7 @@
 import { ACTIVITY_LEVELS } from "@/lib/constants";
 import type { ActivityLevel } from "@/lib/types";
 import { useTranslations } from "next-intl";
+import { Icons } from "@/components/ui/icon";
 
 interface ActivityLevelSelectorProps {
   value: ActivityLevel;
@@ -20,11 +21,13 @@ export function ActivityLevelSelector({
       <label className="text-sm font-medium text-txt-secondary">
         {t("activityLevel")}
       </label>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" role="radiogroup" aria-label={t("activityLevel")}>
         {ACTIVITY_LEVELS.map((level) => (
           <button
             key={level.key}
             type="button"
+            role="radio"
+            aria-checked={value === level.key}
             onClick={() => onChange(level.key as ActivityLevel)}
             className={`flex items-center gap-3 rounded-card border p-3 text-left transition-colors ${
               value === level.key
@@ -37,7 +40,7 @@ export function ActivityLevelSelector({
               <p className="text-sm text-txt-secondary">{level.description}</p>
             </div>
             {value === level.key && (
-              <span className="text-primary">✓</span>
+              <Icons.check className="mr-1 inline h-3.5 w-3.5 text-primary" aria-hidden="true" />
             )}
           </button>
         ))}

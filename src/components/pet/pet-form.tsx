@@ -93,7 +93,9 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
 
       <Input
         label={t("petAge")}
-        type="number"
+        type="text"
+        inputMode="numeric"
+        pattern="[0-9]*"
         value={ageMonths}
         onChange={(e) => setAgeMonths(e.target.value)}
         placeholder="months"
@@ -102,8 +104,9 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
 
       <Input
         label={`${t("petWeight")} *`}
-        type="number"
-        step="0.1"
+        type="text"
+        inputMode="decimal"
+        pattern="[0-9.]*"
         value={weightKg}
         onChange={(e) => setWeightKg(e.target.value)}
         placeholder="kg"
@@ -114,11 +117,13 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
         <label className="text-sm font-medium text-txt-secondary">
           {t("petGender")}
         </label>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label={t("petGender")}>
           {(["MALE", "FEMALE"] as const).map((g) => (
             <button
               key={g}
               type="button"
+              role="radio"
+              aria-checked={gender === g}
               onClick={() => setGender(g)}
               className={`flex items-center justify-center gap-2 rounded-card border p-3 text-sm font-medium transition-colors ${
                 gender === g
