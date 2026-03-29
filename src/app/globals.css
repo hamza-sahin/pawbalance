@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+@config "../../tailwind.config.js";
+
+@theme {
+  --color-canvas: #FAF8F5;
+
+  --color-primary: #7C9A82;
+  --color-primary-light: #A8C4AE;
+  --color-primary-dark: #526B57;
+
+  --color-secondary: #D4A373;
+  --color-secondary-light: #E8C9A8;
+  --color-secondary-dark: #B8834D;
+
+  --color-surface: #FFFFFF;
+  --color-surface-variant: #F5F2ED;
+
+  --color-border: #E0DCD5;
+  --color-divider: #F0EDE8;
+
+  --color-txt: #2D3436;
+  --color-txt-secondary: #636E72;
+  --color-txt-tertiary: #B2BEC3;
+
+  --color-safe: #8FBC8F;
+  --color-safe-bg: #E8F5EC;
+  --color-safe-text: #2E7D46;
+  --color-safe-border: #A5D6B5;
+
+  --color-caution: #DAA520;
+  --color-caution-bg: #FFF8E1;
+  --color-caution-text: #9A6500;
+  --color-caution-border: #FFD54F;
+
+  --color-toxic: #CD5C5C;
+  --color-toxic-bg: #FFEBEE;
+  --color-toxic-text: #C62828;
+  --color-toxic-border: #FFCDD2;
+
+  --color-success: #4CAF50;
+  --color-warning: #FFA726;
+  --color-error: #E53935;
+  --color-info: #29B6F6;
+  --color-disabled: #BDBDBD;
+
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --radius-input: 12px;
+}
