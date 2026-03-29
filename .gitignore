@@ -8,3 +8,4 @@ android/
 .env.local
 *.tsbuildinfo
 screenshots/
+build/
