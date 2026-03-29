@@ -161,6 +161,11 @@ The `/deploy` skill (`.claude/skills/deploy/SKILL.md`) runs:
 
 `/deploy` requires `/qa` to have passed first. If not, it runs `/qa` automatically.
 
+### When to Use UI/UX Skill
+
+- **Before making any UI changes** — when implementing a new screen, modifying a component's layout, changing styles, or updating any visual element, invoke `/ui-ux-pro-max` first to get design guidance.
+- This applies during brainstorming (design phase), systematic-debugging (if the fix involves UI), or any task that touches files in `src/components/`, `src/app/`, or `src/app/globals.css`.
+
 ## Out of Scope (deferred to future)
 
 - Payment/subscription (Stripe + RevenueCat)
