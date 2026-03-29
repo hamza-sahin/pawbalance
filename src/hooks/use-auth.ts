@@ -74,7 +74,7 @@ export function useAuth() {
       );
       const nonce = crypto.randomUUID();
       const result = await SIWAPlugin.authorize({
-        clientId: "com.petpal.dognutrismart",
+        clientId: "com.pawbalance.app",
         redirectURI: "",
         scopes: "email name",
         nonce,

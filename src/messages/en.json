@@ -1,5 +1,5 @@
 {
-  "appName": "DogNutriSmart",
+  "appName": "PawBalance",
   "home": "Home",
   "scanner": "Scanner",
   "bowl": "Bowl",
@@ -31,7 +31,7 @@
   "dailyCalories": "Daily Calories",
   "kcalPerDay": "{kcal} kcal/day",
   "addYourDog": "Add Your Dog",
-  "onboardingWelcome": "Welcome to PetPal!",
+  "onboardingWelcome": "Welcome to PawBalance!",
   "onboardingSubtitle": "Let's set up your dog's profile to get personalized nutrition recommendations.",
   "noPetsYet": "No pets yet",
   "addFirstPet": "Add your first furry friend to get started with personalized nutrition recommendations.",

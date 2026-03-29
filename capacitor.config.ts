@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "com.petpal.dognutrismart",
-  appName: "DogNutriSmart",
+  appId: "com.pawbalance.app",
+  appName: "PawBalance",
   webDir: "out",
   server: {
     androidScheme: "https",

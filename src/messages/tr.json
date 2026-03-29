@@ -1,5 +1,5 @@
 {
-  "appName": "DogNutriSmart",
+  "appName": "PawBalance",
   "home": "Ana Sayfa",
   "scanner": "Tarayıcı",
   "bowl": "Mama",
@@ -31,7 +31,7 @@
   "dailyCalories": "Günlük Kalori",
   "kcalPerDay": "{kcal} kcal/gün",
   "addYourDog": "Köpeğinizi Ekleyin",
-  "onboardingWelcome": "PetPal'e Hoş Geldiniz!",
+  "onboardingWelcome": "PawBalance'a Hoş Geldiniz!",
   "onboardingSubtitle": "Kişiselleştirilmiş beslenme önerileri almak için köpeğinizin profilini oluşturalım.",
   "noPetsYet": "Henüz evcil hayvan yok",
   "addFirstPet": "Kişiselleştirilmiş beslenme önerileri almak için ilk tüylü dostunuzu ekleyin.",

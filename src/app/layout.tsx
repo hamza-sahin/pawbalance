@@ -5,8 +5,8 @@ import { getLocale, getMessages } from "next-intl/server";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "DogNutriSmart",
-  description: "Your pocket dog nutritionist",
+  title: "PawBalance",
+  description: "Your pocket dog nutritionist - PawBalance",
 };
 
 export default async function RootLayout({
