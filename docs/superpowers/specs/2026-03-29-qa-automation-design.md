@@ -9,7 +9,7 @@ Automated QA and deployment system for PawBalance that integrates into existing 
 Three pieces work together:
 
 1. **CLAUDE.md rules** — tell Claude *when* to verify and deploy
-2. **`/qa` skill** — *how* to test (browser-use + ios-simulator-skill)
+2. **`/qa` skill** — *how* to test (browser-use + ios-debug)
 3. **`/deploy` skill** — *how* to ship (push + TestFlight)
 
 ## 1. Project Rules (CLAUDE.md Addition)
@@ -30,7 +30,7 @@ Claude invokes the `/qa` skill, which runs:
 2. Serve `out/` directory locally (`npx serve out -p 3000`)
 3. Test affected flows in browser via `browser-use` skill
 4. Full iOS build cycle: `npx cap sync ios` → Xcode build → simulator launch
-5. Test same affected flows on iOS via `ios-simulator-skill`
+5. Test same affected flows on iOS via `ios-debug`
 6. Report pass/fail results before claiming work is done
 
 ### Context-Aware Testing
@@ -84,7 +84,7 @@ A user-invocable skill that walks through the full verification sequence.
 ### Step 3: iOS Verification
 
 1. Run `npx cap sync ios`
-2. Invoke `ios-simulator-skill` to:
+2. Invoke `ios-debug` to:
    - Build the iOS app (`build_and_test.py`)
    - Launch in simulator (`app_launcher.py`)
    - Navigate affected flows using semantic navigation (`navigator.py`, `screen_mapper.py`)
@@ -148,7 +148,7 @@ Brainstorming / Systematic Debugging
             |
             +-- Analyze changes -> affected flows
             +-- Web: build static -> serve -> browser-use
-            +-- iOS: cap sync -> build -> simulator -> ios-simulator-skill
+            +-- iOS: cap sync -> build -> simulator -> ios-debug
             +-- Fail? -> fix -> re-run /qa (up to 3x)
             +-- Pass
                     |
@@ -169,12 +169,12 @@ Both skills work standalone:
 ### What Stays Unchanged
 
 - Superpowers skills (brainstorming, systematic-debugging, finishing-a-development-branch) are not modified
-- The existing `ios-simulator-skill` and `browser-use` skill are used as-is
+- The existing `ios-debug` and `browser-use` skill are used as-is
 - The existing `deploy-testflight.sh` script is used as-is
 
 ## Dependencies
 
 - `browser-use` skill (already available)
-- `ios-simulator-skill` (already installed at `.claude/skills/ios-simulator-skill/`)
+- `ios-debug` (already installed at `.claude/skills/ios-debug/`)
 - `deploy-testflight.sh` (already exists at `scripts/deploy-testflight.sh`)
 - `npx serve` (needs to be installed: `npm install --save-dev serve`)

@@ -139,7 +139,7 @@ The `/qa` skill (`.claude/skills/qa/SKILL.md`) runs this sequence:
 2. Build the static export (`npm run build`) and serve `out/` locally
 3. Test affected flows in the browser using the `browser-use` skill
 4. Run full iOS build cycle (`npx cap sync ios` → Xcode build → simulator launch)
-5. Test the same affected flows on iOS using the `ios-simulator-skill`
+5. Test the same affected flows on iOS using the `ios-debug`
 6. Report pass/fail per flow, per platform
 
 Testing is **context-aware** — only flows affected by the change are tested, not a full sweep.

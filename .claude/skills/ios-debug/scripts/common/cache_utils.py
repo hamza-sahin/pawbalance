@@ -7,7 +7,7 @@ Implements cache system to support progressive disclosure pattern:
 - User retrieves full details on demand via cache_id
 - Reduces token usage by 96% for common queries
 
-Cache directory: ~/.ios-simulator-skill/cache/
+Cache directory: ~/.ios-debug/cache/
 Cache expiration: Configurable per cache type (default 1 hour)
 
 Used by:
@@ -33,11 +33,11 @@ class ProgressiveCache:
         """Initialize cache system.
 
         Args:
-            cache_dir: Cache directory path (default: ~/.ios-simulator-skill/cache/)
+            cache_dir: Cache directory path (default: ~/.ios-debug/cache/)
             max_age_hours: Max age for cache entries before expiration (default: 1 hour)
         """
         if cache_dir is None:
-            cache_dir = str(Path("~/.ios-simulator-skill/cache").expanduser())
+            cache_dir = str(Path("~/.ios-debug/cache").expanduser())
 
         self.cache_dir = Path(cache_dir)
         self.max_age_hours = max_age_hours

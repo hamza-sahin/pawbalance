@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Wire browser-use and ios-simulator-skill into Claude's existing development workflows via project rules and two new skills (`/qa` and `/deploy`), enabling autonomous verification and TestFlight deployment.
+**Goal:** Wire browser-use and ios-debug into Claude's existing development workflows via project rules and two new skills (`/qa` and `/deploy`), enabling autonomous verification and TestFlight deployment.
 
-**Architecture:** Three deliverables — CLAUDE.md rules (when to verify/deploy), `/qa` skill (how to test via browser-use + ios-simulator-skill), `/deploy` skill (how to ship via push + TestFlight). No existing skills are modified. Rules drive behavior; skills codify process.
+**Architecture:** Three deliverables — CLAUDE.md rules (when to verify/deploy), `/qa` skill (how to test via browser-use + ios-debug), `/deploy` skill (how to ship via push + TestFlight). No existing skills are modified. Rules drive behavior; skills codify process.
 
-**Tech Stack:** Claude Code skills (SKILL.md YAML frontmatter format), browser-use CLI, ios-simulator-skill scripts, `npx serve` for static file serving, `deploy-testflight.sh` for iOS deployment.
+**Tech Stack:** Claude Code skills (SKILL.md YAML frontmatter format), browser-use CLI, ios-debug scripts, `npx serve` for static file serving, `deploy-testflight.sh` for iOS deployment.
 
 **Spec:** `docs/superpowers/specs/2026-03-29-qa-automation-design.md`
 
@@ -40,7 +40,7 @@ Create `.claude/skills/qa/SKILL.md` with this exact content:
 ```markdown
 ---
 name: qa
-description: Automated QA verification — analyzes changes, tests affected flows in browser (browser-use) and iOS simulator (ios-simulator-skill), self-heals on failure. Invoke with /qa or triggered automatically by CLAUDE.md rules during verification phases.
+description: Automated QA verification — analyzes changes, tests affected flows in browser (browser-use) and iOS simulator (ios-debug), self-heals on failure. Invoke with /qa or triggered automatically by CLAUDE.md rules during verification phases.
 ---
 
 # QA Verification
@@ -114,10 +114,10 @@ If no code changes are detected (only docs, config, etc.), report "No testable c
    npx cap sync ios
    ```
 
-2. **Build and launch using ios-simulator-skill:**
-   - Invoke the `ios-simulator-skill` skill
-   - Build the app: `python3 .claude/skills/ios-simulator-skill/scripts/build_and_test.py --build-only`
-   - Launch in simulator: `python3 .claude/skills/ios-simulator-skill/scripts/app_launcher.py --action launch --bundle-id com.pawbalance.app`
+2. **Build and launch using ios-debug:**
+   - Invoke the `ios-debug` skill
+   - Build the app: `python3 .claude/skills/ios-debug/scripts/build_and_test.py --build-only`
+   - Launch in simulator: `python3 .claude/skills/ios-debug/scripts/app_launcher.py --action launch --bundle-id com.pawbalance.app`
 
 3. **Test affected flows on iOS:**
    - Use `screen_mapper.py` to analyze current screen
@@ -143,7 +143,7 @@ Present a summary:
 - [Flow name]: PASS/FAIL — [details if fail]
 - ...
 
-### iOS (ios-simulator-skill)
+### iOS (ios-debug)
 - [Flow name]: PASS/FAIL — [details if fail]
 - ...
 
@@ -172,7 +172,7 @@ Expected output should show the YAML frontmatter:
 ```
 ---
 name: qa
-description: Automated QA verification — analyzes changes, tests affected flows in browser (browser-use) and iOS simulator (ios-simulator-skill), self-heals on failure. Invoke with /qa or triggered automatically by CLAUDE.md rules during verification phases.
+description: Automated QA verification — analyzes changes, tests affected flows in browser (browser-use) and iOS simulator (ios-debug), self-heals on failure. Invoke with /qa or triggered automatically by CLAUDE.md rules during verification phases.
 ---
 ```
 
@@ -314,7 +314,7 @@ The `/qa` skill (`.claude/skills/qa/SKILL.md`) runs this sequence:
 2. Build the static export (`npm run build`) and serve `out/` locally
 3. Test affected flows in the browser using the `browser-use` skill
 4. Run full iOS build cycle (`npx cap sync ios` → Xcode build → simulator launch)
-5. Test the same affected flows on iOS using the `ios-simulator-skill`
+5. Test the same affected flows on iOS using the `ios-debug`
 6. Report pass/fail per flow, per platform
 
 Testing is **context-aware** — only flows affected by the change are tested, not a full sweep.
@@ -373,13 +373,13 @@ Expected: a version number. If it fails, install with:
 npx browser-use doctor
 ```
 
-- [ ] **Step 2: Verify ios-simulator-skill scripts are present**
+- [ ] **Step 2: Verify ios-debug scripts are present**
 
 ```bash
-ls .claude/skills/ios-simulator-skill/scripts/build_and_test.py \
-   .claude/skills/ios-simulator-skill/scripts/app_launcher.py \
-   .claude/skills/ios-simulator-skill/scripts/navigator.py \
-   .claude/skills/ios-simulator-skill/scripts/screen_mapper.py
+ls .claude/skills/ios-debug/scripts/build_and_test.py \
+   .claude/skills/ios-debug/scripts/app_launcher.py \
+   .claude/skills/ios-debug/scripts/navigator.py \
+   .claude/skills/ios-debug/scripts/screen_mapper.py
 ```
 
 Expected: all four files listed without errors.

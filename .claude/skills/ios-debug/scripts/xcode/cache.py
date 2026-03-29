@@ -18,7 +18,7 @@ class XCResultCache:
     """
 
     # Default cache directory
-    DEFAULT_CACHE_DIR = Path.home() / ".ios-simulator-skill" / "xcresults"
+    DEFAULT_CACHE_DIR = Path.home() / ".ios-debug" / "xcresults"
 
     def __init__(self, cache_dir: Path | None = None):
         """
