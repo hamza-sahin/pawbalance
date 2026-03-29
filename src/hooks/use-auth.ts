@@ -59,11 +59,31 @@ export function useAuth() {
 
   const signInWithGoogle = useCallback(async () => {
     const supabase = getSupabase();
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: window.location.origin + "/search" },
-    });
-    if (error) throw error;
+    if (isNative) {
+      try {
+        const { GoogleAuth } = await import(
+          "@southdevs/capacitor-google-auth"
+        );
+        await GoogleAuth.initialize();
+        const user = await GoogleAuth.signIn({
+          scopes: ["email", "profile"],
+        });
+        const { error } = await supabase.auth.signInWithIdToken({
+          provider: "google",
+          token: user.authentication.idToken,
+        });
+        if (error) throw error;
+      } catch (e) {
+        console.error("[GoogleAuth] Native sign-in failed:", e);
+        throw e;
+      }
+    } else {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.origin + "/search" },
+      });
+      if (error) throw error;
+    }
   }, []);
 
   const signInWithApple = useCallback(async () => {
