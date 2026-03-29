@@ -53,7 +53,7 @@ export function BottomNav() {
 
   return (
     <nav aria-label="Main navigation" className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-surface shadow-[0_-2px_12px_rgba(0,0,0,0.06)]">
-      <div className="mx-auto flex max-w-md items-center justify-around px-2 pb-[env(safe-area-inset-bottom)] pt-2">
+      <div className="mx-auto flex max-w-md md:max-w-lg lg:max-w-2xl items-center justify-around px-2 pb-[env(safe-area-inset-bottom)] pt-2">
         {tabs.map((tab) => {
           const isCenter = tab.key === "search";
           const isActive = pathname.startsWith(tab.href);

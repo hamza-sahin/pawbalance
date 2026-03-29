@@ -39,7 +39,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas pb-20">
+    <div className="safe-top mx-auto min-h-screen max-w-md md:max-w-lg lg:max-w-2xl bg-canvas pb-20">
       {children}
       <BottomNav />
     </div>
