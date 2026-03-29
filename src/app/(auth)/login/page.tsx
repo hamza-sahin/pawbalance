@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { useAuth } from "@/hooks/use-auth";
+import { Icons } from "@/components/ui/icon";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function LoginPage() {
   const t = useTranslations();
@@ -31,8 +33,11 @@ export default function LoginPage() {
 
   return (
     <>
-      <h1 className="mb-1 text-2xl font-bold text-txt">{t("signIn")}</h1>
-      <p className="mb-6 text-sm text-txt-secondary">{t("appName")}</p>
+      <div className="mb-6 flex flex-col items-center gap-2">
+        <Icons.paw className="h-10 w-10 text-primary" aria-hidden="true" />
+        <h1 className="text-2xl font-bold text-txt">{t("signIn")}</h1>
+        <p className="text-sm text-txt-secondary">{t("appName")}</p>
+      </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <Input
@@ -40,18 +45,19 @@ export default function LoginPage() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
           required
         />
-        <Input
+        <PasswordInput
           label={t("password")}
-          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
           required
         />
         {error && <p className="text-sm text-error">{error}</p>}
         <div className="text-right">
-          <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+          <Link href="/forgot-password" className="min-h-[44px] inline-flex items-center text-sm text-primary hover:underline">
             {t("forgotPassword")}
           </Link>
         </div>
@@ -68,7 +74,7 @@ export default function LoginPage() {
 
       <SocialLoginButtons />
 
-      <p className="mt-6 text-center text-sm text-txt-secondary">
+      <p className="mt-6 min-h-[44px] flex items-center justify-center text-center text-sm text-txt-secondary">
         {t("dontHaveAccount")}{" "}
         <Link href="/register" className="font-medium text-primary hover:underline">
           {t("signUp")}

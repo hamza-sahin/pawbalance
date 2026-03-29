@@ -47,8 +47,11 @@ export default function ForgotPasswordPage() {
 
   return (
     <>
-      <h1 className="mb-1 text-2xl font-bold text-txt">{t("resetPassword")}</h1>
-      <p className="mb-6 text-sm text-txt-secondary">{t("resetPasswordDesc")}</p>
+      <div className="mb-6 flex flex-col items-center gap-2">
+        <Icons.paw className="h-10 w-10 text-primary" aria-hidden="true" />
+        <h1 className="text-2xl font-bold text-txt">{t("resetPassword")}</h1>
+        <p className="text-sm text-txt-secondary">{t("resetPasswordDesc")}</p>
+      </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <Input
@@ -56,6 +59,7 @@ export default function ForgotPasswordPage() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
           required
         />
         {error && <p className="text-sm text-error">{error}</p>}

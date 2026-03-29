@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { useAuth } from "@/hooks/use-auth";
+import { Icons } from "@/components/ui/icon";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function RegisterPage() {
   const t = useTranslations();
@@ -41,8 +43,11 @@ export default function RegisterPage() {
 
   return (
     <>
-      <h1 className="mb-1 text-2xl font-bold text-txt">{t("signUp")}</h1>
-      <p className="mb-6 text-sm text-txt-secondary">{t("appName")}</p>
+      <div className="mb-6 flex flex-col items-center gap-2">
+        <Icons.paw className="h-10 w-10 text-primary" aria-hidden="true" />
+        <h1 className="text-2xl font-bold text-txt">{t("signUp")}</h1>
+        <p className="text-sm text-txt-secondary">{t("appName")}</p>
+      </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <Input
@@ -56,20 +61,21 @@ export default function RegisterPage() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
           required
         />
-        <Input
+        <PasswordInput
           label={t("password")}
-          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="new-password"
           required
         />
-        <Input
+        <PasswordInput
           label={t("confirmPassword")}
-          type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          autoComplete="new-password"
           required
         />
         {error && <p className="text-sm text-error">{error}</p>}
@@ -86,7 +92,7 @@ export default function RegisterPage() {
 
       <SocialLoginButtons />
 
-      <p className="mt-6 text-center text-sm text-txt-secondary">
+      <p className="mt-6 min-h-[44px] flex items-center justify-center text-center text-sm text-txt-secondary">
         {t("alreadyHaveAccount")}{" "}
         <Link href="/login" className="font-medium text-primary hover:underline">
           {t("signIn")}
