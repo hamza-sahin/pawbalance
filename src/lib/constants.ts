@@ -31,6 +31,7 @@ export const CATEGORY_ICONS: Record<string, string> = {
   "Poisonous Plant": "☠️",
 };
 
+/** @deprecated Use Icon component directly. Kept during migration. */
 export function getCategoryIcon(categoryEn: string): string {
   return CATEGORY_ICONS[categoryEn] ?? "🍽️";
 }
