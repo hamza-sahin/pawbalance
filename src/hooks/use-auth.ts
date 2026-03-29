@@ -78,24 +78,19 @@ export function useAuth() {
         async ({ url }) => {
           if (!url.includes("login-callback")) return;
           await listener.remove();
-          try {
-            // Handle PKCE flow (code param) or implicit flow (hash tokens)
-            const parsed = new URL(url.replace("#", "?"));
-            const code = parsed.searchParams.get("code");
-            if (code) {
-              await supabase.auth.exchangeCodeForSession(code);
-            } else {
-              const accessToken = parsed.searchParams.get("access_token");
-              const refreshToken = parsed.searchParams.get("refresh_token");
-              if (accessToken && refreshToken) {
-                await supabase.auth.setSession({
-                  access_token: accessToken,
-                  refresh_token: refreshToken,
-                });
-              }
+          const parsed = new URL(url.replace("#", "?"));
+          const code = parsed.searchParams.get("code");
+          if (code) {
+            await supabase.auth.exchangeCodeForSession(code);
+          } else {
+            const accessToken = parsed.searchParams.get("access_token");
+            const refreshToken = parsed.searchParams.get("refresh_token");
+            if (accessToken && refreshToken) {
+              await supabase.auth.setSession({
+                access_token: accessToken,
+                refresh_token: refreshToken,
+              });
             }
-          } catch (e) {
-            console.error("[GoogleAuth] Session exchange failed:", e);
           }
           await Browser.close();
         },
