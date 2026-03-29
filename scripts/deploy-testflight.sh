@@ -13,6 +13,10 @@ ARCHIVE_DIR="$PROJECT_DIR/build/PawBalance.xcarchive"
 EXPORT_DIR="$PROJECT_DIR/build/export"
 EXPORT_OPTIONS="$PROJECT_DIR/scripts/ExportOptions.plist"
 
+# App Store Connect API
+APP_STORE_API_KEY_ID="${APP_STORE_API_KEY_ID:-4NH42JUWM6}"
+APP_STORE_API_ISSUER_ID="${APP_STORE_API_ISSUER_ID:-0b5bf398-ce6b-47b4-988a-386910acf728}"
+
 cd "$PROJECT_DIR"
 
 echo "==> Step 1: Building Next.js static export..."
