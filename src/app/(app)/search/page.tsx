@@ -9,6 +9,7 @@ import { CategoryGrid } from "@/components/food/category-grid";
 import { FoodRequestDialog } from "@/components/food/food-request-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SEARCH_DEBOUNCE_MS, MIN_SEARCH_LENGTH } from "@/lib/constants";
+import { Icons } from "@/components/ui/icon";
 
 export default function SearchPage() {
   const t = useTranslations();
@@ -58,7 +59,7 @@ export default function SearchPage() {
               {selectedPet.avatar_url ? (
                 <img src={selectedPet.avatar_url} alt="" className="h-10 w-10 rounded-full object-cover" />
               ) : (
-                "🐾"
+                <Icons.paw className="h-5 w-5 text-txt-tertiary" aria-hidden="true" />
               )}
             </div>
             <span className="text-xs text-txt-secondary">{selectedPet.name}</span>
@@ -71,7 +72,7 @@ export default function SearchPage() {
 
       {/* Search input */}
       <div className="relative mb-6">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-txt-tertiary">🔍</span>
+        <Icons.search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-txt-tertiary" aria-hidden="true" />
         <input
           type="text"
           value={query}
@@ -82,9 +83,10 @@ export default function SearchPage() {
         {query && (
           <button
             onClick={() => { setQuery(""); clearSearch(); }}
+            aria-label={t("cancel")}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-txt-tertiary hover:text-txt"
           >
-            ✕
+            <Icons.close className="h-4 w-4" aria-hidden="true" />
           </button>
         )}
       </div>
@@ -106,7 +108,7 @@ export default function SearchPage() {
               <p className="text-txt-secondary">{t("noResults")}</p>
               <button
                 onClick={() => setShowRequestDialog(true)}
-                className="text-sm font-medium text-primary hover:underline"
+                className="min-h-[44px] inline-flex items-center rounded-button px-4 text-sm font-medium text-primary hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {t("requestFood")}
               </button>

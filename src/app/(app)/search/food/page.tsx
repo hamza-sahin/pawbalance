@@ -8,7 +8,7 @@ import { useFoodDetail } from "@/hooks/use-food-search";
 import { SafetyBadge } from "@/components/food/safety-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { localise, splitBullets } from "@/lib/types";
-import { getCategoryIcon } from "@/lib/constants";
+import { Icons } from "@/components/ui/icon";
 
 export default function FoodDetailPage() {
   const t = useTranslations();
@@ -39,20 +39,20 @@ export default function FoodDetailPage() {
   const preparation = localise(food, "preparation", locale);
   const benefits = splitBullets(localise(food, "benefits", locale));
   const warnings = splitBullets(localise(food, "warnings", locale));
-  const icon = getCategoryIcon(food.category_en);
-
   return (
     <div className="p-4">
-      <Link href="/search" className="mb-4 inline-block text-txt-secondary hover:text-txt">
-        ←
+      <Link href="/search" aria-label="Back" className="mb-4 inline-flex min-h-[44px] min-w-[44px] items-center text-txt-secondary hover:text-txt focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-lg">
+        <Icons.arrowLeft className="h-5 w-5" aria-hidden="true" />
       </Link>
 
       <div className="mb-6 flex flex-col items-center gap-2">
-        <span className="text-5xl">{icon}</span>
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary" aria-hidden="true">
+          {food.category_en.charAt(0)}
+        </div>
         <h1 className="text-2xl font-bold text-txt">{name}</h1>
         <SafetyBadge level={food.safety_level} />
         <p className="text-sm text-txt-secondary">
-          {icon} {category}
+          {category}
         </p>
       </div>
 
@@ -60,7 +60,7 @@ export default function FoodDetailPage() {
         {dangerousParts && (
           <section className="rounded-card border border-border bg-surface p-4">
             <h2 className="mb-2 flex items-center gap-2 font-semibold text-toxic">
-              🚫 {t("dangerousParts")}
+              <Icons.dangerousParts className="h-5 w-5" aria-hidden="true" /> {t("dangerousParts")}
             </h2>
             <p className="text-sm text-txt-secondary">{dangerousParts}</p>
           </section>
@@ -69,7 +69,7 @@ export default function FoodDetailPage() {
         {preparation && (
           <section className="rounded-card border border-border bg-surface p-4">
             <h2 className="mb-2 flex items-center gap-2 font-semibold text-caution">
-              🍳 {t("preparation")}
+              <Icons.preparation className="h-5 w-5" aria-hidden="true" /> {t("preparation")}
             </h2>
             <p className="text-sm text-txt-secondary">{preparation}</p>
           </section>
@@ -78,7 +78,7 @@ export default function FoodDetailPage() {
         {warnings.length > 0 && (
           <section className="rounded-card border border-border bg-surface p-4">
             <h2 className="mb-2 flex items-center gap-2 font-semibold text-warning">
-              ⚠️ {t("warnings")}
+              <Icons.warnings className="h-5 w-5" aria-hidden="true" /> {t("warnings")}
             </h2>
             <ul className="flex flex-col gap-1">
               {warnings.map((w, i) => (
@@ -91,7 +91,7 @@ export default function FoodDetailPage() {
         {benefits.length > 0 && (
           <section className="rounded-card border border-border bg-surface p-4">
             <h2 className="mb-2 flex items-center gap-2 font-semibold text-success">
-              💚 {t("benefits")}
+              <Icons.benefits className="h-5 w-5" aria-hidden="true" /> {t("benefits")}
             </h2>
             <ul className="flex flex-col gap-1">
               {benefits.map((b, i) => (

@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { useFoodsByCategory } from "@/hooks/use-food-search";
 import { FoodCard } from "@/components/food/food-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getCategoryIcon } from "@/lib/constants";
+import { Icons } from "@/components/ui/icon";
 import { Badge } from "@/components/ui/badge";
 
 export default function CategoryPage() {
@@ -20,25 +20,26 @@ export default function CategoryPage() {
     if (categoryName) fetchByCategory(categoryName);
   }, [categoryName, fetchByCategory]);
 
-  const icon = getCategoryIcon(categoryName);
   const safeCount = foods.filter((f) => f.safety_level === "SAFE").length;
   const cautionCount = foods.filter((f) => f.safety_level === "MODERATE").length;
   const toxicCount = foods.filter((f) => f.safety_level === "TOXIC").length;
 
   return (
     <div className="p-4">
-      <Link href="/search" className="mb-4 inline-block text-txt-secondary hover:text-txt">
-        ← Back
+      <Link href="/search" aria-label={t("back")} className="mb-4 min-h-[44px] inline-flex items-center text-txt-secondary hover:text-txt">
+        <Icons.arrowLeft className="mr-1 inline h-4 w-4" aria-hidden="true" />{t("back")}
       </Link>
 
       <div className="mb-6 flex flex-col items-center gap-2">
-        <span className="text-5xl">{icon}</span>
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-xl font-bold text-primary" aria-hidden="true">
+          {categoryName.charAt(0)}
+        </div>
         <h1 className="text-xl font-bold text-txt">{categoryName}</h1>
-        <p className="text-sm text-txt-secondary">{foods.length} foods</p>
+        <p className="text-sm text-txt-secondary">{t("foodCount", { count: foods.length })}</p>
         <div className="flex gap-2">
-          {safeCount > 0 && <Badge variant="safe">● {safeCount} {t("safe")}</Badge>}
-          {cautionCount > 0 && <Badge variant="caution">● {cautionCount} {t("caution")}</Badge>}
-          {toxicCount > 0 && <Badge variant="toxic">● {toxicCount} {t("toxic")}</Badge>}
+          {safeCount > 0 && <Badge variant="safe"><span className="mr-1 inline-block h-2 w-2 rounded-full bg-safe" aria-hidden="true" />{safeCount} {t("safe")}</Badge>}
+          {cautionCount > 0 && <Badge variant="caution"><span className="mr-1 inline-block h-2 w-2 rounded-full bg-caution" aria-hidden="true" />{cautionCount} {t("caution")}</Badge>}
+          {toxicCount > 0 && <Badge variant="toxic"><span className="mr-1 inline-block h-2 w-2 rounded-full bg-toxic" aria-hidden="true" />{toxicCount} {t("toxic")}</Badge>}
         </div>
       </div>
 
