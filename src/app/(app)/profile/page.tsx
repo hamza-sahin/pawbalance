@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useLocale } from "@/hooks/use-locale";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Icons } from "@/components/ui/icon";
 
 export default function ProfilePage() {
   const t = useTranslations();
@@ -13,29 +14,21 @@ export default function ProfilePage() {
   const { locale } = useLocale();
 
   const menuItems = [
-    { href: "/profile/pets", icon: "🐾", label: t("pets") },
-    {
-      href: "/profile/language",
-      icon: "🌐",
-      label: t("language"),
-      trailing: locale === "tr" ? "Türkçe" : "English",
-    },
-    { href: "/profile/scan-history", icon: "🕒", label: t("scanHistory") },
-    {
-      href: "#",
-      icon: "⭐",
-      label: t("upgradeToPremium"),
-      badge: <Badge variant="premium">PRO</Badge>,
-    },
-    { href: "#", icon: "❓", label: t("helpAndSupport") },
-    { href: "#", icon: "ℹ️", label: t("about") },
+    { href: "/profile/pets", icon: Icons.paw, label: t("pets") },
+    { href: "/profile/language", icon: Icons.globe, label: t("language"), trailing: locale === "tr" ? "Türkçe" : "English" },
+    { href: "/profile/scan-history", icon: Icons.history, label: t("scanHistory") },
+    { href: "#", icon: Icons.crown, label: t("upgradeToPremium"), badge: <Badge variant="premium">PRO</Badge> },
+    { href: "#", icon: Icons.help, label: t("helpAndSupport") },
+    { href: "#", icon: Icons.info, label: t("about") },
   ];
 
   return (
     <div className="p-4">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-lg font-bold text-txt">{t("profile")}</h1>
-        <button className="text-xl text-txt-secondary">⚙️</button>
+        <button className="flex h-10 w-10 items-center justify-center rounded-lg text-txt-secondary hover:bg-surface-variant" aria-label="Settings">
+          <Icons.settings className="h-5 w-5" aria-hidden="true" />
+        </button>
       </div>
 
       {/* User card */}
@@ -44,7 +37,7 @@ export default function ProfilePage() {
           {avatarUrl ? (
             <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
           ) : (
-            "👤"
+            <Icons.user className="h-8 w-8 text-txt-tertiary" aria-hidden="true" />
           )}
         </div>
         <p className="text-lg font-bold text-txt">{displayName}</p>
@@ -59,13 +52,13 @@ export default function ProfilePage() {
         {menuItems.map((item) => (
           <Link key={item.label} href={item.href}>
             <Card className="flex items-center gap-3 p-4">
-              <span className="text-lg">{item.icon}</span>
+              <item.icon className="h-5 w-5 text-txt-secondary" aria-hidden="true" />
               <span className="flex-1 font-medium text-txt">{item.label}</span>
               {item.trailing && (
                 <span className="text-sm text-txt-secondary">{item.trailing}</span>
               )}
               {item.badge}
-              <span className="text-txt-tertiary">›</span>
+              <Icons.chevronRight className="h-4 w-4 text-txt-tertiary" aria-hidden="true" />
             </Card>
           </Link>
         ))}
