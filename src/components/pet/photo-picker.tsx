@@ -49,7 +49,7 @@ export function PhotoPicker({ currentUrl, onPick, onRemove }: PhotoPickerProps) 
         <button
           type="button"
           onClick={onRemove}
-          className="text-xs text-error hover:underline"
+          className="min-h-[44px] inline-flex items-center text-xs text-error hover:underline"
         >
           {t("removePhoto")}
         </button>
