@@ -38,10 +38,13 @@ jobs:
           name: web-build
           path: out/
       - name: Upload to Capgo
-        run: npx @capgo/cli bundle upload --channel production
-        env:
-          CAPGO_APIKEY: ${{ secrets.CAPGO_APIKEY }}
-          CAPGO_URL: ${{ secrets.CAPGO_URL }}
+        run: |
+          npx @capgo/cli bundle upload \
+            --channel production \
+            --apikey ${{ secrets.CAPGO_APIKEY }} \
+            --supa-host ${{ secrets.CAPGO_URL }} \
+            --supa-anon ${{ secrets.CAPGO_SUPA_ANON }} \
+            --no-key
 
   detect-native:
     runs-on: ubuntu-latest
