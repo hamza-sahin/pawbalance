@@ -37,19 +37,28 @@ jobs:
         with:
           name: web-build
           path: out/
-      - name: Upload to Capgo
+      - name: Upload bundle to MinIO
+        run: |
+          cd out && zip -r ../bundle.zip . && cd ..
+          pip install minio -q
+          python3 -c "
+          from minio import Minio
+          import os, hashlib
+          client = Minio('minio.optalgo.com', access_key='${{ secrets.MINIO_ACCESS_KEY }}', secret_key='${{ secrets.MINIO_SECRET_KEY }}', secure=True)
+          version = '1.0.0'
+          app_id = 'com.pawbalance.app'
+          obj_name = f'apps/{app_id}/versions/bundle.zip'
+          client.fput_object('capgo', obj_name, 'bundle.zip')
+          print(f'Uploaded to capgo/{obj_name}')
+          "
+      - name: Register bundle in Capgo
         run: |
           npx @capgo/cli bundle upload \
             --channel production \
             --apikey ${{ secrets.CAPGO_APIKEY }} \
             --supa-host ${{ secrets.CAPGO_URL }} \
             --supa-anon ${{ secrets.CAPGO_SUPA_ANON }} \
-            --s3-endpoint minio.optalgo.com \
-            --s3-port 9000 \
-            --s3-region us-east-1 \
-            --s3-apikey ${{ secrets.MINIO_ACCESS_KEY }} \
-            --s3-apisecret ${{ secrets.MINIO_SECRET_KEY }} \
-            --s3-bucket-name capgo \
+            --external https://minio.optalgo.com/capgo/apps/com.pawbalance.app/versions/bundle.zip \
             --no-key
 
   detect-native:
