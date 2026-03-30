@@ -4,6 +4,7 @@ const config: CapacitorConfig = {
   appId: "com.pawbalance.app",
   appName: "PawBalance",
   webDir: "out",
+  backgroundColor: "#FAF8F5",
   server: {
     androidScheme: "https",
   },
