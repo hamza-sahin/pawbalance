@@ -44,7 +44,7 @@ jobs:
             --apikey ${{ secrets.CAPGO_APIKEY }} \
             --supa-host ${{ secrets.CAPGO_URL }} \
             --supa-anon ${{ secrets.CAPGO_SUPA_ANON }} \
-            --s3-endpoint https://minio.optalgo.com \
+            --s3-endpoint minio.optalgo.com \
             --s3-port 443 \
             --s3-region us-east-1 \
             --s3-apikey ${{ secrets.MINIO_ACCESS_KEY }} \
