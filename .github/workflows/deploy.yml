@@ -71,7 +71,7 @@ jobs:
           fetch-depth: 2
       - id: check
         run: |
-          if git diff --name-only HEAD~1 HEAD | grep -qE '^(ios/|capacitor\.config\.ts|package\.json|package-lock\.json)'; then
+          if git diff --name-only HEAD~1 HEAD | grep -qE '^(ios/|capacitor\.config\.ts|package\.json|package-lock\.json|ExportOptions\.plist|\.github/workflows/deploy\.yml)'; then
             echo "native_changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "native_changed=false" >> "$GITHUB_OUTPUT"
