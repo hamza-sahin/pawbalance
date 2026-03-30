@@ -114,7 +114,7 @@ jobs:
       - name: Archive
         run: |
           cd ios/App
-          xcodebuild -workspace App.xcworkspace \
+          xcodebuild -project App.xcodeproj \
             -scheme App \
             -configuration Release \
             -archivePath build/App.xcarchive \
@@ -126,7 +126,7 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath build/App.xcarchive \
             -exportPath build/ \
-            -exportOptionsPlist ExportOptions.plist
+            -exportOptionsPlist ../../ExportOptions.plist
       - name: Upload to TestFlight
         env:
           APP_STORE_CONNECT_KEY_ID: "4NH42JUWM6"
