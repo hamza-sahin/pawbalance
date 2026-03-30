@@ -26,7 +26,7 @@ export default function CategoryPage() {
 
   return (
     <div className="p-4">
-      <Link href="/search" aria-label={t("back")} className="mb-4 min-h-[44px] inline-flex items-center text-txt-secondary hover:text-txt">
+      <Link href="/search" aria-label={t("back")} className="mb-4 min-h-[44px] inline-flex items-center text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50">
         <Icons.arrowLeft className="mr-1 inline h-4 w-4" aria-hidden="true" />{t("back")}
       </Link>
 

@@ -41,7 +41,7 @@ export default function FoodDetailPage() {
   const warnings = splitBullets(localise(food, "warnings", locale));
   return (
     <div className="p-4">
-      <Link href="/search" aria-label="Back" className="mb-4 inline-flex min-h-[44px] min-w-[44px] items-center text-txt-secondary hover:text-txt focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-lg">
+      <Link href="/search" aria-label="Back" className="mb-4 inline-flex min-h-[44px] min-w-[44px] items-center text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-lg">
         <Icons.arrowLeft className="h-5 w-5" aria-hidden="true" />
       </Link>
 

@@ -80,9 +80,11 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--color-txt) !important;
 }
 
-/* Cursor pointer on all interactive elements */
+/* Cursor pointer + touch optimisation on all interactive elements */
 a, button, [role="button"], [role="tab"], [role="radio"], summary {
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* Respect reduced motion preference */

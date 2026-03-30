@@ -84,7 +84,7 @@ export default function SearchPage() {
           <button
             onClick={() => { setQuery(""); clearSearch(); }}
             aria-label={t("cancel")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-txt-tertiary hover:text-txt"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-txt-tertiary transition-opacity duration-150 hover:text-txt active:opacity-50"
           >
             <Icons.close className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -108,7 +108,7 @@ export default function SearchPage() {
               <p className="text-txt-secondary">{t("noResults")}</p>
               <button
                 onClick={() => setShowRequestDialog(true)}
-                className="min-h-[44px] inline-flex items-center rounded-button px-4 text-sm font-medium text-primary hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-primary"
+                className="min-h-[44px] inline-flex items-center rounded-button px-4 text-sm font-medium text-primary transition-all duration-150 ease-out hover:bg-primary/5 active:scale-95 active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {t("requestFood")}
               </button>

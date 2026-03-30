@@ -29,11 +29,11 @@ export function ActivityLevelSelector({
             role="radio"
             aria-checked={value === level.key}
             onClick={() => onChange(level.key as ActivityLevel)}
-            className={`flex items-center gap-3 rounded-card border p-3 text-left transition-colors ${
+            className={`flex items-center gap-3 rounded-card border p-3 text-left transition-all duration-150 ease-out ${
               value === level.key
                 ? "border-primary bg-primary/5"
                 : "border-border hover:bg-surface-variant"
-            }`}
+            } active:scale-95 active:opacity-80`}
           >
             <div className="flex-1">
               <p className="font-medium text-txt">{level.label}</p>

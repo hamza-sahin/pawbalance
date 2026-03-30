@@ -45,7 +45,7 @@ export function PetCard({ pet, onEdit, onDelete }: PetCardProps) {
                 <button
                   onClick={onEdit}
                   aria-label={`${t("editPet")} ${pet.name}`}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-txt-secondary hover:bg-surface-variant hover:text-txt focus-visible:ring-2 focus-visible:ring-primary"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-txt-secondary transition-all duration-150 ease-out hover:bg-surface-variant hover:text-txt active:scale-90 active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <Icons.edit className="h-4 w-4" aria-hidden="true" />
                 </button>
@@ -54,7 +54,7 @@ export function PetCard({ pet, onEdit, onDelete }: PetCardProps) {
                 <button
                   onClick={onDelete}
                   aria-label={`${t("deletePet")} ${pet.name}`}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-error hover:bg-error/5 focus-visible:ring-2 focus-visible:ring-error"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-error transition-all duration-150 ease-out hover:bg-error/5 active:scale-90 active:opacity-70 focus-visible:ring-2 focus-visible:ring-error"
                 >
                   <Icons.delete className="h-4 w-4" aria-hidden="true" />
                 </button>

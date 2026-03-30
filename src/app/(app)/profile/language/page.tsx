@@ -16,14 +16,14 @@ export default function LanguagePage() {
 
   return (
     <div className="p-4">
-      <Link href="/profile" className="mb-4 inline-block text-txt-secondary hover:text-txt">
+      <Link href="/profile" className="mb-4 inline-block text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50">
         ← Back
       </Link>
       <h1 className="mb-4 text-lg font-bold text-txt">{t("language")}</h1>
 
       <div className="flex flex-col gap-2">
         {locales.map((l) => (
-          <button key={l.code} onClick={() => setLocale(l.code)}>
+          <button key={l.code} onClick={() => setLocale(l.code)} className="transition-all duration-150 ease-out active:scale-95 active:opacity-80">
             <Card
               className={`flex items-center gap-3 p-4 ${
                 locale === l.code ? "border-primary" : ""

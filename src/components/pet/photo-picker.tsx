@@ -32,7 +32,7 @@ export function PhotoPicker({ currentUrl, onPick, onRemove }: PhotoPickerProps) 
       <button
         type="button"
         onClick={handlePick}
-        className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-border bg-surface-variant transition-colors hover:border-primary"
+        className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-border bg-surface-variant transition-all duration-150 ease-out hover:border-primary active:scale-95 active:opacity-80"
       >
         {currentUrl ? (
           <img
@@ -49,7 +49,7 @@ export function PhotoPicker({ currentUrl, onPick, onRemove }: PhotoPickerProps) 
         <button
           type="button"
           onClick={onRemove}
-          className="min-h-[44px] inline-flex items-center text-xs text-error hover:underline"
+          className="min-h-[44px] inline-flex items-center text-xs text-error transition-opacity duration-150 hover:underline active:opacity-50"
         >
           {t("removePhoto")}
         </button>

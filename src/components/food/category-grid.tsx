@@ -35,7 +35,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
           <Link
             key={cat.id}
             href={`/search/category?name=${encodeURIComponent(cat.name_en)}`}
-            className="flex flex-col items-center gap-2 rounded-card border border-border bg-surface px-2 py-4 transition-colors hover:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="flex flex-col items-center gap-2 rounded-card border border-border bg-surface px-2 py-4 transition-all duration-150 ease-out hover:bg-surface-variant active:scale-95 active:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <div className={`flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold ${colorClass}`} aria-hidden="true">
               {cat.name_en.charAt(0)}

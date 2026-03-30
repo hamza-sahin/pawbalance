@@ -30,12 +30,12 @@ export default function PetsPage() {
   return (
     <div className="p-4">
       <div className="mb-4 flex items-center justify-between">
-        <Link href="/profile" className="text-txt-secondary hover:text-txt">
+        <Link href="/profile" className="text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50">
           ← Back
         </Link>
         <h1 className="text-lg font-bold text-txt">{t("pets")}</h1>
         {canAddMore && (
-          <Link href="/onboarding" className="text-2xl text-primary">
+          <Link href="/onboarding" className="text-2xl text-primary transition-opacity duration-150 active:opacity-50">
             +
           </Link>
         )}

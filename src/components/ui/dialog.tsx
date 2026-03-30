@@ -34,7 +34,7 @@ export function Dialog({ open, onClose, title, children }: DialogProps) {
           <button
             onClick={onClose}
             aria-label="Close"
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-txt-secondary hover:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-txt-secondary transition-all duration-150 ease-out hover:bg-surface-variant active:scale-90 active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary"
           >
             <Icons.close className="h-4 w-4" aria-hidden="true" />
           </button>

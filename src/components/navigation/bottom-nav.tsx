@@ -65,7 +65,7 @@ export function BottomNav() {
                 href={tab.href}
                 aria-label={t(tab.label)}
                 aria-current={isActive ? "page" : undefined}
-                className="-mt-5 flex h-14 w-14 items-center justify-center rounded-full bg-primary-btn text-white shadow-[0_4px_12px_rgba(74,124,89,0.3)] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="-mt-5 flex h-14 w-14 items-center justify-center rounded-full bg-primary-btn text-white shadow-[0_4px_12px_rgba(74,124,89,0.3)] transition-all duration-150 ease-out active:scale-90 active:opacity-80 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 {icons[tab.key]}
               </Link>
@@ -77,9 +77,9 @@ export function BottomNav() {
               key={tab.key}
               href={tab.href}
               aria-current={isActive ? "page" : undefined}
-              className={`flex min-h-[44px] min-w-[44px] flex-col items-center justify-center gap-0.5 rounded-lg px-2 py-1 text-[11px] transition-colors ${
+              className={`flex min-h-[44px] min-w-[44px] flex-col items-center justify-center gap-0.5 rounded-lg px-2 py-1 text-[11px] transition-all duration-150 ease-out ${
                 isActive ? "font-medium text-primary" : "text-txt-tertiary"
-              } focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
+              } active:bg-surface-variant active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
             >
               {icons[tab.key]}
               <span>{t(tab.label)}</span>

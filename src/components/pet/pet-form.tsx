@@ -137,11 +137,11 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
                   role="radio"
                   aria-checked={gender === g}
                   onClick={() => setGender(g)}
-                  className={`flex items-center justify-center gap-2 rounded-card border p-3 text-sm font-medium transition-colors ${
+                  className={`flex items-center justify-center gap-2 rounded-card border p-3 text-sm font-medium transition-all duration-150 ease-out ${
                     gender === g
                       ? "border-primary bg-primary/5 text-primary"
                       : "border-border text-txt hover:bg-surface-variant"
-                  }`}
+                  } active:scale-95 active:opacity-80`}
                 >
                   {g === "MALE" ? "♂" : "♀"} {g === "MALE" ? t("male") : t("female")}
                 </button>

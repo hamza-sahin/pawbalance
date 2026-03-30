@@ -26,7 +26,7 @@ export default function ProfilePage() {
     <div className="p-4">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-lg font-bold text-txt">{t("profile")}</h1>
-        <button className="flex h-10 w-10 items-center justify-center rounded-lg text-txt-secondary hover:bg-surface-variant" aria-label="Settings">
+        <button className="flex h-10 w-10 items-center justify-center rounded-lg text-txt-secondary transition-all duration-150 ease-out hover:bg-surface-variant active:scale-90 active:opacity-70" aria-label="Settings">
           <Icons.settings className="h-5 w-5" aria-hidden="true" />
         </button>
       </div>
@@ -50,7 +50,7 @@ export default function ProfilePage() {
       {/* Menu */}
       <div className="flex flex-col gap-2">
         {menuItems.map((item) => (
-          <Link key={item.label} href={item.href}>
+          <Link key={item.label} href={item.href} className="block transition-all duration-150 ease-out active:scale-95 active:opacity-80">
             <Card className="flex items-center gap-3 p-4">
               <item.icon className="h-5 w-5 text-txt-secondary" aria-hidden="true" />
               <span className="flex-1 font-medium text-txt">{item.label}</span>
@@ -66,7 +66,7 @@ export default function ProfilePage() {
 
       <button
         onClick={signOut}
-        className="mt-6 w-full rounded-button py-3 text-center font-medium text-error hover:bg-error/5"
+        className="mt-6 w-full rounded-button py-3 text-center font-medium text-error transition-all duration-150 ease-out hover:bg-error/5 active:scale-95 active:bg-error/10"
       >
         {t("signOut")}
       </button>

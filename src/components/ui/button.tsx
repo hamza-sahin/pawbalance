@@ -22,12 +22,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const base =
-      "inline-flex items-center justify-center font-semibold transition-colors rounded-button disabled:opacity-50 disabled:cursor-not-allowed";
+      "inline-flex items-center justify-center font-semibold rounded-button transition-all duration-150 ease-out disabled:opacity-50 disabled:cursor-not-allowed";
     const variants = {
-      primary: "bg-primary-btn text-white hover:bg-primary-dark shadow-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
-      secondary: "bg-secondary text-white hover:bg-secondary-dark focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
-      outline: "border border-border text-txt hover:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
-      ghost: "text-txt hover:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+      primary: "bg-primary-btn text-white hover:bg-primary-dark shadow-sm active:scale-95 active:opacity-90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+      secondary: "bg-secondary text-white hover:bg-secondary-dark active:scale-95 active:opacity-90 focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
+      outline: "border border-border text-txt hover:bg-surface-variant active:scale-95 active:bg-border/50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+      ghost: "text-txt hover:bg-surface-variant active:bg-border/50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
     };
     const sizes = {
       sm: "px-3 py-1.5 text-sm",

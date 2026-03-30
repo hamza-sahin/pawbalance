@@ -32,11 +32,11 @@ export default function LearnPage() {
             key={key}
             onClick={() => setActiveChip(key)}
             aria-pressed={activeChip === key}
-            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-150 ease-out focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               activeChip === key
                 ? "border-primary bg-primary/10 text-primary"
                 : "border-border text-txt-secondary hover:bg-surface-variant"
-            }`}
+            } active:scale-95 active:opacity-80`}
           >
             {activeChip === key && <Icons.check className="mr-1 inline h-3 w-3" aria-hidden="true" />}
             {t(key)}
