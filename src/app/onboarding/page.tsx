@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useAuthStore } from "@/store/auth-store";
 import { usePets } from "@/hooks/use-pets";
 import { PetForm } from "@/components/pet/pet-form";
 import type { PetFormValues } from "@/lib/validators";
@@ -10,7 +11,8 @@ import type { PetFormValues } from "@/lib/validators";
 export default function OnboardingPage() {
   const t = useTranslations();
   const router = useRouter();
-  const { createPet } = usePets();
+  const { session } = useAuthStore();
+  const { createPet, saveGuestPet } = usePets();
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(
@@ -19,7 +21,11 @@ export default function OnboardingPage() {
   ) {
     setIsLoading(true);
     try {
-      await createPet(values, photo);
+      if (session) {
+        await createPet(values, photo);
+      } else {
+        saveGuestPet(values, photo);
+      }
       router.replace("/search");
     } finally {
       setIsLoading(false);
