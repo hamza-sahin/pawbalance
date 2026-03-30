@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: "com.pawbalance.app",
   appName: "PawBalance",
   webDir: "out",
-  backgroundColor: "#FAF8F5",
+  backgroundColor: "#FAF8F5", // canvas theme
   server: {
     androidScheme: "https",
     hostname: "app.pawbalance.com",
