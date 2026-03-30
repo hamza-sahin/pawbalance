@@ -162,6 +162,8 @@ jobs:
         run: |
           npx cap add ios
           npx cap sync ios
+      - name: Replace default app icon
+        run: cp resources/app-icon/AppIcon-512@2x.png ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
       - name: Add privacy usage descriptions and URL scheme
         run: |
           /usr/libexec/PlistBuddy -c "Add :NSPhotoLibraryUsageDescription string 'PawBalance needs access to your photo library to set your pet profile photo.'" ios/App/App/Info.plist
