@@ -96,11 +96,6 @@ jobs:
         run: |
           npx cap add ios
           npx cap sync ios
-      - name: Configure signing
-        run: |
-          cd ios/App
-          sed -i '' 's/CODE_SIGN_IDENTITY = "iPhone Developer";/CODE_SIGN_IDENTITY = "Apple Distribution";/g' App.xcodeproj/project.pbxproj
-          sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;\n\t\t\t\tDEVELOPMENT_TEAM = 7N6TBDYHYS;\n\t\t\t\tPROVISIONING_PROFILE_SPECIFIER = "MyPetPal App Store";/g' App.xcodeproj/project.pbxproj
       - name: Import signing certificate
         env:
           CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
@@ -124,6 +119,9 @@ jobs:
             -configuration Release \
             -archivePath build/App.xcarchive \
             -destination 'generic/platform=iOS' \
+            DEVELOPMENT_TEAM=7N6TBDYHYS \
+            CODE_SIGN_STYLE=Automatic \
+            -allowProvisioningUpdates \
             archive
       - name: Export IPA
         run: |
@@ -131,7 +129,8 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath build/App.xcarchive \
             -exportPath build/ \
-            -exportOptionsPlist ../../ExportOptions.plist
+            -exportOptionsPlist ../../ExportOptions.plist \
+            -allowProvisioningUpdates
       - name: Upload to TestFlight
         env:
           APP_STORE_CONNECT_KEY_ID: "4NH42JUWM6"
