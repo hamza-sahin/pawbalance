@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+ios
+android
+build
+refs
+.worktrees
+.superpowers
+.git
