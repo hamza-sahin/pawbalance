@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Deploy
 
 on:
   push:
@@ -6,6 +6,9 @@ on:
 
 env:
   NODE_VERSION: '22'
+  IMAGE_REPOSITORY: pawbalance-web
+  CONTAINER_REGISTRY: registry.optalgo.com
+  GITOPS_REPO: hamza-sahin/gitops
 
 jobs:
   build:
@@ -63,6 +66,63 @@ jobs:
             --bundle $BUNDLE_VERSION \
             --external https://minio.optalgo.com/capgo/apps/com.pawbalance.app/versions/${BUNDLE_VERSION}.zip \
             --no-key
+
+  deploy-docker:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.CONTAINER_REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:latest
+            ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:${{ github.run_number }}
+          build-args: |
+            NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+            NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+
+  update-gitops:
+    name: Update GitOps Repo
+    needs: deploy-docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.GITOPS_REPO }}
+          token: ${{ secrets.GH_PAT }}
+          ref: main
+      - name: Update Image Tag
+        run: |
+          sed -i '/image:/,/tag:/ s/tag: .*/tag: "${{ github.run_number }}"/' helm/pawbalance/values.yaml
+      - name: Commit and Push
+        run: |
+          git config user.email "ci@pawbalance.com"
+          git config user.name "PawBalance CI"
+          git add helm/pawbalance/values.yaml
+          git commit -m "Updated pawbalance-web image tag to ${{ github.run_number }}"
+          MAX_RETRIES=5
+          RETRY_COUNT=0
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if git push origin main; then
+              echo "Successfully pushed changes"
+              exit 0
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                echo "Push failed, retrying ($RETRY_COUNT/$MAX_RETRIES)"
+                git pull --rebase origin main
+              fi
+            fi
+          done
+          echo "Failed to push after $MAX_RETRIES attempts"
+          exit 1
 
   detect-native:
     runs-on: ubuntu-latest
