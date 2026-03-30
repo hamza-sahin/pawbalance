@@ -20,6 +20,7 @@ const config: CapacitorConfig = {
       statsUrl: "https://supabase.optalgo.com/functions/v1/stats",
       channelUrl: "https://supabase.optalgo.com/functions/v1/channel_self",
       updateUrl: "https://supabase.optalgo.com/functions/v1/updates",
+      defaultChannel: "production",
     },
   },
 };
