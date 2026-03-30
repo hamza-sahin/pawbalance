@@ -11,3 +11,4 @@ build/
 **/__pycache__/
 !screenshots/ios
 **/.DS_Store
+.superpowers/
