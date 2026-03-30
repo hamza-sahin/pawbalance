@@ -13,6 +13,12 @@ const config: CapacitorConfig = {
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP",
     },
+    CapacitorUpdater: {
+      autoUpdate: true,
+      statsUrl: "https://supabase.optalgo.com/functions/v1/stats",
+      channelUrl: "https://supabase.optalgo.com/functions/v1/channel_self",
+      updateUrl: "https://supabase.optalgo.com/functions/v1/updates",
+    },
   },
 };
 

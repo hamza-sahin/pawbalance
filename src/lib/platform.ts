@@ -43,3 +43,16 @@ export async function pickImage(): Promise<string | null> {
     input.click();
   });
 }
+
+/**
+ * Initialize Capgo OTA updates.
+ * Only runs on native platforms (iOS/Android).
+ * Call this once on app startup.
+ */
+export async function initOtaUpdates() {
+  if (!isNative) return;
+
+  const { CapacitorUpdater } = await import("@capgo/capacitor-updater");
+
+  CapacitorUpdater.notifyAppReady();
+}

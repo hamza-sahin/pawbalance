@@ -16,6 +16,7 @@
     "@capacitor/camera": "^7.0.5",
     "@capacitor/core": "^7.2.0",
     "@capacitor/ios": "^7.6.1",
+    "@capgo/capacitor-updater": "^8.45.0",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.8",
     "lucide-react": "^1.7.0",
