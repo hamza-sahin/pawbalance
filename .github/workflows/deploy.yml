@@ -102,10 +102,15 @@ jobs:
         run: |
           npx cap add ios
           npx cap sync ios
-      - name: Add privacy usage descriptions
+      - name: Add privacy usage descriptions and URL scheme
         run: |
           /usr/libexec/PlistBuddy -c "Add :NSPhotoLibraryUsageDescription string 'PawBalance needs access to your photo library to set your pet profile photo.'" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string 'PawBalance needs access to your camera to take a photo of your pet.'" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes array" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0 dict" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLName string 'com.pawbalance.app'" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes array" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string 'com.pawbalance.app'" ios/App/App/Info.plist
       - name: Import signing credentials
         env:
           CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
