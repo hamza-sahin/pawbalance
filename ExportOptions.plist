@@ -3,14 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>method</key>
-	<string>app-store</string>
+	<string>app-store-connect</string>
 	<key>teamID</key>
 	<string>7N6TBDYHYS</string>
 	<key>signingStyle</key>
-	<string>automatic</string>
+	<string>manual</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.pawbalance.app</key>
+		<string>iOS Team Store Provisioning Profile: com.pawbalance.app</string>
+	</dict>
 	<key>uploadSymbols</key>
 	<true/>
-	<key>uploadBitcode</key>
-	<false/>
 </dict>
 </plist>
