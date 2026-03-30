@@ -9,8 +9,21 @@ import type { PetFormValues } from "@/lib/validators";
 import { MAX_PETS } from "@/lib/constants";
 
 export function usePets() {
-  const { pets, selectedPetId, isLoading, setPets, addPet, updatePet, removePet, setSelectedPetId, setLoading } =
-    usePetStore();
+  const {
+    pets,
+    selectedPetId,
+    isLoading,
+    setPets,
+    addPet,
+    updatePet,
+    removePet,
+    setSelectedPetId,
+    setLoading,
+    loadGuestPet,
+    saveGuestPet,
+    clearGuestPet,
+    getGuestPetData,
+  } = usePetStore();
 
   const selectedPet = pets.find((p) => p.id === selectedPetId) ?? null;
   const canAddMore = pets.length < MAX_PETS;
@@ -129,6 +142,21 @@ export function usePets() {
     [removePet],
   );
 
+  const syncGuestPet = useCallback(async () => {
+    const guestData = getGuestPetData();
+    if (!guestData) return;
+
+    const user = useAuthStore.getState().user;
+    if (!user) return;
+
+    try {
+      await createPet(guestData.values, guestData.photo);
+      clearGuestPet();
+    } catch {
+      // Keep guest pet in localStorage — will retry on next app launch
+    }
+  }, [createPet, getGuestPetData, clearGuestPet]);
+
   return {
     pets,
     selectedPet,
@@ -140,6 +168,9 @@ export function usePets() {
     editPet,
     deletePet,
     setSelectedPetId,
+    loadGuestPet,
+    saveGuestPet,
+    syncGuestPet,
   };
 }
 
