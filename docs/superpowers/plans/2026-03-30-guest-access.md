@@ -180,7 +180,7 @@ git commit -m "feat: add i18n keys for login sheet and guest profile"
 ```tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/hooks/use-auth";
@@ -188,7 +188,7 @@ import { isNative } from "@/lib/platform";
 import { Icons } from "@/components/ui/icon";
 
 interface LoginSheetProps {
-  /** Called when user dismisses the sheet via "Not now" */
+  /** Called when user dismisses the sheet via "Not now" or Escape */
   onDismiss: () => void;
 }
 
@@ -199,16 +199,57 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [appleLoading, setAppleLoading] = useState(false);
   const [visible, setVisible] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
 
-  // Animate in on mount
+  const handleDismiss = useCallback(() => {
+    setVisible(false);
+    // Match transition duration; skip delay if user prefers reduced motion
+    const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 200;
+    setTimeout(onDismiss, delay);
+  }, [onDismiss]);
+
+  // Animate in on mount + move focus into the sheet
   useEffect(() => {
-    requestAnimationFrame(() => setVisible(true));
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setVisible(true);
+    } else {
+      requestAnimationFrame(() => setVisible(true));
+    }
+    // Move focus to the sheet container for keyboard users
+    sheetRef.current?.focus();
   }, []);
 
-  function handleDismiss() {
-    setVisible(false);
-    setTimeout(onDismiss, 200);
-  }
+  // Escape key to dismiss
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") handleDismiss();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleDismiss]);
+
+  // Simple focus trap: keep Tab cycling inside the sheet
+  useEffect(() => {
+    function handleTab(e: KeyboardEvent) {
+      if (e.key !== "Tab" || !sheetRef.current) return;
+      const focusable = sheetRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
+  }, []);
 
   async function handleGoogle() {
     setGoogleLoading(true);
@@ -236,18 +277,22 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
     router.push("/login?redirect=" + encodeURIComponent(window.location.pathname));
   }
 
+  const btnFocus = "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
+
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center">
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 bg-black transition-opacity duration-200 ${visible ? "opacity-40" : "opacity-0"}`}
+        className={`absolute inset-0 bg-black transition-opacity duration-200 motion-reduce:transition-none ${visible ? "opacity-40" : "opacity-0"}`}
         onClick={handleDismiss}
         aria-hidden="true"
       />
 
       {/* Sheet */}
       <div
-        className={`relative w-full max-w-md rounded-t-[20px] bg-surface px-5 pb-8 pt-4 shadow-[0_-4px_24px_rgba(0,0,0,0.12)] transition-transform duration-200 ease-out ${visible ? "translate-y-0" : "translate-y-full"}`}
+        ref={sheetRef}
+        tabIndex={-1}
+        className={`relative w-full max-w-md rounded-t-[20px] bg-surface px-5 pb-8 pt-4 shadow-[0_-4px_24px_rgba(0,0,0,0.12)] transition-transform duration-200 ease-out motion-reduce:transition-none ${visible ? "translate-y-0" : "translate-y-full"}`}
         style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}
         role="dialog"
         aria-modal="true"
@@ -281,7 +326,7 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
           <button
             onClick={handleGoogle}
             disabled={googleLoading}
-            className="flex w-full items-center justify-center gap-2 rounded-button bg-txt px-5 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 ease-out active:scale-95 active:opacity-90 disabled:opacity-50"
+            className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-button bg-txt px-5 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 ease-out active:scale-95 active:opacity-90 disabled:opacity-50 ${btnFocus}`}
           >
             {googleLoading ? (
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -298,7 +343,7 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
 
           <button
             onClick={handleEmail}
-            className="flex w-full items-center justify-center gap-2 rounded-button border border-border bg-surface px-5 py-3.5 text-[15px] font-semibold text-txt transition-all duration-150 ease-out active:scale-95 active:opacity-90"
+            className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-button border border-border bg-surface px-5 py-3.5 text-[15px] font-semibold text-txt transition-all duration-150 ease-out active:scale-95 active:opacity-90 ${btnFocus}`}
           >
             <Icons.mail className="h-[18px] w-[18px]" aria-hidden="true" />
             {t("continueWithEmail")}
@@ -308,7 +353,7 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
             <button
               onClick={handleApple}
               disabled={appleLoading}
-              className="flex w-full items-center justify-center gap-2 rounded-button bg-black px-5 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 ease-out active:scale-95 active:opacity-90 disabled:opacity-50"
+              className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-button bg-black px-5 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 ease-out active:scale-95 active:opacity-90 disabled:opacity-50 ${btnFocus}`}
             >
               {appleLoading ? (
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -323,7 +368,7 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
 
           <button
             onClick={handleDismiss}
-            className="mt-1 w-full py-2.5 text-center text-sm text-txt-secondary transition-all duration-150 ease-out active:opacity-70"
+            className={`mt-1 w-full cursor-pointer py-2.5 text-center text-sm text-txt-secondary transition-all duration-150 ease-out active:opacity-70 ${btnFocus}`}
           >
             {t("notNow")}
           </button>
@@ -1113,8 +1158,9 @@ export default function ProfilePage() {
         )}
 
         {/* Sign in CTA card */}
-        <Card
-          className="mb-4 cursor-pointer p-4 transition-all duration-150 ease-out active:scale-95 active:opacity-80"
+        <button
+          type="button"
+          className="mb-4 w-full cursor-pointer rounded-card border border-border bg-surface p-4 text-left transition-all duration-150 ease-out active:scale-95 active:opacity-80 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           onClick={() => setShowLoginSheet(true)}
         >
           <div className="flex items-center gap-3">
@@ -1127,7 +1173,7 @@ export default function ProfilePage() {
             </div>
             <Icons.chevronRight className="h-4 w-4 text-txt-tertiary" aria-hidden="true" />
           </div>
-        </Card>
+        </button>
 
         {/* Language selector */}
         <Link href="/profile/language" className="block transition-all duration-150 ease-out active:scale-95 active:opacity-80">
