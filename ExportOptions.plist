@@ -7,12 +7,7 @@
 	<key>teamID</key>
 	<string>7N6TBDYHYS</string>
 	<key>signingStyle</key>
-	<string>manual</string>
-	<key>provisioningProfiles</key>
-	<dict>
-		<key>com.pawbalance.app</key>
-		<string>iOS Team Store Provisioning Profile: com.pawbalance.app</string>
-	</dict>
+	<string>automatic</string>
 	<key>uploadSymbols</key>
 	<true/>
 </dict>

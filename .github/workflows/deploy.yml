@@ -96,11 +96,12 @@ jobs:
         run: |
           npx cap add ios
           npx cap sync ios
-      - name: Import signing certificate
+      - name: Import signing credentials
         env:
           CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
           CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
           PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
+          APP_STORE_CONNECT_P8: ${{ secrets.APP_STORE_CONNECT_P8 }}
         run: |
           security create-keychain -p "" build.keychain
           security default-keychain -s build.keychain
@@ -111,19 +112,17 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" build.keychain
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           echo "$PROVISIONING_PROFILE" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
+          mkdir -p ~/.private_keys
+          echo "$APP_STORE_CONNECT_P8" | base64 --decode > ~/.private_keys/AuthKey_4NH42JUWM6.p8
       - name: Configure signing
         run: |
           cd ios/App
-          sed -i '' 's/CODE_SIGN_IDENTITY = "iPhone Developer";/CODE_SIGN_IDENTITY = "Apple Distribution";/g' App.xcodeproj/project.pbxproj
-          sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' App.xcodeproj/project.pbxproj
-          # Add team ID and provisioning profile after each CODE_SIGN_STYLE line
           python3 -c "
-          import re
           with open('App.xcodeproj/project.pbxproj', 'r') as f:
               content = f.read()
           content = content.replace(
-              'CODE_SIGN_STYLE = Manual;',
-              'CODE_SIGN_STYLE = Manual;\n\t\t\t\tDEVELOPMENT_TEAM = 7N6TBDYHYS;\n\t\t\t\tPROVISIONING_PROFILE_SPECIFIER = \"iOS Team Store Provisioning Profile: com.pawbalance.app\";'
+              'CODE_SIGN_STYLE = Automatic;',
+              'CODE_SIGN_STYLE = Automatic;\n\t\t\t\tDEVELOPMENT_TEAM = 7N6TBDYHYS;'
           )
           with open('App.xcodeproj/project.pbxproj', 'w') as f:
               f.write(content)
@@ -136,6 +135,11 @@ jobs:
             -configuration Release \
             -archivePath build/App.xcarchive \
             -destination 'generic/platform=iOS' \
+            DEVELOPMENT_TEAM=7N6TBDYHYS \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/.private_keys/AuthKey_4NH42JUWM6.p8 \
+            -authenticationKeyID 4NH42JUWM6 \
+            -authenticationKeyIssuerID 0b5bf398-ce6b-47b4-988a-386910acf728 \
             archive
       - name: Export IPA
         run: |
@@ -143,7 +147,11 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath build/App.xcarchive \
             -exportPath build/ \
-            -exportOptionsPlist ../../ExportOptions.plist
+            -exportOptionsPlist ../../ExportOptions.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/.private_keys/AuthKey_4NH42JUWM6.p8 \
+            -authenticationKeyID 4NH42JUWM6 \
+            -authenticationKeyIssuerID 0b5bf398-ce6b-47b4-988a-386910acf728
       - name: Upload to TestFlight
         env:
           APP_STORE_CONNECT_KEY_ID: "4NH42JUWM6"
