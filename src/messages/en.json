@@ -138,5 +138,16 @@
   "activityHighDesc": "Very active dog",
   "activityWorking": "Working",
   "activityWorkingDesc": "High activity or working dog",
-  "next": "Next"
+  "next": "Next",
+  "loginSheetTitle": "Unlock more features",
+  "loginSheetSubtitle": "Sign in to access everything PawBalance offers",
+  "loginSheetBenefitCloud": "Save your pet's profile to the cloud",
+  "loginSheetBenefitMeals": "Build balanced meals for your dog",
+  "loginSheetBenefitLearn": "Learn expert nutrition tips",
+  "continueWithGoogle": "Continue with Google",
+  "continueWithEmail": "Continue with Email",
+  "continueWithApple": "Continue with Apple",
+  "notNow": "Not now",
+  "guestSignInCard": "Sign in to unlock all features",
+  "guestSignInCardDesc": "Sync your pet's data across devices and access all PawBalance features."
 }

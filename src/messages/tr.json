@@ -138,5 +138,16 @@
   "activityHighDesc": "Çok aktif köpek",
   "activityWorking": "Çalışan",
   "activityWorkingDesc": "Yüksek aktivite veya çalışan köpek",
-  "next": "İleri"
+  "next": "İleri",
+  "loginSheetTitle": "Daha fazla özelliğin kilidini aç",
+  "loginSheetSubtitle": "PawBalance'ın sunduğu her şeye erişmek için giriş yap",
+  "loginSheetBenefitCloud": "Evcil hayvanınızın profilini buluta kaydedin",
+  "loginSheetBenefitMeals": "Köpeğiniz için dengeli öğünler oluşturun",
+  "loginSheetBenefitLearn": "Uzman beslenme ipuçlarını öğrenin",
+  "continueWithGoogle": "Google ile devam et",
+  "continueWithEmail": "E-posta ile devam et",
+  "continueWithApple": "Apple ile devam et",
+  "notNow": "Şimdi değil",
+  "guestSignInCard": "Tüm özelliklerin kilidini açmak için giriş yapın",
+  "guestSignInCardDesc": "Evcil hayvan verilerinizi cihazlar arasında senkronize edin ve tüm PawBalance özelliklerine erişin."
 }
