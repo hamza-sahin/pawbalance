@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+function AuthLayoutInner({ children }: { children: React.ReactNode }) {
   const { session, isLoading } = useAuthStore();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -32,5 +32,19 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         {children}
       </div>
     </div>
+  );
+}
+
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-canvas">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        </div>
+      }
+    >
+      <AuthLayoutInner>{children}</AuthLayoutInner>
+    </Suspense>
   );
 }
