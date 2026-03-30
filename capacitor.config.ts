@@ -7,6 +7,7 @@ const config: CapacitorConfig = {
   backgroundColor: "#FAF8F5",
   server: {
     androidScheme: "https",
+    hostname: "app.pawbalance.com",
   },
   plugins: {
     SplashScreen: {
