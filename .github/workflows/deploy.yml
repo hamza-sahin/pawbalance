@@ -96,6 +96,13 @@ jobs:
         run: |
           npx cap add ios
           npx cap sync ios
+      - name: Configure signing
+        run: |
+          cd ios/App
+          sed -i '' 's/DEVELOPMENT_TEAM = "";/DEVELOPMENT_TEAM = "7N6TBDYHYS";/g' App.xcodeproj/project.pbxproj
+          sed -i '' 's/CODE_SIGN_IDENTITY = "";/CODE_SIGN_IDENTITY = "Apple Distribution";/g' App.xcodeproj/project.pbxproj
+          sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' App.xcodeproj/project.pbxproj
+          sed -i '' 's/PROVISIONING_PROFILE_SPECIFIER = "";/PROVISIONING_PROFILE_SPECIFIER = "MyPetPal App Store";/g' App.xcodeproj/project.pbxproj
       - name: Import signing certificate
         env:
           CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
