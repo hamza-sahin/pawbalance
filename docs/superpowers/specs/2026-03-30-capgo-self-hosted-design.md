@@ -281,10 +281,196 @@ After the infrastructure is deployed, the PawBalance app needs the Capgo client 
 
 ---
 
+## CI/CD Automation
+
+### Goal
+
+Push to `master` and everything deploys automatically. No manual steps.
+
+### Two Deployment Paths
+
+```
+git push to master
+       │
+       ▼
+  GitHub Actions
+       │
+       ├── Always ──────────► npm run build → capgo bundle upload → OTA to devices
+       │
+       └── Native change? ──► cap sync ios → xcodebuild archive → TestFlight upload
+```
+
+Most commits are web-only (Next.js code, components, styles, translations). These deploy via Capgo OTA in seconds. Only native changes (new Capacitor plugin, iOS project changes, `capacitor.config.ts`) trigger a full App Store build.
+
+### Smart Path Detection
+
+Native build triggers when any of these paths change:
+- `ios/`
+- `capacitor.config.ts`
+- `package.json` or `package-lock.json` (new native plugin dependency)
+
+All other changes are web-only and deploy via OTA.
+
+### Workflow: `.github/workflows/deploy.yml`
+
+```yaml
+name: Build and Deploy
+
+on:
+  push:
+    branches: [master]
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Always: build web assets
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: out/
+
+  # Always: deploy OTA via Capgo
+  deploy-ota:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: out/
+      - name: Upload to Capgo
+        run: npx @capgo/cli upload --channel production
+        env:
+          CAPGO_APIKEY: ${{ secrets.CAPGO_APIKEY }}
+          CAPGO_URL: ${{ secrets.CAPGO_URL }}  # https://supabase.optalgo.com/functions/v1
+
+  # Conditional: native build + TestFlight
+  detect-native:
+    runs-on: ubuntu-latest
+    outputs:
+      native_changed: ${{ steps.check.outputs.native_changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - id: check
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -qE '^(ios/|capacitor\.config\.ts|package\.json|package-lock\.json)'; then
+            echo "native_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "native_changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy-testflight:
+    runs-on: macos-latest
+    needs: [build, detect-native]
+    if: needs.detect-native.outputs.native_changed == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: out/
+      - name: Sync Capacitor
+        run: npx cap sync ios
+      - name: Import signing certificate
+        env:
+          CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
+        run: |
+          security create-keychain -p "" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+          security set-keychain-settings -t 3600 -u build.keychain
+          echo "$CERTIFICATE_P12" | base64 --decode > certificate.p12
+          security import certificate.p12 -k build.keychain -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" build.keychain
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "$PROVISIONING_PROFILE" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
+      - name: Archive
+        run: |
+          cd ios/App
+          xcodebuild -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -archivePath build/App.xcarchive \
+            -destination 'generic/platform=iOS' \
+            archive
+      - name: Export IPA
+        run: |
+          cd ios/App
+          xcodebuild -exportArchive \
+            -archivePath build/App.xcarchive \
+            -exportPath build/ \
+            -exportOptionsPlist ExportOptions.plist
+      - name: Upload to TestFlight
+        env:
+          APP_STORE_CONNECT_KEY_ID: "4NH42JUWM6"
+          APP_STORE_CONNECT_ISSUER_ID: "0b5bf398-ce6b-47b4-988a-386910acf728"
+          APP_STORE_CONNECT_P8: ${{ secrets.APP_STORE_CONNECT_P8 }}
+        run: |
+          mkdir -p ~/.private_keys
+          echo "$APP_STORE_CONNECT_P8" | base64 --decode > ~/.private_keys/AuthKey_4NH42JUWM6.p8
+          xcrun notarytool store-credentials "AC_PASSWORD" \
+            --key ~/.private_keys/AuthKey_4NH42JUWM6.p8 \
+            --key-id "$APP_STORE_CONNECT_KEY_ID" \
+            --issuer "$APP_STORE_CONNECT_ISSUER_ID"
+          xcrun altool --upload-app \
+            --type ios \
+            --file ios/App/build/*.ipa \
+            --apiKey "$APP_STORE_CONNECT_KEY_ID" \
+            --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID"
+```
+
+### GitHub Secrets Required
+
+| Secret | Description | How to get |
+|--------|-------------|------------|
+| `CAPGO_APIKEY` | Capgo API key for bundle uploads | Generated in Capgo console |
+| `CAPGO_URL` | Self-hosted Supabase functions URL | `https://supabase.optalgo.com/functions/v1` |
+| `CERTIFICATE_P12` | iOS distribution certificate (base64) | Export from Keychain, `base64 -i cert.p12` |
+| `CERTIFICATE_PASSWORD` | Certificate password | Set during export |
+| `PROVISIONING_PROFILE` | iOS provisioning profile (base64) | Download from Apple Developer, `base64 -i profile.mobileprovision` |
+| `APP_STORE_CONNECT_P8` | App Store Connect API key (base64) | `base64 -i AuthKey_4NH42JUWM6.p8` |
+
+### What Happens on Push
+
+| Change type | OTA deploy | TestFlight build | User sees update |
+|-------------|-----------|-----------------|-----------------|
+| Edit a component | Yes | No | Next app launch |
+| Change translations | Yes | No | Next app launch |
+| Update styles | Yes | No | Next app launch |
+| Add Capacitor plugin | Yes | Yes | After TestFlight install |
+| Modify `ios/` project | Yes | Yes | After TestFlight install |
+
+---
+
 ## Out of Scope
 
 - Migrating PawBalance from Supabase Cloud to self-hosted (future consideration)
 - Android support (deferred per CLAUDE.md)
-- CI/CD pipeline for automatic bundle uploads (can be added later)
 - High-availability / multi-node PostgreSQL (single node is sufficient for one app)
 - Stripe/billing integration in Capgo (not needed for self-hosted single-developer use)
