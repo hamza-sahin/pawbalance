@@ -12,3 +12,4 @@ build/
 !screenshots/ios
 **/.DS_Store
 .superpowers/
+.worktrees/
