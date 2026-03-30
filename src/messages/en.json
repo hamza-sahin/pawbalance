@@ -149,5 +149,10 @@
   "continueWithApple": "Continue with Apple",
   "notNow": "Not now",
   "guestSignInCard": "Sign in to unlock all features",
-  "guestSignInCardDesc": "Sync your pet's data across devices and access all PawBalance features."
+  "guestSignInCardDesc": "Sync your pet's data across devices and access all PawBalance features.",
+  "welcomeTitle": "Welcome to PawBalance",
+  "welcomeSubtitle": "Everything you need to keep your dog safe and well-fed, all in one place.",
+  "welcomeBenefit1": "Search which foods are safe for your dog",
+  "welcomeBenefit2": "Get personalized nutrition recommendations",
+  "welcomeBenefit3": "Know what's safe, what needs caution, and what to avoid"
 }

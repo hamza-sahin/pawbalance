@@ -43,7 +43,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
     if (!onboardingDone && !hasGuestPet) {
       if (!session || (session && pets.length === 0)) {
-        router.replace("/onboarding");
+        router.replace("/welcome");
       }
     }
   }, [authLoading, petsLoading, session, pets.length, router]);

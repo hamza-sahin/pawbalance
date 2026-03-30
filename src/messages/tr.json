@@ -149,5 +149,10 @@
   "continueWithApple": "Apple ile devam et",
   "notNow": "Şimdi değil",
   "guestSignInCard": "Tüm özelliklerin kilidini açmak için giriş yapın",
-  "guestSignInCardDesc": "Evcil hayvan verilerinizi cihazlar arasında senkronize edin ve tüm PawBalance özelliklerine erişin."
+  "guestSignInCardDesc": "Evcil hayvan verilerinizi cihazlar arasında senkronize edin ve tüm PawBalance özelliklerine erişin.",
+  "welcomeTitle": "PawBalance'a Hoş Geldiniz",
+  "welcomeSubtitle": "Köpeğinizi güvende ve sağlıklı tutmak için ihtiyacınız olan her şey tek bir yerde.",
+  "welcomeBenefit1": "Köpeğiniz için hangi yiyeceklerin güvenli olduğunu arayın",
+  "welcomeBenefit2": "Kişiselleştirilmiş beslenme önerileri alın",
+  "welcomeBenefit3": "Neyin güvenli, neyin riskli ve neden kaçınılması gerektiğini bilin"
 }
