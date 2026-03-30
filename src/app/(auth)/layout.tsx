@@ -1,16 +1,20 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   const { session, isLoading } = useAuthStore();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!isLoading && session) router.replace("/search");
-  }, [session, isLoading, router]);
+    if (!isLoading && session) {
+      const redirect = searchParams.get("redirect") || "/search";
+      router.replace(redirect);
+    }
+  }, [session, isLoading, router, searchParams]);
 
   if (isLoading) {
     return (
