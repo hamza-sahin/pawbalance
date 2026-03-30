@@ -39,26 +39,26 @@ jobs:
           path: out/
       - name: Upload bundle to MinIO
         run: |
+          BUNDLE_VERSION="1.0.0-${GITHUB_SHA::7}"
           cd out && zip -r ../bundle.zip . && cd ..
           pip install minio -q
           python3 -c "
           from minio import Minio
-          import os, hashlib
           client = Minio('minio.optalgo.com', access_key='${{ secrets.MINIO_ACCESS_KEY }}', secret_key='${{ secrets.MINIO_SECRET_KEY }}', secure=True)
-          version = '1.0.0'
-          app_id = 'com.pawbalance.app'
-          obj_name = f'apps/{app_id}/versions/bundle.zip'
+          obj_name = 'apps/com.pawbalance.app/versions/${BUNDLE_VERSION}.zip'
           client.fput_object('capgo', obj_name, 'bundle.zip')
           print(f'Uploaded to capgo/{obj_name}')
           "
       - name: Register bundle in Capgo
         run: |
+          BUNDLE_VERSION="1.0.0-${GITHUB_SHA::7}"
           npx @capgo/cli bundle upload \
             --channel production \
             --apikey ${{ secrets.CAPGO_APIKEY }} \
             --supa-host ${{ secrets.CAPGO_URL }} \
             --supa-anon ${{ secrets.CAPGO_SUPA_ANON }} \
-            --external https://minio.optalgo.com/capgo/apps/com.pawbalance.app/versions/bundle.zip \
+            --bundle $BUNDLE_VERSION \
+            --external https://minio.optalgo.com/capgo/apps/com.pawbalance.app/versions/${BUNDLE_VERSION}.zip \
             --no-key
 
   detect-native:
@@ -92,8 +92,10 @@ jobs:
         with:
           name: web-build
           path: out/
-      - name: Sync Capacitor
-        run: npx cap sync ios
+      - name: Add and Sync iOS
+        run: |
+          npx cap add ios
+          npx cap sync ios
       - name: Import signing certificate
         env:
           CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
