@@ -18,11 +18,11 @@ export default function WelcomePage() {
     <div className="safe-top flex min-h-dvh flex-col items-center justify-between bg-canvas px-6 py-12">
       {/* Top section: branding + value props */}
       <div className="flex flex-1 flex-col items-center justify-center">
-        {/* App logo */}
+        {/* App icon */}
         <img
-          src="/logo.png"
+          src="/icons/icon-512x512.png"
           alt="PawBalance"
-          className="h-16 w-auto"
+          className="h-20 w-20 rounded-[22px] shadow-md"
         />
 
         <h1 className="mt-6 text-center text-3xl font-bold text-txt">

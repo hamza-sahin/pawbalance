@@ -34,11 +34,12 @@ export default function LoginPage() {
     <>
       <div className="mb-6 flex flex-col items-center gap-2">
         <img
-          src="/logo.png"
+          src="/icons/icon-512x512.png"
           alt="PawBalance"
-          className="h-12 w-auto"
+          className="h-16 w-16 rounded-2xl"
         />
         <h1 className="text-2xl font-bold text-txt">{t("signIn")}</h1>
+        <p className="text-sm text-txt-secondary">{t("appName")}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
