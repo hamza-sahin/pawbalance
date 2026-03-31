@@ -100,6 +100,40 @@ export const FoodRequestSchema = z.object({
 export type FoodRequest = z.infer<typeof FoodRequestSchema>;
 
 // ============================================================
+// Blog
+// ============================================================
+
+export const BLOG_TAGS = [
+  "nutrition",
+  "dog",
+  "cat",
+  "health",
+  "safety",
+  "behavior",
+  "diet",
+] as const;
+export type BlogTag = (typeof BLOG_TAGS)[number];
+
+export const BlogPostSchema = z.object({
+  id: z.string(),
+  title_tr: z.string(),
+  title_en: z.string(),
+  excerpt_tr: z.string(),
+  excerpt_en: z.string(),
+  body_tr: z.string().optional(),
+  body_en: z.string().optional(),
+  featured_image_url: z.string().nullable(),
+  tags: z.array(z.string()),
+  published_at: z.string(),
+  reading_time_min: z.number(),
+  slug: z.string(),
+  is_featured: z.boolean(),
+  source_url: z.string().nullable(),
+  created_at: z.string(),
+});
+export type BlogPost = z.infer<typeof BlogPostSchema>;
+
+// ============================================================
 // Helpers
 // ============================================================
 
