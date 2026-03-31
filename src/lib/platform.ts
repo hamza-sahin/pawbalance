@@ -49,10 +49,35 @@ export async function pickImage(): Promise<string | null> {
  * Only runs on native platforms (iOS/Android).
  * Call this once on app startup.
  */
+/**
+ * Callback invoked when a Capgo OTA update has been downloaded
+ * and is ready to apply. The app calls this to decide whether
+ * to prompt the user or silently apply on next restart.
+ */
+let onUpdateReady: (() => void) | null = null;
+
+export function setOnUpdateReady(cb: () => void) {
+  onUpdateReady = cb;
+}
+
 export async function initOtaUpdates() {
   if (!isNative) return;
 
   const { CapacitorUpdater } = await import("@capgo/capacitor-updater");
 
   CapacitorUpdater.notifyAppReady();
+
+  // When a new bundle is downloaded, notify the app so it can prompt the user
+  CapacitorUpdater.addListener("updateAvailable", async (update) => {
+    // Set the bundle to be used on next launch
+    await CapacitorUpdater.set({ id: update.bundle.id });
+    // Notify the UI to show a restart prompt
+    onUpdateReady?.();
+  });
+}
+
+export async function reloadApp() {
+  if (!isNative) return;
+  const { CapacitorUpdater } = await import("@capgo/capacitor-updater");
+  await CapacitorUpdater.reload();
 }

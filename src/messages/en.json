@@ -155,5 +155,7 @@
   "welcomeSubtitle": "Everything you need to keep your dog safe and well-fed, all in one place.",
   "welcomeBenefit1": "Search which foods are safe for your dog",
   "welcomeBenefit2": "Get personalized nutrition recommendations",
-  "welcomeBenefit3": "Know what's safe, what needs caution, and what to avoid"
+  "welcomeBenefit3": "Know what's safe, what needs caution, and what to avoid",
+  "updateReady": "A new version is available",
+  "updateNow": "Update"
 }
