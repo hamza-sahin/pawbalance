@@ -3,9 +3,11 @@ import {
   Cake,
   Camera,
   Check,
+  ChevronLeft,
   ChevronRight,
   CircleAlert,
   CircleX,
+  Clock,
   CookingPot,
   Crown,
   Dumbbell,
@@ -38,9 +40,11 @@ import {
 export const Icons = {
   // Navigation
   arrowLeft: ArrowLeft,
+  chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
   search: Search,
   close: X,
+  clock: Clock,
 
   // Safety
   safe: ShieldCheck,
