@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { getSupabase } from "@/lib/supabase";
 import { useAuthStore } from "@/store/auth-store";
 import { isNative } from "@/lib/platform";
+import { syncGuestTermsAcceptance } from "@/lib/terms";
 
 export function useAuthListener() {
   const { setAuth, setLoading } = useAuthStore();
@@ -22,6 +23,9 @@ export function useAuthListener() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setAuth(session?.user ?? null, session);
+      if (session) {
+        syncGuestTermsAcceptance();
+      }
     });
 
     return () => subscription.unsubscribe();
