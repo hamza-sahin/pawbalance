@@ -49,9 +49,9 @@ export default function ForgotPasswordPage() {
     <>
       <div className="mb-6 flex flex-col items-center gap-2">
         <img
-          src="/icons/icon-512x512.png"
+          src="/logo.png"
           alt="PawBalance"
-          className="h-16 w-16 rounded-2xl"
+          className="h-12 w-auto"
         />
         <h1 className="text-2xl font-bold text-txt">{t("resetPassword")}</h1>
         <p className="text-sm text-txt-secondary">{t("resetPasswordDesc")}</p>

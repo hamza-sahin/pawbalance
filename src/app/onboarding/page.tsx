@@ -41,9 +41,9 @@ export default function OnboardingPage() {
     <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas p-4">
       <div className="mb-6 flex flex-col items-center">
         <img
-          src="/icons/icon-512x512.png"
+          src="/logo.png"
           alt="PawBalance"
-          className="mb-4 h-16 w-16 rounded-2xl"
+          className="mb-4 h-12 w-auto"
         />
         <div className="flex w-full items-start justify-between">
         <div className="flex-1 text-center">
