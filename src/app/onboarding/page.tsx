@@ -39,7 +39,13 @@ export default function OnboardingPage() {
 
   return (
     <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas p-4">
-      <div className="mb-6 flex items-start justify-between">
+      <div className="mb-6 flex flex-col items-center">
+        <img
+          src="/icons/icon-512x512.png"
+          alt="PawBalance"
+          className="mb-4 h-16 w-16 rounded-2xl"
+        />
+        <div className="flex w-full items-start justify-between">
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-txt">{t("onboardingWelcome")}</h1>
           <p className="mt-2 text-sm text-txt-secondary">
@@ -52,6 +58,7 @@ export default function OnboardingPage() {
         >
           {t("skip")}
         </button>
+      </div>
       </div>
 
       <PetForm onSubmit={handleSubmit} isLoading={isLoading} />

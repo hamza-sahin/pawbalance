@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { useAuth } from "@/hooks/use-auth";
-import { Icons } from "@/components/ui/icon";
 import { PasswordInput } from "@/components/ui/password-input";
 
 export default function LoginPage() {
@@ -34,7 +33,11 @@ export default function LoginPage() {
   return (
     <>
       <div className="mb-6 flex flex-col items-center gap-2">
-        <Icons.paw className="h-10 w-10 text-primary" aria-hidden="true" />
+        <img
+          src="/icons/icon-512x512.png"
+          alt="PawBalance"
+          className="h-16 w-16 rounded-2xl"
+        />
         <h1 className="text-2xl font-bold text-txt">{t("signIn")}</h1>
         <p className="text-sm text-txt-secondary">{t("appName")}</p>
       </div>

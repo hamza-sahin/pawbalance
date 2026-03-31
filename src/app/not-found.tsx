@@ -3,6 +3,11 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4">
+      <img
+        src="/icons/icon-512x512.png"
+        alt="PawBalance"
+        className="h-16 w-16 rounded-2xl"
+      />
       <h1 className="text-2xl font-bold">Page not found</h1>
       <Link href="/search" className="text-primary hover:underline">
         Go home

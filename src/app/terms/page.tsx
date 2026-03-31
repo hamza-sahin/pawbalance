@@ -34,9 +34,11 @@ export default function TermsPage() {
       {/* Top: branding + info */}
       <div className="flex flex-1 flex-col items-center justify-center">
         {/* App icon */}
-        <div className="flex h-20 w-20 items-center justify-center rounded-[22px] bg-primary shadow-md">
-          <Icons.paw className="h-10 w-10 text-white" aria-hidden="true" />
-        </div>
+        <img
+          src="/icons/icon-512x512.png"
+          alt="PawBalance"
+          className="h-20 w-20 rounded-[22px] shadow-md"
+        />
 
         <h1 className="mt-6 text-center text-2xl font-bold text-txt">
           {isReConsent ? t("termsUpdatedTitle") : t("termsTitle")}
