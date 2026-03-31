@@ -54,6 +54,19 @@
   --font-body: 'Raleway', system-ui, sans-serif;
 }
 
+/* Disable text selection for native app feel */
+* {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Allow selection in form inputs */
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
 /* Typography */
 body {
   font-family: var(--font-body);
