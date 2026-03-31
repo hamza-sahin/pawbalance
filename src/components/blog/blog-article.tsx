@@ -3,7 +3,7 @@
 import { useLocale } from "next-intl";
 import type { BlogPost } from "@/lib/types";
 import { localise } from "@/lib/types";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 
 export function BlogArticle({ post }: { post: BlogPost }) {
   const locale = useLocale();

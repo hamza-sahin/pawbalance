@@ -63,7 +63,7 @@ export default function ArticlePage() {
       <div className="flex items-center gap-2 p-4">
         <button
           onClick={() => router.back()}
-          className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-border bg-surface transition-colors duration-150 hover:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface transition-colors duration-150 hover:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary"
           aria-label={t("backToArticles")}
         >
           <Icons.chevronLeft className="h-[18px] w-[18px] text-txt" aria-hidden="true" />
