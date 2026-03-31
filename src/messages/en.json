@@ -216,5 +216,18 @@
   "ppChildrenTitle": "8. Children's Privacy",
   "ppChildrenBody": "PawBalance is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us so we can delete it.",
   "ppChangesTitle": "9. Changes to This Policy",
-  "ppChangesBody": "We may update this Privacy Policy from time to time. When we do, you will be asked to review and accept the updated policy before continuing to use PawBalance."
+  "ppChangesBody": "We may update this Privacy Policy from time to time. When we do, you will be asked to review and accept the updated policy before continuing to use PawBalance.",
+  "learnTitle": "Learn",
+  "featured": "Featured",
+  "backToArticles": "Back to articles",
+  "minRead": "{count} min read",
+  "noArticles": "No articles found",
+  "tagAll": "All",
+  "tagNutrition": "Nutrition",
+  "tagDog": "Dog",
+  "tagCat": "Cat",
+  "tagHealth": "Health",
+  "tagSafety": "Safety",
+  "tagBehavior": "Behavior",
+  "tagDiet": "Diet"
 }

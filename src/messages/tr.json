@@ -216,5 +216,18 @@
   "ppChildrenTitle": "8. Çocukların Gizliliği",
   "ppChildrenBody": "PawBalance 13 yaşın altındaki çocuklara yönelik değildir. 13 yaşın altındaki çocuklardan bilerek kişisel bilgi toplamıyoruz. Bir çocuğun bize kişisel bilgi sağladığına inanıyorsanız, silmemiz için lütfen bizimle iletişime geçin.",
   "ppChangesTitle": "9. Bu Politikadaki Değişiklikler",
-  "ppChangesBody": "Bu Gizlilik Politikası'nı zaman zaman güncelleyebiliriz. Güncelleme yaptığımızda, PawBalance'ı kullanmaya devam etmeden önce güncellenmiş politikayı incelemeniz ve kabul etmeniz istenecektir."
+  "ppChangesBody": "Bu Gizlilik Politikası'nı zaman zaman güncelleyebiliriz. Güncelleme yaptığımızda, PawBalance'ı kullanmaya devam etmeden önce güncellenmiş politikayı incelemeniz ve kabul etmeniz istenecektir.",
+  "learnTitle": "Öğren",
+  "featured": "Öne Çıkan",
+  "backToArticles": "Makalelere dön",
+  "minRead": "{count} dk okuma",
+  "noArticles": "Makale bulunamadı",
+  "tagAll": "Tümü",
+  "tagNutrition": "Beslenme",
+  "tagDog": "Köpek",
+  "tagCat": "Kedi",
+  "tagHealth": "Sağlık",
+  "tagSafety": "Güvenlik",
+  "tagBehavior": "Davranış",
+  "tagDiet": "Diyet"
 }
