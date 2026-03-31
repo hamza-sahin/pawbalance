@@ -1,54 +1,122 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useState, useEffect, useMemo } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { useBlogPosts } from "@/hooks/use-blog";
+import { BlogTagChips } from "@/components/blog/blog-tag-chips";
+import { BlogFeaturedCard } from "@/components/blog/blog-featured-card";
+import { BlogPostRow } from "@/components/blog/blog-post-row";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Icons } from "@/components/ui/icon";
-
-const chipKeys = ["all", "nutrition", "safety", "recipes", "health"] as const;
+import { localise } from "@/lib/types";
+import type { BlogTag } from "@/lib/types";
 
 export default function LearnPage() {
   const t = useTranslations();
-  const [activeChip, setActiveChip] = useState("all");
+  const locale = useLocale();
+  const { posts, isLoading, fetchPosts } = useBlogPosts();
+  const [activeTags, setActiveTags] = useState<BlogTag[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  const handleTagToggle = (tag: BlogTag | "all") => {
+    if (tag === "all") {
+      setActiveTags([]);
+    } else {
+      setActiveTags((prev) =>
+        prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+      );
+    }
+  };
+
+  const filtered = useMemo(() => {
+    let result = posts;
+
+    if (activeTags.length > 0) {
+      result = result.filter((p) =>
+        activeTags.some((tag) => p.tags.includes(tag))
+      );
+    }
+
+    if (searchQuery.length >= 2) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter((p) => {
+        const title = localise(p, "title", locale).toLowerCase();
+        const excerpt = localise(p, "excerpt", locale).toLowerCase();
+        return title.includes(q) || excerpt.includes(q);
+      });
+    }
+
+    return result;
+  }, [posts, activeTags, searchQuery, locale]);
+
+  const featuredPost = filtered.find((p) => p.is_featured);
+  const regularPosts = filtered.filter((p) => !p.is_featured);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-4 p-4 pb-20">
+        <Skeleton className="h-8 w-24" />
+        <Skeleton className="h-11 w-full rounded-input" />
+        <div className="flex gap-2">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="h-8 w-20 rounded-full" />
+          ))}
+        </div>
+        <Skeleton className="h-[280px] w-full rounded-card" />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <Skeleton key={i} className="h-[104px] w-full rounded-[14px]" />
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div className="flex min-h-[calc(100vh-5rem)] flex-col p-4">
-      <h1 className="mb-4 text-lg font-bold text-txt">{t("learn")}</h1>
+    <div className="flex flex-col gap-4 p-4 pb-20">
+      {/* Header */}
+      <h1 className="font-heading text-[26px] font-bold text-txt">
+        {t("learnTitle")}
+      </h1>
 
-      <div className="relative mb-4">
-        <Icons.search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-txt-tertiary" aria-hidden="true" />
+      {/* Search */}
+      <div className="relative">
+        <Icons.search
+          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-txt-tertiary"
+          aria-hidden="true"
+        />
         <input
           type="text"
           placeholder={t("searchArticles")}
-          className="w-full rounded-input border border-border bg-surface py-3 pl-10 pr-4 text-txt opacity-50 outline-none placeholder:text-txt-tertiary"
-          disabled
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full rounded-input border border-border bg-surface py-3 pl-10 pr-4 text-txt outline-none placeholder:text-txt-tertiary focus:border-primary focus:ring-1 focus:ring-primary"
           aria-label={t("searchArticles")}
         />
       </div>
 
-      <h2 className="mb-2 font-semibold text-txt">{t("categories")}</h2>
-      <div className="mb-8 flex gap-2 overflow-x-auto">
-        {chipKeys.map((key) => (
-          <button
-            key={key}
-            onClick={() => setActiveChip(key)}
-            aria-pressed={activeChip === key}
-            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-150 ease-out focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-              activeChip === key
-                ? "border-primary bg-primary/10 text-primary"
-                : "border-border text-txt-secondary hover:bg-surface-variant"
-            } active:scale-95 active:opacity-80`}
-          >
-            {activeChip === key && <Icons.check className="mr-1 inline h-3 w-3" aria-hidden="true" />}
-            {t(key)}
-          </button>
-        ))}
-      </div>
+      {/* Tag filters */}
+      <BlogTagChips activeTags={activeTags} onToggle={handleTagToggle} />
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
-        <Icons.learn className="h-12 w-12 text-txt-tertiary" aria-hidden="true" />
-        <p className="font-medium text-txt-secondary">{t("knowledgeBase")}</p>
-        <p className="text-sm text-txt-tertiary">{t("articlesComingSoon")}</p>
-      </div>
+      {/* Content */}
+      {filtered.length === 0 ? (
+        <div className="flex flex-1 flex-col items-center justify-center gap-2 py-16 text-center">
+          <Icons.search className="h-12 w-12 text-txt-tertiary" aria-hidden="true" />
+          <p className="font-medium text-txt-secondary">{t("noArticles")}</p>
+        </div>
+      ) : (
+        <>
+          {featuredPost && <BlogFeaturedCard post={featuredPost} />}
+
+          <div className="flex flex-col gap-2.5">
+            {regularPosts.map((post) => (
+              <BlogPostRow key={post.id} post={post} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
