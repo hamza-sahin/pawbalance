@@ -25,6 +25,7 @@ import {
   Scale,
   Search,
   Settings,
+  Shield,
   ShieldCheck,
   Skull,
   Trash2,
@@ -72,6 +73,10 @@ export const Icons = {
   info: Info,
   settings: Settings,
   user: User,
+
+  // Documents
+  fileText: FileText,
+  shield: Shield,
 
   // Tabs
   scanner: FileText,
