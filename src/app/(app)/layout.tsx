@@ -41,9 +41,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     }
   }, [authLoading, session, router]);
 
-  // Redirect to onboarding if needed
+  // Redirect to onboarding if needed (skip if terms gate takes priority)
   useEffect(() => {
     if (authLoading || petsLoading) return;
+    if (shouldRequireTerms(!!session, session?.user?.user_metadata)) return;
 
     const onboardingDone =
       typeof window !== "undefined" && localStorage.getItem(ONBOARDING_KEY) === "true";
