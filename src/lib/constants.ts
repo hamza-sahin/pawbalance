@@ -269,3 +269,9 @@ export const MAX_PETS = 5;
 export const MAX_PET_PHOTO_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 export const MIN_SEARCH_LENGTH = 2;
 export const SEARCH_DEBOUNCE_MS = 300;
+
+// ============================================================
+// Terms & Privacy
+// ============================================================
+
+export const CURRENT_TERMS_VERSION = 1;
