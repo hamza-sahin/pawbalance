@@ -9,6 +9,7 @@ import { BottomNav } from "@/components/navigation/bottom-nav";
 import { LoginSheet } from "@/components/auth/LoginSheet";
 import { Icons } from "@/components/ui/icon";
 import { resolveUserTier, getRequiredTier, getAccessGateReason } from "@/lib/access";
+import { shouldRequireTerms } from "@/lib/terms";
 
 const ONBOARDING_KEY = "onboarding_completed";
 const GUEST_PET_KEY = "guest_pet";
@@ -31,6 +32,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       loadGuestPet();
     }
   }, [authLoading, session, fetchPets, loadGuestPet, syncGuestPet]);
+
+  // Redirect to terms acceptance if needed
+  useEffect(() => {
+    if (authLoading) return;
+    if (shouldRequireTerms(!!session, session?.user?.user_metadata)) {
+      router.replace("/terms");
+    }
+  }, [authLoading, session, router]);
 
   // Redirect to onboarding if needed
   useEffect(() => {
