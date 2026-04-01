@@ -18,7 +18,7 @@ const ROUTE_ACCESS: Record<string, AccessTier> = {
   "/search": "guest",
   "/profile": "guest",
   "/bowl": "basic",
-  "/learn": "basic",
+  "/learn": "guest",
   "/scan": "premium",
 };
 
