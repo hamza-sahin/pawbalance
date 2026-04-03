@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:static": "next build",
+    "build:server": "BUILD_MODE=server next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -17,6 +19,9 @@
     "@capacitor/core": "^8.3.0",
     "@capacitor/ios": "^8.3.0",
     "@capgo/capacitor-updater": "^8.45.0",
+    "@mariozechner/pi-agent-core": "^0.65.0",
+    "@mariozechner/pi-ai": "^0.65.0",
+    "@sinclair/typebox": "^0.34.49",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.8",
     "isomorphic-dompurify": "^3.7.1",
