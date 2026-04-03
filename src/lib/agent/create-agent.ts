@@ -1,5 +1,7 @@
 import { Agent } from "@mariozechner/pi-agent-core";
-import { getModel, streamSimple } from "@mariozechner/pi-ai";
+import { streamSimple } from "@mariozechner/pi-ai";
+import { AuthStorage, ModelRegistry } from "@mariozechner/pi-coding-agent";
+import { join } from "path";
 import { createLookupFoodTool } from "./tools/lookup-food";
 import { createGetPetProfileTool } from "./tools/get-pet-profile";
 import { buildSystemPrompt } from "./system-prompt";
@@ -8,16 +10,32 @@ interface CreateRecipeAgentOptions {
   locale: string;
   supabaseUrl: string;
   supabaseKey: string;
-  anthropicApiKey: string;
+}
+
+// Singleton auth — initialized once, reused across requests
+let authStorage: AuthStorage | null = null;
+let modelRegistry: ModelRegistry | null = null;
+
+function getAuth() {
+  if (!authStorage) {
+    // Read OAuth credentials from auth.json at project root
+    authStorage = AuthStorage.create(join(process.cwd(), "auth.json"));
+    modelRegistry = ModelRegistry.create(authStorage);
+  }
+  return { authStorage, modelRegistry: modelRegistry! };
 }
 
 export function createRecipeAgent({
   locale,
   supabaseUrl,
   supabaseKey,
-  anthropicApiKey,
 }: CreateRecipeAgentOptions): Agent {
-  const model = getModel("anthropic", "claude-sonnet-4-20250514");
+  const { authStorage: auth, modelRegistry: registry } = getAuth();
+
+  const model = registry.find("anthropic", "claude-sonnet-4-20250514");
+  if (!model) {
+    throw new Error("Claude model not available — check auth.json OAuth credentials");
+  }
 
   const lookupFood = createLookupFoodTool(supabaseUrl, supabaseKey);
   const getPetProfile = createGetPetProfileTool(supabaseUrl, supabaseKey);
@@ -30,15 +48,12 @@ export function createRecipeAgent({
     },
     streamFn: streamSimple,
     getApiKey: async (provider) => {
-      if (provider === "anthropic") return anthropicApiKey;
-      return undefined;
+      return auth.getApiKey(provider);
     },
     toolExecution: "parallel",
     afterToolCall: async (context) => {
-      // Log for analytics (can be extended later)
       console.log(
-        `[agent] Tool ${context.toolCall.name} called with args:`,
-        context.args,
+        `[agent] Tool ${context.toolCall.name} called`,
         `isError: ${context.isError}`,
       );
       return undefined;

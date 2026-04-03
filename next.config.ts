@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  serverExternalPackages: [
+    "@mariozechner/pi-coding-agent",
+    "@mariozechner/pi-agent-core",
+    "@mariozechner/pi-ai",
+  ],
 };
 
 export default withNextIntl(nextConfig);

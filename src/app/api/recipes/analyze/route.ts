@@ -18,7 +18,6 @@ export async function POST(request: Request) {
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-  const anthropicApiKey = process.env.ANTHROPIC_API_KEY!;
 
   const supabase = createClient(supabaseUrl, supabaseKey, {
     global: { headers: { Authorization: `Bearer ${token}` } },
@@ -74,7 +73,6 @@ Look up each ingredient in the safety database and provide your analysis.`;
     locale: locale || "en",
     supabaseUrl,
     supabaseKey,
-    anthropicApiKey,
   });
 
   // 7. SSE streaming
