@@ -513,6 +513,7 @@ Recipes require `"free"` tier (must be logged in) — not guest, not premium. Cr
 Add to `src/messages/en.json`:
 
 ```json
+"back": "Go back",
 "recipes": "Recipes",
 "myRecipes": "My Recipes",
 "newRecipe": "New Recipe",
@@ -569,6 +570,7 @@ Add to `src/messages/en.json`:
 Add the same keys with Turkish translations to `src/messages/tr.json`:
 
 ```json
+"back": "Geri dön",
 "recipes": "Tarifler",
 "myRecipes": "Tariflerim",
 "newRecipe": "Yeni Tarif",
@@ -982,7 +984,7 @@ export function PreparationChips({ value, onChange }: PreparationChipsProps) {
           <button
             key={method}
             type="button"
-            className={`min-h-[36px] cursor-pointer touch-manipulation rounded-[10px] border px-3 text-[13px] font-medium transition-colors duration-150 ${
+            className={`min-h-[36px] cursor-pointer touch-manipulation rounded-[10px] border px-3 text-[13px] font-medium transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               value === method
                 ? "border-primary bg-primary text-white"
                 : "border-border bg-surface text-txt-secondary"
@@ -1092,7 +1094,7 @@ export function IngredientList({
               </div>
               <button
                 type="button"
-                className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center rounded-[10px] transition-colors hover:bg-canvas"
+                className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center rounded-[10px] transition-colors hover:bg-canvas focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 onClick={() => handleRemove(i)}
                 aria-label={`Remove ${ing.name}`}
               >
@@ -1162,7 +1164,7 @@ export function IngredientList({
       ) : (
         <button
           type="button"
-          className="flex w-full cursor-pointer touch-manipulation items-center justify-center gap-1.5 rounded-[12px] border border-dashed border-border-secondary p-3 text-sm font-medium text-primary transition-colors hover:border-primary hover:bg-primary/5"
+          className="flex w-full cursor-pointer touch-manipulation items-center justify-center gap-1.5 rounded-[12px] border border-dashed border-border-secondary p-3 text-sm font-medium text-primary transition-colors hover:border-primary hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           onClick={() => setShowForm(true)}
         >
           <Plus className="h-4 w-4" />
@@ -1213,7 +1215,7 @@ export function RecipeCard({ recipe, analysis, petName }: RecipeCardProps) {
 
   return (
     <Card
-      className="cursor-pointer touch-manipulation p-4 transition-colors active:bg-canvas"
+      className="cursor-pointer touch-manipulation p-4 transition-colors active:bg-canvas focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       onClick={handleTap}
     >
       <div className="flex items-start justify-between">
@@ -1343,7 +1345,7 @@ export function RecipeForm({
             <button
               key={pet.id}
               type="button"
-              className={`flex min-h-[44px] cursor-pointer touch-manipulation items-center gap-1.5 rounded-[10px] border px-4 text-sm font-medium transition-colors duration-150 ${
+              className={`flex min-h-[44px] cursor-pointer touch-manipulation items-center gap-1.5 rounded-[10px] border px-4 text-sm font-medium transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                 petId === pet.id
                   ? "border-primary bg-primary text-white"
                   : "border-border bg-surface text-txt-secondary"
@@ -1355,7 +1357,7 @@ export function RecipeForm({
           ))}
           <button
             type="button"
-            className={`flex min-h-[44px] cursor-pointer touch-manipulation items-center rounded-[10px] border border-dashed px-4 text-sm font-medium transition-colors duration-150 ${
+            className={`flex min-h-[44px] cursor-pointer touch-manipulation items-center rounded-[10px] border border-dashed px-4 text-sm font-medium transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               petId === null
                 ? "border-primary bg-primary text-white"
                 : "border-border-secondary text-txt-secondary"
@@ -1536,8 +1538,9 @@ export default function NewRecipePage() {
     <div>
       <div className="flex items-center gap-2.5 border-b border-border p-4">
         <button
-          className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center"
+          className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center rounded-[10px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           onClick={() => router.back()}
+          aria-label={t("back")}
         >
           <ChevronLeft className="h-5 w-5 text-txt-secondary" />
         </button>
@@ -1627,8 +1630,9 @@ export default function EditRecipePage() {
       <div className="flex items-center justify-between border-b border-border p-4">
         <div className="flex items-center gap-2.5">
           <button
-            className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center"
+            className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center rounded-[10px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             onClick={() => router.back()}
+            aria-label={t("back")}
           >
             <ChevronLeft className="h-5 w-5 text-txt-secondary" />
           </button>
@@ -1637,7 +1641,7 @@ export default function EditRecipePage() {
           </h1>
         </div>
         <button
-          className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center text-error"
+          className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center rounded-[10px] text-error focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           onClick={handleDelete}
           aria-label={t("deleteRecipe")}
         >
@@ -2430,7 +2434,7 @@ export function AnalysisProgress({
   return (
     <div>
       <div className="py-5 text-center">
-        <Loader2 className="mx-auto mb-3.5 h-12 w-12 animate-spin text-primary" />
+        <Loader2 className="mx-auto mb-3.5 h-12 w-12 motion-safe:animate-spin text-primary" />
         <p className="font-semibold text-txt">
           {t("analyzingRecipe", { recipeName })}
         </p>
@@ -2451,7 +2455,7 @@ export function AnalysisProgress({
               <Check className="h-[18px] w-[18px] flex-shrink-0 text-safe" />
             )}
             {ing.status === "checking" && (
-              <Loader2 className="h-[18px] w-[18px] flex-shrink-0 animate-spin text-primary" />
+              <Loader2 className="h-[18px] w-[18px] flex-shrink-0 motion-safe:animate-spin text-primary" />
             )}
             {ing.status === "pending" && (
               <div className="flex h-[18px] w-[18px] flex-shrink-0 items-center justify-center">
@@ -2726,7 +2730,7 @@ export function FollowUpActions({
       {recipeEdits.map((action, i) => (
         <button
           key={`edit-${i}`}
-          className="flex w-full cursor-pointer touch-manipulation items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-left transition-colors active:bg-primary/10"
+          className="flex w-full cursor-pointer touch-manipulation items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-left transition-colors active:bg-primary/10 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           onClick={() => onRecipeEdit(action)}
         >
           <ArrowRightLeft className="h-5 w-5 flex-shrink-0 text-primary" />
@@ -2743,7 +2747,7 @@ export function FollowUpActions({
         return (
           <button
             key={`detail-${i}`}
-            className="w-full cursor-pointer touch-manipulation rounded-xl border border-border bg-surface p-3.5 text-left transition-colors active:bg-canvas"
+            className="w-full cursor-pointer touch-manipulation rounded-xl border border-border bg-surface p-3.5 text-left transition-colors active:bg-canvas focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             onClick={() =>
               setExpandedIndex(isExpanded ? null : globalIndex)
             }
@@ -2871,8 +2875,9 @@ export default function AnalysisPage() {
     <div>
       <div className="flex items-center gap-2.5 border-b border-border p-4">
         <button
-          className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center"
+          className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center rounded-[10px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           onClick={() => router.back()}
+          aria-label={t("back")}
         >
           <ChevronLeft className="h-5 w-5 text-txt-secondary" />
         </button>
