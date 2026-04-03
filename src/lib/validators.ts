@@ -12,3 +12,20 @@ export const petFormSchema = z.object({
 });
 
 export type PetFormValues = z.infer<typeof petFormSchema>;
+
+export const ingredientSchema = z.object({
+  name: z.string().min(1, "Ingredient name is required").max(100),
+  preparation: z.string().min(1, "Preparation method is required").max(100),
+});
+
+export type IngredientFormValues = z.infer<typeof ingredientSchema>;
+
+export const recipeFormSchema = z.object({
+  name: z.string().min(1, "Recipe name is required").max(100),
+  pet_id: z.string().nullable(),
+  ingredients: z
+    .array(ingredientSchema)
+    .min(1, "Add at least one ingredient"),
+});
+
+export type RecipeFormValues = z.infer<typeof recipeFormSchema>;

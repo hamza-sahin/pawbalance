@@ -20,7 +20,7 @@ API_ISSUER="${APP_STORE_API_ISSUER_ID:-0b5bf398-ce6b-47b4-988a-386910acf728}"
 cd "$PROJECT_DIR"
 
 echo "==> Step 1: Building Next.js static export..."
-npm run build
+npm run build:static
 
 echo "==> Step 2: Syncing to Capacitor iOS..."
 npx cap sync ios

@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { UtensilsCrossed } from "lucide-react";
 
 const tabs = [
   { key: "scanner", href: "/scan", label: "scanner" },
-  { key: "bowl", href: "/bowl", label: "bowl" },
+  { key: "recipes", href: "/recipes", label: "recipes" },
   { key: "search", href: "/search", label: "search" },
   { key: "learn", href: "/learn", label: "learn" },
   { key: "profile", href: "/profile", label: "profile" },
@@ -21,12 +22,7 @@ const icons: Record<string, React.ReactNode> = {
       <rect x="14" y="14" width="7" height="7" rx="1" />
     </svg>
   ),
-  bowl: (
-    <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M3 11h18M5 11c0 4.4 3.1 8 7 8s7-3.6 7-8" />
-      <path d="M8.5 19c.8.6 2.1 1 3.5 1s2.7-.4 3.5-1" />
-    </svg>
-  ),
+  recipes: <UtensilsCrossed className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" />,
   search: (
     <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24" aria-hidden="true">
       <circle cx="11" cy="11" r="7" />

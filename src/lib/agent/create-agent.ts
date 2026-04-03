@@ -1,0 +1,62 @@
+import { Agent } from "@mariozechner/pi-agent-core";
+import { streamSimple } from "@mariozechner/pi-ai";
+import { AuthStorage, ModelRegistry } from "@mariozechner/pi-coding-agent";
+import { join } from "path";
+import { createLookupFoodTool } from "./tools/lookup-food";
+import { createGetPetProfileTool } from "./tools/get-pet-profile";
+import { buildSystemPrompt } from "./system-prompt";
+
+interface CreateRecipeAgentOptions {
+  locale: string;
+  supabaseUrl: string;
+  supabaseKey: string;
+}
+
+// Singleton auth — initialized once, reused across requests
+let authStorage: AuthStorage | null = null;
+let modelRegistry: ModelRegistry | null = null;
+
+function getAuth() {
+  if (!authStorage) {
+    // Read OAuth credentials from auth.json at project root
+    authStorage = AuthStorage.create(join(process.cwd(), "auth.json"));
+    modelRegistry = ModelRegistry.create(authStorage);
+  }
+  return { authStorage, modelRegistry: modelRegistry! };
+}
+
+export function createRecipeAgent({
+  locale,
+  supabaseUrl,
+  supabaseKey,
+}: CreateRecipeAgentOptions): Agent {
+  const { authStorage: auth, modelRegistry: registry } = getAuth();
+
+  const model = registry.find("anthropic", "claude-sonnet-4-20250514");
+  if (!model) {
+    throw new Error("Claude model not available — check auth.json OAuth credentials");
+  }
+
+  const lookupFood = createLookupFoodTool(supabaseUrl, supabaseKey);
+  const getPetProfile = createGetPetProfileTool(supabaseUrl, supabaseKey);
+
+  return new Agent({
+    initialState: {
+      systemPrompt: buildSystemPrompt(locale),
+      model,
+      tools: [lookupFood, getPetProfile],
+    },
+    streamFn: streamSimple,
+    getApiKey: async (provider) => {
+      return auth.getApiKey(provider);
+    },
+    toolExecution: "parallel",
+    afterToolCall: async (context) => {
+      console.log(
+        `[agent] Tool ${context.toolCall.name} called`,
+        `isError: ${context.isError}`,
+      );
+      return undefined;
+    },
+  });
+}

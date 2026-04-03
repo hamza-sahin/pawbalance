@@ -17,7 +17,7 @@ const TIER_LEVEL: Record<AccessTier, number> = {
 const ROUTE_ACCESS: Record<string, AccessTier> = {
   "/search": "guest",
   "/profile": "guest",
-  "/bowl": "basic",
+  "/recipes": "free",
   "/learn": "guest",
   "/scan": "premium",
 };
