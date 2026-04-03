@@ -99,6 +99,79 @@ export const FoodRequestSchema = z.object({
 });
 export type FoodRequest = z.infer<typeof FoodRequestSchema>;
 
+/* ── Recipes ─────────────────────────────────────── */
+
+export interface Recipe {
+  id: string;
+  owner_id: string;
+  pet_id: string | null;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface RecipeIngredient {
+  id: string;
+  recipe_id: string;
+  name: string;
+  preparation: string;
+  sort_order: number;
+}
+
+export interface RecipeWithIngredients extends Recipe {
+  recipe_ingredients: RecipeIngredient[];
+}
+
+export type AnalysisSafety = "safe" | "moderate" | "toxic";
+
+export interface AnalysisIngredient {
+  name: string;
+  safety_level: AnalysisSafety;
+  preparation_ok: boolean;
+  notes: string;
+}
+
+export interface RecipeEditAction {
+  type: "recipe_edit";
+  label: string;
+  ingredient_id: string;
+  new_name: string;
+  new_preparation: string;
+}
+
+export type DetailCardIcon = "pill" | "heart" | "alert" | "lightbulb" | "shield";
+
+export interface DetailCardAction {
+  type: "detail_card";
+  label: string;
+  icon: DetailCardIcon;
+  detail: string;
+}
+
+export type FollowUpAction = RecipeEditAction | DetailCardAction;
+
+export interface AnalysisResult {
+  overall_safety: AnalysisSafety;
+  ingredients: AnalysisIngredient[];
+  safety_alerts: string[];
+  preparation_warnings: string[];
+  benefits_summary: string[];
+  suggestions: string[];
+  follow_up_actions: FollowUpAction[];
+}
+
+export type AnalysisStatus = "pending" | "completed" | "failed";
+
+export interface RecipeAnalysis {
+  id: string;
+  recipe_id: string;
+  pet_id: string | null;
+  status: AnalysisStatus;
+  result: AnalysisResult | null;
+  model_used: string | null;
+  created_at: string;
+}
+
 // ============================================================
 // Blog
 // ============================================================
