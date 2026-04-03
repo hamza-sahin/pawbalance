@@ -34,7 +34,10 @@ src/
 │   ├── (auth)/                 # Login, Register, Forgot Password (centered layout)
 │   ├── (app)/                  # Protected shell with BottomNav
 │   │   ├── scan/               # Scanner placeholder (premium)
-│   │   ├── bowl/               # Home Cooking placeholder
+│   │   ├── recipes/            # Recipe CRUD + AI analysis
+│   │   │   ├── new/            # Create recipe
+│   │   │   ├── edit/           # Edit recipe (?id=)
+│   │   │   └── analysis/       # AI analysis streaming + report (?id=)
 │   │   ├── search/             # Food search + category grid (home tab)
 │   │   │   ├── category/       # Category foods list (?name=)
 │   │   │   └── food/           # Food detail (?id=)
@@ -44,23 +47,34 @@ src/
 ├── components/
 │   ├── ui/                     # Button, Card, Input, Skeleton, Badge, Dialog
 │   ├── food/                   # SafetyBadge, FoodCard, CategoryGrid, FoodRequestDialog
+│   ├── recipe/                 # RecipeCard, RecipeForm, IngredientList, PreparationChips, AnalysisReport, AnalysisProgress, FollowUpActions
 │   ├── pet/                    # PetCard, PetForm, BCSSlider, ActivityLevelSelector, BreedSelector, PhotoPicker
 │   ├── auth/                   # SocialLoginButtons
 │   └── navigation/             # BottomNav
 ├── lib/
 │   ├── supabase.ts             # Supabase browser client
 │   ├── platform.ts             # Capacitor isNative + pickImage
+│   ├── api.ts                  # API URL helper (NEXT_PUBLIC_API_URL)
 │   ├── types.ts                # Zod schemas + TS types for all models
 │   ├── constants.ts            # Breeds, BCS data, category icons, limits
-│   └── validators.ts           # Pet form Zod schema
+│   ├── validators.ts           # Pet + recipe form Zod schemas
+│   └── agent/                  # Server-side AI agent (only runs in server mode)
+│       ├── create-agent.ts     # Agent factory (AuthStorage + ModelRegistry + tools)
+│       ├── system-prompt.ts    # Canine nutritionist system prompt
+│       └── tools/
+│           ├── lookup-food.ts  # Queries foods table via search_foods RPC
+│           └── get-pet-profile.ts # Fetches pet profile from Supabase
 ├── hooks/
 │   ├── use-auth.ts             # Sign in/up/out, Google, Apple, password reset
 │   ├── use-pets.ts             # CRUD, photo upload, pet limit
 │   ├── use-food-search.ts      # Search, categories, detail, food request
+│   ├── use-recipes.ts          # Recipe CRUD + ingredient swap
+│   ├── use-recipe-analysis.ts  # SSE client for AI analysis streaming
 │   └── use-locale.ts           # Locale get/set with cookie + localStorage
 ├── store/
 │   ├── auth-store.ts           # User, session, subscription tier
-│   └── pet-store.ts            # Pets list, selected pet (localStorage)
+│   ├── pet-store.ts            # Pets list, selected pet (localStorage)
+│   └── recipe-store.ts         # Recipes list, analyses map
 └── messages/
     ├── en.json                 # English (100+ keys)
     └── tr.json                 # Turkish (100+ keys)
@@ -86,6 +100,9 @@ Custom tokens defined in `src/app/globals.css` via `@theme`:
 | `foods` | id, name_en, name_tr, category_en, category_tr, safety_level, dangerous_parts, preparation, benefits, warnings |
 | `food_categories` | id, name_en, name_tr, food_count |
 | `food_requests` | id, user_id, food_name, status |
+| `recipes` | id, owner_id, pet_id, name, created_at, updated_at |
+| `recipe_ingredients` | id, recipe_id, name, preparation, sort_order |
+| `recipe_analyses` | id, recipe_id, pet_id, status, result (jsonb), model_used, created_at |
 
 RPC functions: `search_foods(search_query)`, `get_similar_foods(search_query, limit_count)`
 
@@ -94,10 +111,12 @@ Storage bucket: `pet-photos` (path: `{userId}/{petId}.{ext}`)
 ## Commands
 
 ```bash
-npm run dev              # Dev server
-npm run build            # Static export → out/
-npx cap sync ios         # Copy build to iOS project
-npx cap open ios         # Open Xcode
+npm run dev                      # Dev server (static export mode)
+BUILD_MODE=server npm run dev    # Dev server with API routes
+npm run build:static             # Static export → out/ (Capacitor/OTA)
+npm run build:server             # Server build → .next/standalone (K8s)
+npx cap sync ios                 # Copy build to iOS project
+npx cap open ios                 # Open Xcode
 ./scripts/deploy-testflight.sh   # Full deploy: build → archive → upload
 ```
 
@@ -116,6 +135,61 @@ Copied from Flutter app's `.env.development` with `NEXT_PUBLIC_` prefix.
 - **Team ID:** `7N6TBDYHYS`
 - **Web Dir:** `out` (Next.js static export output)
 - **Plugins:** `@capacitor-community/apple-sign-in`, `@capacitor/camera`
+
+## Deployment Architecture
+
+### Dual Build Mode
+
+The app has two build targets from the same codebase:
+
+| Target | Build | Output | Serves |
+|--------|-------|--------|--------|
+| iOS (Capacitor) | `npm run build:static` | `out/` static files | Bundled in app + OTA via Capgo |
+| Web (K8s) | `npm run build:server` | `.next/standalone` | Node.js server with API routes |
+
+`next.config.ts` switches on `BUILD_MODE` env var: default is `export` (static), `BUILD_MODE=server` produces `standalone`.
+
+### Deployment Pipelines (on push to master)
+
+```
+git push to master
+    │
+    ├─► Static build (npm run build → out/)
+    │       │
+    │       ├─► OTA: zip → MinIO → Capgo → iOS app downloads on launch
+    │       └─► TestFlight: cap sync → Xcode → App Store (only if native files changed)
+    │
+    └─► Docker build (Dockerfile.server → Node.js server on port 3000)
+            │
+            └─► K8s: push to registry.optalgo.com → ArgoCD → pawbalance.optalgo.com
+```
+
+- **Web-only changes** → OTA via Capgo (no App Store involved)
+- **Native changes** (ios/, capacitor.config.ts, package.json) → TestFlight build triggered
+- **Docker image** → always built, pushed to registry, ArgoCD syncs via gitops repo
+
+### API Routes
+
+API routes live in `src/app/api/` and only work in server mode. They are silently skipped during static export (POST-only handlers are compatible with `output: 'export'`).
+
+Both the iOS app and web app call `https://pawbalance.optalgo.com/api/...` for backend endpoints.
+
+### AI Agent Backend
+
+The recipe analysis agent uses `@mariozechner/pi-agent-core` running inside a Next.js Route Handler (`POST /api/recipes/analyze`). Authentication uses Claude subscription OAuth via `auth.json` at the project root (read by `AuthStorage` from `@mariozechner/pi-coding-agent`). No API key needed.
+
+### GitOps
+
+- **PawBalance Helm chart:** `refs/gitops/helm/pawbalance/` (separate git repo at `hamza-sahin/gitops`)
+- **ArgoCD** syncs from the gitops repo, rolls out on image tag change
+- **CI updates the tag:** `.github/workflows/deploy.yml` → `update-gitops` job bumps the image tag
+
+### Key URLs
+
+- **Production web:** `https://pawbalance.optalgo.com`
+- **Container registry:** `registry.optalgo.com/pawbalance-web`
+- **Capgo (self-hosted):** Supabase edge functions at `supabase.optalgo.com`
+- **MinIO (OTA bundles):** `minio.optalgo.com/capgo/apps/com.pawbalance.app/versions/`
 
 ## Remaining Setup
 
@@ -170,8 +244,8 @@ The `/deploy` skill (`.claude/skills/deploy/SKILL.md`) runs:
 
 - Payment/subscription (Stripe + RevenueCat)
 - Push notifications
-- Functional label scanner (AI/OCR)
-- Functional Meal Builder and Portion Calculator
+- Functional label scanner (AI/OCR) — photo scanning for recipes
+- Ingredient quantities/portions in recipes
 - Knowledge Base articles
 - Scan History data
 - Android / Google Play Store
