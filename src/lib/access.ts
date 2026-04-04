@@ -16,10 +16,10 @@ const TIER_LEVEL: Record<AccessTier, number> = {
  */
 const ROUTE_ACCESS: Record<string, AccessTier> = {
   "/search": "guest",
-  "/profile": "guest",
-  "/recipes": "guest",
+  "/profile": "free",
+  "/recipes": "free",
   "/learn": "guest",
-  "/scan": "guest",
+  "/scan": "free",
 };
 
 export function resolveUserTier(
