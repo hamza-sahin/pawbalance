@@ -121,11 +121,17 @@ export function AnalysisReport({ result, onAddSuggestion }: AnalysisReportProps)
             <ShieldAlert className="h-4 w-4" />
             {t("safetyAlerts")}
           </p>
-          {result.safety_alerts.map((alert, i) => (
-            <p key={i} className="text-[13px] leading-relaxed text-txt">
-              {alert}
-            </p>
-          ))}
+          <ul className="flex flex-col gap-2">
+            {result.safety_alerts.map((alert, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-2 text-[13px] leading-relaxed"
+              >
+                <span className="mt-0.5 text-txt">•</span>
+                <span className="flex-1 text-txt">{alert}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
@@ -136,11 +142,17 @@ export function AnalysisReport({ result, onAddSuggestion }: AnalysisReportProps)
             <Tag className="h-4 w-4" />
             {t("preparationTips")}
           </p>
-          {result.preparation_warnings.map((warning, i) => (
-            <p key={i} className="text-[13px] leading-relaxed text-txt">
-              {warning}
-            </p>
-          ))}
+          <ul className="flex flex-col gap-2">
+            {result.preparation_warnings.map((warning, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-2 text-[13px] leading-relaxed"
+              >
+                <span className="mt-0.5 text-txt">•</span>
+                <span className="flex-1 text-txt">{warning}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
