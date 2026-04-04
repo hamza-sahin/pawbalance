@@ -10,6 +10,7 @@ import { FoodRequestDialog } from "@/components/food/food-request-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SEARCH_DEBOUNCE_MS, MIN_SEARCH_LENGTH } from "@/lib/constants";
 import { Icons } from "@/components/ui/icon";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export default function SearchPage() {
   const t = useTranslations();
@@ -104,11 +105,19 @@ export default function SearchPage() {
           ) : results.length > 0 ? (
             results.map((food) => <FoodCard key={food.id} food={food} />)
           ) : (
-            <div className="flex flex-col items-center gap-3 py-8">
-              <p className="text-txt-secondary">{t("noResults")}</p>
+            <div className="flex flex-col gap-4">
+              <EmptyState
+                icon="searchX"
+                title={t("noResults")}
+                subtitle={t("noResultsSubtitle")}
+                action={{
+                  label: t("browseCategories"),
+                  onClick: () => { setQuery(""); clearSearch(); },
+                }}
+              />
               <button
                 onClick={() => setShowRequestDialog(true)}
-                className="min-h-[44px] inline-flex items-center rounded-button px-4 text-sm font-medium text-primary transition-all duration-150 ease-out hover:bg-primary/5 active:scale-95 active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary"
+                className="mx-auto min-h-[44px] inline-flex items-center rounded-button px-4 text-sm font-medium text-primary transition-all duration-150 ease-out hover:bg-primary/5 active:scale-95 active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {t("requestFood")}
               </button>
