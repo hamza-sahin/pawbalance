@@ -300,5 +300,10 @@
   "noRecipesCreateFirst": "No recipes yet. Create one!",
   "share": "Share",
   "displayNamePlaceholder": "How should we call you?",
-  "confirmPasswordPlaceholder": "Re-enter your password"
+  "confirmPasswordPlaceholder": "Re-enter your password",
+  "myAccount": "My Account",
+  "subscription": "Subscription",
+  "support": "Support",
+  "signOutConfirm": "Are you sure you want to sign out?",
+  "signOutTitle": "Sign Out"
 }

@@ -8,6 +8,7 @@ import { usePets } from "@/hooks/use-pets";
 import { useLocale } from "@/hooks/use-locale";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Dialog } from "@/components/ui/dialog";
 import { Icons } from "@/components/ui/icon";
 import { LoginSheet } from "@/components/auth/LoginSheet";
 
@@ -17,6 +18,7 @@ export default function ProfilePage() {
   const { selectedPet } = usePets();
   const { locale } = useLocale();
   const [showLoginSheet, setShowLoginSheet] = useState(false);
+  const [showSignOutDialog, setShowSignOutDialog] = useState(false);
 
   // Guest view
   if (!isAuthenticated) {
@@ -80,16 +82,6 @@ export default function ProfilePage() {
     );
   }
 
-  // Authenticated view
-  const menuItems = [
-    { href: "/profile/pets", icon: Icons.paw, label: t("pets") },
-    { href: "/profile/language", icon: Icons.globe, label: t("language"), trailing: locale === "tr" ? "Türkçe" : "English" },
-    { href: "/profile/scan-history", icon: Icons.history, label: t("scanHistory") },
-    { href: "#", icon: Icons.crown, label: t("upgradeToPremium"), badge: <Badge variant="premium">PRO</Badge> },
-    { href: "#", icon: Icons.help, label: t("helpAndSupport") },
-    { href: "#", icon: Icons.info, label: t("about") },
-  ];
-
   return (
     <div className="p-4">
       <div className="mb-6 flex items-center justify-between">
@@ -115,29 +107,87 @@ export default function ProfilePage() {
         </Badge>
       </div>
 
-      {/* Menu */}
-      <div className="flex flex-col gap-2">
-        {menuItems.map((item) => (
-          <Link key={item.label} href={item.href} className="block transition-all duration-150 ease-out active:scale-95 active:opacity-80">
+      {/* Menu - grouped */}
+      <div className="flex flex-col gap-5">
+        {/* My Account */}
+        <div>
+          <p className="mb-2 text-xs font-medium uppercase tracking-wider text-txt-tertiary">{t("myAccount")}</p>
+          <div className="flex flex-col gap-2">
+            {[
+              { href: "/profile/pets", icon: Icons.paw, label: t("pets") },
+              { href: "/profile/language", icon: Icons.globe, label: t("language"), trailing: locale === "tr" ? "Türkçe" : "English" },
+            ].map((item) => (
+              <Link key={item.label} href={item.href} className="block transition-all duration-150 ease-out active:scale-95 active:opacity-80">
+                <Card className="flex items-center gap-3 p-4">
+                  <item.icon className="h-5 w-5 text-txt-secondary" aria-hidden="true" />
+                  <span className="flex-1 font-medium text-txt">{item.label}</span>
+                  {item.trailing && <span className="text-sm text-txt-secondary">{item.trailing}</span>}
+                  <Icons.chevronRight className="h-4 w-4 text-txt-tertiary" aria-hidden="true" />
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Subscription */}
+        <div>
+          <p className="mb-2 text-xs font-medium uppercase tracking-wider text-txt-tertiary">{t("subscription")}</p>
+          <Link href="#" className="block transition-all duration-150 ease-out active:scale-95 active:opacity-80">
             <Card className="flex items-center gap-3 p-4">
-              <item.icon className="h-5 w-5 text-txt-secondary" aria-hidden="true" />
-              <span className="flex-1 font-medium text-txt">{item.label}</span>
-              {item.trailing && (
-                <span className="text-sm text-txt-secondary">{item.trailing}</span>
-              )}
-              {item.badge}
+              <Icons.crown className="h-5 w-5 text-txt-secondary" aria-hidden="true" />
+              <span className="flex-1 font-medium text-txt">{t("upgradeToPremium")}</span>
+              <Badge variant="premium">PRO</Badge>
               <Icons.chevronRight className="h-4 w-4 text-txt-tertiary" aria-hidden="true" />
             </Card>
           </Link>
-        ))}
+        </div>
+
+        {/* Support */}
+        <div>
+          <p className="mb-2 text-xs font-medium uppercase tracking-wider text-txt-tertiary">{t("support")}</p>
+          <div className="flex flex-col gap-2">
+            {[
+              { href: "/profile/scan-history", icon: Icons.history, label: t("scanHistory") },
+              { href: "#", icon: Icons.help, label: t("helpAndSupport") },
+              { href: "#", icon: Icons.info, label: t("about") },
+            ].map((item) => (
+              <Link key={item.label} href={item.href} className="block transition-all duration-150 ease-out active:scale-95 active:opacity-80">
+                <Card className="flex items-center gap-3 p-4">
+                  <item.icon className="h-5 w-5 text-txt-secondary" aria-hidden="true" />
+                  <span className="flex-1 font-medium text-txt">{item.label}</span>
+                  <Icons.chevronRight className="h-4 w-4 text-txt-tertiary" aria-hidden="true" />
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
 
+      {/* Sign out with confirmation */}
       <button
-        onClick={signOut}
+        onClick={() => setShowSignOutDialog(true)}
         className="mt-6 w-full rounded-button py-3 text-center font-medium text-error transition-all duration-150 ease-out hover:bg-error/5 active:scale-95 active:bg-error/10"
       >
         {t("signOut")}
       </button>
+
+      <Dialog open={showSignOutDialog} onClose={() => setShowSignOutDialog(false)} title={t("signOutTitle")}>
+        <p className="mb-4 text-sm text-txt-secondary">{t("signOutConfirm")}</p>
+        <div className="flex gap-3">
+          <button
+            onClick={() => setShowSignOutDialog(false)}
+            className="flex-1 rounded-button border border-border py-2.5 text-sm font-medium text-txt transition-all duration-150 ease-out active:scale-95"
+          >
+            {t("cancel")}
+          </button>
+          <button
+            onClick={() => { setShowSignOutDialog(false); signOut(); }}
+            className="flex-1 rounded-button bg-error py-2.5 text-sm font-medium text-white transition-all duration-150 ease-out active:scale-95"
+          >
+            {t("signOut")}
+          </button>
+        </div>
+      </Dialog>
     </div>
   );
 }

@@ -300,5 +300,10 @@
   "noRecipesCreateFirst": "Henüz tarif yok. Bir tane oluşturun!",
   "share": "Paylaş",
   "displayNamePlaceholder": "Size nasıl hitap edelim?",
-  "confirmPasswordPlaceholder": "Şifrenizi tekrar girin"
+  "confirmPasswordPlaceholder": "Şifrenizi tekrar girin",
+  "myAccount": "Hesabım",
+  "subscription": "Abonelik",
+  "support": "Destek",
+  "signOutConfirm": "Çıkış yapmak istediğinizden emin misiniz?",
+  "signOutTitle": "Çıkış Yap"
 }
