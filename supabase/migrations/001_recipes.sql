@@ -118,6 +118,16 @@ create policy "Users can insert own recipe analyses"
     )
   );
 
+create policy "Users can update own recipe analyses"
+  on public.recipe_analyses for update
+  using (
+    exists (
+      select 1 from public.recipes
+      where recipes.id = recipe_analyses.recipe_id
+        and recipes.owner_id = auth.uid()
+    )
+  );
+
 -- Updated_at trigger for recipes
 create or replace function public.update_updated_at()
 returns trigger as $$
