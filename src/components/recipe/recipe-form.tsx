@@ -15,6 +15,8 @@ interface RecipeFormProps {
   onSubmit: (values: RecipeFormValues) => Promise<void>;
   onAnalyze?: () => void;
   showAnalyze?: boolean;
+  analyzeLabel?: string;
+  analyzeIcon?: React.ReactNode;
   isSubmitting?: boolean;
 }
 
@@ -23,6 +25,8 @@ export function RecipeForm({
   onSubmit,
   onAnalyze,
   showAnalyze = false,
+  analyzeLabel,
+  analyzeIcon,
   isSubmitting = false,
 }: RecipeFormProps) {
   const t = useTranslations();
@@ -127,8 +131,8 @@ export function RecipeForm({
         </Button>
         {showAnalyze && onAnalyze && (
           <Button fullWidth variant="secondary" onClick={onAnalyze}>
-            <Search className="mr-2 h-[18px] w-[18px]" />
-            {t("analyzeRecipe")}
+            {analyzeIcon ?? <Search className="mr-2 h-[18px] w-[18px]" />}
+            {analyzeLabel ?? t("analyzeRecipe")}
           </Button>
         )}
       </div>

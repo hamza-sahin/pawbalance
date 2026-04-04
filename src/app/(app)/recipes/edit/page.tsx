@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ChevronLeft, Trash2 } from "lucide-react";
+import { ChevronLeft, Trash2, Search, Eye, RefreshCw } from "lucide-react";
 import { RecipeForm } from "@/components/recipe/recipe-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRecipes } from "@/hooks/use-recipes";
 import { useRecipeStore } from "@/store/recipe-store";
 import type { RecipeFormValues } from "@/lib/validators";
+import type { RecipeAnalysis } from "@/lib/types";
 
 export default function EditRecipePage() {
   const t = useTranslations();
@@ -20,6 +21,15 @@ export default function EditRecipePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const recipe = recipes.find((r) => r.id === recipeId);
+  const analysis: RecipeAnalysis | undefined = useRecipeStore(
+    (s) => (recipeId ? s.analyses[recipeId] : undefined),
+  );
+
+  const hasAnalysis = analysis?.status === "completed" && analysis.result;
+  const recipeChangedSinceAnalysis =
+    hasAnalysis && recipe
+      ? new Date(recipe.updated_at) > new Date(analysis.created_at)
+      : false;
 
   const handleSubmit = async (values: RecipeFormValues) => {
     if (!recipeId) return;
@@ -32,7 +42,13 @@ export default function EditRecipePage() {
   };
 
   const handleAnalyze = () => {
-    router.push(`/recipes/analysis?id=${recipeId}`);
+    if (hasAnalysis && !recipeChangedSinceAnalysis) {
+      // View existing analysis
+      router.push(`/recipes/analysis?id=${recipeId}`);
+    } else {
+      // Start new analysis (force reanalyze)
+      router.push(`/recipes/analysis?id=${recipeId}&reanalyze=true`);
+    }
   };
 
   const handleDelete = async () => {
@@ -89,6 +105,22 @@ export default function EditRecipePage() {
           onSubmit={handleSubmit}
           onAnalyze={handleAnalyze}
           showAnalyze={recipe.recipe_ingredients.length > 0}
+          analyzeLabel={
+            hasAnalysis
+              ? recipeChangedSinceAnalysis
+                ? t("reAnalyze")
+                : t("viewAnalysis")
+              : undefined
+          }
+          analyzeIcon={
+            hasAnalysis ? (
+              recipeChangedSinceAnalysis ? (
+                <RefreshCw className="mr-2 h-[18px] w-[18px]" />
+              ) : (
+                <Eye className="mr-2 h-[18px] w-[18px]" />
+              )
+            ) : undefined
+          }
           isSubmitting={isSubmitting}
         />
       </div>

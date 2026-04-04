@@ -19,6 +19,7 @@ export default function AnalysisPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const recipeId = searchParams.get("id");
+  const forceReanalyze = searchParams.get("reanalyze") === "true";
   const { locale } = useLocale();
   const { recipes, fetchRecipes, applyIngredientSwap } = useRecipes();
   const recipe = recipes.find((r) => r.id === recipeId);
@@ -36,12 +37,12 @@ export default function AnalysisPage() {
     }
   }, [recipes.length, fetchRecipes]);
 
-  // Auto-start analysis on mount (if no completed analysis exists)
+  // Auto-start analysis on mount (if no completed analysis or forced reanalyze)
   useEffect(() => {
-    if (recipeId && recipe && status === "idle" && !storedAnalysis?.result) {
+    if (recipeId && recipe && status === "idle" && (forceReanalyze || !storedAnalysis?.result)) {
       analyze(recipeId, recipe.pet_id, locale);
     }
-  }, [recipeId, recipe, status, storedAnalysis, analyze, locale]);
+  }, [recipeId, recipe, status, storedAnalysis, forceReanalyze, analyze, locale]);
 
   const handleRetry = () => {
     if (recipeId && recipe) {
