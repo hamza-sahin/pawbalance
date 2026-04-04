@@ -7,7 +7,6 @@ import { ChevronLeft, Trash2 } from "lucide-react";
 import { RecipeForm } from "@/components/recipe/recipe-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRecipes } from "@/hooks/use-recipes";
-import { useAuthStore } from "@/store/auth-store";
 import { useRecipeStore } from "@/store/recipe-store";
 import type { RecipeFormValues } from "@/lib/validators";
 
@@ -17,7 +16,6 @@ export default function EditRecipePage() {
   const searchParams = useSearchParams();
   const recipeId = searchParams.get("id");
   const { editRecipe, deleteRecipe } = useRecipes();
-  const { subscriptionTier } = useAuthStore();
   const recipes = useRecipeStore((s) => s.recipes);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,10 +32,6 @@ export default function EditRecipePage() {
   };
 
   const handleAnalyze = () => {
-    if (subscriptionTier !== "PREMIUM") {
-      // Show upgrade prompt (handled by access gate in layout)
-      return;
-    }
     router.push(`/recipes/analysis?id=${recipeId}`);
   };
 
