@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ChevronLeft, XCircle, RefreshCw, Pencil, Loader2 } from "lucide-react";
+import { ChevronLeft, XCircle, RefreshCw, Pencil, Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnalysisProgress } from "@/components/recipe/analysis-progress";
 import { AnalysisReport } from "@/components/recipe/analysis-report";
@@ -72,6 +72,18 @@ export default function AnalysisPage() {
   const displayStatus =
     status !== "idle" ? status : storedAnalysis?.result ? "completed" : "idle";
 
+  // Detect stale analysis — current ingredients differ from analyzed ingredients
+  const isStale = (() => {
+    if (!recipe || !displayResult || displayStatus !== "completed") return false;
+    const analyzedNames = new Set(displayResult.ingredients.map((i) => i.name.toLowerCase()));
+    const currentNames = new Set(recipe.recipe_ingredients.map((i) => i.name.toLowerCase()));
+    if (analyzedNames.size !== currentNames.size) return true;
+    for (const name of currentNames) {
+      if (!analyzedNames.has(name)) return true;
+    }
+    return false;
+  })();
+
   return (
     <div>
       <div className="flex items-center gap-2.5 border-b border-border p-4">
@@ -125,6 +137,20 @@ export default function AnalysisPage() {
         {/* Completed report */}
         {displayStatus === "completed" && displayResult && (
           <>
+            {isStale && (
+              <button
+                onClick={handleRetry}
+                className="mb-4 flex w-full items-center gap-3 rounded-[14px] border border-caution/25 bg-caution/10 p-3.5 text-left transition-all duration-150 ease-out active:scale-[0.98] active:opacity-80"
+              >
+                <AlertTriangle className="h-5 w-5 shrink-0 text-caution" />
+                <div className="flex-1">
+                  <p className="text-[13px] font-semibold text-caution">{t("analysisStale")}</p>
+                  <p className="text-[12px] text-txt-secondary">{t("analysisStaleDesc")}</p>
+                </div>
+                <RefreshCw className="h-4 w-4 shrink-0 text-caution" />
+              </button>
+            )}
+
             <AnalysisReport result={displayResult} />
 
             {displayResult.follow_up_actions.length > 0 && (

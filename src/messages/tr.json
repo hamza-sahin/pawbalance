@@ -281,6 +281,8 @@
   "recipeSaved": "Tarif kaydedildi",
   "recipeDeleted": "Tarif silindi",
   "recipeAnalysis": "Tarif Analizi",
+  "analysisStale": "Tarif değişti",
+  "analysisStaleDesc": "Bu analizden sonra malzemeler güncellendi. Yeniden analiz etmek için dokunun.",
   "welcomeBenefit1Sub": "200+ yiyeceği anında kontrol edin",
   "welcomeBenefit2Sub": "Köpeğinizin ırkına ve yaşına göre özelleştirilmiş",
   "welcomeBenefit3Sub": "Zehirli olanları çok geç olmadan öğrenin",

@@ -281,6 +281,8 @@
   "recipeSaved": "Recipe saved",
   "recipeDeleted": "Recipe deleted",
   "recipeAnalysis": "Recipe Analysis",
+  "analysisStale": "Recipe has changed",
+  "analysisStaleDesc": "Ingredients were updated since this analysis. Tap to re-analyze.",
   "welcomeBenefit1Sub": "Check 200+ foods instantly",
   "welcomeBenefit2Sub": "Tailored to your dog's breed & age",
   "welcomeBenefit3Sub": "Know what's toxic before it's too late",
