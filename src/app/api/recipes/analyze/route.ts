@@ -109,7 +109,6 @@ Look up each ingredient in the safety database and provide your analysis.`;
       try {
         await agent.prompt(userMessage);
 
-        // Extract the final assistant message text
         const messages = agent.state.messages;
         const lastAssistant = [...messages]
           .reverse()
@@ -129,7 +128,7 @@ Look up each ingredient in the safety database and provide your analysis.`;
               }
               resultJson = JSON.parse(text);
             } catch {
-              // Model didn't return valid JSON
+              // Agent didn't return valid JSON — will be handled below
             }
           }
         }

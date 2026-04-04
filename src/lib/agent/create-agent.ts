@@ -50,17 +50,16 @@ export function createRecipeAgent({
       model,
       tools: [lookupFood, getPetProfile],
     },
-    streamFn: streamSimple,
-    getApiKey: async (provider) => {
-      return auth.getApiKey(provider);
+    streamFn: async (streamModel, context, options) => {
+      const apiKey = await auth.getApiKey(streamModel.provider);
+      if (!apiKey) {
+        throw new Error(
+          `No valid credentials for provider "${streamModel.provider}". ` +
+          `OAuth token may have expired. Run: node scripts/refresh-auth.mjs`
+        );
+      }
+      return streamSimple(streamModel, context, { ...options, apiKey });
     },
     toolExecution: "parallel",
-    afterToolCall: async (context) => {
-      console.log(
-        `[agent] Tool ${context.toolCall.name} called`,
-        `isError: ${context.isError}`,
-      );
-      return undefined;
-    },
   });
 }
