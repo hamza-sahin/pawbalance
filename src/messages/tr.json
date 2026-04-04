@@ -298,5 +298,7 @@
   "createNewRecipe": "Yeni Tarif Oluştur",
   "selectRecipe": "Bir tarif seçin",
   "noRecipesCreateFirst": "Henüz tarif yok. Bir tane oluşturun!",
-  "share": "Paylaş"
+  "share": "Paylaş",
+  "displayNamePlaceholder": "Size nasıl hitap edelim?",
+  "confirmPasswordPlaceholder": "Şifrenizi tekrar girin"
 }

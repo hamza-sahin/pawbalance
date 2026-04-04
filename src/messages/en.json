@@ -298,5 +298,7 @@
   "createNewRecipe": "Create New Recipe",
   "selectRecipe": "Select a recipe",
   "noRecipesCreateFirst": "No recipes yet. Create one!",
-  "share": "Share"
+  "share": "Share",
+  "displayNamePlaceholder": "How should we call you?",
+  "confirmPasswordPlaceholder": "Re-enter your password"
 }

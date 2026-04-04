@@ -57,6 +57,7 @@ export default function RegisterPage() {
           label={t("displayName")}
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
+          placeholder={t("displayNamePlaceholder")}
           required
         />
         <Input
@@ -65,6 +66,8 @@ export default function RegisterPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           autoComplete="email"
+          inputMode="email"
+          placeholder="you@example.com"
           required
         />
         <PasswordInput
@@ -72,6 +75,7 @@ export default function RegisterPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="new-password"
+          placeholder={t("passwordMinLength")}
           required
         />
         <PasswordInput
@@ -79,6 +83,7 @@ export default function RegisterPage() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           autoComplete="new-password"
+          placeholder={t("confirmPasswordPlaceholder")}
           required
         />
         {error && <p className="text-sm text-error">{error}</p>}
