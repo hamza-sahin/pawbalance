@@ -151,9 +151,15 @@ export function AnalysisReport({ result, onAddSuggestion }: AnalysisReportProps)
             <CheckCircle className="h-4 w-4" />
             {t("benefitsSummary")}
           </p>
-          <ul className="list-inside list-disc text-[13px] leading-relaxed text-txt">
+          <ul className="flex flex-col gap-2">
             {result.benefits_summary.map((b, i) => (
-              <li key={i}>{b}</li>
+              <li
+                key={i}
+                className="flex items-start gap-2 text-[13px] leading-relaxed"
+              >
+                <span className="mt-0.5 text-txt">•</span>
+                <span className="flex-1 text-txt">{b}</span>
+              </li>
             ))}
           </ul>
         </div>
@@ -161,7 +167,7 @@ export function AnalysisReport({ result, onAddSuggestion }: AnalysisReportProps)
 
       {/* Suggestions */}
       {result.suggestions.length > 0 && (
-        <div className="mb-3 rounded-xl border border-border bg-surface p-3.5">
+        <div className="mb-3 rounded-xl border border-primary/20 bg-primary/5 p-3.5">
           <p className="mb-1.5 flex items-center gap-1.5 text-[13px] font-semibold text-primary">
             <Lightbulb className="h-4 w-4" />
             {t("suggestionsSummary")}
