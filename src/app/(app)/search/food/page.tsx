@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
@@ -9,6 +9,7 @@ import { SafetyBadge } from "@/components/food/safety-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { localise, splitBullets } from "@/lib/types";
 import { Icons } from "@/components/ui/icon";
+import { AddToRecipeSheet } from "@/components/food/add-to-recipe-sheet";
 
 export default function FoodDetailPage() {
   const t = useTranslations();
@@ -16,6 +17,7 @@ export default function FoodDetailPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id") ?? "";
   const { food, isLoading, fetchFood } = useFoodDetail();
+  const [showRecipeSheet, setShowRecipeSheet] = useState(false);
 
   useEffect(() => {
     if (id) fetchFood(id);
@@ -101,6 +103,35 @@ export default function FoodDetailPage() {
           </section>
         )}
       </div>
+
+      {/* Action bar */}
+      <div className="mt-6 flex gap-2">
+        <button
+          onClick={() => setShowRecipeSheet(true)}
+          className="flex flex-1 min-h-[44px] items-center justify-center gap-2 rounded-button bg-primary-btn px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 ease-out active:scale-95 active:opacity-90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        >
+          <Icons.plus className="h-4 w-4" aria-hidden="true" />
+          {t("addToRecipe")}
+        </button>
+        <button
+          onClick={() => {
+            if (navigator.share) {
+              navigator.share({ title: name, text: `${name} - ${t(food.safety_level === "SAFE" ? "safe" : food.safety_level === "MODERATE" ? "caution" : "toxic")}` });
+            }
+          }}
+          aria-label={t("share")}
+          className="flex h-[44px] w-[44px] items-center justify-center rounded-button border border-border bg-surface transition-all duration-150 ease-out active:scale-90 active:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          <Icons.share className="h-5 w-5 text-txt-secondary" aria-hidden="true" />
+        </button>
+      </div>
+
+      <AddToRecipeSheet
+        open={showRecipeSheet}
+        onClose={() => setShowRecipeSheet(false)}
+        foodName={name}
+        preparation={preparation ?? undefined}
+      />
     </div>
   );
 }

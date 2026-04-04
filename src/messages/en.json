@@ -292,5 +292,11 @@
   "scanStep2": "AI identifies each ingredient and cross-references our safety database",
   "scanStep3": "Get a safety report personalized for your dog",
   "unlockScanner": "Unlock Scanner",
-  "includedWithPremium": "Included with PawBalance Premium"
+  "includedWithPremium": "Included with PawBalance Premium",
+  "addToRecipe": "Add to Recipe",
+  "addedToRecipe": "{food} added to {recipe}",
+  "createNewRecipe": "Create New Recipe",
+  "selectRecipe": "Select a recipe",
+  "noRecipesCreateFirst": "No recipes yet. Create one!",
+  "share": "Share"
 }

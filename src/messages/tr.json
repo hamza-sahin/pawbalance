@@ -292,5 +292,11 @@
   "scanStep2": "Yapay zeka her bir içeriği belirler ve güvenlik veritabanımızla karşılaştırır",
   "scanStep3": "Köpeğinize özel bir güvenlik raporu alın",
   "unlockScanner": "Tarayıcıyı Aç",
-  "includedWithPremium": "PawBalance Premium'a dahil"
+  "includedWithPremium": "PawBalance Premium'a dahil",
+  "addToRecipe": "Tarife Ekle",
+  "addedToRecipe": "{food}, {recipe} tarifine eklendi",
+  "createNewRecipe": "Yeni Tarif Oluştur",
+  "selectRecipe": "Bir tarif seçin",
+  "noRecipesCreateFirst": "Henüz tarif yok. Bir tane oluşturun!",
+  "share": "Paylaş"
 }
