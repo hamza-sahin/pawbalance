@@ -283,5 +283,14 @@
   "recipeAnalysis": "Recipe Analysis",
   "welcomeBenefit1Sub": "Check 200+ foods instantly",
   "welcomeBenefit2Sub": "Tailored to your dog's breed & age",
-  "welcomeBenefit3Sub": "Know what's toxic before it's too late"
+  "welcomeBenefit3Sub": "Know what's toxic before it's too late",
+  "scannerTitle": "Scanner",
+  "scanFoodLabels": "Scan Food Labels",
+  "scanDescription": "AI reads ingredients and checks each one for safety",
+  "howItWorks": "How it works",
+  "scanStep1": "Point camera at the ingredient list on any dog food package",
+  "scanStep2": "AI identifies each ingredient and cross-references our safety database",
+  "scanStep3": "Get a safety report personalized for your dog",
+  "unlockScanner": "Unlock Scanner",
+  "includedWithPremium": "Included with PawBalance Premium"
 }

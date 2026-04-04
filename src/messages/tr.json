@@ -283,5 +283,14 @@
   "recipeAnalysis": "Tarif Analizi",
   "welcomeBenefit1Sub": "200+ yiyeceği anında kontrol edin",
   "welcomeBenefit2Sub": "Köpeğinizin ırkına ve yaşına göre özelleştirilmiş",
-  "welcomeBenefit3Sub": "Zehirli olanları çok geç olmadan öğrenin"
+  "welcomeBenefit3Sub": "Zehirli olanları çok geç olmadan öğrenin",
+  "scannerTitle": "Tarayıcı",
+  "scanFoodLabels": "Mama Etiketlerini Tarayın",
+  "scanDescription": "Yapay zeka içerikleri okur ve her birini güvenlik açısından kontrol eder",
+  "howItWorks": "Nasıl çalışır",
+  "scanStep1": "Kameranızı herhangi bir köpek maması paketindeki içerik listesine yöneltin",
+  "scanStep2": "Yapay zeka her bir içeriği belirler ve güvenlik veritabanımızla karşılaştırır",
+  "scanStep3": "Köpeğinize özel bir güvenlik raporu alın",
+  "unlockScanner": "Tarayıcıyı Aç",
+  "includedWithPremium": "PawBalance Premium'a dahil"
 }
