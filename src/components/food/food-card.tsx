@@ -21,8 +21,10 @@ export function FoodCard({ food }: { food: Food }) {
       href={`/search/food?id=${food.id}`}
       className={`flex items-center gap-3 rounded-card border border-border border-l-4 ${borderColorMap[food.safety_level] ?? ""} bg-surface p-3 transition-all duration-150 ease-out hover:bg-surface-variant active:scale-95 active:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
     >
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-variant text-sm font-semibold text-primary">
-        {category.charAt(0).toUpperCase()}
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-variant">
+        {food.safety_level === "SAFE" && <Icons.safe className="h-4 w-4 text-safe" aria-hidden="true" />}
+        {food.safety_level === "MODERATE" && <Icons.caution className="h-4 w-4 text-caution" aria-hidden="true" />}
+        {food.safety_level === "TOXIC" && <Icons.toxic className="h-4 w-4 text-toxic" aria-hidden="true" />}
       </div>
       <div className="flex-1">
         <p className="font-medium text-txt">{name}</p>
