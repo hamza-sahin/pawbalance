@@ -19,8 +19,9 @@ Run `git diff HEAD` (or `git diff` if uncommitted changes exist) to identify cha
 | `src/app/(app)/search/*` | Food search, category list, food detail |
 | `src/app/(app)/profile/*` | Profile, settings, pet management |
 | `src/app/(app)/scan/*` | Scanner screen |
-| `src/app/(app)/bowl/*` | Home cooking screen |
+| `src/app/(app)/recipes/*` | Recipe list, create/edit, AI analysis |
 | `src/app/(app)/learn/*` | Knowledge base screen |
+| `src/app/api/*` | API routes (test via deployed URL) |
 | `src/app/onboarding/*` | Pet creation wizard |
 | `src/components/food/*` | Food-related screens |
 | `src/components/pet/*` | Pet-related screens |
@@ -29,7 +30,11 @@ Run `git diff HEAD` (or `git diff` if uncommitted changes exist) to identify cha
 | `src/hooks/use-auth.ts` | Auth flows |
 | `src/hooks/use-pets.ts` | Pet management flows |
 | `src/hooks/use-food-search.ts` | Food search flows |
+| `src/hooks/use-recipes.ts` | Recipe CRUD flows |
+| `src/hooks/use-recipe-analysis.ts` | AI analysis flows |
 | `src/hooks/use-locale.ts` | All screens (i18n) |
+| `src/components/recipe/*` | Recipe-related screens |
+| `src/lib/agent/*` | AI analysis backend |
 | `src/lib/*` | All screens (shared utilities) |
 | `src/store/*` | All screens (global state) |
 | `src/messages/*` | All screens (translations) |
@@ -115,6 +120,16 @@ Present a summary:
 ```
 
 Only claim success if ALL checks pass on BOTH platforms.
+
+## Test Credentials
+
+For testing authenticated flows, use the test account:
+
+- **Email:** `test@pawbalance.com`
+- **Password:** `TestPass123!`
+- **Deployed URL:** `https://pawbalance.optalgo.com`
+
+Sign in via browser-use before testing protected flows (recipes, profile, etc.).
 
 ## Failure Behavior
 

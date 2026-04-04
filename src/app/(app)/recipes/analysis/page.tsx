@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ChevronLeft, XCircle, RefreshCw, Pencil } from "lucide-react";
+import { ChevronLeft, XCircle, RefreshCw, Pencil, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnalysisProgress } from "@/components/recipe/analysis-progress";
 import { AnalysisReport } from "@/components/recipe/analysis-report";
@@ -20,9 +20,7 @@ export default function AnalysisPage() {
   const searchParams = useSearchParams();
   const recipeId = searchParams.get("id");
   const { locale } = useLocale();
-  const { applyIngredientSwap } = useRecipes();
-
-  const recipes = useRecipeStore((s) => s.recipes);
+  const { recipes, fetchRecipes, applyIngredientSwap } = useRecipes();
   const recipe = recipes.find((r) => r.id === recipeId);
   const storedAnalysis = useRecipeStore((s) =>
     recipeId ? s.analyses[recipeId] : undefined,
@@ -30,6 +28,13 @@ export default function AnalysisPage() {
 
   const { status, ingredientProgress, result, error, analyze } =
     useRecipeAnalysis();
+
+  // Fetch recipes if store is empty (direct navigation)
+  useEffect(() => {
+    if (recipes.length === 0) {
+      fetchRecipes();
+    }
+  }, [recipes.length, fetchRecipes]);
 
   // Auto-start analysis on mount (if no completed analysis exists)
   useEffect(() => {
@@ -82,6 +87,13 @@ export default function AnalysisPage() {
       </div>
 
       <div className="p-4">
+        {/* Loading recipe data */}
+        {!recipe && displayStatus === "idle" && (
+          <div className="flex min-h-[350px] items-center justify-center">
+            <Loader2 className="h-8 w-8 motion-safe:animate-spin text-primary" />
+          </div>
+        )}
+
         {/* Streaming progress */}
         {displayStatus === "pending" && recipe && (
           <AnalysisProgress
