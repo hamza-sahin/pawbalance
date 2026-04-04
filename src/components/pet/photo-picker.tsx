@@ -32,6 +32,7 @@ export function PhotoPicker({ currentUrl, onPick, onRemove }: PhotoPickerProps) 
       <button
         type="button"
         onClick={handlePick}
+        aria-label={currentUrl ? t("changePhoto") : t("addPhoto")}
         className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-border bg-surface-variant transition-all duration-150 ease-out hover:border-primary active:scale-95 active:opacity-80"
       >
         {currentUrl ? (
