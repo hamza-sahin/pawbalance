@@ -2,17 +2,27 @@ import { createClient } from "@supabase/supabase-js";
 import { createRecipeAgent } from "@/lib/agent/create-agent";
 import type { RecipeIngredient, AnalysisResult } from "@/lib/types";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: corsHeaders });
+}
+
 export async function POST(request: Request) {
   // 1. Parse request
   const { recipeId, petId, locale } = await request.json();
   if (!recipeId) {
-    return Response.json({ error: "recipeId is required" }, { status: 400 });
+    return Response.json({ error: "recipeId is required" }, { status: 400, headers: corsHeaders });
   }
 
   // 2. Validate auth
   const authHeader = request.headers.get("authorization");
   if (!authHeader?.startsWith("Bearer ")) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
+    return Response.json({ error: "Unauthorized" }, { status: 401, headers: corsHeaders });
   }
   const token = authHeader.slice(7);
 
@@ -31,7 +41,7 @@ export async function POST(request: Request) {
     .single();
 
   if (recipeError || !recipe) {
-    return Response.json({ error: "Recipe not found" }, { status: 404 });
+    return Response.json({ error: "Recipe not found" }, { status: 404, headers: corsHeaders });
   }
 
   const ingredients = (recipe.recipe_ingredients as RecipeIngredient[]).sort(
@@ -50,7 +60,7 @@ export async function POST(request: Request) {
     .single();
 
   if (analysisError) {
-    return Response.json({ error: "Failed to create analysis" }, { status: 500 });
+    return Response.json({ error: "Failed to create analysis" }, { status: 500, headers: corsHeaders });
   }
 
   // 5. Build user message with recipe data
@@ -170,6 +180,7 @@ Look up each ingredient in the safety database and provide your analysis.`;
 
   return new Response(stream, {
     headers: {
+      ...corsHeaders,
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
       Connection: "keep-alive",
