@@ -18,6 +18,23 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  function validateField(field: string, value: string) {
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      if (field === "email") {
+        next.email = value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? t("emailInvalid") : "";
+      }
+      if (field === "password") {
+        next.password = value && value.length < 6 ? t("passwordMinLength") : "";
+      }
+      if (field === "confirmPassword") {
+        next.confirmPassword = value && value !== password ? t("passwordsNoMatch") : "";
+      }
+      return next;
+    });
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -65,6 +82,8 @@ export default function RegisterPage() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onBlur={() => validateField("email", email)}
+          error={fieldErrors.email || undefined}
           autoComplete="email"
           inputMode="email"
           placeholder="you@example.com"
@@ -74,6 +93,8 @@ export default function RegisterPage() {
           label={t("password")}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onBlur={() => validateField("password", password)}
+          error={fieldErrors.password || undefined}
           autoComplete="new-password"
           placeholder={t("passwordMinLength")}
           required
@@ -82,6 +103,8 @@ export default function RegisterPage() {
           label={t("confirmPassword")}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          onBlur={() => validateField("confirmPassword", confirmPassword)}
+          error={fieldErrors.confirmPassword || undefined}
           autoComplete="new-password"
           placeholder={t("confirmPasswordPlaceholder")}
           required

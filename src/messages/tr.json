@@ -306,5 +306,8 @@
   "support": "Destek",
   "signOutConfirm": "Çıkış yapmak istediğinizden emin misiniz?",
   "signOutTitle": "Çıkış Yap",
-  "addSuggestion": "Ekle"
+  "addSuggestion": "Ekle",
+  "passwordHint": "En az 6 karakter",
+  "emailInvalid": "Lütfen geçerli bir e-posta adresi girin",
+  "fieldRequired": "Bu alan zorunludur"
 }

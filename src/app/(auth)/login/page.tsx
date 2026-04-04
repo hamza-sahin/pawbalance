@@ -16,6 +16,17 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  function validateField(field: string, value: string) {
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      if (field === "email") {
+        next.email = value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? t("emailInvalid") : "";
+      }
+      return next;
+    });
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -48,6 +59,8 @@ export default function LoginPage() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onBlur={() => validateField("email", email)}
+          error={fieldErrors.email || undefined}
           autoComplete="email"
           inputMode="email"
           placeholder="you@example.com"

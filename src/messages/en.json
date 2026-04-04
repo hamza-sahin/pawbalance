@@ -306,5 +306,8 @@
   "support": "Support",
   "signOutConfirm": "Are you sure you want to sign out?",
   "signOutTitle": "Sign Out",
-  "addSuggestion": "Add"
+  "addSuggestion": "Add",
+  "passwordHint": "At least 6 characters",
+  "emailInvalid": "Please enter a valid email address",
+  "fieldRequired": "This field is required"
 }
