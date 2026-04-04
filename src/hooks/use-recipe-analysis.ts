@@ -59,15 +59,31 @@ export function useRecipeAnalysis() {
         const decoder = new TextDecoder();
         let buffer = "";
 
+        let currentEvent = "";
+
         while (true) {
           const { done, value } = await reader.read();
-          if (done) break;
+          if (done) {
+            // Flush remaining buffer on stream end
+            if (buffer.trim()) {
+              const remainingLines = buffer.split("\n");
+              for (const line of remainingLines) {
+                if (line.startsWith("event: ")) {
+                  currentEvent = line.slice(7);
+                } else if (line.startsWith("data: ") && currentEvent) {
+                  const data = JSON.parse(line.slice(6));
+                  handleSSEEvent(currentEvent, data, recipeId);
+                  currentEvent = "";
+                }
+              }
+            }
+            break;
+          }
 
           buffer += decoder.decode(value, { stream: true });
           const lines = buffer.split("\n");
           buffer = lines.pop() ?? "";
 
-          let currentEvent = "";
           for (const line of lines) {
             if (line.startsWith("event: ")) {
               currentEvent = line.slice(7);
