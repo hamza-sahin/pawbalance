@@ -1,39 +1,47 @@
+import type { IconName } from "@/components/ui/icon";
+
 // ============================================================
-// Category Icons
+// Category Styles (icon + background color)
 // ============================================================
 
-export const CATEGORY_ICONS: Record<string, string> = {
-  "Asian Fruit": "🥭",
-  "Asian Herb": "🌿",
-  "Asian Vegetable": "🥬",
-  Spice: "🌶️",
-  Fish: "🐟",
-  Seafood: "🦐",
-  Meat: "🥩",
-  "Fermented Food": "🫙",
-  "Prepared Food & Sauce": "🍝",
-  Bone: "🦴",
-  Nuts: "🥜",
-  Mushroom: "🍄",
-  Fruit: "🍎",
-  Organ: "🫀",
-  Vegetable: "🥕",
-  Dairy: "🧀",
-  "Medicinal Herb": "🌱",
-  Grain: "🌾",
-  "Pseudo-grain": "🌾",
-  Sweetener: "🍯",
-  Seed: "🌻",
-  "Tropical Product": "🥥",
-  "Tropical Oil": "🫒",
-  "Salt & Mineral": "🧂",
-  Egg: "🥚",
-  "Poisonous Plant": "☠️",
+export interface CategoryStyle {
+  icon: IconName;
+  bg: string;
+}
+
+export const CATEGORY_STYLES: Record<string, CategoryStyle> = {
+  "Asian Fruit":          { icon: "citrus",     bg: "bg-[#FFF3E0]" },
+  "Asian Herb":           { icon: "sprout",     bg: "bg-[#D1FAE5]" },
+  "Asian Vegetable":      { icon: "carrot",     bg: "bg-[#FFF8E1]" },
+  Spice:                  { icon: "flaskRound", bg: "bg-[#FDF2F8]" },
+  Fish:                   { icon: "fish",       bg: "bg-[#E0F2FE]" },
+  Seafood:                { icon: "fish",       bg: "bg-[#E0F2FE]" },
+  Meat:                   { icon: "beef",       bg: "bg-[#FEE2E2]" },
+  "Fermented Food":       { icon: "flaskRound", bg: "bg-[#FDF2F8]" },
+  "Prepared Food & Sauce":{ icon: "chefHat",    bg: "bg-[#FFF8E1]" },
+  Bone:                   { icon: "bone",       bg: "bg-[#F3E8FF]" },
+  Nuts:                   { icon: "nut",        bg: "bg-[#FED7AA]" },
+  Mushroom:               { icon: "cloud",      bg: "bg-[#F1F5F9]" },
+  Fruit:                  { icon: "apple",      bg: "bg-[#DCFCE7]" },
+  Organ:                  { icon: "heartPulse", bg: "bg-[#FCE7F3]" },
+  Vegetable:              { icon: "salad",      bg: "bg-[#ECFCCB]" },
+  Dairy:                  { icon: "milk",       bg: "bg-[#EDE9FE]" },
+  "Medicinal Herb":       { icon: "leaf",       bg: "bg-[#D1FAE5]" },
+  Grain:                  { icon: "wheat",      bg: "bg-[#FEF9C3]" },
+  "Pseudo-grain":         { icon: "wheat",      bg: "bg-[#FEF9C3]" },
+  Sweetener:              { icon: "flaskRound", bg: "bg-[#FEF3C7]" },
+  Seed:                   { icon: "sprout",     bg: "bg-[#ECFCCB]" },
+  "Tropical Product":     { icon: "citrus",     bg: "bg-[#FFF3E0]" },
+  "Tropical Oil":         { icon: "leaf",       bg: "bg-[#FFF3E0]" },
+  "Salt & Mineral":       { icon: "flaskRound", bg: "bg-[#F1F5F9]" },
+  Egg:                    { icon: "egg",        bg: "bg-[#FEF3C7]" },
+  "Poisonous Plant":      { icon: "skull",      bg: "bg-[#FEE2E2]" },
 };
 
-/** @deprecated Use Icon component directly. Kept during migration. */
-export function getCategoryIcon(categoryEn: string): string {
-  return CATEGORY_ICONS[categoryEn] ?? "🍽️";
+const DEFAULT_CATEGORY_STYLE: CategoryStyle = { icon: "search", bg: "bg-primary/10" };
+
+export function getCategoryStyle(categoryEn: string): CategoryStyle {
+  return CATEGORY_STYLES[categoryEn] ?? DEFAULT_CATEGORY_STYLE;
 }
 
 // ============================================================
