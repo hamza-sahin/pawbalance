@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import {
   ShieldAlert,
@@ -9,6 +10,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Icons } from "@/components/ui/icon";
 import type { AnalysisResult, AnalysisSafety } from "@/lib/types";
 
 const SAFETY_CONFIG: Record<
@@ -46,10 +48,12 @@ const DOT_COLORS: Record<AnalysisSafety, string> = {
 
 interface AnalysisReportProps {
   result: AnalysisResult;
+  onAddSuggestion?: (suggestion: string) => void;
 }
 
-export function AnalysisReport({ result }: AnalysisReportProps) {
+export function AnalysisReport({ result, onAddSuggestion }: AnalysisReportProps) {
   const t = useTranslations();
+  const [addedSuggestions, setAddedSuggestions] = useState<Set<number>>(new Set());
   const config = SAFETY_CONFIG[result.overall_safety];
   const Icon = config.icon;
 
@@ -162,9 +166,29 @@ export function AnalysisReport({ result }: AnalysisReportProps) {
             <Lightbulb className="h-4 w-4" />
             {t("suggestionsSummary")}
           </p>
-          <ul className="list-inside list-disc text-[13px] leading-relaxed text-txt">
+          <ul className="flex flex-col gap-2">
             {result.suggestions.map((s, i) => (
-              <li key={i}>{s}</li>
+              <li
+                key={i}
+                className={`flex items-start gap-2 text-[13px] leading-relaxed ${addedSuggestions.has(i) ? "opacity-50" : ""}`}
+              >
+                <span className="mt-0.5 text-txt">•</span>
+                <span className="flex-1 text-txt">{s}</span>
+                {onAddSuggestion && !addedSuggestions.has(i) && (
+                  <button
+                    onClick={() => {
+                      onAddSuggestion(s);
+                      setAddedSuggestions((prev) => new Set(prev).add(i));
+                    }}
+                    className="mt-0.5 shrink-0 rounded-md border border-primary/30 px-2 py-0.5 text-[11px] font-medium text-primary transition-all duration-150 ease-out active:scale-95 active:bg-primary/5"
+                  >
+                    + {t("addSuggestion")}
+                  </button>
+                )}
+                {addedSuggestions.has(i) && (
+                  <Icons.check className="mt-1 h-3.5 w-3.5 shrink-0 text-safe" aria-hidden="true" />
+                )}
+              </li>
             ))}
           </ul>
         </div>
