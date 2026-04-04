@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ChevronLeft, Trash2, Search, Eye, RefreshCw } from "lucide-react";
@@ -16,9 +16,15 @@ export default function EditRecipePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const recipeId = searchParams.get("id");
-  const { editRecipe, deleteRecipe } = useRecipes();
-  const recipes = useRecipeStore((s) => s.recipes);
+  const { recipes, fetchRecipes, editRecipe, deleteRecipe } = useRecipes();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Fetch recipes if store is empty (direct navigation)
+  useEffect(() => {
+    if (recipes.length === 0) {
+      fetchRecipes();
+    }
+  }, [recipes.length, fetchRecipes]);
 
   const recipe = recipes.find((r) => r.id === recipeId);
   const analysis: RecipeAnalysis | undefined = useRecipeStore(
