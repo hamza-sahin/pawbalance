@@ -278,5 +278,8 @@
   "deleteRecipeConfirm": "Bu tarifi silmek istediğinizden emin misiniz?",
   "recipeSaved": "Tarif kaydedildi",
   "recipeDeleted": "Tarif silindi",
-  "recipeAnalysis": "Tarif Analizi"
+  "recipeAnalysis": "Tarif Analizi",
+  "welcomeBenefit1Sub": "200+ yiyeceği anında kontrol edin",
+  "welcomeBenefit2Sub": "Köpeğinizin ırkına ve yaşına göre özelleştirilmiş",
+  "welcomeBenefit3Sub": "Zehirli olanları çok geç olmadan öğrenin"
 }

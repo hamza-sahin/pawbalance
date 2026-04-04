@@ -278,5 +278,8 @@
   "deleteRecipeConfirm": "Are you sure you want to delete this recipe?",
   "recipeSaved": "Recipe saved",
   "recipeDeleted": "Recipe deleted",
-  "recipeAnalysis": "Recipe Analysis"
+  "recipeAnalysis": "Recipe Analysis",
+  "welcomeBenefit1Sub": "Check 200+ foods instantly",
+  "welcomeBenefit2Sub": "Tailored to your dog's breed & age",
+  "welcomeBenefit3Sub": "Know what's toxic before it's too late"
 }
