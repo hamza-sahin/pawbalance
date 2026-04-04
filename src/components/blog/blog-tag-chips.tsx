@@ -26,7 +26,7 @@ export function BlogTagChips({ activeTags, onToggle }: BlogTagChipsProps) {
   const isAllActive = activeTags.length === 0;
 
   return (
-    <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,black_calc(100%-24px),transparent_100%)]">
       <button
         onClick={() => onToggle("all")}
         aria-pressed={isAllActive}
