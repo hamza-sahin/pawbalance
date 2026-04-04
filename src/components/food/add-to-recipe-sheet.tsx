@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useRecipeStore } from "@/store/recipe-store";
+import { getSupabase } from "@/lib/supabase";
 import { Icons } from "@/components/ui/icon";
+import type { RecipeWithIngredients, RecipeIngredient } from "@/lib/types";
 
 interface AddToRecipeSheetProps {
   open: boolean;
@@ -13,12 +16,51 @@ interface AddToRecipeSheetProps {
   onAdded?: (recipeName: string) => void;
 }
 
-export function AddToRecipeSheet({ open, onClose, onAdded }: AddToRecipeSheetProps) {
+export function AddToRecipeSheet({ open, onClose, foodName, preparation, onAdded }: AddToRecipeSheetProps) {
   const t = useTranslations();
   const router = useRouter();
   const recipes = useRecipeStore((s) => s.recipes);
+  const updateRecipe = useRecipeStore((s) => s.updateRecipe);
+  const [adding, setAdding] = useState<string | null>(null);
 
   if (!open) return null;
+
+  async function handleAddToRecipe(recipe: RecipeWithIngredients) {
+    setAdding(recipe.id);
+    try {
+      const supabase = getSupabase();
+      const sortOrder = recipe.recipe_ingredients.length;
+
+      const { data, error } = await supabase
+        .from("recipe_ingredients")
+        .insert({
+          recipe_id: recipe.id,
+          name: foodName,
+          preparation: preparation ?? null,
+          sort_order: sortOrder,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // Update local store with new ingredient
+      const updated: RecipeWithIngredients = {
+        ...recipe,
+        recipe_ingredients: [
+          ...recipe.recipe_ingredients,
+          data as RecipeIngredient,
+        ],
+      };
+      updateRecipe(updated);
+      onAdded?.(recipe.name);
+      onClose();
+    } catch {
+      // Silently fail — the user can retry
+    } finally {
+      setAdding(null);
+    }
+  }
 
   return (
     <>
@@ -44,11 +86,9 @@ export function AddToRecipeSheet({ open, onClose, onAdded }: AddToRecipeSheetPro
             {recipes.map((recipe) => (
               <button
                 key={recipe.id}
-                onClick={() => {
-                  onAdded?.(recipe.name);
-                  onClose();
-                }}
-                className="flex min-h-[44px] items-center gap-3 rounded-card border border-border bg-surface px-4 py-3 text-left transition-all duration-150 ease-out active:scale-95 active:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary"
+                disabled={adding === recipe.id}
+                onClick={() => handleAddToRecipe(recipe)}
+                className="flex min-h-[44px] items-center gap-3 rounded-card border border-border bg-surface px-4 py-3 text-left transition-all duration-150 ease-out active:scale-95 active:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50"
               >
                 <Icons.bowl className="h-5 w-5 text-txt-tertiary" aria-hidden="true" />
                 <div className="flex-1">
@@ -57,7 +97,11 @@ export function AddToRecipeSheet({ open, onClose, onAdded }: AddToRecipeSheetPro
                     {t("ingredientCount", { count: recipe.recipe_ingredients.length })}
                   </p>
                 </div>
-                <Icons.chevronRight className="h-4 w-4 text-txt-tertiary" aria-hidden="true" />
+                {adding === recipe.id ? (
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                ) : (
+                  <Icons.chevronRight className="h-4 w-4 text-txt-tertiary" aria-hidden="true" />
+                )}
               </button>
             ))}
           </div>

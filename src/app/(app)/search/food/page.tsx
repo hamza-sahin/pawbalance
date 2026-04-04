@@ -18,6 +18,7 @@ export default function FoodDetailPage() {
   const id = searchParams.get("id") ?? "";
   const { food, isLoading, fetchFood } = useFoodDetail();
   const [showRecipeSheet, setShowRecipeSheet] = useState(false);
+  const [addedMessage, setAddedMessage] = useState("");
 
   useEffect(() => {
     if (id) fetchFood(id);
@@ -126,11 +127,21 @@ export default function FoodDetailPage() {
         </button>
       </div>
 
+      {addedMessage && (
+        <div className="mt-3 rounded-button bg-safe/10 px-4 py-2.5 text-center text-sm font-medium text-safe">
+          {addedMessage}
+        </div>
+      )}
+
       <AddToRecipeSheet
         open={showRecipeSheet}
         onClose={() => setShowRecipeSheet(false)}
         foodName={name}
         preparation={preparation ?? undefined}
+        onAdded={(recipeName) => {
+          setAddedMessage(t("addedToRecipe", { food: name, recipe: recipeName }));
+          setTimeout(() => setAddedMessage(""), 3000);
+        }}
       />
     </div>
   );
