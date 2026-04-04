@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useCallback } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { UtensilsCrossed, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,12 @@ export default function RecipesPage() {
   const router = useRouter();
   const { recipes, isLoading, analyses, fetchRecipes } = useRecipes();
   const { pets } = usePetStore();
+  const pathname = usePathname();
 
+  // Re-fetch every time this page is navigated to (pathname changes back to /recipes)
   useEffect(() => {
     fetchRecipes();
-  }, [fetchRecipes]);
+  }, [pathname, fetchRecipes]);
 
   const getPetName = (petId: string | null) =>
     pets.find((p) => p.id === petId)?.name;
