@@ -240,6 +240,10 @@ The `/deploy` skill (`.claude/skills/deploy/SKILL.md`) runs:
 - **Before making any UI changes** — when implementing a new screen, modifying a component's layout, changing styles, or updating any visual element, invoke `/ui-ux-pro-max` first to get design guidance.
 - This applies during brainstorming (design phase), systematic-debugging (if the fix involves UI), or any task that touches files in `src/components/`, `src/app/`, or `src/app/globals.css`.
 
+## Skill Invocation Rule
+
+When a prompt references multiple skills (e.g. `/brainstorming /ios-debug /ui-ux-pro-max implement feature A`), **ALL** referenced skills MUST be invoked via the Skill tool before proceeding. Do not skip any skill mentioned in the prompt. Invoke them in logical order (process skills like brainstorming/debugging first, then design skills like ui-ux-pro-max, then implementation/verification skills like qa/deploy/ios-debug).
+
 ## Out of Scope (deferred to future)
 
 - Payment/subscription (Stripe + RevenueCat)
