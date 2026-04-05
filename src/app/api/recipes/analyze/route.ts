@@ -33,6 +33,16 @@ export async function POST(request: Request) {
     global: { headers: { Authorization: `Bearer ${token}` } },
   });
 
+  // 2b. Check subscription tier
+  const { data: { user } } = await supabase.auth.getUser();
+  const tier = user?.user_metadata?.subscription_tier ?? "FREE";
+  if (tier !== "BASIC" && tier !== "PREMIUM") {
+    return Response.json(
+      { error: "subscription_required", required: "basic" },
+      { status: 403, headers: corsHeaders },
+    );
+  }
+
   // 3. Verify user owns the recipe
   const { data: recipe, error: recipeError } = await supabase
     .from("recipes")
