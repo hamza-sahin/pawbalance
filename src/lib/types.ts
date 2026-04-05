@@ -4,7 +4,7 @@ import { z } from "zod";
 // Enums
 // ============================================================
 
-export const SubscriptionTier = z.enum(["FREE", "PREMIUM"]);
+export const SubscriptionTier = z.enum(["FREE", "BASIC", "PREMIUM"]);
 export type SubscriptionTier = z.infer<typeof SubscriptionTier>;
 
 export const SafetyLevel = z.enum(["SAFE", "MODERATE", "TOXIC"]);
