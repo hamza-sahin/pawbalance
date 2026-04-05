@@ -2,11 +2,19 @@
 
 import { useTranslations } from "next-intl";
 import { Icons } from "@/components/ui/icon";
+import { useEntitlement } from "@/hooks/use-entitlement";
+import { PaywallSheet } from "@/components/subscription/PaywallSheet";
 
 const STEPS = ["scanStep1", "scanStep2", "scanStep3"] as const;
 
 export default function ScanPage() {
   const t = useTranslations();
+  const { guardAction, isPaywallOpen, paywallTier, dismissPaywall } = useEntitlement();
+
+  const handleStartScan = () => {
+    if (!guardAction("scanner.scan")) return;
+    // TODO: actual scan functionality (future feature)
+  };
 
   return (
     <div className="flex min-h-[calc(100vh-5rem)] flex-col p-4">
@@ -56,10 +64,17 @@ export default function ScanPage() {
           <span className="font-bold text-white">{t("unlockScanner")}</span>
         </div>
         <p className="mb-4 text-xs text-white/75">{t("includedWithPremium")}</p>
-        <button className="w-full rounded-button bg-white px-4 py-2.5 text-sm font-semibold text-primary shadow-sm transition-all duration-150 ease-out active:scale-95 active:opacity-90 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
+        <button
+          onClick={handleStartScan}
+          className="w-full cursor-pointer rounded-button bg-white px-4 py-2.5 text-sm font-semibold text-primary shadow-sm transition-all duration-150 ease-out active:scale-95 active:opacity-90 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+        >
           {t("upgradeToPremium")}
         </button>
       </div>
+
+      {isPaywallOpen && paywallTier && (
+        <PaywallSheet requiredTier={paywallTier} onDismiss={dismissPaywall} />
+      )}
     </div>
   );
 }
