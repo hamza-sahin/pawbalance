@@ -13,6 +13,8 @@ import { useRecipeStore } from "@/store/recipe-store";
 import { useRecipes } from "@/hooks/use-recipes";
 import { useLocale } from "@/hooks/use-locale";
 import type { RecipeEditAction } from "@/lib/types";
+import { useEntitlement } from "@/hooks/use-entitlement";
+import { PaywallSheet } from "@/components/subscription/PaywallSheet";
 
 export default function AnalysisPage() {
   const t = useTranslations();
@@ -29,6 +31,7 @@ export default function AnalysisPage() {
 
   const { status, ingredientProgress, result, error, analyze } =
     useRecipeAnalysis();
+  const { guardAction, canPerform, isPaywallOpen, paywallTier, dismissPaywall } = useEntitlement();
 
   // Fetch recipes if store is empty (direct navigation)
   useEffect(() => {
@@ -40,11 +43,14 @@ export default function AnalysisPage() {
   // Auto-start analysis on mount (if no completed analysis or forced reanalyze)
   useEffect(() => {
     if (recipeId && recipe && status === "idle" && (forceReanalyze || !storedAnalysis?.result)) {
-      analyze(recipeId, recipe.pet_id, locale);
+      if (canPerform("recipes.analyze")) {
+        analyze(recipeId, recipe.pet_id, locale);
+      }
     }
-  }, [recipeId, recipe, status, storedAnalysis, forceReanalyze, analyze, locale]);
+  }, [recipeId, recipe, status, storedAnalysis, forceReanalyze, analyze, locale, canPerform]);
 
   const handleRetry = () => {
+    if (!guardAction("recipes.analyze")) return;
     if (recipeId && recipe) {
       analyze(recipeId, recipe.pet_id, locale);
     }
@@ -179,6 +185,9 @@ export default function AnalysisPage() {
           </>
         )}
       </div>
+      {isPaywallOpen && paywallTier && (
+        <PaywallSheet requiredTier={paywallTier} onDismiss={dismissPaywall} />
+      )}
     </div>
   );
 }

@@ -7,14 +7,18 @@ import { ChevronLeft } from "lucide-react";
 import { RecipeForm } from "@/components/recipe/recipe-form";
 import { useRecipes } from "@/hooks/use-recipes";
 import type { RecipeFormValues } from "@/lib/validators";
+import { useEntitlement } from "@/hooks/use-entitlement";
+import { PaywallSheet } from "@/components/subscription/PaywallSheet";
 
 export default function NewRecipePage() {
   const t = useTranslations();
   const router = useRouter();
   const { createRecipe } = useRecipes();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { guardAction, isPaywallOpen, paywallTier, dismissPaywall } = useEntitlement();
 
   const handleSubmit = async (values: RecipeFormValues) => {
+    if (!guardAction("recipes.create")) return;
     setIsSubmitting(true);
     try {
       const recipe = await createRecipe(values);
@@ -39,6 +43,9 @@ export default function NewRecipePage() {
       <div className="p-4">
         <RecipeForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
       </div>
+      {isPaywallOpen && paywallTier && (
+        <PaywallSheet requiredTier={paywallTier} onDismiss={dismissPaywall} />
+      )}
     </div>
   );
 }
