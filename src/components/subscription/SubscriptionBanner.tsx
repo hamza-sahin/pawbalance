@@ -45,7 +45,7 @@ export function SubscriptionBanner({ onSubscribeClick, onManageClick }: Subscrip
   const now = new Date();
   const daysLeft = Math.ceil((expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
-  if (daysLeft > 3) return null;
+  if (daysLeft > 2) return null;
 
   const message = daysLeft <= 0
     ? t("trialEndsToday")
