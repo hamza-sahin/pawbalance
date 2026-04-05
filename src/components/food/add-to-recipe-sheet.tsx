@@ -68,7 +68,7 @@ export function AddToRecipeSheet({ open, onClose, foodName, preparation, onAdded
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-40 bg-black/40"
+        className="fixed inset-0 z-[55] bg-black/40"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -76,10 +76,10 @@ export function AddToRecipeSheet({ open, onClose, foodName, preparation, onAdded
       <div
         ref={sheetRef}
         {...dragHandlers}
-        className={`fixed inset-x-0 bottom-0 z-50 bg-surface p-5 pb-8 shadow-xl motion-safe:animate-slide-up transition-[border-radius,max-height] duration-250 ease-out ${
+        className={`fixed inset-x-0 bottom-0 z-[60] bg-surface p-5 pb-8 shadow-xl motion-safe:animate-slide-up transition-[border-radius,max-height] duration-250 ease-out overflow-y-auto ${
           maximized
-            ? "rounded-t-none max-h-[100dvh] overflow-y-auto"
-            : "rounded-t-[20px]"
+            ? "rounded-t-none max-h-[100dvh]"
+            : "rounded-t-[20px] max-h-[90dvh]"
         }`}
       >
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-border" />

@@ -82,10 +82,10 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
         ref={sheetRef}
         {...dragHandlers}
         tabIndex={-1}
-        className={`relative w-full max-w-md bg-surface px-5 pt-4 shadow-[0_-4px_24px_rgba(0,0,0,0.12)] transition-[transform,border-radius,max-height] duration-200 ease-out motion-reduce:transition-none ${visible ? "translate-y-0" : "translate-y-full"} ${
+        className={`relative w-full max-w-md bg-surface px-5 pt-4 shadow-[0_-4px_24px_rgba(0,0,0,0.12)] transition-[transform,border-radius,max-height] duration-200 ease-out motion-reduce:transition-none overflow-y-auto ${visible ? "translate-y-0" : "translate-y-full"} ${
           maximized
-            ? "rounded-t-none max-h-[100dvh] overflow-y-auto"
-            : "rounded-t-[20px]"
+            ? "rounded-t-none max-h-[100dvh]"
+            : "rounded-t-[20px] max-h-[90dvh]"
         }`}
         style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}
         role="dialog"

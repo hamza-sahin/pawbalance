@@ -85,7 +85,7 @@ export function PaywallSheet({ requiredTier, onDismiss }: PaywallSheetProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center md:items-center"
+      className="fixed inset-0 z-[60] flex items-end justify-center md:items-center"
       onClick={(e) => { if (e.target === e.currentTarget && !isLoading) onDismiss(); }}
     >
       {/* Overlay */}
@@ -95,10 +95,10 @@ export function PaywallSheet({ requiredTier, onDismiss }: PaywallSheetProps) {
       <div
         ref={sheetRef}
         {...dragHandlers}
-        className={`relative w-full max-w-md bg-surface p-5 shadow-xl motion-safe:animate-slide-up transition-[border-radius,max-height] duration-250 ease-out ${
+        className={`relative w-full max-w-md bg-surface p-5 shadow-xl motion-safe:animate-slide-up transition-[border-radius,max-height] duration-250 ease-out overflow-y-auto ${
           maximized
-            ? "rounded-t-none max-h-[100dvh] overflow-y-auto pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
-            : "rounded-t-[20px] pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:rounded-[20px]"
+            ? "rounded-t-none max-h-[100dvh] pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
+            : "rounded-t-[20px] max-h-[90dvh] pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:rounded-[20px]"
         }`}
         style={{ overscrollBehavior: "contain" }}
         role="dialog"
