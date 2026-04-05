@@ -10,7 +10,7 @@ End-to-end implementation of a tiered subscription system for PawBalance, coveri
 |------|-----------|-------------|----------|-------|
 | Guest | (no session) | 0 | Search, Learn | Free |
 | Free | `FREE` | 1 | + Profile, Pets | Free |
-| Basic | `BASIC` | 2 | + Recipes (create, edit, analyze) | $6.99/mo, $55.99/yr |
+| Basic | `BASIC` | 2 | + Recipes (create, edit, analyze) | $6.99/mo, $49.99/yr |
 | Premium | `PREMIUM` | 3 | + Scanner | $9.99/mo, $79.99/yr |
 
 All paid tiers include a 7-day free trial. One trial per subscription group (Apple restriction). Annual plans save ~33%.
@@ -26,7 +26,7 @@ Subscription group: **"PawBalance Pro"**
 | Product ID | Type | Price | Trial |
 |-----------|------|-------|-------|
 | `com.pawbalance.basic.monthly` | Auto-renewable | $6.99 | 7 days |
-| `com.pawbalance.basic.annual` | Auto-renewable | $55.99 | 7 days |
+| `com.pawbalance.basic.annual` | Auto-renewable | $49.99 | 7 days |
 | `com.pawbalance.premium.monthly` | Auto-renewable | $9.99 | 7 days |
 | `com.pawbalance.premium.annual` | Auto-renewable | $79.99 | 7 days |
 

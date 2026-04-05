@@ -18,7 +18,7 @@ type Period = "monthly" | "annual";
 const PRICES: Record<PlanKey, Record<Period, { amount: string; equivalent?: string }>> = {
   basic: {
     monthly: { amount: "$6.99" },
-    annual: { amount: "$55.99", equivalent: "$4.67" },
+    annual: { amount: "$49.99", equivalent: "$4.17" },
   },
   premium: {
     monthly: { amount: "$9.99" },
