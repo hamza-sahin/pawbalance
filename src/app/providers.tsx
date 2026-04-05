@@ -3,16 +3,50 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useAuthListener } from "@/hooks/use-auth";
-import { initOtaUpdates, setOnUpdateReady, reloadApp } from "@/lib/platform";
+import { useAuthStore } from "@/store/auth-store";
+import { initOtaUpdates, setOnUpdateReady, reloadApp, isNative } from "@/lib/platform";
+import { initPurchases, syncEntitlements } from "@/hooks/use-purchases";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   useAuthListener();
   const t = useTranslations();
   const [updateReady, setUpdateReady] = useState(false);
 
+  // Init OTA updates
   useEffect(() => {
     setOnUpdateReady(() => setUpdateReady(true));
     initOtaUpdates();
+  }, []);
+
+  // Init RevenueCat after auth is ready
+  const { session, isLoading } = useAuthStore();
+  useEffect(() => {
+    if (isLoading) return;
+    initPurchases(session?.user?.id);
+  }, [isLoading, session?.user?.id]);
+
+  // Re-sync entitlements on app foreground
+  useEffect(() => {
+    if (!isNative) return;
+
+    let cleanup: (() => void) | undefined;
+
+    (async () => {
+      const { App } = await import("@capacitor/app");
+      const listener = await App.addListener("appStateChange", ({ isActive }) => {
+        if (isActive) syncEntitlements();
+      });
+      cleanup = () => listener.remove();
+    })();
+
+    return () => cleanup?.();
+  }, []);
+
+  // Web: periodic re-sync every 15 minutes
+  useEffect(() => {
+    if (isNative) return;
+    const interval = setInterval(syncEntitlements, 15 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
