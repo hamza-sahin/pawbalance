@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useRecipeStore } from "@/store/recipe-store";
+import { useSheetDrag } from "@/hooks/use-sheet-drag";
 import { getSupabase } from "@/lib/supabase";
 import { Icons } from "@/components/ui/icon";
 import type { RecipeWithIngredients, RecipeIngredient } from "@/lib/types";
@@ -22,6 +23,7 @@ export function AddToRecipeSheet({ open, onClose, foodName, preparation, onAdded
   const recipes = useRecipeStore((s) => s.recipes);
   const updateRecipe = useRecipeStore((s) => s.updateRecipe);
   const [adding, setAdding] = useState<string | null>(null);
+  const { sheetRef, maximized, handlers: dragHandlers } = useSheetDrag({ onDismiss: onClose, disabled: adding !== null });
 
   if (!open) return null;
 
@@ -71,7 +73,15 @@ export function AddToRecipeSheet({ open, onClose, foodName, preparation, onAdded
         aria-hidden="true"
       />
       {/* Sheet */}
-      <div className="fixed inset-x-0 bottom-0 z-50 rounded-t-[20px] bg-surface p-5 pb-8 shadow-xl motion-safe:animate-slide-up">
+      <div
+        ref={sheetRef}
+        {...dragHandlers}
+        className={`fixed inset-x-0 bottom-0 z-50 bg-surface p-5 pb-8 shadow-xl motion-safe:animate-slide-up transition-[border-radius,max-height] duration-250 ease-out ${
+          maximized
+            ? "rounded-t-none max-h-[100dvh] overflow-y-auto"
+            : "rounded-t-[20px]"
+        }`}
+      >
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-border" />
         <h3 className="mb-4 text-center text-base font-semibold text-txt">
           {t("selectRecipe")}

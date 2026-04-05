@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/hooks/use-auth";
+import { useSheetDrag } from "@/hooks/use-sheet-drag";
 import { isNative } from "@/lib/platform";
 import { Icons } from "@/components/ui/icon";
 
@@ -19,13 +20,14 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [appleLoading, setAppleLoading] = useState(false);
   const [visible, setVisible] = useState(false);
-  const sheetRef = useRef<HTMLDivElement>(null);
 
   const handleDismiss = useCallback(() => {
     setVisible(false);
     const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 200;
     setTimeout(onDismiss, delay);
   }, [onDismiss]);
+
+  const { sheetRef, maximized, handlers: dragHandlers } = useSheetDrag({ onDismiss: handleDismiss });
 
   // Animate in on mount + move focus into the sheet
   useEffect(() => {
@@ -36,37 +38,6 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
       requestAnimationFrame(() => setVisible(true));
     }
     sheetRef.current?.focus();
-  }, []);
-
-  // Escape key to dismiss
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") handleDismiss();
-    }
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [handleDismiss]);
-
-  // Simple focus trap: keep Tab cycling inside the sheet
-  useEffect(() => {
-    function handleTab(e: KeyboardEvent) {
-      if (e.key !== "Tab" || !sheetRef.current) return;
-      const focusable = sheetRef.current.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
-    document.addEventListener("keydown", handleTab);
-    return () => document.removeEventListener("keydown", handleTab);
   }, []);
 
   async function handleGoogle() {
@@ -109,8 +80,13 @@ export function LoginSheet({ onDismiss }: LoginSheetProps) {
       {/* Sheet */}
       <div
         ref={sheetRef}
+        {...dragHandlers}
         tabIndex={-1}
-        className={`relative w-full max-w-md rounded-t-[20px] bg-surface px-5 pb-8 pt-4 shadow-[0_-4px_24px_rgba(0,0,0,0.12)] transition-transform duration-200 ease-out motion-reduce:transition-none ${visible ? "translate-y-0" : "translate-y-full"}`}
+        className={`relative w-full max-w-md bg-surface px-5 pt-4 shadow-[0_-4px_24px_rgba(0,0,0,0.12)] transition-[transform,border-radius,max-height] duration-200 ease-out motion-reduce:transition-none ${visible ? "translate-y-0" : "translate-y-full"} ${
+          maximized
+            ? "rounded-t-none max-h-[100dvh] overflow-y-auto"
+            : "rounded-t-[20px]"
+        }`}
         style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}
         role="dialog"
         aria-modal="true"

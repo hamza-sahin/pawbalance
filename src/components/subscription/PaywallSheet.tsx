@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { UtensilsCrossed, ScanLine, Check } from "lucide-react";
 import { usePurchases } from "@/hooks/use-purchases";
+import { useSheetDrag } from "@/hooks/use-sheet-drag";
 import type { AccessTier } from "@/lib/access";
 
 interface PaywallSheetProps {
@@ -49,18 +50,11 @@ export function PaywallSheet({ requiredTier, onDismiss }: PaywallSheetProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const { sheetRef, maximized, handlers: dragHandlers } = useSheetDrag({ onDismiss, disabled: isLoading });
+
   const isRecipeContext = requiredTier !== "premium";
   const features = isRecipeContext ? RECIPE_FEATURES : SCANNER_FEATURES;
   const price = PRICES[selectedPlan][period];
-
-  // Close on Escape
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onDismiss();
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [onDismiss]);
 
   const handlePurchase = useCallback(async () => {
     setIsLoading(true);
@@ -99,7 +93,13 @@ export function PaywallSheet({ requiredTier, onDismiss }: PaywallSheetProps) {
 
       {/* Sheet */}
       <div
-        className="relative w-full max-w-md rounded-t-[20px] bg-surface p-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-xl motion-safe:animate-slide-up md:rounded-[20px]"
+        ref={sheetRef}
+        {...dragHandlers}
+        className={`relative w-full max-w-md bg-surface p-5 shadow-xl motion-safe:animate-slide-up transition-[border-radius,max-height] duration-250 ease-out ${
+          maximized
+            ? "rounded-t-none max-h-[100dvh] overflow-y-auto pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
+            : "rounded-t-[20px] pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:rounded-[20px]"
+        }`}
         style={{ overscrollBehavior: "contain" }}
         role="dialog"
         aria-modal="true"
