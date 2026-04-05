@@ -11,6 +11,8 @@ import { Card } from "@/components/ui/card";
 import { Dialog } from "@/components/ui/dialog";
 import { Icons } from "@/components/ui/icon";
 import { LoginSheet } from "@/components/auth/LoginSheet";
+import { SubscriptionCard } from "@/components/subscription/SubscriptionCard";
+import { PaywallSheet } from "@/components/subscription/PaywallSheet";
 
 export default function ProfilePage() {
   const t = useTranslations();
@@ -19,6 +21,7 @@ export default function ProfilePage() {
   const { locale } = useLocale();
   const [showLoginSheet, setShowLoginSheet] = useState(false);
   const [showSignOutDialog, setShowSignOutDialog] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
 
   // Guest view
   if (!isAuthenticated) {
@@ -103,7 +106,7 @@ export default function ProfilePage() {
         <p className="text-lg font-bold text-txt">{displayName}</p>
         <p className="text-sm text-txt-secondary">{user?.email}</p>
         <Badge>
-          {subscriptionTier === "PREMIUM" ? t("premiumPlan") : t("freePlan")}
+          {subscriptionTier === "PREMIUM" ? t("premiumPlan") : subscriptionTier === "BASIC" ? t("basicPlan") : t("freePlan")}
         </Badge>
       </div>
 
@@ -132,14 +135,7 @@ export default function ProfilePage() {
         {/* Subscription */}
         <div>
           <p className="mb-2 text-xs font-medium uppercase tracking-wider text-txt-tertiary">{t("subscription")}</p>
-          <Link href="#" className="block transition-all duration-150 ease-out active:scale-95 active:opacity-80">
-            <Card className="flex items-center gap-3 p-4">
-              <Icons.crown className="h-5 w-5 text-txt-secondary" aria-hidden="true" />
-              <span className="flex-1 font-medium text-txt">{t("upgradeToPremium")}</span>
-              <Badge variant="premium">PRO</Badge>
-              <Icons.chevronRight className="h-4 w-4 text-txt-tertiary" aria-hidden="true" />
-            </Card>
-          </Link>
+          <SubscriptionCard onUpgradeClick={() => setShowPaywall(true)} />
         </div>
 
         {/* Support */}
@@ -170,6 +166,10 @@ export default function ProfilePage() {
       >
         {t("signOut")}
       </button>
+
+      {showPaywall && (
+        <PaywallSheet requiredTier="basic" onDismiss={() => setShowPaywall(false)} />
+      )}
 
       <Dialog open={showSignOutDialog} onClose={() => setShowSignOutDialog(false)} title={t("signOutTitle")}>
         <p className="mb-4 text-sm text-txt-secondary">{t("signOutConfirm")}</p>
