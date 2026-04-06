@@ -91,14 +91,19 @@ export function usePurchases() {
         const purchaseResult = await Purchases.purchasePackage({
           aPackage: targetPkg,
         });
-        console.log("[Purchase] purchaseResult:", JSON.stringify(purchaseResult, null, 2));
+        console.log("[Purchase] purchaseResult keys:", Object.keys(purchaseResult));
+        console.log("[Purchase] customerInfo exists:", !!purchaseResult.customerInfo);
 
-        const result = mapEntitlements(purchaseResult.customerInfo.entitlements.active as any);
+        // After successful purchase, re-fetch entitlements to ensure fresh state
+        const { customerInfo } = await Purchases.getCustomerInfo();
+        console.log("[Purchase] Fresh customerInfo entitlements:", JSON.stringify(Object.keys(customerInfo.entitlements.active)));
+
+        const result = mapEntitlements(customerInfo.entitlements.active as any);
         console.log("[Purchase] Mapped entitlements:", result);
         setSubscription(result.tier, result.expiry, result.isTrialing);
         return true;
       } catch (err: any) {
-        console.error("[Purchase] Error:", err, "userCancelled:", err?.userCancelled);
+        console.error("[Purchase] Error:", JSON.stringify(err), "userCancelled:", err?.userCancelled);
         if (err.userCancelled) return false;
         throw err;
       }
