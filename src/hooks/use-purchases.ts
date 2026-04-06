@@ -114,6 +114,12 @@ export function usePurchases() {
           await syncEntitlements();
           return useAuthStore.getState().subscriptionTier !== "FREE";
         }
+        // For any other error, still try syncing entitlements as fallback —
+        // Apple may have processed the purchase even if RevenueCat threw
+        await syncEntitlements();
+        if (useAuthStore.getState().subscriptionTier !== "FREE") {
+          return true;
+        }
         throw err;
       }
     },
