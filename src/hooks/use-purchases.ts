@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useAuthStore } from "@/store/auth-store";
 import { isNative } from "@/lib/platform";
+import { getSupabase } from "@/lib/supabase";
 import type { SubscriptionTier } from "@/lib/types";
 
 type Period = "monthly" | "annual";
@@ -42,7 +43,7 @@ function extractCustomerInfo(result: any): any {
   return result?.customerInfo ?? result;
 }
 
-/** Sync RevenueCat entitlements to Zustand store. */
+/** Sync RevenueCat entitlements to Zustand store and Supabase user_metadata. */
 export async function syncEntitlements(): Promise<void> {
   if (!isNative) return;
 
@@ -54,6 +55,15 @@ export async function syncEntitlements(): Promise<void> {
       customerInfo.entitlements.active as any,
     );
     useAuthStore.getState().setSubscription(tier, expiry, isTrialing);
+
+    // Persist to Supabase user_metadata as fallback in case the
+    // RevenueCat webhook failed (e.g. during a pod rollout).
+    const currentMeta = useAuthStore.getState().user?.user_metadata;
+    if (currentMeta?.subscription_tier !== tier) {
+      getSupabase().auth.updateUser({
+        data: { subscription_tier: tier, subscription_expiry: expiry },
+      });
+    }
   } catch (err) {
     console.error("[syncEntitlements] Error:", err);
   }
