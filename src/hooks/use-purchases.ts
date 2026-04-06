@@ -106,12 +106,14 @@ export function usePurchases() {
         await syncEntitlements();
         return true;
       } catch (err: any) {
-        // Handle "already subscribed" — not an error, just sync entitlements
-        if (err.code === "PRODUCT_ALREADY_PURCHASED_ERROR" || err.code === 6) {
+        const code = String(err?.code ?? "");
+        // "1" = PURCHASE_CANCELLED_ERROR
+        if (code === "1") return false;
+        // "6" = PRODUCT_ALREADY_PURCHASED_ERROR — sync and treat as success
+        if (code === "6") {
           await syncEntitlements();
           return useAuthStore.getState().subscriptionTier !== "FREE";
         }
-        if (err.userCancelled) return false;
         throw err;
       }
     },
@@ -121,10 +123,14 @@ export function usePurchases() {
   const restore = useCallback(async (): Promise<boolean> => {
     if (!isNative) return false;
 
-    const { Purchases } = await import("@revenuecat/purchases-capacitor");
-    await Purchases.restorePurchases();
+    try {
+      const { Purchases } = await import("@revenuecat/purchases-capacitor");
+      await Purchases.restorePurchases();
+    } catch {
+      // restorePurchases may throw if no purchases to restore — ignore
+    }
 
-    // Re-fetch entitlements after restore
+    // Always re-fetch entitlements regardless
     await syncEntitlements();
     return useAuthStore.getState().subscriptionTier !== "FREE";
   }, []);
