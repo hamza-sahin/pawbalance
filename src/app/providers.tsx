@@ -6,6 +6,7 @@ import { useAuthListener } from "@/hooks/use-auth";
 import { useAuthStore } from "@/store/auth-store";
 import { initOtaUpdates, setOnUpdateReady, reloadApp, isNative } from "@/lib/platform";
 import { initPurchases, syncEntitlements } from "@/hooks/use-purchases";
+import { getApiUrl } from "@/lib/api";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   useAuthListener();
@@ -24,6 +25,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
     if (isLoading) return;
     initPurchases(session?.user?.id);
   }, [isLoading, session?.user?.id]);
+
+  // Web: sync entitlements from RevenueCat REST API on login
+  useEffect(() => {
+    if (isNative || isLoading || !session?.access_token) return;
+
+    fetch(getApiUrl("/api/auth/sync-entitlements"), {
+      method: "POST",
+      headers: { Authorization: `Bearer ${session.access_token}` },
+    }).catch(() => {
+      // Silent failure — webhook data is the fallback
+    });
+  }, [isLoading, session?.access_token]);
 
   // Re-sync entitlements on app foreground
   useEffect(() => {
