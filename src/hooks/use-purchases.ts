@@ -143,9 +143,8 @@ export function usePurchases() {
 
   const manageSubscription = useCallback(async () => {
     if (isNative) {
-      const { Browser } = await import("@capacitor/browser");
-      // itms-apps:// opens the native App Store subscriptions page directly
-      await Browser.open({
+      const { AppLauncher } = await import("@capacitor/app-launcher");
+      await AppLauncher.openUrl({
         url: "itms-apps://apps.apple.com/account/subscriptions",
       });
     }
