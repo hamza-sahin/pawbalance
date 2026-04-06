@@ -26,6 +26,7 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_API_URL: https://pawbalance.optalgo.com
           NEXT_PUBLIC_REVENUECAT_APPLE_API_KEY: ${{ secrets.REVENUECAT_APPLE_API_KEY }}
+          NEXT_PUBLIC_REVENUECAT_WEB_API_KEY: ${{ secrets.REVENUECAT_WEB_API_KEY }}
       - uses: actions/upload-artifact@v4
         with:
           name: web-build
@@ -92,6 +93,7 @@ jobs:
             NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
             NEXT_PUBLIC_API_URL=https://pawbalance.optalgo.com
             NEXT_PUBLIC_REVENUECAT_APPLE_API_KEY=${{ secrets.REVENUECAT_APPLE_API_KEY }}
+            NEXT_PUBLIC_REVENUECAT_WEB_API_KEY=${{ secrets.REVENUECAT_WEB_API_KEY }}
 
   update-gitops:
     name: Update GitOps Repo
