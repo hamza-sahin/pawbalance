@@ -87,14 +87,18 @@ export function usePurchases() {
 
         if (!targetPkg) throw new Error(`Package not found: ${plan} ${period}`);
 
+        console.log("[Purchase] Calling purchasePackage...");
         const purchaseResult = await Purchases.purchasePackage({
           aPackage: targetPkg,
         });
+        console.log("[Purchase] purchaseResult:", JSON.stringify(purchaseResult, null, 2));
 
         const result = mapEntitlements(purchaseResult.customerInfo.entitlements.active as any);
+        console.log("[Purchase] Mapped entitlements:", result);
         setSubscription(result.tier, result.expiry, result.isTrialing);
         return true;
       } catch (err: any) {
+        console.error("[Purchase] Error:", err, "userCancelled:", err?.userCancelled);
         if (err.userCancelled) return false;
         throw err;
       }

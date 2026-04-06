@@ -62,7 +62,8 @@ export function PaywallSheet({ requiredTier, onDismiss }: PaywallSheetProps) {
     try {
       const success = await purchase(selectedPlan, period);
       if (success) onDismiss();
-    } catch {
+    } catch (err) {
+      console.error("[PaywallSheet] Purchase error:", err);
       setError(t("purchaseFailed"));
     } finally {
       setIsLoading(false);
