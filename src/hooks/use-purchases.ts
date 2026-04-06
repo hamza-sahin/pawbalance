@@ -34,16 +34,29 @@ function mapEntitlements(entitlements: Record<string, { isActive: boolean }>): {
   return { tier: "FREE", expiry: null, isTrialing: false };
 }
 
+/**
+ * Safely extract CustomerInfo from SDK responses.
+ * The Capacitor bridge may return { customerInfo: ... } or the CustomerInfo directly.
+ */
+function extractCustomerInfo(result: any): any {
+  return result?.customerInfo ?? result;
+}
+
 /** Sync RevenueCat entitlements to Zustand store. */
 export async function syncEntitlements(): Promise<void> {
   if (!isNative) return;
 
-  const { Purchases } = await import("@revenuecat/purchases-capacitor");
-  const { customerInfo } = await Purchases.getCustomerInfo();
-  const { tier, expiry, isTrialing } = mapEntitlements(
-    customerInfo.entitlements.active as any,
-  );
-  useAuthStore.getState().setSubscription(tier, expiry, isTrialing);
+  try {
+    const { Purchases } = await import("@revenuecat/purchases-capacitor");
+    const raw = await Purchases.getCustomerInfo();
+    const customerInfo = extractCustomerInfo(raw);
+    const { tier, expiry, isTrialing } = mapEntitlements(
+      customerInfo.entitlements.active as any,
+    );
+    useAuthStore.getState().setSubscription(tier, expiry, isTrialing);
+  } catch (err) {
+    console.error("[syncEntitlements] Error:", err);
+  }
 }
 
 /** Initialize RevenueCat SDK. Call once on app startup. */
@@ -87,23 +100,17 @@ export function usePurchases() {
 
         if (!targetPkg) throw new Error(`Package not found: ${plan} ${period}`);
 
-        console.log("[Purchase] Calling purchasePackage...");
-        const purchaseResult = await Purchases.purchasePackage({
-          aPackage: targetPkg,
-        });
-        console.log("[Purchase] purchaseResult keys:", Object.keys(purchaseResult));
-        console.log("[Purchase] customerInfo exists:", !!purchaseResult.customerInfo);
+        await Purchases.purchasePackage({ aPackage: targetPkg });
 
-        // After successful purchase, re-fetch entitlements to ensure fresh state
-        const { customerInfo } = await Purchases.getCustomerInfo();
-        console.log("[Purchase] Fresh customerInfo entitlements:", JSON.stringify(Object.keys(customerInfo.entitlements.active)));
-
-        const result = mapEntitlements(customerInfo.entitlements.active as any);
-        console.log("[Purchase] Mapped entitlements:", result);
-        setSubscription(result.tier, result.expiry, result.isTrialing);
+        // Re-fetch entitlements after purchase to get reliable state
+        await syncEntitlements();
         return true;
       } catch (err: any) {
-        console.error("[Purchase] Error:", JSON.stringify(err), "userCancelled:", err?.userCancelled);
+        // Handle "already subscribed" — not an error, just sync entitlements
+        if (err.code === "PRODUCT_ALREADY_PURCHASED_ERROR" || err.code === 6) {
+          await syncEntitlements();
+          return useAuthStore.getState().subscriptionTier !== "FREE";
+        }
         if (err.userCancelled) return false;
         throw err;
       }
@@ -115,11 +122,12 @@ export function usePurchases() {
     if (!isNative) return false;
 
     const { Purchases } = await import("@revenuecat/purchases-capacitor");
-    const { customerInfo } = await Purchases.restorePurchases();
-    const result = mapEntitlements(customerInfo.entitlements.active as any);
-    setSubscription(result.tier, result.expiry, result.isTrialing);
-    return result.tier !== "FREE";
-  }, [setSubscription]);
+    await Purchases.restorePurchases();
+
+    // Re-fetch entitlements after restore
+    await syncEntitlements();
+    return useAuthStore.getState().subscriptionTier !== "FREE";
+  }, []);
 
   const manageSubscription = useCallback(async () => {
     if (isNative) {
