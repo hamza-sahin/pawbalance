@@ -43,27 +43,40 @@ function extractCustomerInfo(result: any): any {
   return result?.customerInfo ?? result;
 }
 
+/** Persist tier to Supabase user_metadata if it differs from current. */
+function persistTierIfChanged(tier: SubscriptionTier, expiry: string | null): void {
+  const currentMeta = useAuthStore.getState().user?.user_metadata;
+  if (currentMeta?.subscription_tier !== tier) {
+    getSupabase().auth.updateUser({
+      data: { subscription_tier: tier, subscription_expiry: expiry },
+    });
+  }
+}
+
 /** Sync RevenueCat entitlements to Zustand store and Supabase user_metadata. */
 export async function syncEntitlements(): Promise<void> {
-  if (!isNative) return;
-
   try {
-    const { Purchases } = await import("@revenuecat/purchases-capacitor");
-    const raw = await Purchases.getCustomerInfo();
-    const customerInfo = extractCustomerInfo(raw);
+    let customerInfo: any;
+
+    if (isNative) {
+      const { Purchases } = await import("@revenuecat/purchases-capacitor");
+      const raw = await Purchases.getCustomerInfo();
+      customerInfo = extractCustomerInfo(raw);
+    } else {
+      const { Purchases } = await import("@revenuecat/purchases-js");
+      try {
+        customerInfo = await Purchases.getSharedInstance().getCustomerInfo();
+      } catch {
+        // Web SDK not initialized yet (no user logged in) — skip
+        return;
+      }
+    }
+
     const { tier, expiry, isTrialing } = mapEntitlements(
       customerInfo.entitlements.active as any,
     );
     useAuthStore.getState().setSubscription(tier, expiry, isTrialing);
-
-    // Persist to Supabase user_metadata as fallback in case the
-    // RevenueCat webhook failed (e.g. during a pod rollout).
-    const currentMeta = useAuthStore.getState().user?.user_metadata;
-    if (currentMeta?.subscription_tier !== tier) {
-      getSupabase().auth.updateUser({
-        data: { subscription_tier: tier, subscription_expiry: expiry },
-      });
-    }
+    persistTierIfChanged(tier, expiry);
   } catch (err) {
     console.error("[syncEntitlements] Error:", err);
   }
@@ -71,16 +84,22 @@ export async function syncEntitlements(): Promise<void> {
 
 /** Initialize RevenueCat SDK. Call once on app startup. */
 export async function initPurchases(userId?: string): Promise<void> {
-  if (!isNative) return;
+  if (isNative) {
+    const apiKey = process.env.NEXT_PUBLIC_REVENUECAT_APPLE_API_KEY;
+    if (!apiKey) return;
 
-  const apiKey = process.env.NEXT_PUBLIC_REVENUECAT_APPLE_API_KEY;
-  if (!apiKey) return;
+    const { Purchases } = await import("@revenuecat/purchases-capacitor");
+    await Purchases.configure({ apiKey });
 
-  const { Purchases } = await import("@revenuecat/purchases-capacitor");
-  await Purchases.configure({ apiKey });
+    if (userId) {
+      await Purchases.logIn({ appUserID: userId });
+    }
+  } else {
+    const apiKey = process.env.NEXT_PUBLIC_REVENUECAT_WEB_API_KEY;
+    if (!apiKey || !userId) return;
 
-  if (userId) {
-    await Purchases.logIn({ appUserID: userId });
+    const { Purchases } = await import("@revenuecat/purchases-js");
+    Purchases.configure(apiKey, userId);
   }
 
   await syncEntitlements();
@@ -91,47 +110,63 @@ export function usePurchases() {
 
   const purchase = useCallback(
     async (plan: PlanKey, period: Period): Promise<boolean> => {
-      if (!isNative) {
-        // Web: future RC Billing implementation
-        return false;
-      }
+      if (isNative) {
+        const { Purchases } = await import("@revenuecat/purchases-capacitor");
 
-      const { Purchases } = await import("@revenuecat/purchases-capacitor");
+        try {
+          const offerings = await Purchases.getOfferings();
+          const current = offerings.current;
+          if (!current) throw new Error("No offerings available");
 
-      try {
-        const offerings = await Purchases.getOfferings();
-        const current = offerings.current;
-        if (!current) throw new Error("No offerings available");
+          const targetPkg = current.availablePackages.find((p) => {
+            const id = p.product.identifier;
+            return id.includes(plan) && id.includes(period === "annual" ? "annual" : "monthly");
+          });
 
-        const targetPkg = current.availablePackages.find((p) => {
-          const id = p.product.identifier;
-          return id.includes(plan) && id.includes(period === "annual" ? "annual" : "monthly");
-        });
+          if (!targetPkg) throw new Error(`Package not found: ${plan} ${period}`);
 
-        if (!targetPkg) throw new Error(`Package not found: ${plan} ${period}`);
+          await Purchases.purchasePackage({ aPackage: targetPkg });
 
-        await Purchases.purchasePackage({ aPackage: targetPkg });
-
-        // Re-fetch entitlements after purchase to get reliable state
-        await syncEntitlements();
-        return true;
-      } catch (err: any) {
-        const code = String(err?.code ?? "");
-        // "1" = PURCHASE_CANCELLED_ERROR
-        if (code === "1") return false;
-        // "6" = PRODUCT_ALREADY_PURCHASED_ERROR — sync and treat as success
-        if (code === "6") {
           await syncEntitlements();
-          return useAuthStore.getState().subscriptionTier !== "FREE";
-        }
-        // For any other error, still try syncing entitlements as fallback —
-        // Apple may have processed the purchase even if RevenueCat threw
-        await syncEntitlements();
-        if (useAuthStore.getState().subscriptionTier !== "FREE") {
           return true;
+        } catch (err: any) {
+          const code = String(err?.code ?? "");
+          if (code === "1") return false;
+          if (code === "6") {
+            await syncEntitlements();
+            return useAuthStore.getState().subscriptionTier !== "FREE";
+          }
+          await syncEntitlements();
+          if (useAuthStore.getState().subscriptionTier !== "FREE") {
+            return true;
+          }
+          throw err;
         }
-        throw err;
       }
+
+      // Web: RC Billing (Stripe)
+      const { Purchases } = await import("@revenuecat/purchases-js");
+      const instance = Purchases.getSharedInstance();
+
+      const offerings = await instance.getOfferings();
+      const current = offerings.current;
+      if (!current) throw new Error("No offerings available");
+
+      const targetPkg = current.availablePackages.find((p) => {
+        const id = p.webBillingProduct?.identifier ?? p.rcBillingProduct?.identifier ?? "";
+        return id.includes(plan) && id.includes(period === "annual" ? "annual" : "monthly");
+      });
+
+      if (!targetPkg) throw new Error(`Package not found: ${plan} ${period}`);
+
+      const { customerInfo } = await instance.purchase({ rcPackage: targetPkg });
+      const { tier, expiry, isTrialing } = mapEntitlements(
+        customerInfo.entitlements.active as any,
+      );
+      useAuthStore.getState().setSubscription(tier, expiry, isTrialing);
+      persistTierIfChanged(tier, expiry);
+
+      return true;
     },
     [setSubscription],
   );
@@ -146,7 +181,6 @@ export function usePurchases() {
       // restorePurchases may throw if no purchases to restore — ignore
     }
 
-    // Always re-fetch entitlements regardless
     await syncEntitlements();
     return useAuthStore.getState().subscriptionTier !== "FREE";
   }, []);
@@ -157,6 +191,18 @@ export function usePurchases() {
       await AppLauncher.openUrl({
         url: "itms-apps://apps.apple.com/account/subscriptions",
       });
+    } else {
+      const { Purchases } = await import("@revenuecat/purchases-js");
+      try {
+        const info = await Purchases.getSharedInstance().getCustomerInfo();
+        const url = info.managementURL;
+        if (url) {
+          window.open(url, "_blank");
+        }
+      } catch {
+        // Fallback: open Stripe portal login page directly
+        window.open("https://billing.stripe.com/p/login/bJe7sM2zS4M6bf02yC2sM00", "_blank");
+      }
     }
   }, []);
 
