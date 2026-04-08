@@ -1,0 +1,22 @@
+wing: pawbalance
+rooms:
+- name: resources
+  description: Files from resources/
+- name: documentation
+  description: Files from docs/
+- name: supabase
+  description: Files from supabase/
+- name: public
+  description: Files from public/
+- name: scripts
+  description: Files from scripts/
+- name: design_system
+  description: Files from design-system/
+- name: vendor
+  description: Files from vendor/
+- name: src
+  description: Files from src/
+- name: frontend
+  description: Files from components/
+- name: general
+  description: Files that don't fit other rooms
