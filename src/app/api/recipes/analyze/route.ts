@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { createRecipeAgent } from "@/lib/agent/create-agent";
+import { getRelevantKnowledge } from "@/lib/embeddings";
 import type { RecipeIngredient, AnalysisResult } from "@/lib/types";
 
 const corsHeaders = {
@@ -58,6 +59,15 @@ export async function POST(request: Request) {
     (a, b) => a.sort_order - b.sort_order,
   );
 
+  // Retrieve relevant veterinary nutrition knowledge
+    const ingredientNames = ingredients.map((ing: { name: string }) => ing.name);
+    let knowledgeContext: string[] = [];
+    try {
+      knowledgeContext = await getRelevantKnowledge(ingredientNames);
+    } catch (err) {
+      console.error("RAG retrieval failed, continuing without knowledge context:", err);
+    }
+
   // 4. Create pending analysis record
   const { data: analysis, error: analysisError } = await supabase
     .from("recipe_analyses")
@@ -93,6 +103,7 @@ Look up each ingredient in the safety database and provide your analysis.`;
     locale: locale || "en",
     supabaseUrl,
     supabaseKey,
+    knowledgeContext,
   });
 
   // 7. SSE streaming

@@ -11,6 +11,7 @@ interface CreateRecipeAgentOptions {
   locale: string;
   supabaseUrl: string;
   supabaseKey: string;
+  knowledgeContext?: string[];
 }
 
 // Singleton auth — initialized once, reused across requests
@@ -33,6 +34,7 @@ export function createRecipeAgent({
   locale,
   supabaseUrl,
   supabaseKey,
+  knowledgeContext,
 }: CreateRecipeAgentOptions): Agent {
   const { authStorage: auth, modelRegistry: registry } = getAuth();
 
@@ -46,7 +48,7 @@ export function createRecipeAgent({
 
   return new Agent({
     initialState: {
-      systemPrompt: buildSystemPrompt(locale),
+      systemPrompt: buildSystemPrompt(locale, knowledgeContext),
       model,
       tools: [lookupFood, getPetProfile],
     },
