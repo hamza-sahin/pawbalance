@@ -95,12 +95,17 @@ export async function POST(request: Request) {
       auth: { autoRefreshToken: false, persistSession: false },
     });
 
-    await adminClient.auth.admin.updateUserById(user.id, {
+    const { error: updateError } = await adminClient.auth.admin.updateUserById(user.id, {
       user_metadata: {
         subscription_tier: rcTier,
         subscription_expiry: rcExpiry,
       },
     });
+
+    if (updateError) {
+      console.error("[sync-entitlements] Failed to update user:", updateError.message);
+      return Response.json({ error: "Failed to sync" }, { status: 500, headers: corsHeaders });
+    }
   }
 
   return Response.json({

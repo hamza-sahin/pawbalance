@@ -33,9 +33,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
     fetch(getApiUrl("/api/auth/sync-entitlements"), {
       method: "POST",
       headers: { Authorization: `Bearer ${session.access_token}` },
-    }).catch(() => {
-      // Silent failure — webhook data is the fallback
-    });
+    })
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (data?.synced) {
+          useAuthStore.getState().setSubscription(data.tier, data.expiry, false);
+        }
+      })
+      .catch(() => {
+        // Silent failure — webhook data is the fallback
+      });
   }, [isLoading, session?.access_token]);
 
   // Re-sync entitlements on app foreground
