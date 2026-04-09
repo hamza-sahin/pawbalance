@@ -1,24 +1,29 @@
 #!/usr/bin/env python3
 """
 YouTube-to-Knowledge-Base Ingest Pipeline
-Fetches transcripts from a YouTube channel, chunks them, embeds with Ollama,
-and uploads to Supabase pgvector.
+Fetches transcripts from a YouTube channel using Chrome cookies + InnerTube API,
+chunks them, embeds with Ollama, and uploads to Supabase pgvector.
+
+Prerequisites:
+- Be logged into YouTube in Chrome
+- Ollama running with nomic-embed-text-v2-moe model
+- pip install browser-cookie3 spacy supabase requests python-dotenv
+- python -m spacy download en_core_web_sm
 """
 
+import hashlib
 import json
 import os
-import re
-import subprocess
 import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
 
+import browser_cookie3
 import requests
 import spacy
 from dotenv import load_dotenv
 from supabase import create_client
-from youtube_transcript_api import YouTubeTranscriptApi
 
 load_dotenv()
 
@@ -44,6 +49,38 @@ class Chunk:
     timestamp_end: int | None
 
 
+def create_youtube_session():
+    """Create a requests session with Chrome YouTube cookies + SAPISIDHASH auth."""
+    cj = browser_cookie3.chrome(domain_name=".youtube.com")
+    session = requests.Session()
+    session.cookies = cj
+    session.headers.update({
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+    })
+
+    # Find SAPISID for authentication
+    sapisid = None
+    for c in cj:
+        if c.name in ("SAPISID", "__Secure-3PAPISID"):
+            sapisid = c.value
+            break
+
+    if not sapisid:
+        print("ERROR: No SAPISID cookie found. Make sure you're logged into YouTube in Chrome.")
+        sys.exit(1)
+
+    return session, sapisid
+
+
+def get_auth_header(sapisid: str) -> str:
+    """Generate SAPISIDHASH authorization header."""
+    origin = "https://www.youtube.com"
+    timestamp = str(int(time.time()))
+    hash_str = hashlib.sha1(f"{timestamp} {sapisid} {origin}".encode()).hexdigest()
+    return f"SAPISIDHASH {timestamp}_{hash_str}"
+
+
 def get_channel_id(handle: str) -> str:
     """Resolve a YouTube handle to a channel ID."""
     url = "https://www.googleapis.com/youtube/v3/search"
@@ -59,7 +96,6 @@ def get_channel_id(handle: str) -> str:
 def get_all_video_ids(channel_id: str) -> list[dict]:
     """Fetch all video IDs and titles from a channel's uploads playlist."""
     videos = []
-    # Channel uploads playlist: replace 'UC' prefix with 'UU'
     uploads_playlist = channel_id.replace("UC", "UU", 1)
     url = "https://www.googleapis.com/youtube/v3/playlistItems"
     params = {
@@ -83,49 +119,63 @@ def get_all_video_ids(channel_id: str) -> list[dict]:
         if not next_page:
             break
         params["pageToken"] = next_page
-        time.sleep(0.5)  # rate limit courtesy
+        time.sleep(0.5)
     return videos
 
 
-def fetch_transcript(video_id: str) -> list[dict] | None:
-    """Try to fetch YouTube captions with retry on rate limit."""
-    for attempt in range(3):
-        try:
-            api = YouTubeTranscriptApi()
-            transcript = api.fetch(video_id)
-            return [{"text": s.text, "start": s.start, "duration": s.duration}
-                    for s in transcript.snippets]
-        except Exception as e:
-            err_name = type(e).__name__
-            if "IpBlocked" in err_name or "429" in str(e):
-                wait = 30 * (attempt + 1)
-                print(f"  Rate limited, waiting {wait}s (attempt {attempt+1}/3)...")
-                time.sleep(wait)
-                continue
-            return None
-    return None
+def fetch_transcript(session, sapisid: str, video_id: str) -> list[dict] | None:
+    """Fetch transcript via YouTube InnerTube API with authenticated session."""
+    auth_header = get_auth_header(sapisid)
 
+    resp = session.post(
+        "https://www.youtube.com/youtubei/v1/player?prettyPrint=false",
+        json={
+            "context": {
+                "client": {
+                    "clientName": "WEB",
+                    "clientVersion": "2.20250101.00.00",
+                    "hl": "en",
+                }
+            },
+            "videoId": video_id,
+        },
+        headers={
+            "Authorization": auth_header,
+            "X-Origin": "https://www.youtube.com",
+            "Content-Type": "application/json",
+        },
+    )
 
-def transcribe_with_whisper(video_id: str) -> list[dict] | None:
-    """Download audio with yt-dlp, transcribe with faster-whisper."""
-    audio_path = f"/tmp/{video_id}.mp3"
-    try:
-        subprocess.run(
-            ["yt-dlp", "-x", "--audio-format", "mp3", "-o", audio_path,
-             f"https://www.youtube.com/watch?v={video_id}"],
-            check=True, capture_output=True,
-        )
-        from faster_whisper import WhisperModel
-        model = WhisperModel("base", compute_type="int8")
-        segments_iter, _ = model.transcribe(audio_path)
-        segments = [{"text": s.text, "start": s.start, "duration": s.end - s.start}
-                    for s in segments_iter]
-        return segments if segments else None
-    except Exception as e:
-        print(f"  Whisper fallback failed for {video_id}: {e}")
+    data = resp.json()
+    tracks = (
+        data.get("captions", {})
+        .get("playerCaptionsTracklistRenderer", {})
+        .get("captionTracks", [])
+    )
+
+    if not tracks:
         return None
-    finally:
-        Path(audio_path).unlink(missing_ok=True)
+
+    # Fetch the subtitle content
+    sub_url = tracks[0]["baseUrl"] + "&fmt=json3"
+    sub_resp = session.get(sub_url)
+
+    if sub_resp.status_code != 200 or len(sub_resp.text) < 10:
+        return None
+
+    events = sub_resp.json().get("events", [])
+    segments = []
+    for event in events:
+        segs = event.get("segs", [])
+        text = "".join(seg.get("utf8", "") for seg in segs).strip()
+        if text:
+            segments.append({
+                "text": text,
+                "start": event.get("tStartMs", 0) / 1000.0,
+                "duration": event.get("dDurationMs", 0) / 1000.0,
+            })
+
+    return segments if segments else None
 
 
 def estimate_tokens(text: str) -> int:
@@ -147,7 +197,7 @@ def chunk_transcript(
     for seg in segments:
         text = seg["text"].strip()
         char_to_time[offset] = seg["start"]
-        offset += len(text) + 1  # +1 for space
+        offset += len(text) + 1
 
     chunks: list[Chunk] = []
     current_sentences: list[str] = []
@@ -158,7 +208,6 @@ def chunk_transcript(
         if current_tokens + sent_tokens > CHUNK_SIZE and current_sentences:
             chunk_text = " ".join(current_sentences)
 
-            # Find approximate timestamp for chunk start
             chunk_start_char = full_text.find(current_sentences[0])
             ts_start = None
             for char_off in sorted(char_to_time.keys()):
@@ -177,7 +226,6 @@ def chunk_transcript(
                 timestamp_end=None,
             ))
 
-            # Overlap: keep last few sentences
             overlap_tokens = 0
             overlap_sentences: list[str] = []
             for s in reversed(current_sentences):
@@ -192,7 +240,6 @@ def chunk_transcript(
         current_sentences.append(sentence)
         current_tokens += sent_tokens
 
-    # Final chunk
     if current_sentences:
         chunk_text = " ".join(current_sentences)
         chunk_start_char = full_text.find(current_sentences[0])
@@ -243,7 +290,7 @@ def upload_chunks(supabase, chunks: list[Chunk], embeddings: list[list[float]]):
 
 
 def main():
-    print(f"=== YouTube Knowledge Base Ingest ===")
+    print("=== YouTube Knowledge Base Ingest ===")
     print(f"Channel: {CHANNEL_HANDLE}")
     print(f"Embed model: {EMBED_MODEL}")
     print()
@@ -253,8 +300,13 @@ def main():
         requests.get(f"{OLLAMA_URL}/api/tags")
     except requests.ConnectionError:
         print(f"ERROR: Ollama not running at {OLLAMA_URL}")
-        print(f"Start it with: ollama serve")
+        print("Start it with: ollama serve")
         sys.exit(1)
+
+    # Create authenticated YouTube session
+    print("Loading Chrome YouTube cookies...")
+    session, sapisid = create_youtube_session()
+    print("Authenticated with YouTube")
 
     # Load SpaCy model
     print("Loading SpaCy model...")
@@ -274,7 +326,6 @@ def main():
     videos = get_all_video_ids(channel_id)
     print(f"Found {len(videos)} videos total")
 
-    # Filter out already-ingested
     new_videos = [v for v in videos if v["video_id"] not in existing_ids]
     print(f"New videos to process: {len(new_videos)}")
     print()
@@ -287,31 +338,21 @@ def main():
         title = video["title"]
         print(f"[{i+1}/{len(new_videos)}] {title}")
 
-        # Try YouTube captions first
-        segments = fetch_transcript(vid)
-        source = "captions"
-
-        # Fallback to Whisper
-        if segments is None:
-            print("  No captions, trying Whisper...")
-            segments = transcribe_with_whisper(vid)
-            source = "whisper"
+        segments = fetch_transcript(session, sapisid, vid)
 
         if segments is None:
             print("  SKIPPED: no transcript available")
             failed.append(vid)
             continue
 
-        print(f"  Transcript: {source}, {len(segments)} segments")
+        print(f"  Segments: {len(segments)}")
 
-        # Chunk
         chunks = chunk_transcript(vid, title, segments, nlp)
         print(f"  Chunks: {len(chunks)}")
 
         if not chunks:
             continue
 
-        # Embed in batches
         all_embeddings: list[list[float]] = []
         texts = [c.content for c in chunks]
         for j in range(0, len(texts), BATCH_SIZE):
@@ -319,14 +360,13 @@ def main():
             embs = embed_texts(batch)
             all_embeddings.extend(embs)
 
-        # Upload
         upload_chunks(supabase, chunks, all_embeddings)
         total_chunks += len(chunks)
         print(f"  Uploaded {len(chunks)} chunks")
-        time.sleep(1)  # rate limit courtesy between videos
+        time.sleep(1)  # rate limit courtesy
 
     print()
-    print(f"=== Done ===")
+    print("=== Done ===")
     print(f"Total new chunks: {total_chunks}")
     if failed:
         print(f"Failed videos ({len(failed)}): {failed}")
