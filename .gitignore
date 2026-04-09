@@ -14,4 +14,4 @@ build/
 .superpowers/
 .worktrees/
 refs/
-supabase/.temp
+supabase/.tempscripts/youtube-knowledge-base/.env
