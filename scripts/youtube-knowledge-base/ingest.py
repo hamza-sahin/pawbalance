@@ -57,15 +57,15 @@ def get_channel_id(handle: str) -> str:
 
 
 def get_all_video_ids(channel_id: str) -> list[dict]:
-    """Fetch all video IDs and titles from a channel via YouTube Data API v3."""
+    """Fetch all video IDs and titles from a channel's uploads playlist."""
     videos = []
-    url = "https://www.googleapis.com/youtube/v3/search"
+    # Channel uploads playlist: replace 'UC' prefix with 'UU'
+    uploads_playlist = channel_id.replace("UC", "UU", 1)
+    url = "https://www.googleapis.com/youtube/v3/playlistItems"
     params = {
         "part": "snippet",
-        "channelId": channel_id,
-        "type": "video",
+        "playlistId": uploads_playlist,
         "maxResults": 50,
-        "order": "date",
         "key": YOUTUBE_API_KEY,
     }
     while True:
@@ -73,9 +73,11 @@ def get_all_video_ids(channel_id: str) -> list[dict]:
         resp.raise_for_status()
         data = resp.json()
         for item in data.get("items", []):
+            snippet = item["snippet"]
+            video_id = snippet["resourceId"]["videoId"]
             videos.append({
-                "video_id": item["id"]["videoId"],
-                "title": item["snippet"]["title"],
+                "video_id": video_id,
+                "title": snippet["title"],
             })
         next_page = data.get("nextPageToken")
         if not next_page:
@@ -86,12 +88,22 @@ def get_all_video_ids(channel_id: str) -> list[dict]:
 
 
 def fetch_transcript(video_id: str) -> list[dict] | None:
-    """Try to fetch YouTube captions. Returns list of segments or None."""
-    try:
-        segments = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"])
-        return segments
-    except Exception:
-        return None
+    """Try to fetch YouTube captions with retry on rate limit."""
+    for attempt in range(3):
+        try:
+            api = YouTubeTranscriptApi()
+            transcript = api.fetch(video_id)
+            return [{"text": s.text, "start": s.start, "duration": s.duration}
+                    for s in transcript.snippets]
+        except Exception as e:
+            err_name = type(e).__name__
+            if "IpBlocked" in err_name or "429" in str(e):
+                wait = 30 * (attempt + 1)
+                print(f"  Rate limited, waiting {wait}s (attempt {attempt+1}/3)...")
+                time.sleep(wait)
+                continue
+            return None
+    return None
 
 
 def transcribe_with_whisper(video_id: str) -> list[dict] | None:
@@ -311,6 +323,7 @@ def main():
         upload_chunks(supabase, chunks, all_embeddings)
         total_chunks += len(chunks)
         print(f"  Uploaded {len(chunks)} chunks")
+        time.sleep(1)  # rate limit courtesy between videos
 
     print()
     print(f"=== Done ===")
