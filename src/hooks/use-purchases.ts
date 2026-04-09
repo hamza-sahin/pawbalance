@@ -44,12 +44,15 @@ function extractCustomerInfo(result: any): any {
 }
 
 /** Persist tier to Supabase user_metadata if it differs from current. */
-function persistTierIfChanged(tier: SubscriptionTier, expiry: string | null): void {
+async function persistTierIfChanged(tier: SubscriptionTier, expiry: string | null): Promise<void> {
   const currentMeta = useAuthStore.getState().user?.user_metadata;
   if (currentMeta?.subscription_tier !== tier) {
-    getSupabase().auth.updateUser({
+    const { error } = await getSupabase().auth.updateUser({
       data: { subscription_tier: tier, subscription_expiry: expiry },
     });
+    if (error) {
+      console.error("[persistTierIfChanged] Failed to update Supabase:", error.message);
+    }
   }
 }
 
@@ -76,7 +79,7 @@ export async function syncEntitlements(): Promise<void> {
       customerInfo.entitlements.active as any,
     );
     useAuthStore.getState().setSubscription(tier, expiry, isTrialing);
-    persistTierIfChanged(tier, expiry);
+    await persistTierIfChanged(tier, expiry);
   } catch (err) {
     console.error("[syncEntitlements] Error:", err);
   }
@@ -164,7 +167,7 @@ export function usePurchases() {
         customerInfo.entitlements.active as any,
       );
       useAuthStore.getState().setSubscription(tier, expiry, isTrialing);
-      persistTierIfChanged(tier, expiry);
+      await persistTierIfChanged(tier, expiry);
 
       return true;
     },
