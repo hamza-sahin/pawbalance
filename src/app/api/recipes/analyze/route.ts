@@ -64,6 +64,7 @@ export async function POST(request: Request) {
     let knowledgeContext: string[] = [];
     try {
       knowledgeContext = await getRelevantKnowledge(ingredientNames);
+      console.log(`RAG: retrieved ${knowledgeContext.length} chunks for ingredients: ${ingredientNames.join(", ")}`);
     } catch (err) {
       console.error("RAG retrieval failed, continuing without knowledge context:", err);
     }
