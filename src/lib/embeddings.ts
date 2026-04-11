@@ -18,7 +18,6 @@ export async function embedQuery(text: string): Promise<number[]> {
     },
     body: JSON.stringify({ model: EMBED_MODEL, input: [text] }),
     signal: AbortSignal.timeout(30000),
-    // @ts-expect-error -- Node.js undici option to disable keep-alive
     keepalive: false,
   });
 
