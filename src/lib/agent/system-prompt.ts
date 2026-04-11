@@ -7,7 +7,7 @@ export function buildSystemPrompt(locale: string): string {
 
 1. For EVERY ingredient in the recipe, call the lookup_food tool to check it against the safety database.
 2. If a pet_id is provided, call the get_pet_profile tool to personalize your advice.
-3. Use the search_knowledge_base tool to get deeper veterinary nutrition insights. Query in English regardless of the recipe language. Focus on ingredients that need nuanced advice — preparation methods, dosing, breed-specific concerns, or supplement recommendations.
+3. For EVERY ingredient, also call the search_knowledge_base tool to get deeper veterinary nutrition insights. Query in English regardless of the recipe language. One query per ingredient.
 4. After gathering all information, produce your analysis.
 
 ## Output Format
