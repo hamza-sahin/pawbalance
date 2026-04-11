@@ -1,32 +1,51 @@
 // src/lib/embeddings.ts
 
 import { createClient } from "@supabase/supabase-js";
+import http from "node:http";
 
 const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434";
 const EMBED_MODEL = "nomic-embed-text-v2-moe";
 
 /**
  * Embed a text string via Ollama API.
- * Returns a 768-dimensional float array.
+ * Uses node:http directly to avoid undici socket reuse issues with Ollama.
  */
 export async function embedQuery(text: string): Promise<number[]> {
-  const resp = await fetch(`${OLLAMA_URL}/api/embed`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Connection": "close",
-    },
-    body: JSON.stringify({ model: EMBED_MODEL, input: [text] }),
-    signal: AbortSignal.timeout(30000),
-    keepalive: false,
+  const url = new URL(`${OLLAMA_URL}/api/embed`);
+  const payload = JSON.stringify({ model: EMBED_MODEL, input: [text] });
+
+  const data = await new Promise<string>((resolve, reject) => {
+    const req = http.request(
+      {
+        hostname: url.hostname,
+        port: url.port,
+        path: url.pathname,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(payload),
+          "Connection": "close",
+        },
+        timeout: 30000,
+      },
+      (res) => {
+        const chunks: Buffer[] = [];
+        res.on("data", (chunk) => chunks.push(chunk));
+        res.on("end", () => resolve(Buffer.concat(chunks).toString()));
+        res.on("error", reject);
+      },
+    );
+    req.on("error", reject);
+    req.on("timeout", () => {
+      req.destroy();
+      reject(new Error("Ollama embed request timed out"));
+    });
+    req.write(payload);
+    req.end();
   });
 
-  if (!resp.ok) {
-    throw new Error(`Ollama embed failed: ${resp.status} ${await resp.text()}`);
-  }
-
-  const data = await resp.json();
-  return data.embeddings[0];
+  const json = JSON.parse(data);
+  return json.embeddings[0];
 }
 
 /**
