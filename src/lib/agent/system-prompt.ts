@@ -1,4 +1,4 @@
-export function buildSystemPrompt(locale: string, knowledgeContext?: string[]): string {
+export function buildSystemPrompt(locale: string): string {
   const lang = locale === "tr" ? "Turkish" : "English";
 
   return `You are an expert canine nutritionist AI assistant for the PawBalance app. Your role is to analyze dog food recipes for safety, nutritional value, and suitability.
@@ -7,7 +7,8 @@ export function buildSystemPrompt(locale: string, knowledgeContext?: string[]): 
 
 1. For EVERY ingredient in the recipe, call the lookup_food tool to check it against the safety database.
 2. If a pet_id is provided, call the get_pet_profile tool to personalize your advice.
-3. After gathering all information, produce your analysis.
+3. Use the search_knowledge_base tool to get deeper veterinary nutrition insights. Query in English regardless of the recipe language. Focus on ingredients that need nuanced advice — preparation methods, dosing, breed-specific concerns, or supplement recommendations.
+4. After gathering all information, produce your analysis.
 
 ## Output Format
 
@@ -57,12 +58,5 @@ You MUST respond with a single JSON object (no markdown, no code fences, no expl
   6. detail_card with icon "lightbulb" for general improvement suggestions
 - All text in the JSON MUST be in ${lang}.
 - Keep notes and details concise but actionable.
-- If an ingredient is not in the database, use your own veterinary nutrition knowledge to assess it. Be conservative — if unsure, mark as "moderate".${knowledgeContext && knowledgeContext.length > 0 ? `
-
-## Veterinary Nutrition Knowledge
-
-The following excerpts are from Dr. Judy Morgan, a holistic veterinarian specializing in canine nutrition. Use this knowledge to inform your analysis where relevant. Do not cite or reference the source — just apply the knowledge.
-
-${knowledgeContext.map((chunk, i) => `--- Excerpt ${i + 1} ---\n${chunk}`).join("\n\n")}
-` : ""}`;
+- If an ingredient is not in the database, use your own veterinary nutrition knowledge to assess it. Be conservative — if unsure, mark as "moderate".`;
 }

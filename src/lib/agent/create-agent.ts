@@ -5,13 +5,13 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { createLookupFoodTool } from "./tools/lookup-food";
 import { createGetPetProfileTool } from "./tools/get-pet-profile";
+import { createSearchKnowledgeTool } from "./tools/search-knowledge";
 import { buildSystemPrompt } from "./system-prompt";
 
 interface CreateRecipeAgentOptions {
   locale: string;
   supabaseUrl: string;
   supabaseKey: string;
-  knowledgeContext?: string[];
 }
 
 // Singleton auth — initialized once, reused across requests
@@ -34,7 +34,6 @@ export function createRecipeAgent({
   locale,
   supabaseUrl,
   supabaseKey,
-  knowledgeContext,
 }: CreateRecipeAgentOptions): Agent {
   const { authStorage: auth, modelRegistry: registry } = getAuth();
 
@@ -45,12 +44,13 @@ export function createRecipeAgent({
 
   const lookupFood = createLookupFoodTool(supabaseUrl, supabaseKey);
   const getPetProfile = createGetPetProfileTool(supabaseUrl, supabaseKey);
+  const searchKnowledge = createSearchKnowledgeTool();
 
   return new Agent({
     initialState: {
-      systemPrompt: buildSystemPrompt(locale, knowledgeContext),
+      systemPrompt: buildSystemPrompt(locale),
       model,
-      tools: [lookupFood, getPetProfile],
+      tools: [lookupFood, getPetProfile, searchKnowledge],
     },
     streamFn: async (streamModel, context, options) => {
       const apiKey = await auth.getApiKey(streamModel.provider);
