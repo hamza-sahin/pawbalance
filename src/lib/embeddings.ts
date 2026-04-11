@@ -12,8 +12,14 @@ const EMBED_MODEL = "nomic-embed-text-v2-moe";
 export async function embedQuery(text: string): Promise<number[]> {
   const resp = await fetch(`${OLLAMA_URL}/api/embed`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Connection": "close",
+    },
     body: JSON.stringify({ model: EMBED_MODEL, input: [text] }),
+    signal: AbortSignal.timeout(30000),
+    // @ts-expect-error -- Node.js undici option to disable keep-alive
+    keepalive: false,
   });
 
   if (!resp.ok) {
