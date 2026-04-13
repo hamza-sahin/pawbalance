@@ -1,6 +1,6 @@
 import { Agent } from "@mariozechner/pi-agent-core";
 import { streamSimple } from "@mariozechner/pi-ai";
-import { AuthStorage, ModelRegistry } from "@mariozechner/pi-coding-agent";
+import { AuthStorage, ModelRegistry, getAgentDir } from "@mariozechner/pi-coding-agent";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { createLookupFoodTool } from "./tools/lookup-food";
@@ -26,10 +26,9 @@ let settings: AgentSettings = {};
 
 function getAuth() {
   if (!authStorage) {
-    const agentDir = join(process.cwd(), ".pi", "agent");
-    authStorage = AuthStorage.create(join(agentDir, "auth.json"));
+    authStorage = AuthStorage.create();
     modelRegistry = ModelRegistry.create(authStorage);
-    settings = JSON.parse(readFileSync(join(agentDir, "settings.json"), "utf-8"));
+    settings = JSON.parse(readFileSync(join(getAgentDir(), "settings.json"), "utf-8"));
   }
   return { authStorage, modelRegistry: modelRegistry!, settings };
 }
@@ -45,7 +44,7 @@ export function createRecipeAgent({
   const modelId = s.defaultModel ?? "claude-sonnet-4-20250514";
   const model = registry.find(provider, modelId);
   if (!model) {
-    throw new Error(`Model ${provider}/${modelId} not available — check .pi/agent/settings.json and auth.json`);
+    throw new Error(`Model ${provider}/${modelId} not available — check ~/.pi/agent/settings.json and auth.json`);
   }
 
   const lookupFood = createLookupFoodTool(supabaseUrl, supabaseKey);
