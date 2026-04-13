@@ -127,14 +127,9 @@ Look up each ingredient in the safety database and provide your analysis.`;
       });
 
       try {
-        console.log("[analyze] Starting agent.prompt...");
         await agent.prompt(userMessage);
 
         const messages = agent.state.messages;
-        console.log("[analyze] Messages:", messages.length);
-        for (const m of messages) {
-          console.log(`[analyze] [${m.role}]`, JSON.stringify(m).slice(0, 500));
-        }
         const lastAssistant = [...messages]
           .reverse()
           .find((m) => m.role === "assistant");
@@ -145,7 +140,6 @@ Look up each ingredient in the safety database and provide your analysis.`;
             (c: any) => c.type === "text",
           );
           if (textContent) {
-            console.log("[analyze] Raw text:", textContent.text.slice(0, 500));
             try {
               // Strip markdown code fences if present
               let text = textContent.text.trim();
@@ -153,14 +147,10 @@ Look up each ingredient in the safety database and provide your analysis.`;
                 text = text.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
               }
               resultJson = JSON.parse(text);
-            } catch (e) {
-              console.error("[analyze] JSON parse failed:", e);
+            } catch {
+              // Agent didn't return valid JSON — will be handled below
             }
-          } else {
-            console.error("[analyze] No text content in last assistant message");
           }
-        } else {
-          console.error("[analyze] No assistant message found");
         }
 
         if (resultJson) {
@@ -184,7 +174,6 @@ Look up each ingredient in the safety database and provide your analysis.`;
           send("error", { message: "Agent did not return valid JSON" });
         }
       } catch (err) {
-        console.error("[analyze] Agent error:", err);
         await supabase
           .from("recipe_analyses")
           .update({ status: "failed" })
