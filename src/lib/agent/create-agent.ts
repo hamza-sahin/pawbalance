@@ -53,7 +53,9 @@ export function createRecipeAgent({
       tools: [lookupFood, getPetProfile, searchKnowledge],
     },
     streamFn: async (streamModel, context, options) => {
+      console.log("[agent] streamFn called for provider:", streamModel.provider, "model:", streamModel.id);
       const apiKey = await auth.getApiKey(streamModel.provider);
+      console.log("[agent] apiKey resolved:", apiKey ? `${apiKey.slice(0, 10)}...` : "NULL");
       if (!apiKey) {
         throw new Error(
           `No valid credentials for provider "${streamModel.provider}". ` +

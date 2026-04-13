@@ -133,6 +133,10 @@ Look up each ingredient in the safety database and provide your analysis.`;
 
         const messages = agent.state.messages;
         console.log("[analyze] Total messages:", messages.length);
+        for (const m of messages) {
+          const preview = JSON.stringify(m).slice(0, 300);
+          console.log(`[analyze] msg[${m.role}]:`, preview);
+        }
         const lastAssistant = [...messages]
           .reverse()
           .find((m) => m.role === "assistant");
