@@ -14,20 +14,24 @@ interface CreateRecipeAgentOptions {
   supabaseKey: string;
 }
 
+interface AgentSettings {
+  defaultProvider?: string;
+  defaultModel?: string;
+}
+
 // Singleton auth — initialized once, reused across requests
 let authStorage: AuthStorage | null = null;
 let modelRegistry: ModelRegistry | null = null;
+let settings: AgentSettings = {};
 
 function getAuth() {
   if (!authStorage) {
-    // Read OAuth credentials from auth.json and seed into in-memory backend.
-    // This allows token refresh without filesystem writes (works in read-only Docker).
-    const authPath = join(process.cwd(), ".pi", "agent", "auth.json");
-    const data = JSON.parse(readFileSync(authPath, "utf-8"));
-    authStorage = AuthStorage.inMemory(data);
+    const agentDir = join(process.cwd(), ".pi", "agent");
+    authStorage = AuthStorage.create(join(agentDir, "auth.json"));
     modelRegistry = ModelRegistry.create(authStorage);
+    settings = JSON.parse(readFileSync(join(agentDir, "settings.json"), "utf-8"));
   }
-  return { authStorage, modelRegistry: modelRegistry! };
+  return { authStorage, modelRegistry: modelRegistry!, settings };
 }
 
 export function createRecipeAgent({
@@ -35,11 +39,13 @@ export function createRecipeAgent({
   supabaseUrl,
   supabaseKey,
 }: CreateRecipeAgentOptions): Agent {
-  const { authStorage: auth, modelRegistry: registry } = getAuth();
+  const { authStorage: auth, modelRegistry: registry, settings: s } = getAuth();
 
-  const model = registry.find("anthropic", "claude-sonnet-4-20250514");
+  const provider = s.defaultProvider ?? "github-copilot";
+  const modelId = s.defaultModel ?? "claude-sonnet-4-20250514";
+  const model = registry.find(provider, modelId);
   if (!model) {
-    throw new Error("Claude model not available — check auth.json OAuth credentials");
+    throw new Error(`Model ${provider}/${modelId} not available — check .pi/agent/settings.json and auth.json`);
   }
 
   const lookupFood = createLookupFoodTool(supabaseUrl, supabaseKey);
@@ -53,9 +59,7 @@ export function createRecipeAgent({
       tools: [lookupFood, getPetProfile, searchKnowledge],
     },
     streamFn: async (streamModel, context, options) => {
-      console.log("[agent] streamFn called for provider:", streamModel.provider, "model:", streamModel.id);
       const apiKey = await auth.getApiKey(streamModel.provider);
-      console.log("[agent] apiKey resolved:", apiKey ? `${apiKey.slice(0, 10)}...` : "NULL");
       if (!apiKey) {
         throw new Error(
           `No valid credentials for provider "${streamModel.provider}". ` +
