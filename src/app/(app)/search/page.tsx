@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SEARCH_DEBOUNCE_MS, MIN_SEARCH_LENGTH } from "@/lib/constants";
 import { Icons } from "@/components/ui/icon";
 import { EmptyState } from "@/components/ui/empty-state";
+import { AISuggestionRow } from "@/components/food/ai-suggestion-row";
 
 export default function SearchPage() {
   const t = useTranslations();
@@ -95,6 +96,9 @@ export default function SearchPage() {
       {/* Results or categories */}
       {hasQuery ? (
         <div className="flex flex-col gap-3">
+          {/* AI suggestion row — always at top */}
+          {!isSearching && <AISuggestionRow query={query} />}
+
           <p className="text-sm text-txt-secondary">
             {t("resultsFor", { count: results.length, query })}
           </p>
