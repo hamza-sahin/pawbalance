@@ -106,7 +106,7 @@ export default function ProfilePage() {
         <p className="text-lg font-bold text-txt">{displayName}</p>
         <p className="text-sm text-txt-secondary">{user?.email}</p>
         <Badge>
-          {subscriptionTier === "PREMIUM" ? t("premiumPlan") : subscriptionTier === "BASIC" ? t("basicPlan") : t("freePlan")}
+          {subscriptionTier === "FREE" ? t("freePlan") : t("basicPlan")}
         </Badge>
       </div>
 
@@ -143,7 +143,6 @@ export default function ProfilePage() {
           <p className="mb-2 text-xs font-medium uppercase tracking-wider text-txt-tertiary">{t("support")}</p>
           <div className="flex flex-col gap-2">
             {[
-              { href: "/profile/scan-history", icon: Icons.history, label: t("scanHistory") },
               { href: "#", icon: Icons.help, label: t("helpAndSupport") },
               { href: "#", icon: Icons.info, label: t("about") },
             ].map((item) => (
