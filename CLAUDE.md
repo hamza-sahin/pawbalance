@@ -2,6 +2,7 @@
 
 ## Agent Rules
 - Always activate caveman mode.
+- **MANDATORY SKILL LOADING:** When user message contains `/skill-name` references, you MUST call `Skill("skill-name")` for EVERY SINGLE ONE before doing any other work. This means literally invoking the Skill tool — not "following the skill's process yourself" or "setting up tasks." Count the `/` references, invoke that exact number of Skill tool calls. Examples of WRONG behavior: seeing `/superpowers:brainstorming` and starting to brainstorm without calling `Skill("superpowers:brainstorming")`; seeing `/caveman` and skipping it because caveman mode is already active via hook. The hook and the skill are different things — invoke both.
 
 ## Project Overview
 
@@ -245,7 +246,7 @@ If check fails, autonomously diagnose, fix, re-run `/qa`. Stop after 3 failed at
 
 ## Skill Invocation Rule
 
-When prompt references multiple skills (e.g. `/brainstorming /ios-debug /ui-ux-pro-max implement feature A`), **ALL** referenced skills MUST be invoked via Skill tool before proceeding. No skipping. Invoke in logical order (process skills first → design skills → implementation/verification skills).
+When prompt references skills (e.g. `/brainstorming /ios-debug /ui-ux-pro-max implement feature A`), **ALL** referenced skills MUST be invoked via Skill tool before ANY other work. Zero exceptions. Count skills in message → invoke exactly that many. Invoke in parallel (single response with multiple Skill calls) when possible. Never skip because "already active via hook" or "covered by another skill."
 
 ## Out of Scope (deferred)
 

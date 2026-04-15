@@ -9,6 +9,7 @@ export const ACTION_ENTITLEMENTS: Record<string, AccessTier> = {
   "recipes.create": "basic",
   "recipes.edit": "basic",
   "recipes.analyze": "basic",
+  "foods.ai_ask": "basic",
   "scanner.scan": "premium",
 };
 

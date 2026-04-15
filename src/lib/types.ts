@@ -172,6 +172,27 @@ export interface RecipeAnalysis {
   created_at: string;
 }
 
+/* ── AI Food Search ─────────────────────────────────── */
+
+export interface AIFoodPersonalized {
+  pet_name: string;
+  pet_specific_advice: string;
+  portion_guidance: string;
+  risk_factors: string[];
+}
+
+export interface AIFoodResult {
+  name: string;
+  category: string;
+  safety_level: "SAFE" | "MODERATE" | "TOXIC";
+  dangerous_parts: string | null;
+  preparation: string | null;
+  benefits: string | null;
+  warnings: string | null;
+  personalized: AIFoodPersonalized | null;
+  ai_generated: true;
+}
+
 // ============================================================
 // Blog
 // ============================================================
