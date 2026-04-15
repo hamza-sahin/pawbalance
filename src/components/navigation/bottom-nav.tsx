@@ -15,7 +15,7 @@ const tabs = [
 const icons: Record<string, React.ReactNode> = {
   recipes: <UtensilsCrossed className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" />,
   search: (
-    <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24" aria-hidden="true">
+    <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24" aria-hidden="true">
       <circle cx="11" cy="11" r="7" />
       <path d="M21 21l-4.35-4.35" />
     </svg>
@@ -40,31 +40,16 @@ export function BottomNav() {
 
   return (
     <nav aria-label="Main navigation" className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-surface shadow-[0_-2px_12px_rgba(0,0,0,0.06)]">
-      <div className="mx-auto flex max-w-md md:max-w-lg lg:max-w-2xl items-center justify-around px-2 pb-[env(safe-area-inset-bottom)] pt-2">
+      <div className="mx-auto grid max-w-md md:max-w-lg lg:max-w-2xl grid-cols-4 px-2 pb-[env(safe-area-inset-bottom)] pt-1">
         {tabs.map((tab) => {
-          const isCenter = tab.key === "search";
           const isActive = pathname.startsWith(tab.href);
-
-          if (isCenter) {
-            return (
-              <Link
-                key={tab.key}
-                href={tab.href}
-                aria-label={t(tab.label)}
-                aria-current={isActive ? "page" : undefined}
-                className="-mt-5 flex h-14 w-14 items-center justify-center rounded-full bg-primary-btn text-white shadow-[0_4px_12px_rgba(74,124,89,0.3)] transition-all duration-150 ease-out active:scale-90 active:opacity-80 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-              >
-                {icons[tab.key]}
-              </Link>
-            );
-          }
 
           return (
             <Link
               key={tab.key}
               href={tab.href}
               aria-current={isActive ? "page" : undefined}
-              className={`flex min-h-[44px] min-w-[44px] flex-col items-center justify-center gap-0.5 rounded-lg px-2 py-1 text-[11px] transition-all duration-150 ease-out ${
+              className={`flex min-h-[48px] flex-col items-center justify-center gap-0.5 rounded-lg text-[11px] transition-all duration-150 ease-out ${
                 isActive ? "font-medium text-primary" : "text-txt-tertiary"
               } active:bg-surface-variant active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
             >
