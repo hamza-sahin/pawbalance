@@ -17,11 +17,9 @@ export function SubscriptionCard({ onUpgradeClick }: SubscriptionCardProps) {
   const { manageSubscription, restore } = usePurchases();
 
   const isFree = subscriptionTier === "FREE";
-  const tierLabel = subscriptionTier === "PREMIUM"
-    ? t("premiumPlan")
-    : subscriptionTier === "BASIC"
-    ? t("basicPlan")
-    : t("freePlan");
+  const tierLabel = subscriptionTier === "FREE"
+    ? t("freePlan")
+    : t("basicPlan");
 
   if (isFree) {
     return (
