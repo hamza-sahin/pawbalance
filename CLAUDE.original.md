@@ -1,11 +1,8 @@
 # PawBalance Web App
 
-## Agent Rules
-- Always activate caveman mode.
-
 ## Project Overview
 
-PawBalance (formerly DogNutriSmart/PetPal) — Next.js web app replacing original Flutter iOS app. Same Supabase backend, exact feature parity with Flutter version.
+PawBalance (formerly DogNutriSmart/PetPal) is a Next.js web app that replaces the original Flutter iOS app. It shares the same Supabase backend and delivers exact feature parity with the Flutter version.
 
 ## Tech Stack
 
@@ -20,10 +17,10 @@ PawBalance (formerly DogNutriSmart/PetPal) — Next.js web app replacing origina
 
 ## Key Architecture Decisions
 
-- **Static export** (`output: 'export'`) — required for Capacitor. Dynamic routes use query params (`/search/food?id=` not `/search/food/[id]`) for compatibility.
-- **PostCSS config must be `.mjs`** — Next.js won't load `.ts` PostCSS configs with Tailwind v4.
+- **Static export** (`output: 'export'`) — required for Capacitor. Dynamic routes use query params (`/search/food?id=` not `/search/food/[id]`) to stay compatible.
+- **PostCSS config must be `.mjs`** — Next.js doesn't load `.ts` PostCSS configs properly with Tailwind v4.
 - **Platform abstraction** — `src/lib/platform.ts` wraps all Capacitor calls behind `isNative` checks. Components never call Capacitor directly.
-- **Apple Sign-In** — shown only when `isNative === true` (Capacitor/iOS). Web offers only Google and email/password.
+- **Apple Sign-In** — shown only when `isNative === true` (Capacitor/iOS). On web, only Google and email/password are offered.
 - **No local database** — Flutter used sqflite for caching; web calls Supabase directly.
 
 ## Project Structure
@@ -85,7 +82,7 @@ src/
 
 ## Design System
 
-Custom tokens in `src/app/globals.css` via `@theme`:
+Custom tokens defined in `src/app/globals.css` via `@theme`:
 
 - **Canvas:** `#FAF8F5` (warm beige background)
 - **Primary:** `#7C9A82` (sage green)
@@ -130,7 +127,7 @@ NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 ```
 
-Copied from Flutter app `.env.development` with `NEXT_PUBLIC_` prefix.
+Copied from Flutter app's `.env.development` with `NEXT_PUBLIC_` prefix.
 
 ## Capacitor Config
 
@@ -143,14 +140,14 @@ Copied from Flutter app `.env.development` with `NEXT_PUBLIC_` prefix.
 
 ### Dual Build Mode
 
-Two build targets from same codebase:
+The app has two build targets from the same codebase:
 
 | Target | Build | Output | Serves |
 |--------|-------|--------|--------|
 | iOS (Capacitor) | `npm run build:static` | `out/` static files | Bundled in app + OTA via Capgo |
 | Web (K8s) | `npm run build:server` | `.next/standalone` | Node.js server with API routes |
 
-`next.config.ts` switches on `BUILD_MODE` env var: default `export` (static), `BUILD_MODE=server` produces `standalone`.
+`next.config.ts` switches on `BUILD_MODE` env var: default is `export` (static), `BUILD_MODE=server` produces `standalone`.
 
 ### Deployment Pipelines (on push to master)
 
@@ -167,25 +164,25 @@ git push to master
             └─► K8s: push to registry.optalgo.com → ArgoCD → pawbalance.optalgo.com
 ```
 
-- **Web-only changes** → OTA via Capgo (no App Store)
+- **Web-only changes** → OTA via Capgo (no App Store involved)
 - **Native changes** (ios/, capacitor.config.ts, package.json) → TestFlight build triggered
 - **Docker image** → always built, pushed to registry, ArgoCD syncs via gitops repo
 
 ### API Routes
 
-API routes in `src/app/api/`, only work in server mode. Silently skipped during static export (POST-only handlers compatible with `output: 'export'`).
+API routes live in `src/app/api/` and only work in server mode. They are silently skipped during static export (POST-only handlers are compatible with `output: 'export'`).
 
-Both iOS app and web app call `https://pawbalance.optalgo.com/api/...` for backend endpoints.
+Both the iOS app and web app call `https://pawbalance.optalgo.com/api/...` for backend endpoints.
 
 ### AI Agent Backend
 
-Recipe analysis agent uses `@mariozechner/pi-agent-core` inside Next.js Route Handler (`POST /api/recipes/analyze`). Auth uses Claude subscription OAuth via `auth.json` at project root (read by `AuthStorage` from `@mariozechner/pi-coding-agent`). No API key needed.
+The recipe analysis agent uses `@mariozechner/pi-agent-core` running inside a Next.js Route Handler (`POST /api/recipes/analyze`). Authentication uses Claude subscription OAuth via `auth.json` at the project root (read by `AuthStorage` from `@mariozechner/pi-coding-agent`). No API key needed.
 
 ### GitOps
 
 - **PawBalance Helm chart:** `refs/gitops/helm/pawbalance/` (separate git repo at `hamza-sahin/gitops`)
-- **ArgoCD** syncs from gitops repo, rolls out on image tag change
-- **CI updates tag:** `.github/workflows/deploy.yml` → `update-gitops` job bumps image tag
+- **ArgoCD** syncs from the gitops repo, rolls out on image tag change
+- **CI updates the tag:** `.github/workflows/deploy.yml` → `update-gitops` job bumps the image tag
 
 ### Key URLs
 
@@ -204,50 +201,50 @@ Recipe analysis agent uses `@mariozechner/pi-agent-core` inside Next.js Route Ha
 
 ### When to Verify
 
-- **After implementing feature** — when brainstorming workflow reaches verification phase, invoke `/qa` before claiming done.
-- **After fixing bug** — when systematic-debugging workflow reaches verification phase, invoke `/qa` before claiming fix done.
-- **When explicitly asked** — user can run `/qa` anytime.
+- **After implementing a feature** — when the brainstorming workflow reaches its verification phase, invoke `/qa` before claiming the work is done.
+- **After fixing a bug** — when the systematic-debugging workflow reaches its verification phase, invoke `/qa` before claiming the fix is done.
+- **When explicitly asked** — the user can run `/qa` at any time.
 
 ### How Verification Works
 
-`/qa` skill (`.claude/skills/qa/SKILL.md`) runs:
+The `/qa` skill (`.claude/skills/qa/SKILL.md`) runs this sequence:
 
-1. Analyze `git diff` → determine changed files, map to affected screens/flows
-2. Build static export (`npm run build`), serve `out/` locally
-3. Test affected flows in browser via `browser-use` skill
+1. Analyze `git diff` to determine which files changed and map them to affected screens/flows
+2. Build the static export (`npm run build`) and serve `out/` locally
+3. Test affected flows in the browser using the `browser-use` skill
 4. Run full iOS build cycle (`npx cap sync ios` → Xcode build → simulator launch)
-5. Test same flows on iOS via `ios-debug`
+5. Test the same affected flows on iOS using the `ios-debug`
 6. Report pass/fail per flow, per platform
 
-Testing **context-aware** — only affected flows tested, not full sweep.
+Testing is **context-aware** — only flows affected by the change are tested, not a full sweep.
 
-If check fails, autonomously diagnose, fix, re-run `/qa`. Stop after 3 failed attempts on same issue, ask user.
+If any check fails, autonomously diagnose, fix, and re-run `/qa`. Stop after 3 failed attempts on the same issue and ask the user.
 
 ### When to Deploy
 
-- **When finishing development branch** — after `/qa` passes, invoke `/deploy` to push and ship to TestFlight.
-- **When explicitly asked** — user can run `/deploy` anytime.
+- **When finishing a development branch** — after `/qa` passes, invoke `/deploy` to push and ship to TestFlight.
+- **When explicitly asked** — the user can run `/deploy` at any time.
 
 ### How Deployment Works
 
-`/deploy` skill (`.claude/skills/deploy/SKILL.md`) runs:
+The `/deploy` skill (`.claude/skills/deploy/SKILL.md`) runs:
 
-1. Push current branch to remote (`git push -u origin HEAD`)
+1. Push the current branch to remote (`git push -u origin HEAD`)
 2. Run `./scripts/deploy-testflight.sh` (build → archive → upload to App Store Connect)
 3. Report success or failure
 
-`/deploy` requires `/qa` passed first. If not, runs `/qa` automatically.
+`/deploy` requires `/qa` to have passed first. If not, it runs `/qa` automatically.
 
 ### When to Use UI/UX Skill
 
-- **Before any UI changes** — when implementing new screen, modifying component layout, changing styles, or updating visual elements, invoke `/ui-ux-pro-max` first for design guidance.
-- Applies during brainstorming (design phase), systematic-debugging (if fix involves UI), or any task touching files in `src/components/`, `src/app/`, or `src/app/globals.css`.
+- **Before making any UI changes** — when implementing a new screen, modifying a component's layout, changing styles, or updating any visual element, invoke `/ui-ux-pro-max` first to get design guidance.
+- This applies during brainstorming (design phase), systematic-debugging (if the fix involves UI), or any task that touches files in `src/components/`, `src/app/`, or `src/app/globals.css`.
 
 ## Skill Invocation Rule
 
-When prompt references multiple skills (e.g. `/brainstorming /ios-debug /ui-ux-pro-max implement feature A`), **ALL** referenced skills MUST be invoked via Skill tool before proceeding. No skipping. Invoke in logical order (process skills first → design skills → implementation/verification skills).
+When a prompt references multiple skills (e.g. `/brainstorming /ios-debug /ui-ux-pro-max implement feature A`), **ALL** referenced skills MUST be invoked via the Skill tool before proceeding. Do not skip any skill mentioned in the prompt. Invoke them in logical order (process skills like brainstorming/debugging first, then design skills like ui-ux-pro-max, then implementation/verification skills like qa/deploy/ios-debug).
 
-## Out of Scope (deferred)
+## Out of Scope (deferred to future)
 
 - Payment/subscription (Stripe + RevenueCat)
 - Push notifications
@@ -259,9 +256,9 @@ When prompt references multiple skills (e.g. `/brainstorming /ios-debug /ui-ux-p
 
 ## graphify
 
-Project has graphify knowledge graph at graphify-out/.
+This project has a graphify knowledge graph at graphify-out/.
 
 Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
-- After modifying code files in session, run `python3 -c "from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code(Path('.'))"` to keep graph current
+- After modifying code files in this session, run `python3 -c "from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code(Path('.'))"` to keep the graph current
