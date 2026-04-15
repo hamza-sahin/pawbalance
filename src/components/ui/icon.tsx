@@ -47,6 +47,7 @@ import {
   SearchX,
   Settings,
   Share2,
+  Sparkles,
   Shield,
   ShieldCheck,
   Skull,
@@ -117,6 +118,7 @@ export const Icons = {
 
   // Misc
   skull: Skull,
+  sparkles: Sparkles,
 
   // Category icons
   citrus: Citrus,
