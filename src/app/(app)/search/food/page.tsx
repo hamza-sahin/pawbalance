@@ -198,6 +198,11 @@ export default function FoodDetailPage() {
     return <FoodDetailSkeleton />;
   }
 
+  // AI path: no result yet (e.g. missing query param) — show skeleton
+  if (isAI && !aiResult) {
+    return <FoodDetailSkeleton />;
+  }
+
   // Derive display values based on mode
   const name = isAI ? aiResult!.name : localise(food!, "name", locale);
   const category = isAI
