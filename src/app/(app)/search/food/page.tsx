@@ -226,7 +226,7 @@ export default function FoodDetailPage() {
     : food!.category_en.charAt(0);
 
   return (
-    <div className="p-4">
+    <div className="p-4 pb-6">
       <Link
         href="/search"
         aria-label="Back"

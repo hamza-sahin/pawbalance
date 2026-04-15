@@ -10,7 +10,6 @@ import { FoodRequestDialog } from "@/components/food/food-request-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SEARCH_DEBOUNCE_MS, MIN_SEARCH_LENGTH } from "@/lib/constants";
 import { Icons } from "@/components/ui/icon";
-import { EmptyState } from "@/components/ui/empty-state";
 import { AISuggestionRow } from "@/components/food/ai-suggestion-row";
 
 export default function SearchPage() {
@@ -109,22 +108,24 @@ export default function SearchPage() {
           ) : results.length > 0 ? (
             results.map((food) => <FoodCard key={food.id} food={food} />)
           ) : (
-            <div className="flex flex-col gap-4">
-              <EmptyState
-                icon="searchX"
-                title={t("noResults")}
-                subtitle={t("noResultsSubtitle")}
-                action={{
-                  label: t("browseCategories"),
-                  onClick: () => { setQuery(""); clearSearch(); },
-                }}
-              />
-              <button
-                onClick={() => setShowRequestDialog(true)}
-                className="mx-auto min-h-[44px] inline-flex items-center rounded-button px-4 text-sm font-medium text-primary transition-all duration-150 ease-out hover:bg-primary/5 active:scale-95 active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                {t("requestFood")}
-              </button>
+            <div className="flex flex-col gap-3">
+              <p className="text-center text-sm text-txt-tertiary">
+                {t("noResultsSubtitle")}
+              </p>
+              <div className="flex items-center justify-center gap-3">
+                <button
+                  onClick={() => { setQuery(""); clearSearch(); }}
+                  className="min-h-[44px] inline-flex items-center rounded-button px-4 text-sm font-medium text-txt-secondary transition-all duration-150 ease-out hover:bg-surface-variant active:scale-95 active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  {t("browseCategories")}
+                </button>
+                <button
+                  onClick={() => setShowRequestDialog(true)}
+                  className="min-h-[44px] inline-flex items-center rounded-button px-4 text-sm font-medium text-primary transition-all duration-150 ease-out hover:bg-primary/5 active:scale-95 active:opacity-70 focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  {t("requestFood")}
+                </button>
+              </div>
             </div>
           )}
         </div>
