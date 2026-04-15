@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import { UtensilsCrossed } from "lucide-react";
 
 const tabs = [
-  { key: "scanner", href: "/scan", label: "scanner" },
   { key: "recipes", href: "/recipes", label: "recipes" },
   { key: "search", href: "/search", label: "search" },
   { key: "learn", href: "/learn", label: "learn" },
@@ -14,14 +13,6 @@ const tabs = [
 ] as const;
 
 const icons: Record<string, React.ReactNode> = {
-  scanner: (
-    <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="3" y="3" width="7" height="7" rx="1" />
-      <rect x="14" y="3" width="7" height="7" rx="1" />
-      <rect x="3" y="14" width="7" height="7" rx="1" />
-      <rect x="14" y="14" width="7" height="7" rx="1" />
-    </svg>
-  ),
   recipes: <UtensilsCrossed className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" />,
   search: (
     <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24" aria-hidden="true">
