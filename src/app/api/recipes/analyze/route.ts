@@ -90,6 +90,7 @@ Look up each ingredient in the safety database and provide your analysis.`;
 
   // 6. Create agent and stream response
   const agent = createRecipeAgent({
+    mode: "recipe",
     locale: locale || "en",
     supabaseUrl,
     supabaseKey,

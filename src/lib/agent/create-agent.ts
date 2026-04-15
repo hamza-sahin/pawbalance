@@ -6,9 +6,10 @@ import { join } from "path";
 import { createLookupFoodTool } from "./tools/lookup-food";
 import { createGetPetProfileTool } from "./tools/get-pet-profile";
 import { createSearchKnowledgeTool } from "./tools/search-knowledge";
-import { buildSystemPrompt } from "./system-prompt";
+import { buildSystemPrompt, buildFoodAskSystemPrompt } from "./system-prompt";
 
-interface CreateRecipeAgentOptions {
+interface CreateAgentOptions {
+  mode: "recipe" | "food-ask";
   locale: string;
   supabaseUrl: string;
   supabaseKey: string;
@@ -34,10 +35,11 @@ function getAuth() {
 }
 
 export function createRecipeAgent({
+  mode,
   locale,
   supabaseUrl,
   supabaseKey,
-}: CreateRecipeAgentOptions): Agent {
+}: CreateAgentOptions): Agent {
   const { authStorage: auth, modelRegistry: registry, settings: s } = getAuth();
 
   const provider = s.defaultProvider ?? "github-copilot";
@@ -53,7 +55,9 @@ export function createRecipeAgent({
 
   return new Agent({
     initialState: {
-      systemPrompt: buildSystemPrompt(locale),
+      systemPrompt: mode === "food-ask"
+        ? buildFoodAskSystemPrompt(locale)
+        : buildSystemPrompt(locale),
       model,
       tools: [lookupFood, getPetProfile, searchKnowledge],
     },
