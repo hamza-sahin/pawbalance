@@ -350,5 +350,16 @@
   "personalizedDog": "Köpeğinizin profiline özel",
   "scanLabels": "Gıda etiketlerini anında tarayın",
   "aiIngredientBreakdown": "Yapay zeka içerik güvenlik analizi",
-  "subscriptionRequired": "Abonelik gerekli"
+  "subscriptionRequired": "Abonelik gerekli",
+  "aiSuggestionLabel": "{food} {petName} için güvenli mi?",
+  "aiSuggestionGeneric": "{food} köpekler için güvenli mi?",
+  "aiGeneratedBadge": "AI",
+  "personalizedFor": "{petName} için kişiselleştirildi",
+  "portionGuidance": "Porsiyon Rehberi",
+  "riskFactors": "Risk Faktörleri",
+  "petSpecificAdvice": "Özel Tavsiyeler",
+  "aiAnalyzing": "Analiz ediliyor...",
+  "aiCheckingDatabase": "Veritabanı kontrol ediliyor...",
+  "aiError": "AI analizi başarısız oldu. Lütfen tekrar deneyin.",
+  "proRequired": "Pro"
 }

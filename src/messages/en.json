@@ -350,5 +350,16 @@
   "personalizedDog": "Personalized for your dog's profile",
   "scanLabels": "Scan food labels instantly",
   "aiIngredientBreakdown": "AI ingredient safety breakdown",
-  "subscriptionRequired": "Subscription required"
+  "subscriptionRequired": "Subscription required",
+  "aiSuggestionLabel": "Is {food} safe for {petName}?",
+  "aiSuggestionGeneric": "Is {food} safe for dogs?",
+  "aiGeneratedBadge": "AI",
+  "personalizedFor": "Personalized for {petName}",
+  "portionGuidance": "Portion Guidance",
+  "riskFactors": "Risk Factors",
+  "petSpecificAdvice": "Pet-Specific Advice",
+  "aiAnalyzing": "Analyzing...",
+  "aiCheckingDatabase": "Checking database...",
+  "aiError": "AI analysis failed. Please try again.",
+  "proRequired": "Pro"
 }
