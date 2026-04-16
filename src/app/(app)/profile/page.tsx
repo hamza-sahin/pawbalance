@@ -87,11 +87,8 @@ export default function ProfilePage() {
 
   return (
     <div className="p-4">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex items-center">
         <h1 className="text-lg font-bold text-txt">{t("profile")}</h1>
-        <button className="flex h-10 w-10 items-center justify-center rounded-lg text-txt-secondary transition-all duration-150 ease-out hover:bg-surface-variant active:scale-90 active:opacity-70" aria-label="Settings">
-          <Icons.settings className="h-5 w-5" aria-hidden="true" />
-        </button>
       </div>
 
       {/* User card */}
@@ -143,8 +140,8 @@ export default function ProfilePage() {
           <p className="mb-2 text-xs font-medium uppercase tracking-wider text-txt-tertiary">{t("support")}</p>
           <div className="flex flex-col gap-2">
             {[
-              { href: "#", icon: Icons.help, label: t("helpAndSupport") },
-              { href: "#", icon: Icons.info, label: t("about") },
+              { href: "/profile/support", icon: Icons.help, label: t("helpAndSupport") },
+              { href: "/profile/about", icon: Icons.info, label: t("about") },
             ].map((item) => (
               <Link key={item.label} href={item.href} className="block transition-all duration-150 ease-out active:scale-95 active:opacity-80">
                 <Card className="flex items-center gap-3 p-4">
