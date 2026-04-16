@@ -360,6 +360,7 @@
   "petSpecificAdvice": "Özel Tavsiyeler",
   "aiAnalyzing": "Analiz ediliyor...",
   "aiCheckingDatabase": "Veritabanı kontrol ediliyor...",
+  "aiSearchingFor": "\"{query}\" aranıyor...",
   "aiError": "AI analizi başarısız oldu. Lütfen tekrar deneyin.",
   "proRequired": "Pro",
   "didYouKnow": "Biliyor Muydunuz?",

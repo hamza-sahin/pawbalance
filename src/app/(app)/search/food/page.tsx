@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
@@ -9,6 +9,8 @@ import { useAIFoodLookup } from "@/hooks/use-ai-food-lookup";
 import { usePetStore } from "@/store/pet-store";
 import { SafetyBadge } from "@/components/food/safety-badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ScatteredPaws } from "@/components/recipe/scattered-paws";
+import { NUTRITION_TIPS } from "@/lib/constants";
 import { localise, splitBullets } from "@/lib/types";
 import type { AIFoodResult } from "@/lib/types";
 import { Icons } from "@/components/ui/icon";
@@ -22,6 +24,121 @@ function FoodDetailSkeleton() {
       <Skeleton className="mx-auto h-6 w-40" />
       <Skeleton className="h-24 w-full" />
       <Skeleton className="h-24 w-full" />
+    </div>
+  );
+}
+
+function AILoadingView({ query, statusText }: { query: string; statusText: string | null }) {
+  const t = useTranslations();
+  const [tipIndex, setTipIndex] = useState(0);
+  const [tipVisible, setTipVisible] = useState(true);
+  const tipsRef = useRef<string[]>([]);
+
+  useEffect(() => {
+    const shuffled = [...NUTRITION_TIPS];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    tipsRef.current = shuffled;
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTipVisible(false);
+      setTimeout(() => {
+        setTipIndex((prev) => (prev + 1) % NUTRITION_TIPS.length);
+        setTipVisible(true);
+      }, 400);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentTipKey = tipsRef.current[tipIndex] ?? NUTRITION_TIPS[0];
+
+  const phase = statusText === "checking_database" ? 1 : 0;
+
+  return (
+    <div className="relative min-h-[350px]">
+      <ScatteredPaws />
+
+      <div className="relative z-[1]">
+        {/* Search query display */}
+        <div className="mb-6 text-center">
+          <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+            <Icons.sparkles className="h-7 w-7 text-primary motion-safe:animate-pulse" aria-hidden="true" />
+          </div>
+          <p className="text-[15px] font-semibold text-txt">
+            {t("aiSearchingFor", { query })}
+          </p>
+        </div>
+
+        {/* Step indicators */}
+        <div className="mb-6 flex flex-col gap-2">
+          <div className={`flex items-center gap-2.5 rounded-[12px] border p-3 transition-all duration-400 ${
+            phase >= 1
+              ? "border-safe/20 bg-safe/5"
+              : "border-primary/20 bg-primary/5"
+          }`}>
+            {phase >= 1 ? (
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-safe text-[11px] text-white">✓</span>
+            ) : (
+              <span className="flex h-5 w-5 items-center justify-center">
+                <span className="h-4 w-4 rounded-full border-2 border-primary border-t-transparent motion-safe:animate-spin" />
+              </span>
+            )}
+            <span className={`text-sm font-medium ${phase >= 1 ? "text-safe" : "text-primary"}`}>
+              {t("aiAnalyzing")}
+            </span>
+          </div>
+
+          <div className={`flex items-center gap-2.5 rounded-[12px] border p-3 transition-all duration-400 ${
+            phase >= 1
+              ? "border-primary/20 bg-primary/5"
+              : "border-border bg-surface"
+          }`}>
+            {phase >= 1 ? (
+              <span className="flex h-5 w-5 items-center justify-center">
+                <span className="h-4 w-4 rounded-full border-2 border-primary border-t-transparent motion-safe:animate-spin" />
+              </span>
+            ) : (
+              <span className="flex h-5 w-5 items-center justify-center">
+                <span className="h-2 w-2 rounded-full bg-border" />
+              </span>
+            )}
+            <span className={`text-sm font-medium ${phase >= 1 ? "text-primary" : "text-txt-tertiary"}`}>
+              {t("aiCheckingDatabase")}
+            </span>
+          </div>
+        </div>
+
+        {/* Tip card */}
+        <div
+          className="rounded-[14px] border border-border bg-surface p-4 text-center shadow-sm transition-opacity duration-400"
+          style={{ opacity: tipVisible ? 1 : 0 }}
+        >
+          <div className="mb-2 flex items-center justify-center gap-1.5">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
+              {t("didYouKnow")}
+            </span>
+          </div>
+          <p className="text-[13px] leading-relaxed text-txt-secondary">
+            {t(`tips.${currentTipKey}`)}
+          </p>
+        </div>
+
+        {/* Dot indicators */}
+        <div className="mt-3 flex justify-center gap-1.5">
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
+                tipIndex % 3 === i ? "bg-primary" : "bg-border"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -153,14 +270,7 @@ export default function FoodDetailPage() {
         >
           <Icons.arrowLeft className="h-5 w-5" aria-hidden="true" />
         </Link>
-        <FoodDetailSkeleton />
-        {statusText && (
-          <p className="mt-4 text-center text-sm text-txt-secondary motion-safe:animate-pulse">
-            {statusText === "checking_database"
-              ? t("aiCheckingDatabase")
-              : t("aiAnalyzing")}
-          </p>
-        )}
+        <AILoadingView query={aiQuery} statusText={statusText} />
       </div>
     );
   }

@@ -360,6 +360,7 @@
   "petSpecificAdvice": "Pet-Specific Advice",
   "aiAnalyzing": "Analyzing...",
   "aiCheckingDatabase": "Checking database...",
+  "aiSearchingFor": "Searching for \"{query}\"...",
   "aiError": "AI analysis failed. Please try again.",
   "proRequired": "Pro",
   "didYouKnow": "Did You Know?",
