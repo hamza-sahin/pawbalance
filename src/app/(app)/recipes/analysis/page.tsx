@@ -113,8 +113,8 @@ export default function AnalysisPage() {
           </div>
         )}
 
-        {/* Streaming progress + celebration + report */}
-        {(displayStatus === "pending" || displayStatus === "completed") && recipe && (
+        {/* Streaming progress + celebration + report (only during active analysis) */}
+        {(displayStatus === "pending" || (displayStatus === "completed" && ingredientProgress.length > 0)) && recipe && (
           <AnalysisProgress
             recipeName={recipe.name}
             ingredients={ingredientProgress}
