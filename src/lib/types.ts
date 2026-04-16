@@ -172,6 +172,13 @@ export interface RecipeAnalysis {
   created_at: string;
 }
 
+export interface IngredientProgress {
+  id: string;
+  name: string;
+  status: "pending" | "checking" | "done";
+  safety?: string;
+}
+
 /* ── AI Food Search ─────────────────────────────────── */
 
 export interface AIFoodPersonalized {
