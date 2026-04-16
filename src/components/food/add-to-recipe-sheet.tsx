@@ -18,14 +18,18 @@ interface AddToRecipeSheetProps {
 }
 
 export function AddToRecipeSheet({ open, onClose, foodName, preparation, onAdded }: AddToRecipeSheetProps) {
+  if (!open) return null;
+
+  return <AddToRecipeSheetInner onClose={onClose} foodName={foodName} preparation={preparation} onAdded={onAdded} />;
+}
+
+function AddToRecipeSheetInner({ onClose, foodName, preparation, onAdded }: Omit<AddToRecipeSheetProps, "open">) {
   const t = useTranslations();
   const router = useRouter();
   const recipes = useRecipeStore((s) => s.recipes);
   const updateRecipe = useRecipeStore((s) => s.updateRecipe);
   const [adding, setAdding] = useState<string | null>(null);
   const { sheetRef, maximized, handlers: dragHandlers } = useSheetDrag({ onDismiss: onClose, disabled: adding !== null });
-
-  if (!open) return null;
 
   async function handleAddToRecipe(recipe: RecipeWithIngredients) {
     setAdding(recipe.id);
