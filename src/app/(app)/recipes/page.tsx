@@ -33,7 +33,7 @@ export default function RecipesPage() {
   const getPetName = (petId: string | null) =>
     pets.find((p) => p.id === petId)?.name;
 
-  if (isLoading) {
+  if (isLoading && recipes.length === 0) {
     return (
       <div className="space-y-3 p-4">
         <Skeleton className="h-8 w-40" />

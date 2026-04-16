@@ -113,11 +113,13 @@ export default function AnalysisPage() {
           </div>
         )}
 
-        {/* Streaming progress */}
-        {displayStatus === "pending" && recipe && (
+        {/* Streaming progress + celebration + report */}
+        {(displayStatus === "pending" || displayStatus === "completed") && recipe && (
           <AnalysisProgress
             recipeName={recipe.name}
             ingredients={ingredientProgress}
+            result={displayResult}
+            status={displayStatus}
           />
         )}
 
@@ -140,8 +142,8 @@ export default function AnalysisPage() {
           </div>
         )}
 
-        {/* Completed report */}
-        {displayStatus === "completed" && displayResult && (
+        {/* Action buttons — shown when viewing stored analysis (no active stream) */}
+        {displayStatus === "completed" && displayResult && ingredientProgress.length === 0 && (
           <>
             {isStale && (
               <button
