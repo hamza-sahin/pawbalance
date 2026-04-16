@@ -14,19 +14,15 @@ import { AISuggestionRow } from "@/components/food/ai-suggestion-row";
 
 export default function SearchPage() {
   const t = useTranslations();
-  const { results, isSearching, search, clearSearch } = useFoodSearch();
-  const { categories, isLoading: catsLoading, fetchCategories } = useCategories();
+  const { results, isSearching, search, clearSearch, lastQuery } = useFoodSearch();
+  const { categories, isLoading: catsLoading } = useCategories();
   const selectedPet = usePetStore((s) => {
     const id = s.selectedPetId;
     return s.pets.find((p) => p.id === id) ?? null;
   });
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(lastQuery);
   const [showRequestDialog, setShowRequestDialog] = useState(false);
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
 
   // Debounced search
   useEffect(() => {

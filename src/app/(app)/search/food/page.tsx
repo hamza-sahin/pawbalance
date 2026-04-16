@@ -131,17 +131,16 @@ export default function FoodDetailPage() {
   const [showRecipeSheet, setShowRecipeSheet] = useState(false);
   const [addedMessage, setAddedMessage] = useState("");
 
-  // Fetch on mount
+  // Fetch on mount — skip if already loaded from store
   useEffect(() => {
     if (isAI && aiQuery) {
-      lookup(aiQuery, aiPetId, locale);
+      if (aiStatus === "idle" || (aiResult && aiQuery !== aiResult.name)) {
+        lookup(aiQuery, aiPetId, locale);
+      }
     } else if (id) {
       fetchFood(id);
     }
-    return () => {
-      if (isAI) abort();
-    };
-  }, [isAI, id, aiQuery, aiPetId, locale, fetchFood, lookup, abort]);
+  }, [isAI, id, aiQuery, aiPetId, locale, fetchFood, lookup, aiStatus, aiResult]);
 
   // Loading state
   if (isAI && aiStatus === "loading") {
