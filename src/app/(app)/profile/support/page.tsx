@@ -7,25 +7,7 @@ import { useTranslations } from "next-intl";
 import { useLocale } from "@/hooks/use-locale";
 import { Card } from "@/components/ui/card";
 import { Icons } from "@/components/ui/icon";
-import { getAppVersionLabel } from "@/lib/app-info";
-
-const SUPPORT_EMAIL = "2gurmepati@gmail.com";
-
-export function buildSupportMailto(subject: string, message: string, locale: string) {
-  const body = [
-    message,
-    "",
-    `Locale: ${locale}`,
-    `Version: ${getAppVersionLabel() || "unknown"}`,
-  ].join("\n");
-
-  const params = new URLSearchParams({
-    subject: `PawBalance Support: ${subject}`,
-    body,
-  });
-
-  return `mailto:${SUPPORT_EMAIL}?${params.toString()}`;
-}
+import { buildSupportMailto, getSupportEmail } from "@/lib/support-mailto";
 
 export default function SupportPage() {
   const t = useTranslations();
@@ -84,10 +66,10 @@ export default function SupportPage() {
           <h2 className="mb-2 text-base font-semibold text-txt">{t("supportTitle")}</h2>
           <Card className="space-y-3 p-4">
             <p className="text-sm text-txt-secondary">{t("supportEmailLabel")}</p>
-            <p className="font-medium text-txt">{SUPPORT_EMAIL}</p>
+            <p className="font-medium text-txt">{getSupportEmail()}</p>
             <button
               type="button"
-              onClick={() => openMailto(`mailto:${SUPPORT_EMAIL}`)}
+              onClick={() => openMailto(`mailto:${getSupportEmail()}`)}
               className="w-full cursor-pointer rounded-button bg-primary-btn py-3 text-sm font-medium text-white transition-opacity duration-150 active:opacity-80"
             >
               {t("supportEmailAction")}
