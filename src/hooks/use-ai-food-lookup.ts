@@ -13,9 +13,9 @@ export function useAIFoodLookup() {
   const { session } = useAuthStore();
 
   const lookup = useCallback(
-    (query: string, petId: string | null, locale: string) => {
+    (query: string, locale: string) => {
       if (!session?.access_token) return;
-      startAILookup(query, petId, locale, session.access_token);
+      startAILookup(query, locale, session.access_token);
     },
     [session, startAILookup],
   );

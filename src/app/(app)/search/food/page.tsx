@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ScatteredPaws } from "@/components/recipe/scattered-paws";
 import { NUTRITION_TIPS } from "@/lib/constants";
 import { localise, splitBullets } from "@/lib/types";
-import type { AIFoodResult } from "@/lib/types";
+import type { AIFoodResult, AIFoodPersonalized } from "@/lib/types";
 import { Icons } from "@/components/ui/icon";
 import { AddToRecipeSheet } from "@/components/food/add-to-recipe-sheet";
 
@@ -153,21 +153,19 @@ function AIBadge() {
   );
 }
 
-function PersonalizedSection({ personalized }: { personalized: AIFoodResult["personalized"] }) {
+function PersonalizedSection({ personalized }: { personalized: AIFoodPersonalized }) {
   const t = useTranslations();
-  if (!personalized) return null;
 
-  const selectedPet = usePetStore((s) => {
-    const id = s.selectedPetId;
-    return s.pets.find((p) => p.id === id) ?? null;
-  });
+  const pet = usePetStore((s) =>
+    s.pets.find((p) => p.name === personalized.pet_name) ?? null,
+  );
 
   return (
     <section className="rounded-card border border-primary/20 bg-primary/5 p-4">
       <h2 className="mb-3 flex items-center gap-2 font-semibold text-primary">
-        {selectedPet?.avatar_url ? (
+        {pet?.avatar_url ? (
           <img
-            src={selectedPet.avatar_url}
+            src={pet.avatar_url}
             alt=""
             className="h-5 w-5 rounded-full object-cover"
           />
@@ -230,7 +228,6 @@ export default function FoodDetailPage() {
   const isAI = searchParams.get("ai") === "true";
   const id = searchParams.get("id") ?? "";
   const aiQuery = searchParams.get("query") ?? "";
-  const aiPetId = searchParams.get("petId") ?? null;
 
   // DB path
   const { food, isLoading: dbLoading, fetchFood } = useFoodDetail();
@@ -252,12 +249,12 @@ export default function FoodDetailPage() {
   useEffect(() => {
     if (isAI && aiQuery) {
       if (aiStatus === "idle" || (aiResult && aiQuery !== aiResult.name)) {
-        lookup(aiQuery, aiPetId, locale);
+        lookup(aiQuery, locale);
       }
     } else if (id) {
       fetchFood(id);
     }
-  }, [isAI, id, aiQuery, aiPetId, locale, fetchFood, lookup, aiStatus, aiResult]);
+  }, [isAI, id, aiQuery, locale, fetchFood, lookup, aiStatus, aiResult]);
 
   // Loading state
   if (isAI && aiStatus === "loading") {
@@ -292,7 +289,7 @@ export default function FoodDetailPage() {
             {aiError ?? t("aiError")}
           </p>
           <button
-            onClick={() => lookup(aiQuery, aiPetId, locale)}
+            onClick={() => lookup(aiQuery, locale)}
             className="min-h-[44px] rounded-button bg-primary-btn px-6 py-2.5 text-sm font-semibold text-white transition-all duration-150 active:scale-95"
           >
             {t("tryAgain")}
@@ -424,10 +421,10 @@ export default function FoodDetailPage() {
           </section>
         )}
 
-        {/* Personalized section — AI only */}
-        {isAI && aiResult?.personalized && (
-          <PersonalizedSection personalized={aiResult.personalized} />
-        )}
+        {/* Personalized sections — AI only, one per pet */}
+        {isAI && aiResult?.personalized && aiResult.personalized.map((p, i) => (
+          <PersonalizedSection key={p.pet_name ?? i} personalized={p} />
+        ))}
       </div>
 
       {/* Action bar */}

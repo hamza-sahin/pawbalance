@@ -19,10 +19,7 @@ export function AISuggestionRow({ query }: AISuggestionRowProps) {
   const { guardAction, isPaywallOpen, paywallTier, dismissPaywall } =
     useEntitlement();
 
-  const selectedPet = usePetStore((s) => {
-    const id = s.selectedPetId;
-    return s.pets.find((p) => p.id === id) ?? null;
-  });
+  const pets = usePetStore((s) => s.pets);
 
   const handleTap = () => {
     // Unauthenticated users can't use AI — don't show paywall, just ignore
@@ -32,7 +29,6 @@ export function AISuggestionRow({ query }: AISuggestionRowProps) {
 
     // Pro user — navigate to AI food detail
     const params = new URLSearchParams({ ai: "true", query });
-    if (selectedPet) params.set("petId", selectedPet.id);
     router.push(`/search/food?${params.toString()}`);
   };
 
@@ -47,10 +43,10 @@ export function AISuggestionRow({ query }: AISuggestionRowProps) {
         </div>
         <div className="flex-1">
           <p className="font-medium text-txt">
-            {selectedPet
+            {pets.length > 0
               ? t("aiSuggestionLabel", {
                   food: query,
-                  petName: selectedPet.name,
+                  petName: pets.map((p) => p.name).join(", "),
                 })
               : t("aiSuggestionGeneric", { food: query })}
           </p>

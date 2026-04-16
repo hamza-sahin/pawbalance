@@ -13,7 +13,7 @@ export async function OPTIONS() {
 
 export async function POST(request: Request) {
   // 1. Parse request
-  const { query, petId, locale } = await request.json();
+  const { query, locale } = await request.json();
   if (!query || typeof query !== "string") {
     return Response.json(
       { error: "query is required" },
@@ -50,15 +50,36 @@ export async function POST(request: Request) {
     );
   }
 
-  // 4. Build user message
+  // 4. Fetch all user pets for personalization
+  const { data: pets } = await supabase
+    .from("pets")
+    .select("id, name, breed, age_months, weight_kg, gender, is_neutered, body_condition_score, activity_level")
+    .eq("owner_id", user!.id);
+
+  let petSection = "No pets registered.";
+  if (pets && pets.length > 0) {
+    const profiles = pets.map((p) => {
+      const ageYears = p.age_months ? (p.age_months / 12).toFixed(1) : "unknown";
+      return [
+        `- ${p.name} (ID: ${p.id})`,
+        `  Breed: ${p.breed ?? "unknown"}, Age: ${ageYears} years, Weight: ${p.weight_kg ?? "unknown"} kg`,
+        `  Gender: ${p.gender ?? "unknown"}, ${p.is_neutered ? "neutered" : "intact"}`,
+        `  BCS: ${p.body_condition_score ?? "unknown"}/9, Activity: ${p.activity_level}`,
+      ].join("\n");
+    });
+    petSection = `User's dogs:\n${profiles.join("\n")}`;
+  }
+
+  // 5. Build user message
   const userMessage = `Assess this food for dogs:
 
 Food: "${query}"
-${petId ? `Pet ID: ${petId}` : "No specific pet selected."}
+
+${petSection}
 
 Look up the food in the safety database, research it, and provide your assessment.`;
 
-  // 5. Create agent in food-ask mode
+  // 6. Create agent in food-ask mode
   const agent = createRecipeAgent({
     mode: "food-ask",
     locale: locale || "en",
@@ -66,7 +87,7 @@ Look up the food in the safety database, research it, and provide your assessmen
     supabaseKey,
   });
 
-  // 6. SSE streaming
+  // 7. SSE streaming
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({

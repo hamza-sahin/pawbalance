@@ -196,7 +196,7 @@ export interface AIFoodResult {
   preparation: string | null;
   benefits: string | null;
   warnings: string | null;
-  personalized: AIFoodPersonalized | null;
+  personalized: AIFoodPersonalized[] | null;
   ai_generated: true;
 }
 

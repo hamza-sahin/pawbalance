@@ -31,7 +31,6 @@ interface FoodState {
   // AI food lookup (survives navigation)
   aiLookup: {
     query: string;
-    petId: string | null;
     status: AIFoodStatus;
     statusText: string | null;
     result: AIFoodResult | null;
@@ -39,7 +38,7 @@ interface FoodState {
   } | null;
   setAILookup: (lookup: FoodState["aiLookup"]) => void;
   updateAILookup: (patch: Partial<NonNullable<FoodState["aiLookup"]>>) => void;
-  startAILookup: (query: string, petId: string | null, locale: string, accessToken: string) => void;
+  startAILookup: (query: string, locale: string, accessToken: string) => void;
   abortAILookup: () => void;
 }
 
@@ -78,7 +77,7 @@ export const useFoodStore = create<FoodState>((set, get) => ({
       aiLookup: s.aiLookup ? { ...s.aiLookup, ...patch } : null,
     })),
 
-  startAILookup: (query, petId, locale, accessToken) => {
+  startAILookup: (query, locale, accessToken) => {
     aiLookupAbortController?.abort();
     const controller = new AbortController();
     aiLookupAbortController = controller;
@@ -86,7 +85,6 @@ export const useFoodStore = create<FoodState>((set, get) => ({
     set({
       aiLookup: {
         query,
-        petId,
         status: "loading",
         statusText: null,
         result: null,
@@ -102,7 +100,7 @@ export const useFoodStore = create<FoodState>((set, get) => ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify({ query, petId, locale }),
+          body: JSON.stringify({ query, locale }),
           signal: controller.signal,
         });
 
