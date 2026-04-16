@@ -40,6 +40,52 @@ export function useFoodSearch() {
   };
 }
 
+export function useFoodSuggestions(query: string, limit = 5) {
+  const [suggestions, setSuggestions] = useState<Food[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const trimmed = query.trim();
+
+    if (trimmed.length < 2) {
+      setSuggestions([]);
+      setIsLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    const timeoutId = window.setTimeout(async () => {
+      setIsLoading(true);
+
+      try {
+        const supabase = getSupabase();
+        const { data, error } = await supabase.rpc("search_foods", {
+          search_query: trimmed,
+        });
+
+        if (cancelled) return;
+        if (error) {
+          setSuggestions([]);
+          return;
+        }
+
+        setSuggestions(((data as Food[]) ?? []).slice(0, limit));
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    }, 250);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [limit, query]);
+
+  return { suggestions, isLoading };
+}
+
 export function useSimilarFoods() {
   const [similar, setSimilar] = useState<Food[]>([]);
 
