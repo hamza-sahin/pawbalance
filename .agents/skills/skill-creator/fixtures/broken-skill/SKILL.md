@@ -1,6 +1,3 @@
-name: BrokenSkill
-description: Skill docs.
-
 ---
 name: broken-skill
 description: Skill docs.
