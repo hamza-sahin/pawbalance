@@ -23,11 +23,17 @@ export function useRecipes() {
     setLoading,
     analyses,
     setAnalysis,
+    recipesLoadedAt,
+    setRecipesWithTimestamp,
   } = useRecipeStore();
 
   const fetchRecipes = useCallback(async () => {
     if (!user) return;
-    setLoading(true);
+
+    // Only show loading skeleton on first load (no cached data)
+    const hasCache = useRecipeStore.getState().recipes.length > 0;
+    if (!hasCache) setLoading(true);
+
     try {
       const supabase = getSupabase();
       const { data, error } = await supabase
@@ -36,7 +42,7 @@ export function useRecipes() {
         .eq("owner_id", user.id)
         .order("created_at", { ascending: false });
       if (error) throw error;
-      setRecipes(data as RecipeWithIngredients[]);
+      setRecipesWithTimestamp(data as RecipeWithIngredients[]);
 
       // Fetch latest analysis per recipe
       const recipeIds = (data ?? []).map((r: any) => r.id);
@@ -61,7 +67,7 @@ export function useRecipes() {
     } finally {
       setLoading(false);
     }
-  }, [user, setRecipes, setLoading, setAnalysis]);
+  }, [user, setRecipesWithTimestamp, setLoading, setAnalysis]);
 
   const createRecipe = useCallback(
     async (values: RecipeFormValues): Promise<RecipeWithIngredients> => {
