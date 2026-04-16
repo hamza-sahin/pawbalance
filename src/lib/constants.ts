@@ -283,3 +283,12 @@ export const SEARCH_DEBOUNCE_MS = 300;
 // ============================================================
 
 export const CURRENT_TERMS_VERSION = 1;
+
+// ============================================================
+// Nutrition Tips (shown during analysis progress)
+// ============================================================
+
+export const NUTRITION_TIPS: readonly string[] = Array.from(
+  { length: 100 },
+  (_, i) => `tip_${i}`,
+);
