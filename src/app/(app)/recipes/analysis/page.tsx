@@ -12,6 +12,7 @@ import { useRecipeAnalysis } from "@/hooks/use-recipe-analysis";
 import { useRecipeStore } from "@/store/recipe-store";
 import { useRecipes } from "@/hooks/use-recipes";
 import { useLocale } from "@/hooks/use-locale";
+import { normalizeAnalysisResult } from "@/lib/analysis-result";
 import type { RecipeEditAction } from "@/lib/types";
 import { useEntitlement } from "@/hooks/use-entitlement";
 import { PaywallSheet } from "@/components/subscription/PaywallSheet";
@@ -74,7 +75,7 @@ export default function AnalysisPage() {
   };
 
   // Use stored result if available and we haven't started a new analysis
-  const displayResult = result ?? storedAnalysis?.result ?? null;
+  const displayResult = normalizeAnalysisResult(result ?? storedAnalysis?.result);
   const displayStatus =
     status !== "idle" ? status : storedAnalysis?.result ? "completed" : "idle";
 

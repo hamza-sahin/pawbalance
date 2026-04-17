@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { createRecipeAgent } from "@/lib/agent/create-agent";
+import { normalizeAnalysisResult } from "@/lib/analysis-result";
 import type { RecipeIngredient, AnalysisResult } from "@/lib/types";
 
 const corsHeaders = {
@@ -147,7 +148,7 @@ Look up each ingredient in the safety database and provide your analysis.`;
               if (text.startsWith("```")) {
                 text = text.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
               }
-              resultJson = JSON.parse(text);
+              resultJson = normalizeAnalysisResult(JSON.parse(text));
             } catch {
               // Agent didn't return valid JSON — will be handled below
             }
