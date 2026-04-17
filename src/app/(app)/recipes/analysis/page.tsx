@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ChevronLeft, XCircle, RefreshCw, Pencil, Loader2, AlertTriangle } from "lucide-react";
+import { XCircle, RefreshCw, Pencil, Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnalysisProgress } from "@/components/recipe/analysis-progress";
 import { AnalysisReport } from "@/components/recipe/analysis-report";
@@ -16,6 +16,7 @@ import { normalizeAnalysisResult } from "@/lib/analysis-result";
 import type { RecipeEditAction } from "@/lib/types";
 import { useEntitlement } from "@/hooks/use-entitlement";
 import { PaywallSheet } from "@/components/subscription/PaywallSheet";
+import { AppScreen } from "@/components/navigation/app-screen";
 
 export default function AnalysisPage() {
   const t = useTranslations();
@@ -91,22 +92,22 @@ export default function AnalysisPage() {
     return false;
   })();
 
-  return (
-    <div>
-      <div className="flex items-center gap-2.5 border-b border-border p-4">
-        <button
-          className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center rounded-[10px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          onClick={() => router.back()}
-          aria-label={t("back")}
-        >
-          <ChevronLeft className="h-5 w-5 text-txt-secondary" />
-        </button>
-        <h1 className="text-[17px] font-bold text-txt">
-          {t("recipeAnalysis")}
-        </h1>
-      </div>
+  const handleBack = () => {
+    if (recipeId) {
+      router.push(`/recipes/edit?id=${recipeId}`);
+      return;
+    }
+    router.push("/recipes");
+  };
 
-      <div className="p-4">
+  return (
+    <AppScreen
+      title={t("recipeAnalysis")}
+      showBack
+      onBack={handleBack}
+      withBottomNavSpacing
+      contentClassName="p-4"
+    >
         {/* Loading recipe data */}
         {!recipe && displayStatus === "idle" && (
           <div className="flex min-h-[350px] items-center justify-center">
@@ -187,10 +188,9 @@ export default function AnalysisPage() {
             </div>
           </>
         )}
-      </div>
       {isPaywallOpen && paywallTier && (
         <PaywallSheet requiredTier={paywallTier} onDismiss={dismissPaywall} />
       )}
-    </div>
+    </AppScreen>
   );
 }

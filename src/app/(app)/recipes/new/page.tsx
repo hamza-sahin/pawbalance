@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ChevronLeft } from "lucide-react";
 import { RecipeForm } from "@/components/recipe/recipe-form";
 import { useRecipes } from "@/hooks/use-recipes";
 import type { RecipeFormValues } from "@/lib/validators";
 import { useEntitlement } from "@/hooks/use-entitlement";
 import { PaywallSheet } from "@/components/subscription/PaywallSheet";
+import { AppScreen } from "@/components/navigation/app-screen";
 
 export default function NewRecipePage() {
   const t = useTranslations();
@@ -28,24 +28,22 @@ export default function NewRecipePage() {
     }
   };
 
+  const handleBack = () => {
+    router.push("/recipes");
+  };
+
   return (
-    <div>
-      <div className="flex items-center gap-2.5 border-b border-border p-4">
-        <button
-          className="flex min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation items-center justify-center rounded-[10px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          onClick={() => router.back()}
-          aria-label={t("back")}
-        >
-          <ChevronLeft className="h-5 w-5 text-txt-secondary" />
-        </button>
-        <h1 className="text-[17px] font-bold text-txt">{t("newRecipe")}</h1>
-      </div>
-      <div className="p-4">
-        <RecipeForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
-      </div>
+    <AppScreen
+      title={t("newRecipe")}
+      showBack
+      onBack={handleBack}
+      withBottomNavSpacing
+      contentClassName="p-4"
+    >
+      <RecipeForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
       {isPaywallOpen && paywallTier && (
         <PaywallSheet requiredTier={paywallTier} onDismiss={dismissPaywall} />
       )}
-    </div>
+    </AppScreen>
   );
 }
