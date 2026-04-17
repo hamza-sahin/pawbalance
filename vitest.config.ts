@@ -13,7 +13,7 @@ export default defineConfig({
     },
   },
   test: {
-    exclude: [...configDefaults.exclude, "refs/**"],
+    exclude: [...configDefaults.exclude, "refs/**", ".worktrees/**", "worktrees/**"],
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
