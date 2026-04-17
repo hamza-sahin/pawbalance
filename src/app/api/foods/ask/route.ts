@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { createRecipeAgent } from "@/lib/agent/create-agent";
+import { formatPetProfileSummary } from "@/lib/pet-profile-summary";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -53,19 +54,15 @@ export async function POST(request: Request) {
   // 4. Fetch all user pets for personalization
   const { data: pets } = await supabase
     .from("pets")
-    .select("id, name, breed, age_months, weight_kg, gender, is_neutered, body_condition_score, activity_level")
+    .select(
+      "id, name, breed, age_months, birth_date, weight_kg, gender, is_neutered, body_condition_score, activity_level, expected_adult_weight_kg, reproductive_state, gestation_week, lactation_week, litter_size",
+    )
     .eq("owner_id", user!.id);
 
   let petSection = "No pets registered.";
   if (pets && pets.length > 0) {
     const profiles = pets.map((p) => {
-      const ageYears = p.age_months ? (p.age_months / 12).toFixed(1) : "unknown";
-      return [
-        `- ${p.name} (ID: ${p.id})`,
-        `  Breed: ${p.breed ?? "unknown"}, Age: ${ageYears} years, Weight: ${p.weight_kg ?? "unknown"} kg`,
-        `  Gender: ${p.gender ?? "unknown"}, ${p.is_neutered ? "neutered" : "intact"}`,
-        `  BCS: ${p.body_condition_score ?? "unknown"}/9, Activity: ${p.activity_level}`,
-      ].join("\n");
+      return [`- ${p.name} (ID: ${p.id})`, formatPetProfileSummary(p)].join("\n");
     });
     petSection = `User's dogs:\n${profiles.join("\n")}`;
   }

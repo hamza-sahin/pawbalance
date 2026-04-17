@@ -27,6 +27,7 @@ export function ActivityLevelSelector({
             key={level.key}
             type="button"
             role="radio"
+            aria-label={t(level.labelKey)}
             aria-checked={value === level.key}
             onClick={() => onChange(level.key as ActivityLevel)}
             className={`flex items-center gap-3 rounded-card border p-3 text-left transition-all duration-150 ease-out ${
@@ -36,8 +37,8 @@ export function ActivityLevelSelector({
             } active:scale-95 active:opacity-80`}
           >
             <div className="flex-1">
-              <p className="font-medium text-txt">{level.label}</p>
-              <p className="text-sm text-txt-secondary">{level.description}</p>
+              <p className="font-medium text-txt">{t(level.labelKey)}</p>
+              <p className="text-sm text-txt-secondary">{t(level.descriptionKey)}</p>
             </div>
             {value === level.key && (
               <Icons.check className="mr-1 inline h-3.5 w-3.5 text-primary" aria-hidden="true" />

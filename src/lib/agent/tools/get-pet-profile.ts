@@ -1,6 +1,8 @@
 import { Type, type Static } from "@sinclair/typebox";
 import type { AgentTool } from "@mariozechner/pi-agent-core";
 import { createClient } from "@supabase/supabase-js";
+import { formatPetProfileSummary } from "@/lib/pet-profile-summary";
+import type { Pet } from "@/lib/types";
 
 const GetPetProfileParams = Type.Object({
   pet_id: Type.String({ description: "The UUID of the pet to fetch" }),
@@ -8,17 +10,24 @@ const GetPetProfileParams = Type.Object({
 
 type GetPetProfileParams = Static<typeof GetPetProfileParams>;
 
-interface PetProfile {
-  id: string;
-  name: string;
-  breed: string | null;
-  age_months: number | null;
-  weight_kg: number | null;
-  gender: string | null;
-  is_neutered: boolean;
-  body_condition_score: number | null;
-  activity_level: string;
-}
+type PetProfile = Pick<
+  Pet,
+  | "id"
+  | "name"
+  | "breed"
+  | "age_months"
+  | "birth_date"
+  | "weight_kg"
+  | "gender"
+  | "is_neutered"
+  | "body_condition_score"
+  | "activity_level"
+  | "expected_adult_weight_kg"
+  | "reproductive_state"
+  | "gestation_week"
+  | "lactation_week"
+  | "litter_size"
+>;
 
 export function createGetPetProfileTool(
   supabaseUrl: string,
@@ -36,7 +45,7 @@ export function createGetPetProfileTool(
       const { data, error } = await supabase
         .from("pets")
         .select(
-          "id, name, breed, age_months, weight_kg, gender, is_neutered, body_condition_score, activity_level",
+          "id, name, breed, age_months, birth_date, weight_kg, gender, is_neutered, body_condition_score, activity_level, expected_adult_weight_kg, reproductive_state, gestation_week, lactation_week, litter_size",
         )
         .eq("id", pet_id)
         .single();
@@ -51,16 +60,7 @@ export function createGetPetProfileTool(
       }
 
       const pet = data as PetProfile;
-      const ageYears = pet.age_months ? (pet.age_months / 12).toFixed(1) : "unknown";
-      const summary = [
-        `Dog: ${pet.name}`,
-        `Breed: ${pet.breed ?? "unknown"}`,
-        `Age: ${ageYears} years (${pet.age_months ?? "?"} months)`,
-        `Weight: ${pet.weight_kg ?? "unknown"} kg`,
-        `Gender: ${pet.gender ?? "unknown"}, ${pet.is_neutered ? "neutered" : "intact"}`,
-        `Body Condition Score: ${pet.body_condition_score ?? "unknown"}/9`,
-        `Activity Level: ${pet.activity_level}`,
-      ].join("\n");
+      const summary = formatPetProfileSummary(pet);
 
       return {
         content: [{ type: "text", text: summary }],

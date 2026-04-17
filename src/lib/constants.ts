@@ -1,4 +1,5 @@
 import type { IconName } from "@/components/ui/icon";
+import type { ActivityLevel } from "@/lib/types";
 
 // ============================================================
 // Category Styles (icon + background color)
@@ -256,17 +257,28 @@ export const DOG_BREEDS: string[] = [
 // ============================================================
 
 export interface ActivityLevelInfo {
-  key: string;
-  label: string;
-  description: string;
-  factor: number;
+  key: ActivityLevel;
+  labelKey: string;
+  descriptionKey: string;
 }
 
 export const ACTIVITY_LEVELS: ActivityLevelInfo[] = [
-  { key: "LOW", label: "Low", description: "Little to no exercise", factor: 1.6 },
-  { key: "MODERATE", label: "Moderate", description: "Regular walks and play", factor: 1.8 },
-  { key: "HIGH", label: "High", description: "Very active dog", factor: 2.0 },
-  { key: "WORKING", label: "Working", description: "High activity or working dog", factor: 2.5 },
+  { key: "LOW", labelKey: "activityLow", descriptionKey: "activityLowDesc" },
+  {
+    key: "MODERATE_LOW_IMPACT",
+    labelKey: "activityModerateLowImpact",
+    descriptionKey: "activityModerateLowImpactDesc",
+  },
+  {
+    key: "MODERATE_HIGH_IMPACT",
+    labelKey: "activityModerateHighImpact",
+    descriptionKey: "activityModerateHighImpactDesc",
+  },
+  {
+    key: "HIGH_WORKING",
+    labelKey: "activityHighWorking",
+    descriptionKey: "activityHighWorkingDesc",
+  },
 ];
 
 // ============================================================

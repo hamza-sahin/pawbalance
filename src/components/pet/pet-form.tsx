@@ -28,17 +28,61 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
   const [name, setName] = useState(pet?.name ?? "");
   const [breed, setBreed] = useState<string | null>(pet?.breed ?? null);
   const [ageMonths, setAgeMonths] = useState(pet?.age_months?.toString() ?? "");
+  const [birthDate, setBirthDate] = useState(pet?.birth_date ?? "");
   const [weightKg, setWeightKg] = useState(pet?.weight_kg?.toString() ?? "");
   const [gender, setGender] = useState<"MALE" | "FEMALE" | null>(pet?.gender ?? null);
   const [isNeutered, setIsNeutered] = useState(pet?.is_neutered ?? false);
   const [activityLevel, setActivityLevel] = useState<ActivityLevel>(
-    (pet?.activity_level as ActivityLevel) ?? "MODERATE",
+    (pet?.activity_level as ActivityLevel) ?? "MODERATE_LOW_IMPACT",
   );
   const [bcs, setBcs] = useState(pet?.body_condition_score ?? 5);
+  const [expectedAdultWeightKg, setExpectedAdultWeightKg] = useState(
+    pet?.expected_adult_weight_kg?.toString() ?? "",
+  );
+  const [reproductiveState, setReproductiveState] = useState(
+    pet?.reproductive_state ?? "MAINTENANCE",
+  );
+  const [gestationWeek, setGestationWeek] = useState(pet?.gestation_week?.toString() ?? "");
+  const [lactationWeek, setLactationWeek] = useState(pet?.lactation_week?.toString() ?? "");
+  const [litterSize, setLitterSize] = useState(pet?.litter_size?.toString() ?? "");
 
   const [step, setStep] = useState(0);
   const stepLabels = [t("petName"), t("petGender"), t("activityLevel")];
   const stepAdvanceTimeoutRef = useRef<number | null>(null);
+  const parsedAgeMonths = ageMonths.trim() !== "" ? Number(ageMonths) : null;
+
+  const derivedAgeMonths =
+    birthDate
+      ? Math.max(
+          0,
+          Math.floor(
+            (Date.now() - new Date(`${birthDate}T00:00:00.000Z`).getTime()) /
+              (30 * 24 * 60 * 60 * 1000),
+          ),
+        )
+      : parsedAgeMonths != null
+        ? parsedAgeMonths
+        : null;
+
+  const isPuppy = derivedAgeMonths != null && derivedAgeMonths < 12;
+  const showReproductiveFields = gender === "FEMALE" && !isNeutered;
+
+  useEffect(() => {
+    if (!showReproductiveFields) {
+      setReproductiveState("MAINTENANCE");
+      setGestationWeek("");
+      setLactationWeek("");
+      setLitterSize("");
+    }
+  }, [showReproductiveFields]);
+
+  useEffect(() => {
+    if (reproductiveState !== "GESTATION") setGestationWeek("");
+    if (reproductiveState !== "LACTATION") {
+      setLactationWeek("");
+      setLitterSize("");
+    }
+  }, [reproductiveState]);
 
   useEffect(() => {
     return () => {
@@ -67,12 +111,18 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
     const raw = {
       name,
       breed,
-      age_months: ageMonths ? Number(ageMonths) : null,
+      age_months: parsedAgeMonths,
+      birth_date: birthDate || null,
       weight_kg: weightKg ? Number(weightKg) : null,
       gender,
       is_neutered: isNeutered,
       body_condition_score: bcs,
       activity_level: activityLevel,
+      expected_adult_weight_kg: expectedAdultWeightKg ? Number(expectedAdultWeightKg) : null,
+      reproductive_state: showReproductiveFields ? reproductiveState : "MAINTENANCE",
+      gestation_week: gestationWeek ? Number(gestationWeek) : null,
+      lactation_week: lactationWeek ? Number(lactationWeek) : null,
+      litter_size: litterSize ? Number(litterSize) : null,
     };
 
     const result = petFormSchema.safeParse(raw);
@@ -132,6 +182,14 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
           />
 
           <Input
+            label={t("petBirthDate")}
+            type="date"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+            error={errors.birth_date}
+          />
+
+          <Input
             label={`${t("petWeight")} *`}
             type="text"
             inputMode="decimal"
@@ -141,11 +199,81 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
             placeholder="kg"
             error={errors.weight_kg}
           />
+
+          {isPuppy && (
+            <>
+              <Input
+                label={t("expectedAdultWeight")}
+                type="text"
+                inputMode="decimal"
+                value={expectedAdultWeightKg}
+                onChange={(e) => setExpectedAdultWeightKg(e.target.value)}
+                error={errors.expected_adult_weight_kg}
+              />
+              <p className="text-xs text-txt-secondary">{t("expectedAdultWeightHint")}</p>
+            </>
+          )}
         </>
       )}
 
       {step === 1 && (
         <>
+          {showReproductiveFields && (
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-txt-secondary">
+                  {t("reproductiveState")}
+                </label>
+                <div className="flex flex-col gap-2" role="radiogroup" aria-label={t("reproductiveState")}>
+                  {(["MAINTENANCE", "GESTATION", "LACTATION"] as const).map((state) => (
+                    <button
+                      key={state}
+                      type="button"
+                      role="radio"
+                      aria-checked={reproductiveState === state}
+                      onClick={() => setReproductiveState(state)}
+                      className="rounded-card border p-3 text-left"
+                    >
+                      {t(state.toLowerCase())}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {reproductiveState === "GESTATION" && (
+                <Input
+                  label={t("gestationWeek")}
+                  type="text"
+                  inputMode="numeric"
+                  value={gestationWeek}
+                  onChange={(e) => setGestationWeek(e.target.value)}
+                  error={errors.gestation_week}
+                />
+              )}
+
+              {reproductiveState === "LACTATION" && (
+                <>
+                  <Input
+                    label={t("lactationWeek")}
+                    type="text"
+                    inputMode="numeric"
+                    value={lactationWeek}
+                    onChange={(e) => setLactationWeek(e.target.value)}
+                    error={errors.lactation_week}
+                  />
+                  <Input
+                    label={t("litterSize")}
+                    type="text"
+                    inputMode="numeric"
+                    value={litterSize}
+                    onChange={(e) => setLitterSize(e.target.value)}
+                    error={errors.litter_size}
+                  />
+                </>
+              )}
+            </div>
+          )}
+
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-txt-secondary">
               {t("petGender")}

@@ -13,8 +13,20 @@ export type SafetyLevel = z.infer<typeof SafetyLevel>;
 export const PetGender = z.enum(["MALE", "FEMALE"]);
 export type PetGender = z.infer<typeof PetGender>;
 
-export const ActivityLevel = z.enum(["LOW", "MODERATE", "HIGH", "WORKING"]);
+export const ActivityLevel = z.enum([
+  "LOW",
+  "MODERATE_LOW_IMPACT",
+  "MODERATE_HIGH_IMPACT",
+  "HIGH_WORKING",
+]);
 export type ActivityLevel = z.infer<typeof ActivityLevel>;
+
+export const ReproductiveState = z.enum([
+  "MAINTENANCE",
+  "GESTATION",
+  "LACTATION",
+]);
+export type ReproductiveState = z.infer<typeof ReproductiveState>;
 
 export const FoodRequestStatus = z.enum(["pending", "approved", "rejected"]);
 export type FoodRequestStatus = z.infer<typeof FoodRequestStatus>;
@@ -25,9 +37,9 @@ export type FoodRequestStatus = z.infer<typeof FoodRequestStatus>;
 
 export const ACTIVITY_FACTORS: Record<ActivityLevel, number> = {
   LOW: 1.6,
-  MODERATE: 1.8,
-  HIGH: 2.0,
-  WORKING: 2.5,
+  MODERATE_LOW_IMPACT: 1.8,
+  MODERATE_HIGH_IMPACT: 2.0,
+  HIGH_WORKING: 2.5,
 };
 
 // ============================================================
@@ -50,11 +62,20 @@ export const PetSchema = z.object({
   name: z.string(),
   breed: z.string().nullable(),
   age_months: z.number().int().nullable(),
+  birth_date: z.string().nullable().default(null),
   weight_kg: z.number().nullable(),
   gender: PetGender.nullable(),
   is_neutered: z.boolean(),
   body_condition_score: z.number().int().min(1).max(9).nullable(),
   activity_level: ActivityLevel,
+  expected_adult_weight_kg: z.number().nullable().default(null),
+  reproductive_state: z.preprocess(
+    (value) => value == null ? "MAINTENANCE" : value,
+    ReproductiveState,
+  ),
+  gestation_week: z.number().int().nullable().default(null),
+  lactation_week: z.number().int().nullable().default(null),
+  litter_size: z.number().int().nullable().default(null),
   known_allergies: z.string().nullable(),
   avatar_url: z.string().nullable(),
   created_at: z.string(),
@@ -177,6 +198,36 @@ export interface IngredientProgress {
   name: string;
   status: "pending" | "checking" | "done";
   safety?: string;
+}
+
+export interface DogDailyCaloriesInput {
+  weightKg: number;
+  activityLevel: ActivityLevel;
+  ageMonths?: number | null;
+  birthDate?: string | null;
+  gender?: PetGender | null;
+  isNeutered?: boolean;
+  expectedAdultWeightKg?: number | null;
+  reproductiveState?: ReproductiveState;
+  gestationWeek?: number | null;
+  lactationWeek?: number | null;
+  litterSize?: number | null;
+}
+
+export type DailyCaloriesMode = "official" | "fallback" | "unavailable";
+
+export interface DailyCaloriesResult {
+  mode: DailyCaloriesMode;
+  kcalPerDay: number | null;
+  kcalRange: { min: number; max: number } | null;
+  reason:
+    | "adult_activity_table"
+    | "puppy_growth_formula"
+    | "missing_expected_adult_weight"
+    | "under_eight_weeks"
+    | "missing_gestation_week"
+    | "missing_lactation_inputs";
+  warnings: string[];
 }
 
 /* ── AI Food Search ─────────────────────────────────── */

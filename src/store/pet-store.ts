@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { Pet } from "@/lib/types";
 import type { PetFormValues } from "@/lib/validators";
+import { buildLocalPet } from "@/lib/pet-payload";
 
 const GUEST_PET_KEY = "guest_pet";
 const ONBOARDING_KEY = "onboarding_completed";
@@ -19,26 +20,6 @@ interface PetState {
   saveGuestPet: (values: PetFormValues, photoDataUrl?: string | null) => void;
   clearGuestPet: () => void;
   getGuestPetData: () => { values: PetFormValues; photo?: string | null } | null;
-}
-
-function buildLocalPet(values: PetFormValues, photoDataUrl?: string | null): Pet {
-  const now = new Date().toISOString();
-  return {
-    id: `local_${crypto.randomUUID()}`,
-    owner_id: "guest",
-    name: values.name,
-    breed: values.breed ?? null,
-    age_months: values.age_months ?? null,
-    weight_kg: values.weight_kg ?? null,
-    gender: values.gender ?? null,
-    is_neutered: values.is_neutered,
-    body_condition_score: values.body_condition_score ?? null,
-    activity_level: values.activity_level,
-    known_allergies: null,
-    avatar_url: photoDataUrl ?? null,
-    created_at: now,
-    updated_at: now,
-  };
 }
 
 export const usePetStore = create<PetState>((set, get) => ({

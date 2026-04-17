@@ -7,6 +7,7 @@ import { useAuthStore } from "@/store/auth-store";
 import type { Pet } from "@/lib/types";
 import type { PetFormValues } from "@/lib/validators";
 import { MAX_PETS } from "@/lib/constants";
+import { buildPetWriteInput } from "@/lib/pet-payload";
 
 export function usePets() {
   const {
@@ -52,14 +53,7 @@ export function usePets() {
         .from("pets")
         .insert({
           owner_id: user.id,
-          name: values.name,
-          breed: values.breed,
-          age_months: values.age_months,
-          weight_kg: values.weight_kg,
-          gender: values.gender,
-          is_neutered: values.is_neutered,
-          body_condition_score: values.body_condition_score,
-          activity_level: values.activity_level,
+          ...buildPetWriteInput(values),
           known_allergies: null,
         })
         .select()
@@ -98,14 +92,7 @@ export function usePets() {
       const { data, error } = await supabase
         .from("pets")
         .update({
-          name: values.name,
-          breed: values.breed,
-          age_months: values.age_months,
-          weight_kg: values.weight_kg,
-          gender: values.gender,
-          is_neutered: values.is_neutered,
-          body_condition_score: values.body_condition_score,
-          activity_level: values.activity_level,
+          ...buildPetWriteInput(values),
           ...(removePhoto ? { avatar_url: null } : {}),
         })
         .eq("id", petId)

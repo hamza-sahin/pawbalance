@@ -1,5 +1,5 @@
 import type { Pet } from "@/lib/types";
-import { calculateDER, type ActivityLevel } from "@/lib/types";
+import { calculateDER } from "@/lib/types";
 import { Card } from "@/components/ui/card";
 import { Icons } from "@/components/ui/icon";
 import { useTranslations } from "next-intl";
@@ -14,7 +14,11 @@ export function PetCard({ pet, onEdit, onDelete }: PetCardProps) {
   const t = useTranslations();
   const der =
     pet.weight_kg != null
-      ? calculateDER(pet.weight_kg, pet.activity_level as ActivityLevel)
+      ? calculateDER({
+          weightKg: pet.weight_kg,
+          activityLevel: pet.activity_level,
+          ageMonths: pet.age_months,
+        })
       : null;
 
   return (
