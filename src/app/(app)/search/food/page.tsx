@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useFoodDetail } from "@/hooks/use-food-search";
 import { useAIFoodLookup } from "@/hooks/use-ai-food-lookup";
@@ -12,9 +11,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ScatteredPaws } from "@/components/recipe/scattered-paws";
 import { NUTRITION_TIPS } from "@/lib/constants";
 import { localise, splitBullets } from "@/lib/types";
-import type { AIFoodResult, AIFoodPersonalized } from "@/lib/types";
+import type { AIFoodPersonalized } from "@/lib/types";
 import { Icons } from "@/components/ui/icon";
 import { AddToRecipeSheet } from "@/components/food/add-to-recipe-sheet";
+import { AppScreen } from "@/components/navigation/app-screen";
 
 function FoodDetailSkeleton() {
   return (
@@ -239,11 +239,16 @@ export default function FoodDetailPage() {
     error: aiError,
     statusText,
     lookup,
-    abort,
   } = useAIFoodLookup();
 
   const [showRecipeSheet, setShowRecipeSheet] = useState(false);
   const [addedMessage, setAddedMessage] = useState("");
+
+  const pageTitle = isAI
+    ? aiResult?.name || aiQuery || t("search")
+    : food
+      ? localise(food, "name", locale)
+      : t("search");
 
   // Fetch on mount — skip if already loaded from store
   useEffect(() => {
@@ -259,54 +264,72 @@ export default function FoodDetailPage() {
   // Loading state
   if (isAI && aiStatus === "loading") {
     return (
-      <div className="p-4">
-        <Link
-          href="/search"
-          aria-label="Back"
-          className="mb-4 inline-flex min-h-[44px] min-w-[44px] items-center text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-lg"
-        >
-          <Icons.arrowLeft className="h-5 w-5" aria-hidden="true" />
-        </Link>
-        <AILoadingView query={aiQuery} statusText={statusText} />
-      </div>
+      <AppScreen
+        title={pageTitle}
+        showBack
+        backHref="/search"
+        withBottomNavSpacing
+      >
+        <div className="p-4">
+          <AILoadingView query={aiQuery} statusText={statusText} />
+        </div>
+      </AppScreen>
     );
   }
 
   // AI error state
   if (isAI && aiStatus === "error") {
     return (
-      <div className="p-4">
-        <Link
-          href="/search"
-          aria-label="Back"
-          className="mb-4 inline-flex min-h-[44px] min-w-[44px] items-center text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-lg"
-        >
-          <Icons.arrowLeft className="h-5 w-5" aria-hidden="true" />
-        </Link>
-        <div className="flex flex-col items-center gap-3 py-12">
-          <Icons.caution className="h-10 w-10 text-caution" aria-hidden="true" />
-          <p className="text-center text-sm text-txt-secondary">
-            {aiError ?? t("aiError")}
-          </p>
-          <button
-            onClick={() => lookup(aiQuery, locale)}
-            className="min-h-[44px] rounded-button bg-primary-btn px-6 py-2.5 text-sm font-semibold text-white transition-all duration-150 active:scale-95"
-          >
-            {t("tryAgain")}
-          </button>
+      <AppScreen
+        title={pageTitle}
+        showBack
+        backHref="/search"
+        withBottomNavSpacing
+      >
+        <div className="p-4">
+          <div className="flex flex-col items-center gap-3 py-12">
+            <Icons.caution className="h-10 w-10 text-caution" aria-hidden="true" />
+            <p className="text-center text-sm text-txt-secondary">
+              {aiError ?? t("aiError")}
+            </p>
+            <button
+              onClick={() => lookup(aiQuery, locale)}
+              className="min-h-[44px] rounded-button bg-primary-btn px-6 py-2.5 text-sm font-semibold text-white transition-all duration-150 active:scale-95"
+            >
+              {t("tryAgain")}
+            </button>
+          </div>
         </div>
-      </div>
+      </AppScreen>
     );
   }
 
   // DB loading
   if (!isAI && (dbLoading || !food)) {
-    return <FoodDetailSkeleton />;
+    return (
+      <AppScreen
+        title={pageTitle}
+        showBack
+        backHref="/search"
+        withBottomNavSpacing
+      >
+        <FoodDetailSkeleton />
+      </AppScreen>
+    );
   }
 
   // AI path: no result yet (e.g. missing query param) — show skeleton
   if (isAI && !aiResult) {
-    return <FoodDetailSkeleton />;
+    return (
+      <AppScreen
+        title={pageTitle}
+        showBack
+        backHref="/search"
+        withBottomNavSpacing
+      >
+        <FoodDetailSkeleton />
+      </AppScreen>
+    );
   }
 
   // Derive display values based on mode
@@ -332,151 +355,150 @@ export default function FoodDetailPage() {
     : food!.category_en.charAt(0);
 
   return (
-    <div className="p-4 pb-6">
-      <Link
-        href="/search"
-        aria-label="Back"
-        className="mb-4 inline-flex min-h-[44px] min-w-[44px] items-center text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-lg"
-      >
-        <Icons.arrowLeft className="h-5 w-5" aria-hidden="true" />
-      </Link>
-
-      <div className="mb-6 flex flex-col items-center gap-2">
-        <div
-          className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary"
-          aria-hidden="true"
-        >
-          {categoryInitial}
-        </div>
-        <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold text-txt">{name}</h1>
-          {isAI && <AIBadge />}
-        </div>
-        <SafetyBadge level={safetyLevel} />
-        <p className="text-sm text-txt-secondary">{category}</p>
-      </div>
-
-      <div className="flex flex-col gap-4">
-        {dangerousParts && (
-          <section className="rounded-card border border-border bg-surface p-4">
-            <h2 className="mb-2 flex items-center gap-2 font-semibold text-toxic">
-              <Icons.dangerousParts
-                className="h-5 w-5"
-                aria-hidden="true"
-              />{" "}
-              {t("dangerousParts")}
-            </h2>
-            <p className="text-sm text-txt-secondary">{dangerousParts}</p>
-          </section>
-        )}
-
-        {preparation && (
-          <section className="rounded-card border border-border bg-surface p-4">
-            <h2 className="mb-2 flex items-center gap-2 font-semibold text-caution">
-              <Icons.preparation
-                className="h-5 w-5"
-                aria-hidden="true"
-              />{" "}
-              {t("preparation")}
-            </h2>
-            <p className="text-sm text-txt-secondary">{preparation}</p>
-          </section>
-        )}
-
-        {warnings.length > 0 && (
-          <section className="rounded-card border border-border bg-surface p-4">
-            <h2 className="mb-2 flex items-center gap-2 font-semibold text-warning">
-              <Icons.warnings
-                className="h-5 w-5"
-                aria-hidden="true"
-              />{" "}
-              {t("warnings")}
-            </h2>
-            <ul className="flex flex-col gap-1">
-              {warnings.map((w, i) => (
-                <li key={i} className="text-sm text-txt-secondary">
-                  • {w}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {benefits.length > 0 && (
-          <section className="rounded-card border border-border bg-surface p-4">
-            <h2 className="mb-2 flex items-center gap-2 font-semibold text-success">
-              <Icons.benefits
-                className="h-5 w-5"
-                aria-hidden="true"
-              />{" "}
-              {t("benefits")}
-            </h2>
-            <ul className="flex flex-col gap-1">
-              {benefits.map((b, i) => (
-                <li key={i} className="text-sm text-txt-secondary">
-                  • {b}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {/* Personalized sections — AI only, one per pet */}
-        {isAI && aiResult?.personalized && aiResult.personalized.map((p, i) => (
-          <PersonalizedSection key={p.pet_name ?? i} personalized={p} />
-        ))}
-      </div>
-
-      {/* Action bar */}
-      <div className="mt-6 flex gap-2">
-        <button
-          onClick={() => setShowRecipeSheet(true)}
-          className="flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-button bg-primary-btn px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 ease-out active:scale-95 active:opacity-90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          <Icons.plus className="h-4 w-4" aria-hidden="true" />
-          {t("addToRecipe")}
-        </button>
-        <button
-          onClick={() => {
-            if (navigator.share) {
-              navigator.share({
-                title: name,
-                text: `${name} - ${t(safetyLevel === "SAFE" ? "safe" : safetyLevel === "MODERATE" ? "caution" : "toxic")}`,
-              });
-            }
-          }}
-          aria-label={t("share")}
-          className="flex h-[44px] w-[44px] items-center justify-center rounded-button border border-border bg-surface transition-all duration-150 ease-out active:scale-90 active:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary"
-        >
-          <Icons.share
-            className="h-5 w-5 text-txt-secondary"
+    <AppScreen
+      title={pageTitle}
+      showBack
+      backHref="/search"
+      withBottomNavSpacing
+    >
+      <div className="p-4 pb-6">
+        <div className="mb-6 flex flex-col items-center gap-2">
+          <div
+            className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary"
             aria-hidden="true"
-          />
-        </button>
-      </div>
-
-      {addedMessage && (
-        <div className="mt-3 rounded-button bg-safe/10 px-4 py-2.5 text-center text-sm font-medium text-safe">
-          {addedMessage}
+          >
+            {categoryInitial}
+          </div>
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-txt">{name}</h1>
+            {isAI && <AIBadge />}
+          </div>
+          <SafetyBadge level={safetyLevel} />
+          <p className="text-sm text-txt-secondary">{category}</p>
         </div>
-      )}
 
-      <AddToRecipeSheet
-        open={showRecipeSheet}
-        onClose={() => setShowRecipeSheet(false)}
-        foodName={name}
-        preparation={
-          isAI
-            ? aiResult?.preparation ?? undefined
-            : localise(food!, "preparation", locale) || undefined
-        }
-        onAdded={(recipeName) => {
-          setAddedMessage(
-            t("addedToRecipe", { food: name, recipe: recipeName }),
-          );
-          setTimeout(() => setAddedMessage(""), 3000);
-        }}
-      />
-    </div>
+        <div className="flex flex-col gap-4">
+          {dangerousParts && (
+            <section className="rounded-card border border-border bg-surface p-4">
+              <h2 className="mb-2 flex items-center gap-2 font-semibold text-toxic">
+                <Icons.dangerousParts
+                  className="h-5 w-5"
+                  aria-hidden="true"
+                />{" "}
+                {t("dangerousParts")}
+              </h2>
+              <p className="text-sm text-txt-secondary">{dangerousParts}</p>
+            </section>
+          )}
+
+          {preparation && (
+            <section className="rounded-card border border-border bg-surface p-4">
+              <h2 className="mb-2 flex items-center gap-2 font-semibold text-caution">
+                <Icons.preparation
+                  className="h-5 w-5"
+                  aria-hidden="true"
+                />{" "}
+                {t("preparation")}
+              </h2>
+              <p className="text-sm text-txt-secondary">{preparation}</p>
+            </section>
+          )}
+
+          {warnings.length > 0 && (
+            <section className="rounded-card border border-border bg-surface p-4">
+              <h2 className="mb-2 flex items-center gap-2 font-semibold text-warning">
+                <Icons.warnings
+                  className="h-5 w-5"
+                  aria-hidden="true"
+                />{" "}
+                {t("warnings")}
+              </h2>
+              <ul className="flex flex-col gap-1">
+                {warnings.map((w, i) => (
+                  <li key={i} className="text-sm text-txt-secondary">
+                    • {w}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {benefits.length > 0 && (
+            <section className="rounded-card border border-border bg-surface p-4">
+              <h2 className="mb-2 flex items-center gap-2 font-semibold text-success">
+                <Icons.benefits
+                  className="h-5 w-5"
+                  aria-hidden="true"
+                />{" "}
+                {t("benefits")}
+              </h2>
+              <ul className="flex flex-col gap-1">
+                {benefits.map((b, i) => (
+                  <li key={i} className="text-sm text-txt-secondary">
+                    • {b}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Personalized sections — AI only, one per pet */}
+          {isAI && aiResult?.personalized && aiResult.personalized.map((p, i) => (
+            <PersonalizedSection key={p.pet_name ?? i} personalized={p} />
+          ))}
+        </div>
+
+        {/* Action bar */}
+        <div className="mt-6 flex gap-2">
+          <button
+            onClick={() => setShowRecipeSheet(true)}
+            className="flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-button bg-primary-btn px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 ease-out active:scale-95 active:opacity-90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            <Icons.plus className="h-4 w-4" aria-hidden="true" />
+            {t("addToRecipe")}
+          </button>
+          <button
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: name,
+                  text: `${name} - ${t(safetyLevel === "SAFE" ? "safe" : safetyLevel === "MODERATE" ? "caution" : "toxic")}`,
+                });
+              }
+            }}
+            aria-label={t("share")}
+            className="flex h-[44px] w-[44px] items-center justify-center rounded-button border border-border bg-surface transition-all duration-150 ease-out active:scale-90 active:bg-surface-variant focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <Icons.share
+              className="h-5 w-5 text-txt-secondary"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+
+        {addedMessage && (
+          <div className="mt-3 rounded-button bg-safe/10 px-4 py-2.5 text-center text-sm font-medium text-safe">
+            {addedMessage}
+          </div>
+        )}
+
+        <AddToRecipeSheet
+          open={showRecipeSheet}
+          onClose={() => setShowRecipeSheet(false)}
+          foodName={name}
+          preparation={
+            isAI
+              ? aiResult?.preparation ?? undefined
+              : localise(food!, "preparation", locale) || undefined
+          }
+          onAdded={(recipeName) => {
+            setAddedMessage(
+              t("addedToRecipe", { food: name, recipe: recipeName }),
+            );
+            setTimeout(() => setAddedMessage(""), 3000);
+          }}
+        />
+      </div>
+    </AppScreen>
   );
 }
