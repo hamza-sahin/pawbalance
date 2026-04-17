@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-04-17)
 
 ## Corpus Check
-- 133 files · ~272,507 words
+- 135 files · ~281,581 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 588 nodes · 476 edges · 200 communities detected
+- 591 nodes · 477 edges · 202 communities detected
 - Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 58 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
@@ -210,6 +210,8 @@
 - [[_COMMUNITY_Community 197|Community 197]]
 - [[_COMMUNITY_Community 198|Community 198]]
 - [[_COMMUNITY_Community 199|Community 199]]
+- [[_COMMUNITY_Community 200|Community 200]]
+- [[_COMMUNITY_Community 201|Community 201]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `main()` - 8 edges
@@ -563,11 +565,11 @@ Nodes (0):
 
 ### Community 80 - "Community 80"
 Cohesion: 1.0
-Nodes (2): AddToRecipeSheet component, useRecipes hook
+Nodes (0): 
 
 ### Community 81 - "Community 81"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (2): AddToRecipeSheet component, useRecipes hook
 
 ### Community 82 - "Community 82"
 Cohesion: 1.0
@@ -591,7 +593,7 @@ Nodes (0):
 
 ### Community 87 - "Community 87"
 Cohesion: 1.0
-Nodes (2): useAIFoodLookup hook, useRecipeAnalysis hook
+Nodes (0): 
 
 ### Community 88 - "Community 88"
 Cohesion: 1.0
@@ -599,7 +601,7 @@ Nodes (0):
 
 ### Community 89 - "Community 89"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (2): useAIFoodLookup hook, useRecipeAnalysis hook
 
 ### Community 90 - "Community 90"
 Cohesion: 1.0
@@ -631,63 +633,63 @@ Nodes (0):
 
 ### Community 97 - "Community 97"
 Cohesion: 1.0
-Nodes (2): Learn Article Detail Screen, Learn Tab (Knowledge Base)
+Nodes (0): 
 
 ### Community 98 - "Community 98"
 Cohesion: 1.0
-Nodes (2): Design Anti-Patterns (Forbidden Patterns), Design System Master File
+Nodes (2): Learn Article Detail Screen, Learn Tab (Knowledge Base)
 
 ### Community 99 - "Community 99"
 Cohesion: 1.0
-Nodes (2): Follow-Up Actions System (recipe_edit + detail_card), Rationale: Structured Actions Over Conversational Chat
+Nodes (2): Design Anti-Patterns (Forbidden Patterns), Design System Master File
 
 ### Community 100 - "Community 100"
 Cohesion: 1.0
-Nodes (2): PawBalance Helm Chart, Ollama Sidecar for Query Embedding (K8s)
+Nodes (2): Emoji Icons Systemic Issue, Category Grid Redesign (SVG Icons + Colors)
 
 ### Community 101 - "Community 101"
 Cohesion: 1.0
-Nodes (2): Dual Build Mode (Static + Server), PawBalance Dockerfile (nginx static)
+Nodes (2): Follow-Up Actions System (recipe_edit + detail_card), Rationale: Structured Actions Over Conversational Chat
 
 ### Community 102 - "Community 102"
 Cohesion: 1.0
-Nodes (2): blog_posts Supabase Table, Rationale: Single Flat Table for ~30 Blog Posts
+Nodes (2): Guest Access & Tiered Access Control Design Spec, Terms of Service & Privacy Policy Design Spec
 
 ### Community 103 - "Community 103"
 Cohesion: 1.0
-Nodes (2): 2gurmepati.com Blog Scrape (One-Time), YouTube Transcription Pipeline (Python)
+Nodes (2): PawBalance Helm Chart, Ollama Sidecar for Query Embedding (K8s)
 
 ### Community 104 - "Community 104"
 Cohesion: 1.0
-Nodes (2): Guest Access & Tiered Access Control Design Spec, Terms of Service & Privacy Policy Design Spec
+Nodes (2): Dual Build Mode (Static + Server), PawBalance Dockerfile (nginx static)
 
 ### Community 105 - "Community 105"
 Cohesion: 1.0
-Nodes (2): UI/UX Audit Remediation Roadmap (4 Phases), UI/UX Audit Improvements Design Spec (19 items)
+Nodes (2): 2gurmepati.com Blog Scrape (One-Time), YouTube Transcription Pipeline (Python)
 
 ### Community 106 - "Community 106"
 Cohesion: 1.0
-Nodes (2): Emoji Icons Systemic Issue, Category Grid Redesign (SVG Icons + Colors)
+Nodes (2): blog_posts Supabase Table, Rationale: Single Flat Table for ~30 Blog Posts
 
 ### Community 107 - "Community 107"
 Cohesion: 1.0
-Nodes (2): Rationale: RAG via pgvector for Knowledge Retrieval, video_chunks Table (pgvector embeddings)
+Nodes (2): UI/UX Audit Remediation Roadmap (4 Phases), UI/UX Audit Improvements Design Spec (19 items)
 
 ### Community 108 - "Community 108"
 Cohesion: 1.0
-Nodes (2): AI Agent Backend, AI Agent Pipeline Community
+Nodes (2): Rationale: RAG via pgvector for Knowledge Retrieval, video_chunks Table (pgvector embeddings)
 
 ### Community 109 - "Community 109"
 Cohesion: 1.0
-Nodes (2): graphify rule in AGENTS.md, Graph Report
+Nodes (2): AI Agent Backend, AI Agent Pipeline Community
 
 ### Community 110 - "Community 110"
 Cohesion: 1.0
-Nodes (2): Shared app version metadata helper, Do not hardcode version in About page component
+Nodes (2): graphify rule in AGENTS.md, Graph Report
 
 ### Community 111 - "Community 111"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (2): Shared app version metadata helper, Do not hardcode version in About page component
 
 ### Community 112 - "Community 112"
 Cohesion: 1.0
@@ -759,11 +761,11 @@ Nodes (0):
 
 ### Community 129 - "Community 129"
 Cohesion: 1.0
-Nodes (1): Icon Registry
+Nodes (0): 
 
 ### Community 130 - "Community 130"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (1): Icon Registry
 
 ### Community 131 - "Community 131"
 Cohesion: 1.0
@@ -839,205 +841,213 @@ Nodes (0):
 
 ### Community 149 - "Community 149"
 Cohesion: 1.0
-Nodes (1): Bottom Navigation (5 Tabs)
+Nodes (0): 
 
 ### Community 150 - "Community 150"
 Cohesion: 1.0
-Nodes (1): Scan Tab (Premium Placeholder)
+Nodes (0): 
 
 ### Community 151 - "Community 151"
 Cohesion: 1.0
-Nodes (1): Dog Food Safety Database (Turkish)
+Nodes (1): Bottom Navigation (5 Tabs)
 
 ### Community 152 - "Community 152"
 Cohesion: 1.0
-Nodes (1): Color Palette (Nature Distilled / Organic Biophilic)
+Nodes (1): Scan Tab (Premium Placeholder)
 
 ### Community 153 - "Community 153"
 Cohesion: 1.0
-Nodes (1): Typography (Lora + Raleway)
+Nodes (1): Dog Food Safety Database (Turkish)
 
 ### Community 154 - "Community 154"
 Cohesion: 1.0
-Nodes (1): iOS Safe Area Violations
+Nodes (1): Color Palette (Nature Distilled / Organic Biophilic)
 
 ### Community 155 - "Community 155"
 Cohesion: 1.0
-Nodes (1): Accessibility Failures (ARIA, Focus, Keyboard)
+Nodes (1): Typography (Lora + Raleway)
 
 ### Community 156 - "Community 156"
 Cohesion: 1.0
-Nodes (1): Internationalization (i18n) Gaps
+Nodes (1): iOS Safe Area Violations
 
 ### Community 157 - "Community 157"
 Cohesion: 1.0
-Nodes (1): Touch Target Violations (<44x44px)
+Nodes (1): Accessibility Failures (ARIA, Focus, Keyboard)
 
 ### Community 158 - "Community 158"
 Cohesion: 1.0
-Nodes (1): Button Contrast WCAG Failure (3.1:1)
+Nodes (1): Internationalization (i18n) Gaps
 
 ### Community 159 - "Community 159"
 Cohesion: 1.0
-Nodes (1): Desktop Wasted Space (max-w-md at 1440px)
+Nodes (1): Touch Target Violations (<44x44px)
 
 ### Community 160 - "Community 160"
 Cohesion: 1.0
-Nodes (1): No Branding or Visual Identity
+Nodes (1): Button Contrast WCAG Failure (3.1:1)
 
 ### Community 161 - "Community 161"
 Cohesion: 1.0
-Nodes (1): get_pet_profile Agent Tool
+Nodes (1): Desktop Wasted Space (max-w-md at 1440px)
 
 ### Community 162 - "Community 162"
 Cohesion: 1.0
-Nodes (1): SSE Streaming for Analysis Progress
+Nodes (1): No Branding or Visual Identity
 
 ### Community 163 - "Community 163"
 Cohesion: 1.0
-Nodes (1): Guest Onboarding (localStorage pet)
+Nodes (1): get_pet_profile Agent Tool
 
 ### Community 164 - "Community 164"
 Cohesion: 1.0
-Nodes (1): Stripe Products & Prices for PawBalance
+Nodes (1): SSE Streaming for Analysis Progress
 
 ### Community 165 - "Community 165"
 Cohesion: 1.0
-Nodes (1): Server-Side Entitlement Sync API Route
+Nodes (1): Guest Onboarding (localStorage pet)
 
 ### Community 166 - "Community 166"
 Cohesion: 1.0
-Nodes (1): OTA Update Data Flow
+Nodes (1): Stripe Products & Prices for PawBalance
 
 ### Community 167 - "Community 167"
 Cohesion: 1.0
-Nodes (1): Capgo Edge Functions (updates, stats, channel_self)
+Nodes (1): Server-Side Entitlement Sync API Route
 
 ### Community 168 - "Community 168"
 Cohesion: 1.0
-Nodes (1): QA Automation & Deployment Design Spec
+Nodes (1): OTA Update Data Flow
 
 ### Community 169 - "Community 169"
 Cohesion: 1.0
-Nodes (1): Re-Consent Flow (CURRENT_TERMS_VERSION bump)
+Nodes (1): Capgo Edge Functions (updates, stats, channel_self)
 
 ### Community 170 - "Community 170"
 Cohesion: 1.0
-Nodes (1): Welcome Screen Redesign
+Nodes (1): QA Automation & Deployment Design Spec
 
 ### Community 171 - "Community 171"
 Cohesion: 1.0
-Nodes (1): Reusable EmptyState Component
+Nodes (1): Re-Consent Flow (CURRENT_TERMS_VERSION bump)
 
 ### Community 172 - "Community 172"
 Cohesion: 1.0
-Nodes (1): Pet Edit Multi-Step Wizard Pattern
+Nodes (1): Welcome Screen Redesign
 
 ### Community 173 - "Community 173"
 Cohesion: 1.0
-Nodes (1): Dr. Judy Morgan YouTube Channel (~500 videos)
+Nodes (1): Reusable EmptyState Component
 
 ### Community 174 - "Community 174"
 Cohesion: 1.0
-Nodes (1): Email Input Field
+Nodes (1): Pet Edit Multi-Step Wizard Pattern
 
 ### Community 175 - "Community 175"
 Cohesion: 1.0
-Nodes (1): Password Input Field
+Nodes (1): Dr. Judy Morgan YouTube Channel (~500 videos)
 
 ### Community 176 - "Community 176"
 Cohesion: 1.0
-Nodes (1): Forgot Password Link
+Nodes (1): Email Input Field
 
 ### Community 177 - "Community 177"
 Cohesion: 1.0
-Nodes (1): Sign In Button (Sage Green)
+Nodes (1): Password Input Field
 
 ### Community 178 - "Community 178"
 Cohesion: 1.0
-Nodes (1): Sign In with Google Button
+Nodes (1): Forgot Password Link
 
 ### Community 179 - "Community 179"
 Cohesion: 1.0
-Nodes (1): Sign Up Navigation Link
+Nodes (1): Sign In Button (Sage Green)
 
 ### Community 180 - "Community 180"
 Cohesion: 1.0
-Nodes (1): Display Name Input Field
+Nodes (1): Sign In with Google Button
 
 ### Community 181 - "Community 181"
 Cohesion: 1.0
-Nodes (1): Confirm Password Input Field
+Nodes (1): Sign Up Navigation Link
 
 ### Community 182 - "Community 182"
 Cohesion: 1.0
-Nodes (1): Sign Up Button (Sage Green)
+Nodes (1): Display Name Input Field
 
 ### Community 183 - "Community 183"
 Cohesion: 1.0
-Nodes (1): Sign In with Google Button (Register)
+Nodes (1): Confirm Password Input Field
 
 ### Community 184 - "Community 184"
 Cohesion: 1.0
-Nodes (1): Sign In Navigation Link
+Nodes (1): Sign Up Button (Sage Green)
 
 ### Community 185 - "Community 185"
 Cohesion: 1.0
-Nodes (1): Welcome to PawBalance Headline
+Nodes (1): Sign In with Google Button (Register)
 
 ### Community 186 - "Community 186"
 Cohesion: 1.0
-Nodes (1): Get Started Button (Sage Green)
+Nodes (1): Sign In Navigation Link
 
 ### Community 187 - "Community 187"
 Cohesion: 1.0
-Nodes (1): Already Have Account Sign In Link
+Nodes (1): Welcome to PawBalance Headline
 
 ### Community 188 - "Community 188"
 Cohesion: 1.0
-Nodes (1): Profile Section
+Nodes (1): Get Started Button (Sage Green)
 
 ### Community 189 - "Community 189"
 Cohesion: 1.0
-Nodes (1): Hide Scanner and Rename Tiers Plan
+Nodes (1): Already Have Account Sign In Link
 
 ### Community 190 - "Community 190"
 Cohesion: 1.0
-Nodes (1): Hide Scanner and Rename Tiers Design Spec
+Nodes (1): Profile Section
 
 ### Community 191 - "Community 191"
 Cohesion: 1.0
-Nodes (1): Single-plan paywall rationale
+Nodes (1): Hide Scanner and Rename Tiers Plan
 
 ### Community 192 - "Community 192"
 Cohesion: 1.0
-Nodes (1): UX State Persistence and Analysis Progress Plan
+Nodes (1): Hide Scanner and Rename Tiers Design Spec
 
 ### Community 193 - "Community 193"
 Cohesion: 1.0
-Nodes (1): PawBalance Project Overview
+Nodes (1): Single-plan paywall rationale
 
 ### Community 194 - "Community 194"
 Cohesion: 1.0
-Nodes (1): Search Home and Categories Screen
+Nodes (1): UX State Persistence and Analysis Progress Plan
 
 ### Community 195 - "Community 195"
 Cohesion: 1.0
-Nodes (1): Profile Flow Settings Hub
+Nodes (1): PawBalance Project Overview
 
 ### Community 196 - "Community 196"
 Cohesion: 1.0
-Nodes (1): Profile and Settings UI Community
+Nodes (1): Search Home and Categories Screen
 
 ### Community 197 - "Community 197"
 Cohesion: 1.0
-Nodes (1): Recipe Analysis Page Community
+Nodes (1): Profile Flow Settings Hub
 
 ### Community 198 - "Community 198"
 Cohesion: 1.0
-Nodes (1): PawBalance Web App
+Nodes (1): Profile and Settings UI Community
 
 ### Community 199 - "Community 199"
+Cohesion: 1.0
+Nodes (1): Recipe Analysis Page Community
+
+### Community 200 - "Community 200"
+Cohesion: 1.0
+Nodes (1): PawBalance Web App
+
+### Community 201 - "Community 201"
 Cohesion: 1.0
 Nodes (1): Read GRAPH_REPORT before architecture questions
 
@@ -1088,87 +1098,87 @@ Nodes (1): Read GRAPH_REPORT before architecture questions
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 77`** (2 nodes): `renderRecipeForm()`, `recipe-form.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 78`** (2 nodes): `BlogArticle()`, `blog-article.tsx`
+- **Thin community `Community 78`** (2 nodes): `PageHeader()`, `page-header.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 79`** (2 nodes): `handlePick()`, `photo-picker.tsx`
+- **Thin community `Community 79`** (2 nodes): `BlogArticle()`, `blog-article.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 80`** (2 nodes): `AddToRecipeSheet component`, `useRecipes hook`
+- **Thin community `Community 80`** (2 nodes): `handlePick()`, `photo-picker.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 81`** (2 nodes): `FoodCard()`, `food-card.tsx`
+- **Thin community `Community 81`** (2 nodes): `AddToRecipeSheet component`, `useRecipes hook`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 82`** (2 nodes): `SafetyBadge()`, `safety-badge.tsx`
+- **Thin community `Community 82`** (2 nodes): `FoodCard()`, `food-card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 83`** (2 nodes): `CategoryGrid()`, `category-grid.tsx`
+- **Thin community `Community 83`** (2 nodes): `SafetyBadge()`, `safety-badge.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 84`** (2 nodes): `handleSubmit()`, `food-request-dialog.tsx`
+- **Thin community `Community 84`** (2 nodes): `CategoryGrid()`, `category-grid.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 85`** (2 nodes): `use-sheet-drag.ts`, `useSheetDrag()`
+- **Thin community `Community 85`** (2 nodes): `handleSubmit()`, `food-request-dialog.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 86`** (2 nodes): `use-locale.ts`, `useLocale()`
+- **Thin community `Community 86`** (2 nodes): `use-sheet-drag.ts`, `useSheetDrag()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 87`** (2 nodes): `useAIFoodLookup hook`, `useRecipeAnalysis hook`
+- **Thin community `Community 87`** (2 nodes): `use-locale.ts`, `useLocale()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 88`** (2 nodes): `use-entitlement.ts`, `useEntitlement()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 89`** (2 nodes): `getAppVersionLabel()`, `app-info.ts`
+- **Thin community `Community 89`** (2 nodes): `useAIFoodLookup hook`, `useRecipeAnalysis hook`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 90`** (2 nodes): `shouldShowBottomNav()`, `navigation.ts`
+- **Thin community `Community 90`** (2 nodes): `getAppVersionLabel()`, `app-info.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 91`** (2 nodes): `getApiUrl()`, `api.ts`
+- **Thin community `Community 91`** (2 nodes): `shouldShowBottomNav()`, `navigation.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 92`** (2 nodes): `supabase.ts`, `getSupabase()`
+- **Thin community `Community 92`** (2 nodes): `getApiUrl()`, `api.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 93`** (2 nodes): `createLookupFoodTool()`, `lookup-food.ts`
+- **Thin community `Community 93`** (2 nodes): `supabase.ts`, `getSupabase()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 94`** (2 nodes): `createGetPetProfileTool()`, `get-pet-profile.ts`
+- **Thin community `Community 94`** (2 nodes): `createLookupFoodTool()`, `lookup-food.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 95`** (2 nodes): `createSearchKnowledgeTool()`, `search-knowledge.ts`
+- **Thin community `Community 95`** (2 nodes): `createGetPetProfileTool()`, `get-pet-profile.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 96`** (2 nodes): `buildLocalPet()`, `pet-store.ts`
+- **Thin community `Community 96`** (2 nodes): `createSearchKnowledgeTool()`, `search-knowledge.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 97`** (2 nodes): `Learn Article Detail Screen`, `Learn Tab (Knowledge Base)`
+- **Thin community `Community 97`** (2 nodes): `buildLocalPet()`, `pet-store.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 98`** (2 nodes): `Design Anti-Patterns (Forbidden Patterns)`, `Design System Master File`
+- **Thin community `Community 98`** (2 nodes): `Learn Article Detail Screen`, `Learn Tab (Knowledge Base)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 99`** (2 nodes): `Follow-Up Actions System (recipe_edit + detail_card)`, `Rationale: Structured Actions Over Conversational Chat`
+- **Thin community `Community 99`** (2 nodes): `Design Anti-Patterns (Forbidden Patterns)`, `Design System Master File`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 100`** (2 nodes): `PawBalance Helm Chart`, `Ollama Sidecar for Query Embedding (K8s)`
+- **Thin community `Community 100`** (2 nodes): `Emoji Icons Systemic Issue`, `Category Grid Redesign (SVG Icons + Colors)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 101`** (2 nodes): `Dual Build Mode (Static + Server)`, `PawBalance Dockerfile (nginx static)`
+- **Thin community `Community 101`** (2 nodes): `Follow-Up Actions System (recipe_edit + detail_card)`, `Rationale: Structured Actions Over Conversational Chat`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 102`** (2 nodes): `blog_posts Supabase Table`, `Rationale: Single Flat Table for ~30 Blog Posts`
+- **Thin community `Community 102`** (2 nodes): `Guest Access & Tiered Access Control Design Spec`, `Terms of Service & Privacy Policy Design Spec`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 103`** (2 nodes): `2gurmepati.com Blog Scrape (One-Time)`, `YouTube Transcription Pipeline (Python)`
+- **Thin community `Community 103`** (2 nodes): `PawBalance Helm Chart`, `Ollama Sidecar for Query Embedding (K8s)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 104`** (2 nodes): `Guest Access & Tiered Access Control Design Spec`, `Terms of Service & Privacy Policy Design Spec`
+- **Thin community `Community 104`** (2 nodes): `Dual Build Mode (Static + Server)`, `PawBalance Dockerfile (nginx static)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 105`** (2 nodes): `UI/UX Audit Remediation Roadmap (4 Phases)`, `UI/UX Audit Improvements Design Spec (19 items)`
+- **Thin community `Community 105`** (2 nodes): `2gurmepati.com Blog Scrape (One-Time)`, `YouTube Transcription Pipeline (Python)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 106`** (2 nodes): `Emoji Icons Systemic Issue`, `Category Grid Redesign (SVG Icons + Colors)`
+- **Thin community `Community 106`** (2 nodes): `blog_posts Supabase Table`, `Rationale: Single Flat Table for ~30 Blog Posts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 107`** (2 nodes): `Rationale: RAG via pgvector for Knowledge Retrieval`, `video_chunks Table (pgvector embeddings)`
+- **Thin community `Community 107`** (2 nodes): `UI/UX Audit Remediation Roadmap (4 Phases)`, `UI/UX Audit Improvements Design Spec (19 items)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 108`** (2 nodes): `AI Agent Backend`, `AI Agent Pipeline Community`
+- **Thin community `Community 108`** (2 nodes): `Rationale: RAG via pgvector for Knowledge Retrieval`, `video_chunks Table (pgvector embeddings)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 109`** (2 nodes): `graphify rule in AGENTS.md`, `Graph Report`
+- **Thin community `Community 109`** (2 nodes): `AI Agent Backend`, `AI Agent Pipeline Community`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 110`** (2 nodes): `Shared app version metadata helper`, `Do not hardcode version in About page component`
+- **Thin community `Community 110`** (2 nodes): `graphify rule in AGENTS.md`, `Graph Report`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 111`** (1 nodes): `tailwind.config.js`
+- **Thin community `Community 111`** (2 nodes): `Shared app version metadata helper`, `Do not hardcode version in About page component`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 112`** (1 nodes): `next-env.d.ts`
+- **Thin community `Community 112`** (1 nodes): `tailwind.config.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 113`** (1 nodes): `tailwind.config.ts`
+- **Thin community `Community 113`** (1 nodes): `next-env.d.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 114`** (1 nodes): `vitest.config.ts`
+- **Thin community `Community 114`** (1 nodes): `tailwind.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 115`** (1 nodes): `next.config.ts`
+- **Thin community `Community 115`** (1 nodes): `vitest.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 116`** (1 nodes): `capacitor.config.ts`
+- **Thin community `Community 116`** (1 nodes): `next.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 117`** (1 nodes): `providers.tsx`
+- **Thin community `Community 117`** (1 nodes): `capacitor.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 118`** (1 nodes): `page.tsx`
+- **Thin community `Community 118`** (1 nodes): `providers.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 119`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -1178,159 +1188,163 @@ Nodes (1): Read GRAPH_REPORT before architecture questions
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 122`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 123`** (1 nodes): `page.test.tsx`
+- **Thin community `Community 123`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 124`** (1 nodes): `page.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 125`** (1 nodes): `page.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 126`** (1 nodes): `page.tsx`
+- **Thin community `Community 126`** (1 nodes): `page.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 127`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 128`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 129`** (1 nodes): `Icon Registry`
+- **Thin community `Community 129`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 130`** (1 nodes): `empty-state.tsx`
+- **Thin community `Community 130`** (1 nodes): `Icon Registry`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 131`** (1 nodes): `button.tsx`
+- **Thin community `Community 131`** (1 nodes): `empty-state.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 132`** (1 nodes): `input.tsx`
+- **Thin community `Community 132`** (1 nodes): `button.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 133`** (1 nodes): `analysis-report.tsx`
+- **Thin community `Community 133`** (1 nodes): `input.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 134`** (1 nodes): `ingredient-row.tsx`
+- **Thin community `Community 134`** (1 nodes): `analysis-report.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 135`** (1 nodes): `follow-up-actions.tsx`
+- **Thin community `Community 135`** (1 nodes): `ingredient-row.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 136`** (1 nodes): `preparation-chips.tsx`
+- **Thin community `Community 136`** (1 nodes): `follow-up-actions.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 137`** (1 nodes): `blog-tag-chips.tsx`
+- **Thin community `Community 137`** (1 nodes): `preparation-chips.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 138`** (1 nodes): `SubscriptionBanner.tsx`
+- **Thin community `Community 138`** (1 nodes): `page-header.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 139`** (1 nodes): `pet-card.tsx`
+- **Thin community `Community 139`** (1 nodes): `blog-tag-chips.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 140`** (1 nodes): `bcs-slider.tsx`
+- **Thin community `Community 140`** (1 nodes): `SubscriptionBanner.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 141`** (1 nodes): `activity-level-selector.tsx`
+- **Thin community `Community 141`** (1 nodes): `pet-card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 142`** (1 nodes): `pet-form.test.tsx`
+- **Thin community `Community 142`** (1 nodes): `bcs-slider.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 143`** (1 nodes): `use-food-search.food-request.test.tsx`
+- **Thin community `Community 143`** (1 nodes): `activity-level-selector.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 144`** (1 nodes): `validators.ts`
+- **Thin community `Community 144`** (1 nodes): `pet-form.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 145`** (1 nodes): `navigation.test.ts`
+- **Thin community `Community 145`** (1 nodes): `use-food-search.food-request.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 146`** (1 nodes): `types.test.ts`
+- **Thin community `Community 146`** (1 nodes): `validators.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 147`** (1 nodes): `request.ts`
+- **Thin community `Community 147`** (1 nodes): `navigation.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 148`** (1 nodes): `auth-store.ts`
+- **Thin community `Community 148`** (1 nodes): `types.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 149`** (1 nodes): `Bottom Navigation (5 Tabs)`
+- **Thin community `Community 149`** (1 nodes): `request.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 150`** (1 nodes): `Scan Tab (Premium Placeholder)`
+- **Thin community `Community 150`** (1 nodes): `auth-store.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 151`** (1 nodes): `Dog Food Safety Database (Turkish)`
+- **Thin community `Community 151`** (1 nodes): `Bottom Navigation (5 Tabs)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 152`** (1 nodes): `Color Palette (Nature Distilled / Organic Biophilic)`
+- **Thin community `Community 152`** (1 nodes): `Scan Tab (Premium Placeholder)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 153`** (1 nodes): `Typography (Lora + Raleway)`
+- **Thin community `Community 153`** (1 nodes): `Dog Food Safety Database (Turkish)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 154`** (1 nodes): `iOS Safe Area Violations`
+- **Thin community `Community 154`** (1 nodes): `Color Palette (Nature Distilled / Organic Biophilic)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 155`** (1 nodes): `Accessibility Failures (ARIA, Focus, Keyboard)`
+- **Thin community `Community 155`** (1 nodes): `Typography (Lora + Raleway)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 156`** (1 nodes): `Internationalization (i18n) Gaps`
+- **Thin community `Community 156`** (1 nodes): `iOS Safe Area Violations`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 157`** (1 nodes): `Touch Target Violations (<44x44px)`
+- **Thin community `Community 157`** (1 nodes): `Accessibility Failures (ARIA, Focus, Keyboard)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 158`** (1 nodes): `Button Contrast WCAG Failure (3.1:1)`
+- **Thin community `Community 158`** (1 nodes): `Internationalization (i18n) Gaps`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 159`** (1 nodes): `Desktop Wasted Space (max-w-md at 1440px)`
+- **Thin community `Community 159`** (1 nodes): `Touch Target Violations (<44x44px)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 160`** (1 nodes): `No Branding or Visual Identity`
+- **Thin community `Community 160`** (1 nodes): `Button Contrast WCAG Failure (3.1:1)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 161`** (1 nodes): `get_pet_profile Agent Tool`
+- **Thin community `Community 161`** (1 nodes): `Desktop Wasted Space (max-w-md at 1440px)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 162`** (1 nodes): `SSE Streaming for Analysis Progress`
+- **Thin community `Community 162`** (1 nodes): `No Branding or Visual Identity`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 163`** (1 nodes): `Guest Onboarding (localStorage pet)`
+- **Thin community `Community 163`** (1 nodes): `get_pet_profile Agent Tool`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 164`** (1 nodes): `Stripe Products & Prices for PawBalance`
+- **Thin community `Community 164`** (1 nodes): `SSE Streaming for Analysis Progress`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 165`** (1 nodes): `Server-Side Entitlement Sync API Route`
+- **Thin community `Community 165`** (1 nodes): `Guest Onboarding (localStorage pet)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 166`** (1 nodes): `OTA Update Data Flow`
+- **Thin community `Community 166`** (1 nodes): `Stripe Products & Prices for PawBalance`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 167`** (1 nodes): `Capgo Edge Functions (updates, stats, channel_self)`
+- **Thin community `Community 167`** (1 nodes): `Server-Side Entitlement Sync API Route`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 168`** (1 nodes): `QA Automation & Deployment Design Spec`
+- **Thin community `Community 168`** (1 nodes): `OTA Update Data Flow`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 169`** (1 nodes): `Re-Consent Flow (CURRENT_TERMS_VERSION bump)`
+- **Thin community `Community 169`** (1 nodes): `Capgo Edge Functions (updates, stats, channel_self)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 170`** (1 nodes): `Welcome Screen Redesign`
+- **Thin community `Community 170`** (1 nodes): `QA Automation & Deployment Design Spec`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 171`** (1 nodes): `Reusable EmptyState Component`
+- **Thin community `Community 171`** (1 nodes): `Re-Consent Flow (CURRENT_TERMS_VERSION bump)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 172`** (1 nodes): `Pet Edit Multi-Step Wizard Pattern`
+- **Thin community `Community 172`** (1 nodes): `Welcome Screen Redesign`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 173`** (1 nodes): `Dr. Judy Morgan YouTube Channel (~500 videos)`
+- **Thin community `Community 173`** (1 nodes): `Reusable EmptyState Component`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 174`** (1 nodes): `Email Input Field`
+- **Thin community `Community 174`** (1 nodes): `Pet Edit Multi-Step Wizard Pattern`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 175`** (1 nodes): `Password Input Field`
+- **Thin community `Community 175`** (1 nodes): `Dr. Judy Morgan YouTube Channel (~500 videos)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 176`** (1 nodes): `Forgot Password Link`
+- **Thin community `Community 176`** (1 nodes): `Email Input Field`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 177`** (1 nodes): `Sign In Button (Sage Green)`
+- **Thin community `Community 177`** (1 nodes): `Password Input Field`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 178`** (1 nodes): `Sign In with Google Button`
+- **Thin community `Community 178`** (1 nodes): `Forgot Password Link`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 179`** (1 nodes): `Sign Up Navigation Link`
+- **Thin community `Community 179`** (1 nodes): `Sign In Button (Sage Green)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 180`** (1 nodes): `Display Name Input Field`
+- **Thin community `Community 180`** (1 nodes): `Sign In with Google Button`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 181`** (1 nodes): `Confirm Password Input Field`
+- **Thin community `Community 181`** (1 nodes): `Sign Up Navigation Link`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 182`** (1 nodes): `Sign Up Button (Sage Green)`
+- **Thin community `Community 182`** (1 nodes): `Display Name Input Field`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 183`** (1 nodes): `Sign In with Google Button (Register)`
+- **Thin community `Community 183`** (1 nodes): `Confirm Password Input Field`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 184`** (1 nodes): `Sign In Navigation Link`
+- **Thin community `Community 184`** (1 nodes): `Sign Up Button (Sage Green)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 185`** (1 nodes): `Welcome to PawBalance Headline`
+- **Thin community `Community 185`** (1 nodes): `Sign In with Google Button (Register)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 186`** (1 nodes): `Get Started Button (Sage Green)`
+- **Thin community `Community 186`** (1 nodes): `Sign In Navigation Link`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 187`** (1 nodes): `Already Have Account Sign In Link`
+- **Thin community `Community 187`** (1 nodes): `Welcome to PawBalance Headline`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 188`** (1 nodes): `Profile Section`
+- **Thin community `Community 188`** (1 nodes): `Get Started Button (Sage Green)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 189`** (1 nodes): `Hide Scanner and Rename Tiers Plan`
+- **Thin community `Community 189`** (1 nodes): `Already Have Account Sign In Link`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 190`** (1 nodes): `Hide Scanner and Rename Tiers Design Spec`
+- **Thin community `Community 190`** (1 nodes): `Profile Section`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 191`** (1 nodes): `Single-plan paywall rationale`
+- **Thin community `Community 191`** (1 nodes): `Hide Scanner and Rename Tiers Plan`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 192`** (1 nodes): `UX State Persistence and Analysis Progress Plan`
+- **Thin community `Community 192`** (1 nodes): `Hide Scanner and Rename Tiers Design Spec`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 193`** (1 nodes): `PawBalance Project Overview`
+- **Thin community `Community 193`** (1 nodes): `Single-plan paywall rationale`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 194`** (1 nodes): `Search Home and Categories Screen`
+- **Thin community `Community 194`** (1 nodes): `UX State Persistence and Analysis Progress Plan`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 195`** (1 nodes): `Profile Flow Settings Hub`
+- **Thin community `Community 195`** (1 nodes): `PawBalance Project Overview`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 196`** (1 nodes): `Profile and Settings UI Community`
+- **Thin community `Community 196`** (1 nodes): `Search Home and Categories Screen`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 197`** (1 nodes): `Recipe Analysis Page Community`
+- **Thin community `Community 197`** (1 nodes): `Profile Flow Settings Hub`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 198`** (1 nodes): `PawBalance Web App`
+- **Thin community `Community 198`** (1 nodes): `Profile and Settings UI Community`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 199`** (1 nodes): `Read GRAPH_REPORT before architecture questions`
+- **Thin community `Community 199`** (1 nodes): `Recipe Analysis Page Community`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 200`** (1 nodes): `PawBalance Web App`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 201`** (1 nodes): `Read GRAPH_REPORT before architecture questions`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions

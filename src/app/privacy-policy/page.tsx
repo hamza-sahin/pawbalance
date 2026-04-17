@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Icons } from "@/components/ui/icon";
+import { PageHeader } from "@/components/navigation/page-header";
 
 export default function PrivacyPolicyPage() {
   const t = useTranslations();
@@ -35,17 +35,11 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas">
-      {/* Header */}
-      <div className="sticky top-0 z-10 flex items-center gap-3 border-b border-border bg-canvas/95 px-4 py-3 backdrop-blur-sm">
-        <button
-          onClick={() => router.back()}
-          className="flex h-9 w-9 items-center justify-center rounded-xl transition-colors active:bg-border/50"
-          aria-label={t("back")}
-        >
-          <Icons.arrowLeft className="h-5 w-5 text-txt" />
-        </button>
-        <h1 className="text-lg font-bold text-txt">{t("privacyPolicy")}</h1>
-      </div>
+      <PageHeader
+        title={t("privacyPolicy")}
+        backLabel={t("back")}
+        onBack={() => router.back()}
+      />
 
       {/* Content */}
       <div className="px-4 py-6 space-y-6">

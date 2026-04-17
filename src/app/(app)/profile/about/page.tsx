@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { PageHeader } from "@/components/navigation/page-header";
 import { Card } from "@/components/ui/card";
 import { Icons } from "@/components/ui/icon";
 import { getAppVersionLabel } from "@/lib/app-info";
@@ -14,16 +15,7 @@ export default function AboutPage() {
 
   return (
     <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas">
-      <div className="sticky top-0 z-10 flex items-center gap-3 border-b border-border bg-canvas/95 px-4 py-3 backdrop-blur-sm">
-        <button
-          onClick={() => router.back()}
-          className="flex h-11 w-11 items-center justify-center rounded-xl transition-colors active:bg-border/50"
-          aria-label={t("back")}
-        >
-          <Icons.arrowLeft className="h-5 w-5 text-txt" />
-        </button>
-        <h1 className="text-lg font-bold text-txt">{t("about")}</h1>
-      </div>
+      <PageHeader title={t("about")} backLabel={t("back")} onBack={() => router.back()} />
 
       <div className="space-y-6 px-4 py-6">
         <section>

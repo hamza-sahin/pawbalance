@@ -85,6 +85,10 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+.safe-sticky-top {
+  top: env(safe-area-inset-top, 0px);
+}
+
 /* Autofill override to match design system */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
