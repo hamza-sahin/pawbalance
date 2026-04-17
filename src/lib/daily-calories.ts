@@ -56,7 +56,7 @@ function hasPositiveLitterSize(litterSize: number | null | undefined): litterSiz
   return litterSize !== null && litterSize !== undefined && Number.isInteger(litterSize) && litterSize > 0;
 }
 
-function isValidGestationWeek(week: number | null | undefined): boolean {
+function isValidGestationWeek(week: number | null | undefined): week is number {
   return week !== null && week !== undefined && Number.isInteger(week) && week >= 1 && week <= 9;
 }
 
@@ -69,7 +69,9 @@ export function calculateDogDailyCalories(
   const reproductiveState = input.reproductiveState ?? "MAINTENANCE";
 
   if (reproductiveState === "GESTATION") {
-    if (!isValidGestationWeek(input.gestationWeek)) {
+    const gestationWeek = input.gestationWeek;
+
+    if (!isValidGestationWeek(gestationWeek)) {
       return {
         mode: "unavailable",
         kcalPerDay: null,
@@ -79,7 +81,7 @@ export function calculateDogDailyCalories(
       };
     }
     const kcalPerDay =
-      input.gestationWeek <= 4
+      gestationWeek <= 4
         ? Math.round(132 * kg075)
         : Math.round(132 * kg075 + 26 * input.weightKg);
     return {

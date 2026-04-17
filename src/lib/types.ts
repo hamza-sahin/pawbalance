@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { calculateDogDailyCalories } from "@/lib/daily-calories";
 
 // ============================================================
 // Enums
@@ -289,9 +290,63 @@ export type BlogPost = z.infer<typeof BlogPostSchema>;
 // Helpers
 // ============================================================
 
-/** Daily Energy Requirement: 70 * weight^0.75 * activityFactor */
-export function calculateDER(weightKg: number, activityLevel: ActivityLevel): number {
-  return Math.round(70 * Math.pow(weightKg, 0.75) * ACTIVITY_FACTORS[activityLevel]);
+type LegacyCompatibleActivityLevel = ActivityLevel | "MODERATE" | "HIGH" | "WORKING";
+
+function normalizeActivityLevel(activityLevel: LegacyCompatibleActivityLevel): ActivityLevel {
+  switch (activityLevel) {
+    case "MODERATE":
+      return "MODERATE_LOW_IMPACT";
+    case "HIGH":
+      return "MODERATE_HIGH_IMPACT";
+    case "WORKING":
+      return "HIGH_WORKING";
+    default:
+      return activityLevel;
+  }
+}
+
+function getLegacyAdultKcalPerKg075(
+  activityLevel: ActivityLevel,
+  ageMonths?: number | null,
+): number {
+  if (activityLevel === "LOW") return 95;
+  if (activityLevel === "MODERATE_HIGH_IMPACT") return 125;
+  if (activityLevel === "HIGH_WORKING") return 162.5;
+
+  if (ageMonths == null || ageMonths < 12) return 110;
+  if (ageMonths < 36) return 130;
+  if (ageMonths >= 84) return 95;
+  return 110;
+}
+
+/**
+ * Backward-compatible DER helper.
+ * Prefer `calculateDogDailyCalories` for all new code.
+ */
+export function calculateDER(input: {
+  weightKg: number;
+  activityLevel: LegacyCompatibleActivityLevel;
+  ageMonths?: number | null;
+  expectedMatureWeightKg?: number | null;
+}): number {
+  const normalizedActivityLevel = normalizeActivityLevel(input.activityLevel);
+
+  if (input.ageMonths != null && input.ageMonths >= 12) {
+    return Math.round(
+      getLegacyAdultKcalPerKg075(normalizedActivityLevel, input.ageMonths)
+        * Math.pow(input.weightKg, 0.75),
+    );
+  }
+
+  return (
+    calculateDogDailyCalories({
+      weightKg: input.weightKg,
+      activityLevel: normalizedActivityLevel,
+      ageMonths: input.ageMonths,
+      expectedAdultWeightKg: input.expectedMatureWeightKg,
+      reproductiveState: "MAINTENANCE",
+    }).kcalPerDay ?? 0
+  );
 }
 
 /** Get localised field from a Food row */
