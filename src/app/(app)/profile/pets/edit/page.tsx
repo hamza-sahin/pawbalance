@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePets } from "@/hooks/use-pets";
+import { AppScreen } from "@/components/navigation/app-screen";
 import { PetForm } from "@/components/pet/pet-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { PetFormValues } from "@/lib/validators";
@@ -35,26 +35,23 @@ export default function EditPetPage() {
 
   if (!pet) {
     return (
-      <div className="flex flex-col gap-4 p-4">
-        <Skeleton className="h-8 w-32" />
-        <Skeleton className="h-64 w-full" />
-      </div>
+      <AppScreen title={t("editPet")} showBack backHref="/profile/pets" contentClassName="p-4">
+        <div className="flex flex-col gap-4">
+          <Skeleton className="h-8 w-32" />
+          <Skeleton className="h-64 w-full" />
+        </div>
+      </AppScreen>
     );
   }
 
   return (
-    <div className="p-4">
-      <div className="mb-4 flex items-center justify-between">
-        <Link href="/profile/pets" className="text-txt-secondary hover:text-txt">
-          ✕
-        </Link>
-        <h1 className="text-lg font-bold text-txt">
-          {t("editPet")} {pet.name}
-        </h1>
-        <div />
-      </div>
-
+    <AppScreen
+      title={`${t("editPet")} ${pet.name}`}
+      showBack
+      backHref="/profile/pets"
+      contentClassName="p-4"
+    >
       <PetForm pet={pet} onSubmit={handleSubmit} isLoading={isLoading} />
-    </div>
+    </AppScreen>
   );
 }

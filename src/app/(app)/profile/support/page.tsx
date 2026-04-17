@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { PageHeader } from "@/components/navigation/page-header";
+import { AppScreen } from "@/components/navigation/app-screen";
 import { useLocale } from "@/hooks/use-locale";
 import { Card } from "@/components/ui/card";
 import { Icons } from "@/components/ui/icon";
@@ -55,13 +55,12 @@ export default function SupportPage() {
   }
 
   return (
-    <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas">
-      <PageHeader
+    <AppScreen
         title={t("helpAndSupport")}
-        backLabel={t("back")}
         onBack={() => router.back()}
-      />
-
+        showBack
+        withBottomNavSpacing
+      >
       <div className="space-y-6 px-4 py-6">
         <section>
           <h2 className="mb-2 text-base font-semibold text-txt">{t("supportTitle")}</h2>
@@ -150,6 +149,6 @@ export default function SupportPage() {
           <p className="text-sm leading-relaxed text-txt-secondary">{t("supportMailFallback")}</p>
         ) : null}
       </div>
-    </div>
+    </AppScreen>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { PageHeader } from "@/components/navigation/page-header";
+import { AppScreen } from "@/components/navigation/app-screen";
 
 export default function TermsOfServicePage() {
   const t = useTranslations();
@@ -22,14 +22,11 @@ export default function TermsOfServicePage() {
   ];
 
   return (
-    <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas">
-      <PageHeader
+    <AppScreen
         title={t("termsOfService")}
-        backLabel={t("back")}
         onBack={() => router.back()}
-      />
-
-      {/* Content */}
+        showBack
+      >
       <div className="px-4 py-6 space-y-6">
         <p className="text-sm text-txt-secondary">{t("tosIntro")}</p>
         <p className="text-sm text-txt-secondary">{t("tosOperator")}</p>
@@ -47,6 +44,6 @@ export default function TermsOfServicePage() {
           {t("termsLastUpdated", { date: "March 31, 2026" })}
         </p>
       </div>
-    </div>
+    </AppScreen>
   );
 }

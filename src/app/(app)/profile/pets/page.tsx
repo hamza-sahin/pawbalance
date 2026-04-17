@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePets } from "@/hooks/use-pets";
+import { AppScreen } from "@/components/navigation/app-screen";
 import { PetCard } from "@/components/pet/pet-card";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
@@ -28,19 +29,22 @@ export default function PetsPage() {
   }
 
   return (
-    <div className="p-4">
-      <div className="mb-4 flex items-center justify-between">
-        <Link href="/profile" className="text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50">
-          ← Back
+    <AppScreen
+      title={t("pets")}
+      showBack
+      backHref="/profile"
+      withBottomNavSpacing
+      contentClassName="p-4"
+      trailing={canAddMore ? (
+        <Link
+          href="/onboarding"
+          aria-label={t("addPet")}
+          className="flex h-11 w-11 items-center justify-center rounded-xl text-2xl text-primary transition-opacity duration-150 active:opacity-50"
+        >
+          +
         </Link>
-        <h1 className="text-lg font-bold text-txt">{t("pets")}</h1>
-        {canAddMore && (
-          <Link href="/onboarding" className="text-2xl text-primary transition-opacity duration-150 active:opacity-50">
-            +
-          </Link>
-        )}
-      </div>
-
+      ) : undefined}
+    >
       {pets.length === 0 ? (
         <div className="flex flex-col items-center gap-3 py-12 text-center">
           <span className="text-5xl">🐾</span>
@@ -85,6 +89,6 @@ export default function PetsPage() {
           </Button>
         </div>
       </Dialog>
-    </div>
+    </AppScreen>
   );
 }

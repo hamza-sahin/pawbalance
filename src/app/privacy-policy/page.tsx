@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { PageHeader } from "@/components/navigation/page-header";
+import { AppScreen } from "@/components/navigation/app-screen";
 
 export default function PrivacyPolicyPage() {
   const t = useTranslations();
@@ -34,14 +34,11 @@ export default function PrivacyPolicyPage() {
   ];
 
   return (
-    <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas">
-      <PageHeader
+    <AppScreen
         title={t("privacyPolicy")}
-        backLabel={t("back")}
         onBack={() => router.back()}
-      />
-
-      {/* Content */}
+        showBack
+      >
       <div className="px-4 py-6 space-y-6">
         <p className="text-sm text-txt-secondary">{t("ppIntro")}</p>
         <p className="text-sm text-txt-secondary">{t("ppOperator")}</p>
@@ -86,6 +83,6 @@ export default function PrivacyPolicyPage() {
           {t("termsLastUpdated", { date: "March 31, 2026" })}
         </p>
       </div>
-    </div>
+    </AppScreen>
   );
 }

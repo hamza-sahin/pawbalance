@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { PageHeader } from "@/components/navigation/page-header";
+import { AppScreen } from "@/components/navigation/app-screen";
 import { Card } from "@/components/ui/card";
 import { Icons } from "@/components/ui/icon";
 import { getAppVersionLabel } from "@/lib/app-info";
@@ -14,9 +14,7 @@ export default function AboutPage() {
   const version = getAppVersionLabel();
 
   return (
-    <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas">
-      <PageHeader title={t("about")} backLabel={t("back")} onBack={() => router.back()} />
-
+    <AppScreen title={t("about")} showBack onBack={() => router.back()} withBottomNavSpacing>
       <div className="space-y-6 px-4 py-6">
         <section>
           <h2 className="text-base font-semibold text-txt">{t("aboutSummaryTitle")}</h2>
@@ -60,6 +58,6 @@ export default function AboutPage() {
           </div>
         </section>
       </div>
-    </div>
+    </AppScreen>
   );
 }

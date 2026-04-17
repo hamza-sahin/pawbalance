@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useLocale } from "@/hooks/use-locale";
+import { AppScreen } from "@/components/navigation/app-screen";
 import { Card } from "@/components/ui/card";
 
 const locales = [
@@ -15,12 +15,7 @@ export default function LanguagePage() {
   const { locale, setLocale } = useLocale();
 
   return (
-    <div className="p-4">
-      <Link href="/profile" className="mb-4 inline-block text-txt-secondary transition-opacity duration-150 hover:text-txt active:opacity-50">
-        ← Back
-      </Link>
-      <h1 className="mb-4 text-lg font-bold text-txt">{t("language")}</h1>
-
+    <AppScreen title={t("language")} showBack backHref="/profile" withBottomNavSpacing contentClassName="p-4">
       <div className="flex flex-col gap-2">
         {locales.map((l) => (
           <button key={l.code} onClick={() => setLocale(l.code)} className="transition-all duration-150 ease-out active:scale-95 active:opacity-80">
@@ -36,6 +31,6 @@ export default function LanguagePage() {
           </button>
         ))}
       </div>
-    </div>
+    </AppScreen>
   );
 }
