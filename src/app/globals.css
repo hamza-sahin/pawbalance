@@ -54,6 +54,16 @@
   --font-body: 'Raleway', system-ui, sans-serif;
 }
 
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --shell-inline: 1rem;
+  --header-row-height: 3.75rem;
+  --header-height: calc(var(--header-row-height) + var(--safe-top));
+  --tabbar-visual-height: 4rem;
+  --tabbar-total-height: calc(var(--tabbar-visual-height) + var(--safe-bottom));
+}
+
 /* Disable text selection for native app feel */
 * {
   -webkit-user-select: none;
@@ -85,25 +95,43 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-.screen-chrome {
+.app-shell {
+  min-height: 100dvh;
+}
+
+.app-screen__chrome {
   border-bottom: 1px solid var(--color-border);
   background: color-mix(in srgb, var(--color-canvas) 95%, transparent);
   backdrop-filter: blur(12px);
+  padding-top: var(--safe-top);
 }
 
-.ios-screen-chrome {
-  padding-top: env(safe-area-inset-top, 0px);
-}
-
-.screen-header-row {
+.app-screen__header-row {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  min-height: var(--header-row-height);
+  padding: 0 1rem;
 }
 
-.screen-body-with-tabbar {
-  padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+.app-screen__content {
+  overscroll-behavior-y: contain;
+}
+
+.app-screen--tabbed .app-screen__content {
+  padding-bottom: var(--tabbar-total-height);
+}
+
+.app-screen--stacked .app-screen__content {
+  padding-bottom: max(1rem, var(--safe-bottom));
+}
+
+.app-screen--immersive .app-screen__content {
+  padding-bottom: max(1rem, var(--safe-bottom));
+}
+
+.app-screen--immersive[data-has-header="false"] .app-screen__content {
+  padding-top: max(1rem, var(--safe-top));
 }
 
 /* Autofill override to match design system */

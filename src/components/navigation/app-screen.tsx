@@ -1,18 +1,18 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { isIOSNative } from "@/lib/platform";
+import type { AppShellMode } from "@/lib/navigation";
 import { Icons } from "@/components/ui/icon";
 
 type AppScreenProps = {
-  title: string;
+  title?: string;
   showBack?: boolean;
   onBack?: () => void;
   backHref?: string;
   trailing?: React.ReactNode;
-  withBottomNavSpacing?: boolean;
+  shellMode?: AppShellMode;
+  showHeader?: boolean;
   contentClassName?: string;
   children: React.ReactNode;
 };
@@ -23,24 +23,13 @@ export function AppScreen({
   onBack,
   backHref,
   trailing,
-  withBottomNavSpacing = false,
+  shellMode = "stacked",
+  showHeader = true,
   contentClassName = "",
   children,
 }: AppScreenProps) {
   const router = useRouter();
   const t = useTranslations();
-  const chromeRef = useRef<HTMLDivElement | null>(null);
-
-  useLayoutEffect(() => {
-    const chromeElement = chromeRef.current;
-    if (!chromeElement) return;
-
-    chromeElement.classList.toggle("ios-screen-chrome", isIOSNative);
-
-    return () => {
-      chromeElement.classList.remove("ios-screen-chrome");
-    };
-  }, []);
 
   const handleBack = () => {
     if (onBack) {
@@ -59,32 +48,39 @@ export function AppScreen({
   const trailingNode = trailing ?? <div className="h-11 w-11 shrink-0" aria-hidden="true" />;
 
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-canvas">
-      <div
-        ref={chromeRef}
-        data-testid="app-screen-chrome"
-        className="screen-chrome"
-      >
-        <div className="screen-header-row">
-          {showBack ? (
-            <button
-              type="button"
-              onClick={handleBack}
-              aria-label={t("back")}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors"
-            >
-              <Icons.arrowLeft className="h-5 w-5 text-txt" />
-            </button>
-          ) : (
-            <div className="h-11 w-11 shrink-0" aria-hidden="true" />
-          )}
-          <h1 className="flex-1 text-center text-lg font-bold text-txt">{title}</h1>
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center">{trailingNode}</div>
+    <div
+      data-testid="app-screen"
+      data-shell-mode={shellMode}
+      data-has-header={showHeader ? "true" : "false"}
+      className={`app-screen app-screen--${shellMode} flex min-h-full flex-1 flex-col bg-canvas`}
+    >
+      {showHeader ? (
+        <div data-testid="app-screen-chrome" className="app-screen__chrome">
+          <div className="app-screen__header-row">
+            {showBack ? (
+              <button
+                type="button"
+                onClick={handleBack}
+                aria-label={t("back")}
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors"
+              >
+                <Icons.arrowLeft className="h-5 w-5 text-txt" />
+              </button>
+            ) : (
+              <div className="h-11 w-11 shrink-0" aria-hidden="true" />
+            )}
+            {title ? (
+              <h1 className="flex-1 text-center text-lg font-bold text-txt">{title}</h1>
+            ) : (
+              <div className="flex-1" />
+            )}
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center">{trailingNode}</div>
+          </div>
         </div>
-      </div>
+      ) : null}
       <div
         data-testid="app-screen-content"
-        className={`min-h-0 flex-1 overflow-y-auto ${withBottomNavSpacing ? "screen-body-with-tabbar" : ""} ${contentClassName}`}
+        className={`app-screen__content min-h-0 flex-1 overflow-y-auto ${contentClassName}`}
       >
         {children}
       </div>

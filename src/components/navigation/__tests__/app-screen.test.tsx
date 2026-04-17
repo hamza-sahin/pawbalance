@@ -52,7 +52,8 @@ describe("AppScreen", () => {
     const heading = screen.getByRole("heading", { name: "Terms of Service", level: 1 });
     const backButton = screen.getByRole("button", { name: trMessages.back });
 
-    expect(chrome).toHaveClass("ios-screen-chrome");
+    expect(screen.getByTestId("app-screen")).toHaveAttribute("data-shell-mode", "stacked");
+    expect(chrome).toHaveClass("app-screen__chrome");
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveClass("text-center");
     expect(backButton).toHaveClass("h-11", "w-11");
@@ -63,24 +64,31 @@ describe("AppScreen", () => {
     expect(onBack).toHaveBeenCalledTimes(1);
   });
 
-  it("uses plain chrome off iOS and applies content spacing helpers", () => {
-    isIOSNativeMock = false;
-
+  it("renders tabbed shell content without legacy bottom-spacing helper", () => {
     renderScreen(
-      <AppScreen title="Profile" showBack={false} contentClassName="px-4" withBottomNavSpacing>
+      <AppScreen title="Profile" shellMode="tabbed" contentClassName="px-4">
         <div>Body</div>
       </AppScreen>,
     );
 
-    const chrome = screen.getByTestId("app-screen-chrome");
     const content = screen.getByTestId("app-screen-content");
 
-    expect(chrome).toHaveClass("screen-chrome");
-    expect(chrome).not.toHaveClass("ios-screen-chrome");
-    expect(content).toHaveClass("screen-body-with-tabbar");
+    expect(screen.getByTestId("app-screen")).toHaveAttribute("data-shell-mode", "tabbed");
+    expect(content).not.toHaveClass("screen-body-with-tabbar");
     expect(content).toHaveClass("px-4");
     expect(within(content).getByText("Body")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: trMessages.back })).toBeNull();
+  });
+
+  it("supports immersive screens without header chrome", () => {
+    renderScreen(
+      <AppScreen shellMode="immersive" showHeader={false}>
+        <div>Body</div>
+      </AppScreen>,
+    );
+
+    expect(screen.getByTestId("app-screen")).toHaveAttribute("data-shell-mode", "immersive");
+    expect(screen.queryByTestId("app-screen-chrome")).toBeNull();
+    expect(screen.getByText("Body")).toBeInTheDocument();
   });
 
   it("uses router.back when no explicit back action is supplied", async () => {
