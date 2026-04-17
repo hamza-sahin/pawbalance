@@ -134,6 +134,7 @@ Wait for the user's response. If they request changes, make them and re-run the 
 
 - Invoke the writing-plans skill to create a detailed implementation plan
 - Do NOT invoke any other skill. writing-plans is the next step.
+- After implementation work completes, invoke `/qa` before any success claim about the finished feature.
 
 ## Key Principles
 

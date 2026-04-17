@@ -10,8 +10,8 @@
   - Post edit/write/patch/bash hooks trigger graph rebuild.
 - `skill-invocation.md` -> **UserPromptSubmit** hook.
   - Reminder injected for slash-style skill references so skills should be invoked before work begins.
-- `qa-verification.md` -> **UserPromptSubmit** reminder.
-  - Reminder to run `/qa` after feature/bug-fix work and `/deploy` only after QA passes.
+- `qa-verification.md` -> **UserPromptSubmit** + **PreToolUse** + **PostToolUse** hooks.
+  - Tracks per-thread QA state, invalidates QA after qualifying code edits, and injects blocking context until `/qa` passes.
 - `ui-ux-skill.md` -> **UserPromptSubmit** reminder.
   - Reminder to run `/ui-ux-pro-max` before UI/component/layout work.
 

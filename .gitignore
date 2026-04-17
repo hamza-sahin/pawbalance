@@ -12,6 +12,7 @@ build/
 !screenshots/ios
 **/.DS_Store
 .superpowers/
+.codex/state/
 .worktrees/
 refs/
 supabase/.tempscripts/youtube-knowledge-base/.env

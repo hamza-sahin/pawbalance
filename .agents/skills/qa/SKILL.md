@@ -1,11 +1,11 @@
 ---
 name: qa
-description: Automated QA verification — analyzes changes, tests affected flows in browser (browser-use) and iOS simulator (ios-debug), self-heals on failure. Invoke with /qa or triggered automatically by CLAUDE.md rules during verification phases.
+description: Automated QA verification — analyzes changes, tests affected flows in the local browser via browser-use in iPhone 16 Pro view, and self-heals on failure. Invoke with /qa or when feature/bug-fix work reaches verification.
 ---
 
 # QA Verification
 
-Verify implementation changes by testing affected flows in both the web browser and iOS simulator. This skill is invoked automatically during brainstorming/systematic-debugging verification phases, or manually with `/qa`.
+Verify implementation changes by testing affected flows in the local browser only. `/qa` always targets `http://localhost:3001` in iPhone 16 Pro browser view. This skill is invoked automatically during brainstorming/systematic-debugging verification phases, or manually with `/qa`.
 
 ## Process
 
@@ -21,7 +21,7 @@ Run `git diff HEAD` (or `git diff` if uncommitted changes exist) to identify cha
 | `src/app/(app)/scan/*` | Scanner screen |
 | `src/app/(app)/recipes/*` | Recipe list, create/edit, AI analysis |
 | `src/app/(app)/learn/*` | Knowledge base screen |
-| `src/app/api/*` | API routes (test via deployed URL) |
+| `src/app/api/*` | API routes backed by the local app |
 | `src/app/onboarding/*` | Pet creation wizard |
 | `src/components/food/*` | Food-related screens |
 | `src/components/pet/*` | Pet-related screens |
@@ -40,102 +40,129 @@ Run `git diff HEAD` (or `git diff` if uncommitted changes exist) to identify cha
 | `src/messages/*` | All screens (translations) |
 | `src/app/globals.css` | All screens (styling) |
 
-If no code changes are detected (only docs, config, etc.), report "No testable changes" and skip.
+If no code changes are detected, run:
 
-### Step 2: Web Verification
+```bash
+python3 .codex/hooks/qa_state.py mark-qa --result passed
+```
 
-1. **Build static export:**
+Then report `No testable changes` and stop.
+
+### Step 2: Build and Serve the Local App
+
+1. Choose the local build target:
    ```bash
+   # Static-only changes
    npm run build
-   ```
-   If the build fails, stop — diagnose and fix the build error before continuing.
 
-2. **Serve the static export:**
+   # API/backend changes touching src/app/api/* or src/lib/agent/*
+   npm run build:server
+   ```
+2. Start the matching local server:
    ```bash
+   # Static-only changes
    npx serve out -p 3001 &
    SERVE_PID=$!
+
+   # API/backend changes
+   npm run start -- --hostname 127.0.0.1 --port 3001 &
+   SERVE_PID=$!
    ```
-   Wait for the server to be ready before proceeding.
-
-3. **Test affected flows using browser-use skill:**
-   - Invoke the `browser-use` skill
-   - Navigate to `http://localhost:3001` and test each affected flow
-   - For each flow, check:
-     - Page loads without errors
-     - Layout is not broken (no overlapping elements, no missing content)
-     - Console has no JavaScript errors
-     - The specific change works as intended
-   - Take screenshots of any failures
-
-4. **Stop the server:**
+3. Verify the server is reachable:
    ```bash
-   kill $SERVE_PID 2>/dev/null
+   curl -I http://localhost:3001
    ```
 
-### Step 3: iOS Verification
+If build or serving fails, run:
 
-1. **Ensure a simulator is booted:**
-   - Check for booted simulators: `xcrun simctl list devices booted`
-   - If none are booted, boot one: `python3 .claude/skills/ios-debug/scripts/simctl_boot.py`
-
-2. **Sync to Capacitor:**
-   ```bash
-   npx cap sync ios
-   ```
-
-3. **Build and launch using ios-debug:**
-   - Invoke the `ios-debug` skill
-   - Build the app: `python3 .claude/skills/ios-debug/scripts/build_and_test.py --workspace ios/App/App.xcworkspace`
-   - Launch in simulator: `python3 .claude/skills/ios-debug/scripts/app_launcher.py --launch com.pawbalance.app`
-
-4. **Test affected flows on iOS:**
-   - Use `python3 .claude/skills/ios-debug/scripts/screen_mapper.py` to analyze current screen
-   - Use `python3 .claude/skills/ios-debug/scripts/navigator.py` to navigate to each affected flow
-   - For each flow, check:
-     - Screen renders correctly in native wrapper
-     - No safe area issues (content not hidden behind notch/home indicator)
-     - No Capacitor bridge errors in logs
-     - The specific change works as intended on iOS
-   - Use `python3 .claude/skills/ios-debug/scripts/log_monitor.py` to check for runtime errors if needed
-
-### Step 4: Report Results
-
-Present a summary:
-
+```bash
+python3 .codex/hooks/qa_state.py mark-qa --result blocked
 ```
+
+Then diagnose the issue before continuing.
+
+### Step 3: Launch iPhone 16 Pro Browser View
+
+Run:
+
+```bash
+./scripts/browser-use-iphone-16-pro.sh http://localhost:3001
+```
+
+The helper must leave an active browser-use session open in mobile-sized view. If it fails, mark QA blocked:
+
+```bash
+python3 .codex/hooks/qa_state.py mark-qa --result blocked
+```
+
+### Step 4: Test the Affected Flows
+
+Use browser-use against the local app. For each affected flow:
+
+- verify the page loads without crashes
+- verify the layout is usable in iPhone 16 Pro view
+- verify the specific feature or fix works
+- check console/runtime issues with `browser-use eval`
+- take screenshots on failures
+
+For protected flows, sign in first:
+
+- **Email:** `test@pawbalance.com`
+- **Password:** `TestPass123!`
+
+Do not use production URLs.
+
+### Step 5: Close the Local Server
+
+Run:
+
+```bash
+kill $SERVE_PID 2>/dev/null || true
+browser-use close || true
+```
+
+### Step 6: Persist QA Result
+
+If all affected flows pass:
+
+```bash
+python3 .codex/hooks/qa_state.py mark-qa --result passed
+```
+
+If QA fails after diagnosis or reruns:
+
+```bash
+python3 .codex/hooks/qa_state.py mark-qa --result failed
+```
+
+If the environment blocks QA:
+
+```bash
+python3 .codex/hooks/qa_state.py mark-qa --result blocked
+```
+
+### Step 7: Self-Heal Loop
+
+If any check fails:
+1. Diagnose the root cause
+2. Implement a fix
+3. Re-run this entire `/qa` process from Step 1
+4. Repeat until all checks pass
+5. **If stuck after 3 consecutive failed attempts on the same issue, STOP and ask the user for guidance.**
+
+## Report Format
+
+```text
 ## QA Results
 
 **Changes tested:** [list of changed files]
 **Affected flows:** [list of flows tested]
 
-### Web (browser-use)
-- [Flow name]: PASS/FAIL — [details if fail]
-- ...
-
-### iOS (ios-debug)
+### Local Web (iPhone 16 Pro view)
 - [Flow name]: PASS/FAIL — [details if fail]
 - ...
 
 **Overall: PASS/FAIL**
 ```
 
-Only claim success if ALL checks pass on BOTH platforms.
-
-## Test Credentials
-
-For testing authenticated flows, use the test account:
-
-- **Email:** `test@pawbalance.com`
-- **Password:** `TestPass123!`
-- **Deployed URL:** `https://pawbalance.optalgo.com`
-
-Sign in via browser-use before testing protected flows (recipes, profile, etc.).
-
-## Failure Behavior
-
-If any check fails:
-1. Diagnose the root cause of the failure
-2. Implement a fix
-3. Re-run this entire `/qa` process from Step 1
-4. Repeat until all checks pass
-5. **If stuck after 3 consecutive failed attempts on the same issue, STOP and ask the user for guidance.** Do not keep looping.
+Only claim success if the local browser checks pass and the QA state was marked `passed`.
