@@ -88,6 +88,23 @@ describe("SupportPage", () => {
     expect(screen.getByText(/email us directly at 2gurmepati@gmail.com/i)).toBeInTheDocument();
   });
 
+  it("adds iOS capitalization hints to support form fields", () => {
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <SupportPage />
+      </NextIntlClientProvider>,
+    );
+
+    expect(screen.getByLabelText(/^subject$/i)).toHaveAttribute(
+      "autocapitalize",
+      "words",
+    );
+    expect(screen.getByLabelText(/^message$/i)).toHaveAttribute(
+      "autocapitalize",
+      "sentences",
+    );
+  });
+
   it("exports a locale-aware support mailto builder", () => {
     const href = buildSupportMailto("Billing issue", "Body copy", "en");
 

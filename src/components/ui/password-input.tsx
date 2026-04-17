@@ -2,6 +2,7 @@
 
 import { type InputHTMLAttributes, forwardRef, useId, useState } from "react";
 import { Icons } from "@/components/ui/icon";
+import { getDefaultAutoCapitalize } from "@/lib/input-capitalization";
 
 interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   label?: string;
@@ -9,11 +10,19 @@ interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
 }
 
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
-  ({ label, error, className = "", id: externalId, ...props }, ref) => {
+  (
+    { label, error, className = "", id: externalId, autoCapitalize, ...props },
+    ref,
+  ) => {
     const autoId = useId();
     const id = externalId ?? autoId;
     const errorId = error ? `${id}-error` : undefined;
     const [visible, setVisible] = useState(false);
+    const resolvedAutoCapitalize =
+      autoCapitalize ??
+      getDefaultAutoCapitalize({
+        type: "password",
+      });
 
     return (
       <div className="flex flex-col gap-1.5">
@@ -27,6 +36,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             ref={ref}
             id={id}
             type={visible ? "text" : "password"}
+            autoCapitalize={resolvedAutoCapitalize}
             aria-invalid={error ? true : undefined}
             aria-describedby={errorId}
             className={`w-full rounded-input border border-border bg-surface-variant px-4 py-3 pr-12 text-txt outline-none placeholder:text-txt-tertiary focus:border-primary focus:ring-1 focus:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${error ? "border-error" : ""} ${className}`}

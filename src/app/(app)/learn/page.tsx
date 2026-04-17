@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Icons } from "@/components/ui/icon";
 import { localise } from "@/lib/types";
 import type { BlogTag } from "@/lib/types";
+import { getDefaultAutoCapitalize } from "@/lib/input-capitalization";
 
 export default function LearnPage() {
   const t = useTranslations();
@@ -89,6 +90,7 @@ export default function LearnPage() {
         />
         <input
           type="text"
+          autoCapitalize={getDefaultAutoCapitalize()}
           placeholder={t("searchArticles")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}

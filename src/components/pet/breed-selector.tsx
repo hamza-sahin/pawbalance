@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect, useId } from "react";
 import { DOG_BREEDS } from "@/lib/constants";
+import { getDefaultAutoCapitalize } from "@/lib/input-capitalization";
 import { useTranslations } from "next-intl";
 
 interface BreedSelectorProps {
@@ -90,6 +91,7 @@ export function BreedSelector({ value, onChange }: BreedSelectorProps) {
         aria-controls={listboxId}
         aria-activedescendant={activeIndex >= 0 ? `${listboxId}-${activeIndex}` : undefined}
         aria-autocomplete="list"
+        autoCapitalize={getDefaultAutoCapitalize()}
         value={search}
         onChange={(e) => {
           setSearch(e.target.value);

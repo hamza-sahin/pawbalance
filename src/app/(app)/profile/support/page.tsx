@@ -8,6 +8,7 @@ import { useLocale } from "@/hooks/use-locale";
 import { Card } from "@/components/ui/card";
 import { Icons } from "@/components/ui/icon";
 import { buildSupportMailto, getSupportEmail } from "@/lib/support-mailto";
+import { getDefaultAutoCapitalize } from "@/lib/input-capitalization";
 
 export default function SupportPage() {
   const t = useTranslations();
@@ -84,6 +85,7 @@ export default function SupportPage() {
               {t("supportRequestSubject")}
               <input
                 type="text"
+                autoCapitalize={getDefaultAutoCapitalize()}
                 value={subject}
                 onChange={(event) => setSubject(event.target.value)}
                 className="mt-1 w-full rounded-xl border border-border px-3 py-2 text-base text-txt outline-none transition-colors focus:border-primary"
@@ -98,6 +100,7 @@ export default function SupportPage() {
             <label className="block text-sm font-medium text-txt">
               {t("supportRequestMessage")}
               <textarea
+                autoCapitalize={getDefaultAutoCapitalize({ multiline: true })}
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
                 className="mt-1 min-h-32 w-full rounded-xl border border-border px-3 py-2 text-base text-txt outline-none transition-colors focus:border-primary"

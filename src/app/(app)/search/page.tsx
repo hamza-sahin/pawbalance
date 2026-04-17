@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SEARCH_DEBOUNCE_MS, MIN_SEARCH_LENGTH } from "@/lib/constants";
 import { Icons } from "@/components/ui/icon";
 import { AISuggestionRow } from "@/components/food/ai-suggestion-row";
+import { getDefaultAutoCapitalize } from "@/lib/input-capitalization";
 
 export default function SearchPage() {
   const t = useTranslations();
@@ -72,6 +73,7 @@ export default function SearchPage() {
         <Icons.search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-txt-tertiary" aria-hidden="true" />
         <input
           type="text"
+          autoCapitalize={getDefaultAutoCapitalize()}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("searchFoods")}
