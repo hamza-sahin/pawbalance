@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import type { Pet } from "@/lib/types";
 import type { ActivityLevel } from "@/lib/types";
@@ -38,6 +38,27 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
 
   const [step, setStep] = useState(0);
   const stepLabels = [t("petName"), t("petGender"), t("activityLevel")];
+  const stepAdvanceTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (stepAdvanceTimeoutRef.current !== null) {
+        window.clearTimeout(stepAdvanceTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  function goToStep(nextStep: number) {
+    if (stepAdvanceTimeoutRef.current !== null) {
+      window.clearTimeout(stepAdvanceTimeoutRef.current);
+    }
+
+    // Defer the wizard transition so a touch release cannot land on the newly mounted submit button.
+    stepAdvanceTimeoutRef.current = window.setTimeout(() => {
+      setStep(nextStep);
+      stepAdvanceTimeoutRef.current = null;
+    }, 0);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -170,12 +191,12 @@ export function PetForm({ pet, onSubmit, isLoading }: PetFormProps) {
 
       <div className="flex gap-3">
         {step > 0 && (
-          <Button variant="outline" type="button" onClick={() => setStep(step - 1)} className="flex-1">
+          <Button variant="outline" type="button" onClick={() => goToStep(step - 1)} className="flex-1">
             {t("back")}
           </Button>
         )}
         {step < 2 ? (
-          <Button type="button" fullWidth={step === 0} onClick={() => setStep(step + 1)} className={step > 0 ? "flex-1" : ""}>
+          <Button type="button" fullWidth={step === 0} onClick={() => goToStep(step + 1)} className={step > 0 ? "flex-1" : ""}>
             {t("next")}
           </Button>
         ) : (

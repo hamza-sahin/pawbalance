@@ -1,206 +1,212 @@
-# Graph Report - .  (2026-04-16)
+# Graph Report - .  (2026-04-17)
 
 ## Corpus Check
-- Large corpus: 206 files · ~291,279 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder, or use --no-semantic to run AST-only.
+- 127 files · ~262,409 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 563 nodes · 469 edges · 183 communities detected
-- Extraction: 85% EXTRACTED · 15% INFERRED · 0% AMBIGUOUS · INFERRED: 70 edges (avg confidence: 0.84)
+- 571 nodes · 471 edges · 188 communities detected
+- Extraction: 86% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 67 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Food Recipe|Food Recipe]]
-- [[_COMMUNITY_Food Recipe|Food Recipe]]
-- [[_COMMUNITY_Rag Supabase|Rag Supabase]]
-- [[_COMMUNITY_Youtube Api|Youtube Api]]
-- [[_COMMUNITY_Food Search|Food Search]]
-- [[_COMMUNITY_Profile Search|Profile Search]]
-- [[_COMMUNITY_Pet Language|Pet Language]]
-- [[_COMMUNITY_Feature Welcome|Feature Welcome]]
-- [[_COMMUNITY_Handleanalyze Handledelete|Handleanalyze Handledelete]]
-- [[_COMMUNITY_Skill Causes|Skill Causes]]
-- [[_COMMUNITY_Billing Gate|Billing Gate]]
-- [[_COMMUNITY_Ingredient Invalid|Ingredient Invalid]]
-- [[_COMMUNITY_Getexpandedindex Handleadd|Getexpandedindex Handleadd]]
-- [[_COMMUNITY_Paw Sage|Paw Sage]]
-- [[_COMMUNITY_Use-food-search Usecategories|Use-food-search Usecategories]]
-- [[_COMMUNITY_Food Categories|Food Categories]]
-- [[_COMMUNITY_Extractcustomerinfo Initpurchases|Extractcustomerinfo Initpurchases]]
-- [[_COMMUNITY_Support About|Support About]]
-- [[_COMMUNITY_Basic Free|Basic Free]]
-- [[_COMMUNITY_Route Maptier|Route Maptier]]
-- [[_COMMUNITY_Disconnect Observe|Disconnect Observe]]
-- [[_COMMUNITY_Initotaupdates Pickimage|Initotaupdates Pickimage]]
-- [[_COMMUNITY_Access Canaccess|Access Canaccess]]
-- [[_COMMUNITY_Acceptterms Getacceptedtermsversion|Acceptterms Getacceptedtermsversion]]
-- [[_COMMUNITY_Authentication Forgot|Authentication Forgot]]
-- [[_COMMUNITY_Bottom Sheet|Bottom Sheet]]
-- [[_COMMUNITY_Analysis Persistence|Analysis Persistence]]
-- [[_COMMUNITY_Handleapple Handleemail|Handleapple Handleemail]]
-- [[_COMMUNITY_Action_entitlements Aisuggestionrow|Action_entitlements Aisuggestionrow]]
-- [[_COMMUNITY_Embeddings Embedquery|Embeddings Embedquery]]
-- [[_COMMUNITY_Edit Language|Edit Language]]
-- [[_COMMUNITY_Recipe Analysis|Recipe Analysis]]
-- [[_COMMUNITY_Billing Revenuecat|Billing Revenuecat]]
-- [[_COMMUNITY_Application Argocd|Application Argocd]]
-- [[_COMMUNITY_Documentation Screenshot|Documentation Screenshot]]
-- [[_COMMUNITY_Motif Branding|Motif Branding]]
-- [[_COMMUNITY_Motif Eco|Motif Eco]]
-- [[_COMMUNITY_Authlayout Authlayoutinner|Authlayout Authlayoutinner]]
-- [[_COMMUNITY_Intl-provider Intlprovider|Intl-provider Intlprovider]]
-- [[_COMMUNITY_Handleapple Handlegoogle|Handleapple Handlegoogle]]
-- [[_COMMUNITY_Blog-featured-card Blogfeaturedcard|Blog-featured-card Blogfeaturedcard]]
-- [[_COMMUNITY_Blog-post-row Blogpostrow|Blog-post-row Blogpostrow]]
-- [[_COMMUNITY_Breed-selector Handleclick|Breed-selector Handleclick]]
-- [[_COMMUNITY_Use-auth Useauth|Use-auth Useauth]]
-- [[_COMMUNITY_Uploadpetphoto Use-pets|Uploadpetphoto Use-pets]]
-- [[_COMMUNITY_Use-blog Useblogpost|Use-blog Useblogpost]]
-- [[_COMMUNITY_Backend Bundles|Backend Bundles]]
-- [[_COMMUNITY_Actions Deploy|Actions Deploy]]
-- [[_COMMUNITY_Agent Recipe|Agent Recipe]]
-- [[_COMMUNITY_Build Capacitor|Build Capacitor]]
-- [[_COMMUNITY_Layout Rootlayout|Layout Rootlayout]]
-- [[_COMMUNITY_Homepage|Homepage]]
-- [[_COMMUNITY_Not-found Notfound|Not-found Notfound]]
-- [[_COMMUNITY_Applayout Layout|Applayout Layout]]
-- [[_COMMUNITY_Handletagtoggle|Handletagtoggle]]
-- [[_COMMUNITY_Formatdate|Formatdate]]
-- [[_COMMUNITY_Handlestartscan|Handlestartscan]]
-- [[_COMMUNITY_Editpetpage|Editpetpage]]
-- [[_COMMUNITY_Handleaccept|Handleaccept]]
-- [[_COMMUNITY_Card|Card]]
-- [[_COMMUNITY_Progress-steps Progresssteps|Progress-steps Progresssteps]]
-- [[_COMMUNITY_Dialog|Dialog]]
-- [[_COMMUNITY_Badge|Badge]]
-- [[_COMMUNITY_Skeleton|Skeleton]]
-- [[_COMMUNITY_Requireaccess|Requireaccess]]
-- [[_COMMUNITY_Handlesave Recipe-form|Handlesave Recipe-form]]
-- [[_COMMUNITY_Handletap Recipe-card|Handletap Recipe-card]]
-- [[_COMMUNITY_Add-ingredient-sheet Handlesubmit|Add-ingredient-sheet Handlesubmit]]
-- [[_COMMUNITY_Ingredient-list Ingredientlistharness|Ingredient-list Ingredientlistharness]]
-- [[_COMMUNITY_Recipe-form Renderrecipeform|Recipe-form Renderrecipeform]]
-- [[_COMMUNITY_Blog-article Blogarticle|Blog-article Blogarticle]]
-- [[_COMMUNITY_Handlepick Photo-picker|Handlepick Photo-picker]]
-- [[_COMMUNITY_Handlesubmit Pet-form|Handlesubmit Pet-form]]
-- [[_COMMUNITY_Food-card Foodcard|Food-card Foodcard]]
-- [[_COMMUNITY_Safety-badge Safetybadge|Safety-badge Safetybadge]]
-- [[_COMMUNITY_Category-grid Categorygrid|Category-grid Categorygrid]]
-- [[_COMMUNITY_Food-request-dialog Handlesubmit|Food-request-dialog Handlesubmit]]
-- [[_COMMUNITY_Use-sheet-drag Usesheetdrag|Use-sheet-drag Usesheetdrag]]
-- [[_COMMUNITY_Use-locale Uselocale|Use-locale Uselocale]]
-- [[_COMMUNITY_Use-entitlement Useentitlement|Use-entitlement Useentitlement]]
-- [[_COMMUNITY_Navigation Shouldshowbottomnav|Navigation Shouldshowbottomnav]]
-- [[_COMMUNITY_Api Getapiurl|Api Getapiurl]]
-- [[_COMMUNITY_Getsupabase Supabase|Getsupabase Supabase]]
-- [[_COMMUNITY_Createlookupfoodtool Lookup-food|Createlookupfoodtool Lookup-food]]
-- [[_COMMUNITY_Creategetpetprofiletool Get-pet-profile|Creategetpetprofiletool Get-pet-profile]]
-- [[_COMMUNITY_Createsearchknowledgetool Search-knowledge|Createsearchknowledgetool Search-knowledge]]
-- [[_COMMUNITY_Buildlocalpet Pet-store|Buildlocalpet Pet-store]]
-- [[_COMMUNITY_Learn Article|Learn Article]]
-- [[_COMMUNITY_Anti-patterns Forbidden|Anti-patterns Forbidden]]
-- [[_COMMUNITY_Audit Improvements|Audit Improvements]]
-- [[_COMMUNITY_Actions Chat|Actions Chat]]
-- [[_COMMUNITY_Access Control|Access Control]]
-- [[_COMMUNITY_Static Build|Static Build]]
-- [[_COMMUNITY_Table Blog|Table Blog]]
-- [[_COMMUNITY_Blog Com|Blog Com]]
-- [[_COMMUNITY_Icons Category|Icons Category]]
-- [[_COMMUNITY_Pgvector Embeddings|Pgvector Embeddings]]
-- [[_COMMUNITY_Chart Embedding|Chart Embedding]]
-- [[_COMMUNITY_Agent Backend|Agent Backend]]
-- [[_COMMUNITY_Agents|Agents]]
-- [[_COMMUNITY_Version About|Version About]]
-- [[_COMMUNITY_Config Tailwind|Config Tailwind]]
-- [[_COMMUNITY_Next-env|Next-env]]
-- [[_COMMUNITY_Config Tailwind|Config Tailwind]]
-- [[_COMMUNITY_Config Vitest|Config Vitest]]
-- [[_COMMUNITY_Config Next|Config Next]]
-- [[_COMMUNITY_Capacitor Config|Capacitor Config]]
-- [[_COMMUNITY_Basesettings|Basesettings]]
-- [[_COMMUNITY_Basemodel|Basemodel]]
-- [[_COMMUNITY_Uiresponder|Uiresponder]]
-- [[_COMMUNITY_Uiapplicationdelegate|Uiapplicationdelegate]]
-- [[_COMMUNITY_Providers|Providers]]
+- [[_COMMUNITY_Community 0|Community 0]]
+- [[_COMMUNITY_Community 1|Community 1]]
+- [[_COMMUNITY_Community 2|Community 2]]
+- [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
+- [[_COMMUNITY_Community 5|Community 5]]
+- [[_COMMUNITY_Community 6|Community 6]]
+- [[_COMMUNITY_Community 7|Community 7]]
+- [[_COMMUNITY_Community 8|Community 8]]
+- [[_COMMUNITY_Community 9|Community 9]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 17|Community 17]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
+- [[_COMMUNITY_Community 20|Community 20]]
+- [[_COMMUNITY_Community 21|Community 21]]
+- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 23|Community 23]]
+- [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 25|Community 25]]
+- [[_COMMUNITY_Community 26|Community 26]]
+- [[_COMMUNITY_Community 27|Community 27]]
+- [[_COMMUNITY_Community 28|Community 28]]
+- [[_COMMUNITY_Community 29|Community 29]]
+- [[_COMMUNITY_Community 30|Community 30]]
+- [[_COMMUNITY_Community 31|Community 31]]
+- [[_COMMUNITY_Community 32|Community 32]]
+- [[_COMMUNITY_Community 33|Community 33]]
+- [[_COMMUNITY_Community 34|Community 34]]
+- [[_COMMUNITY_Community 35|Community 35]]
+- [[_COMMUNITY_Community 36|Community 36]]
+- [[_COMMUNITY_Community 37|Community 37]]
+- [[_COMMUNITY_Community 38|Community 38]]
+- [[_COMMUNITY_Community 39|Community 39]]
+- [[_COMMUNITY_Community 40|Community 40]]
+- [[_COMMUNITY_Community 41|Community 41]]
+- [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 43|Community 43]]
+- [[_COMMUNITY_Community 44|Community 44]]
+- [[_COMMUNITY_Community 45|Community 45]]
+- [[_COMMUNITY_Community 46|Community 46]]
+- [[_COMMUNITY_Community 47|Community 47]]
+- [[_COMMUNITY_Community 48|Community 48]]
+- [[_COMMUNITY_Community 49|Community 49]]
+- [[_COMMUNITY_Community 50|Community 50]]
+- [[_COMMUNITY_Community 51|Community 51]]
+- [[_COMMUNITY_Community 52|Community 52]]
+- [[_COMMUNITY_Community 53|Community 53]]
+- [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 55|Community 55]]
+- [[_COMMUNITY_Community 56|Community 56]]
+- [[_COMMUNITY_Community 57|Community 57]]
+- [[_COMMUNITY_Community 58|Community 58]]
+- [[_COMMUNITY_Community 59|Community 59]]
+- [[_COMMUNITY_Community 60|Community 60]]
+- [[_COMMUNITY_Community 61|Community 61]]
+- [[_COMMUNITY_Community 62|Community 62]]
+- [[_COMMUNITY_Community 63|Community 63]]
+- [[_COMMUNITY_Community 64|Community 64]]
+- [[_COMMUNITY_Community 65|Community 65]]
+- [[_COMMUNITY_Community 66|Community 66]]
+- [[_COMMUNITY_Community 67|Community 67]]
+- [[_COMMUNITY_Community 68|Community 68]]
+- [[_COMMUNITY_Community 69|Community 69]]
+- [[_COMMUNITY_Community 70|Community 70]]
+- [[_COMMUNITY_Community 71|Community 71]]
+- [[_COMMUNITY_Community 72|Community 72]]
+- [[_COMMUNITY_Community 73|Community 73]]
+- [[_COMMUNITY_Community 74|Community 74]]
+- [[_COMMUNITY_Community 75|Community 75]]
+- [[_COMMUNITY_Community 76|Community 76]]
+- [[_COMMUNITY_Community 77|Community 77]]
+- [[_COMMUNITY_Community 78|Community 78]]
+- [[_COMMUNITY_Community 79|Community 79]]
+- [[_COMMUNITY_Community 80|Community 80]]
+- [[_COMMUNITY_Community 81|Community 81]]
+- [[_COMMUNITY_Community 82|Community 82]]
+- [[_COMMUNITY_Community 83|Community 83]]
+- [[_COMMUNITY_Community 84|Community 84]]
+- [[_COMMUNITY_Community 85|Community 85]]
+- [[_COMMUNITY_Community 86|Community 86]]
+- [[_COMMUNITY_Community 87|Community 87]]
+- [[_COMMUNITY_Community 88|Community 88]]
+- [[_COMMUNITY_Community 89|Community 89]]
+- [[_COMMUNITY_Community 90|Community 90]]
+- [[_COMMUNITY_Community 91|Community 91]]
+- [[_COMMUNITY_Community 92|Community 92]]
+- [[_COMMUNITY_Community 93|Community 93]]
+- [[_COMMUNITY_Community 94|Community 94]]
+- [[_COMMUNITY_Community 95|Community 95]]
+- [[_COMMUNITY_Community 96|Community 96]]
+- [[_COMMUNITY_Community 97|Community 97]]
+- [[_COMMUNITY_Community 98|Community 98]]
+- [[_COMMUNITY_Community 99|Community 99]]
+- [[_COMMUNITY_Community 100|Community 100]]
+- [[_COMMUNITY_Community 101|Community 101]]
+- [[_COMMUNITY_Community 102|Community 102]]
+- [[_COMMUNITY_Community 103|Community 103]]
+- [[_COMMUNITY_Community 104|Community 104]]
+- [[_COMMUNITY_Community 105|Community 105]]
+- [[_COMMUNITY_Community 106|Community 106]]
+- [[_COMMUNITY_Community 107|Community 107]]
+- [[_COMMUNITY_Community 108|Community 108]]
+- [[_COMMUNITY_Community 109|Community 109]]
+- [[_COMMUNITY_Community 110|Community 110]]
+- [[_COMMUNITY_Community 111|Community 111]]
 - [[_COMMUNITY_Community 112|Community 112]]
 - [[_COMMUNITY_Community 113|Community 113]]
 - [[_COMMUNITY_Community 114|Community 114]]
 - [[_COMMUNITY_Community 115|Community 115]]
 - [[_COMMUNITY_Community 116|Community 116]]
 - [[_COMMUNITY_Community 117|Community 117]]
-- [[_COMMUNITY_Empty-state|Empty-state]]
-- [[_COMMUNITY_Button|Button]]
-- [[_COMMUNITY_Input|Input]]
-- [[_COMMUNITY_Analysis-report|Analysis-report]]
-- [[_COMMUNITY_Ingredient-row|Ingredient-row]]
-- [[_COMMUNITY_Follow-up-actions|Follow-up-actions]]
-- [[_COMMUNITY_Preparation-chips|Preparation-chips]]
-- [[_COMMUNITY_Blog-tag-chips|Blog-tag-chips]]
-- [[_COMMUNITY_Subscriptionbanner|Subscriptionbanner]]
-- [[_COMMUNITY_Pet-card|Pet-card]]
-- [[_COMMUNITY_Bcs-slider|Bcs-slider]]
-- [[_COMMUNITY_Activity-level-selector|Activity-level-selector]]
-- [[_COMMUNITY_Validators|Validators]]
-- [[_COMMUNITY_Navigation Test|Navigation Test]]
-- [[_COMMUNITY_Request|Request]]
-- [[_COMMUNITY_Auth-store|Auth-store]]
-- [[_COMMUNITY_Bottom Navigation|Bottom Navigation]]
-- [[_COMMUNITY_Placeholder Premium|Placeholder Premium]]
-- [[_COMMUNITY_Database Dog|Database Dog]]
-- [[_COMMUNITY_Biophilic Color|Biophilic Color]]
-- [[_COMMUNITY_Lora Raleway|Lora Raleway]]
-- [[_COMMUNITY_Area Ios|Area Ios]]
-- [[_COMMUNITY_Accessibility Aria|Accessibility Aria]]
-- [[_COMMUNITY_Gaps I18n|Gaps I18n]]
-- [[_COMMUNITY_Target Touch|Target Touch]]
-- [[_COMMUNITY_Button Contrast|Button Contrast]]
-- [[_COMMUNITY_Desktop Max-w-md|Desktop Max-w-md]]
-- [[_COMMUNITY_Branding Identity|Branding Identity]]
-- [[_COMMUNITY_Agent Get_pet_profile|Agent Get_pet_profile]]
-- [[_COMMUNITY_Analysis Progress|Analysis Progress]]
-- [[_COMMUNITY_Guest Localstorage|Guest Localstorage]]
-- [[_COMMUNITY_Pawbalance Prices|Pawbalance Prices]]
-- [[_COMMUNITY_Api Entitlement|Api Entitlement]]
-- [[_COMMUNITY_Ota Update|Ota Update]]
-- [[_COMMUNITY_Capgo Channel_self|Capgo Channel_self]]
-- [[_COMMUNITY_Automation Deployment|Automation Deployment]]
-- [[_COMMUNITY_Bump Current_terms_version|Bump Current_terms_version]]
-- [[_COMMUNITY_Redesign Welcome|Redesign Welcome]]
-- [[_COMMUNITY_Emptystate Reusable|Emptystate Reusable]]
-- [[_COMMUNITY_Edit Multi-step|Edit Multi-step]]
-- [[_COMMUNITY_Channel Judy|Channel Judy]]
-- [[_COMMUNITY_Email Field|Email Field]]
-- [[_COMMUNITY_Field Input|Field Input]]
-- [[_COMMUNITY_Forgot Link|Forgot Link]]
-- [[_COMMUNITY_Button Green|Button Green]]
-- [[_COMMUNITY_Button Google|Button Google]]
-- [[_COMMUNITY_Link Navigation|Link Navigation]]
-- [[_COMMUNITY_Display Field|Display Field]]
-- [[_COMMUNITY_Confirm Field|Confirm Field]]
-- [[_COMMUNITY_Button Green|Button Green]]
-- [[_COMMUNITY_Button Google|Button Google]]
-- [[_COMMUNITY_Link Navigation|Link Navigation]]
-- [[_COMMUNITY_Headline Pawbalance|Headline Pawbalance]]
-- [[_COMMUNITY_Button Get|Button Get]]
-- [[_COMMUNITY_Account Already|Account Already]]
-- [[_COMMUNITY_Profile Section|Profile Section]]
-- [[_COMMUNITY_Hide Rename|Hide Rename]]
-- [[_COMMUNITY_Hide Rename|Hide Rename]]
-- [[_COMMUNITY_Paywall Rationale|Paywall Rationale]]
-- [[_COMMUNITY_Analysis Persistence|Analysis Persistence]]
-- [[_COMMUNITY_Overview Pawbalance|Overview Pawbalance]]
-- [[_COMMUNITY_Community Profile|Community Profile]]
-- [[_COMMUNITY_Analysis Community|Analysis Community]]
-- [[_COMMUNITY_Pawbalance Web|Pawbalance Web]]
-- [[_COMMUNITY_Architecture Before|Architecture Before]]
+- [[_COMMUNITY_Community 118|Community 118]]
+- [[_COMMUNITY_Community 119|Community 119]]
+- [[_COMMUNITY_Community 120|Community 120]]
+- [[_COMMUNITY_Community 121|Community 121]]
+- [[_COMMUNITY_Community 122|Community 122]]
+- [[_COMMUNITY_Community 123|Community 123]]
+- [[_COMMUNITY_Community 124|Community 124]]
+- [[_COMMUNITY_Community 125|Community 125]]
+- [[_COMMUNITY_Community 126|Community 126]]
+- [[_COMMUNITY_Community 127|Community 127]]
+- [[_COMMUNITY_Community 128|Community 128]]
+- [[_COMMUNITY_Community 129|Community 129]]
+- [[_COMMUNITY_Community 130|Community 130]]
+- [[_COMMUNITY_Community 131|Community 131]]
+- [[_COMMUNITY_Community 132|Community 132]]
+- [[_COMMUNITY_Community 133|Community 133]]
+- [[_COMMUNITY_Community 134|Community 134]]
+- [[_COMMUNITY_Community 135|Community 135]]
+- [[_COMMUNITY_Community 136|Community 136]]
+- [[_COMMUNITY_Community 137|Community 137]]
+- [[_COMMUNITY_Community 138|Community 138]]
+- [[_COMMUNITY_Community 139|Community 139]]
+- [[_COMMUNITY_Community 140|Community 140]]
+- [[_COMMUNITY_Community 141|Community 141]]
+- [[_COMMUNITY_Community 142|Community 142]]
+- [[_COMMUNITY_Community 143|Community 143]]
+- [[_COMMUNITY_Community 144|Community 144]]
+- [[_COMMUNITY_Community 145|Community 145]]
+- [[_COMMUNITY_Community 146|Community 146]]
+- [[_COMMUNITY_Community 147|Community 147]]
+- [[_COMMUNITY_Community 148|Community 148]]
+- [[_COMMUNITY_Community 149|Community 149]]
+- [[_COMMUNITY_Community 150|Community 150]]
+- [[_COMMUNITY_Community 151|Community 151]]
+- [[_COMMUNITY_Community 152|Community 152]]
+- [[_COMMUNITY_Community 153|Community 153]]
+- [[_COMMUNITY_Community 154|Community 154]]
+- [[_COMMUNITY_Community 155|Community 155]]
+- [[_COMMUNITY_Community 156|Community 156]]
+- [[_COMMUNITY_Community 157|Community 157]]
+- [[_COMMUNITY_Community 158|Community 158]]
+- [[_COMMUNITY_Community 159|Community 159]]
+- [[_COMMUNITY_Community 160|Community 160]]
+- [[_COMMUNITY_Community 161|Community 161]]
+- [[_COMMUNITY_Community 162|Community 162]]
+- [[_COMMUNITY_Community 163|Community 163]]
+- [[_COMMUNITY_Community 164|Community 164]]
+- [[_COMMUNITY_Community 165|Community 165]]
+- [[_COMMUNITY_Community 166|Community 166]]
+- [[_COMMUNITY_Community 167|Community 167]]
+- [[_COMMUNITY_Community 168|Community 168]]
+- [[_COMMUNITY_Community 169|Community 169]]
+- [[_COMMUNITY_Community 170|Community 170]]
+- [[_COMMUNITY_Community 171|Community 171]]
+- [[_COMMUNITY_Community 172|Community 172]]
+- [[_COMMUNITY_Community 173|Community 173]]
+- [[_COMMUNITY_Community 174|Community 174]]
+- [[_COMMUNITY_Community 175|Community 175]]
+- [[_COMMUNITY_Community 176|Community 176]]
+- [[_COMMUNITY_Community 177|Community 177]]
+- [[_COMMUNITY_Community 178|Community 178]]
+- [[_COMMUNITY_Community 179|Community 179]]
+- [[_COMMUNITY_Community 180|Community 180]]
+- [[_COMMUNITY_Community 181|Community 181]]
+- [[_COMMUNITY_Community 182|Community 182]]
+- [[_COMMUNITY_Community 183|Community 183]]
+- [[_COMMUNITY_Community 184|Community 184]]
+- [[_COMMUNITY_Community 185|Community 185]]
+- [[_COMMUNITY_Community 186|Community 186]]
+- [[_COMMUNITY_Community 187|Community 187]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `main()` - 8 edges
-2. `YouTube-to-Knowledge-Base RAG Plan` - 7 edges
-3. `Login Screen` - 7 edges
-4. `Welcome Screen` - 7 edges
-5. `Paw Print Symbol` - 7 edges
-6. `Recipe Ingredient UX Design Spec` - 7 edges
-7. `Food Search Screen` - 6 edges
+2. `handleSubmit()` - 7 edges
+3. `YouTube-to-Knowledge-Base RAG Plan` - 7 edges
+4. `Login Screen` - 7 edges
+5. `Welcome Screen` - 7 edges
+6. `Paw Print Symbol` - 7 edges
+7. `Recipe Ingredient UX Design Spec` - 7 edges
 8. `Recipe Analysis Screen` - 6 edges
 9. `resetExpandedEditor()` - 6 edges
 10. `GitOps & CI/CD Implementation Plan` - 6 edges
@@ -212,10 +218,10 @@
   src/lib/types.ts → docs/superpowers/specs/2026-04-15-ai-food-search-design.md
 - `Dual-mode Food Detail Renderer` --shares_data_with--> `Food Safety Classification`  [INFERRED]
   src/app/(app)/search/food/page.tsx → graphify-out/converted/DATABASE - FOODS TO GIVE_NOT GIVE DOGS_d0302d12.md
-- `Authenticated Profile Menu` --conceptually_related_to--> `Profile Flow Settings Hub`  [INFERRED]
-  src/app/(app)/profile/page.tsx → CODEX.md
 - `Bottom Navigation Bar` --references--> `App Screen Navigation Community`  [INFERRED]
   src/components/navigation/bottom-nav.tsx → graphify-out/GRAPH_REPORT.md
+- `Recipe Analysis System Prompt` --references--> `Canine Food Safety Database`  [EXTRACTED]
+  src/lib/agent/system-prompt.ts → graphify-out/converted/DATABASE - FOODS TO GIVE_NOT GIVE DOGS_d0302d12.md
 
 ## Hyperedges (group relationships)
 - **Recipe ingredient editing flow** — concept_recipe_list_first_editor, concept_recipe_add_sheet, concept_recipe_inline_row_edit [INFERRED 0.86]
@@ -223,451 +229,451 @@
 
 ## Communities
 
-### Community 0 - "Food Recipe"
+### Community 0 - "Community 0"
+Cohesion: 0.09
+Nodes (35): Follow-up Recipe Edit Loop, Recipe Analysis Screen, Stale Analysis Detector, Bottom Navigation Bar, Four-tab App Shell, Search Home and Categories Screen, Agent Auth Singleton, Recipe Agent Factory (+27 more)
+
+### Community 1 - "Community 1"
 Cohesion: 0.09
 Nodes (29): Recipe Analysis Report Screen, Analysis Report Sections (Ingredients, Preparation Tips, Benefits, Suggestions), Learn Article Detail Screen, Category Browse Screen (Fruit), Edit Recipe Screen, Re-analyze Recipe Button, Food Detail Screen (Apple), Food Request Dialog (+21 more)
 
-### Community 1 - "Food Recipe"
-Cohesion: 0.13
-Nodes (25): Follow-up Recipe Edit Loop, Recipe Analysis Screen, Stale Analysis Detector, Agent Auth Singleton, Recipe Agent Factory, Canine Food Safety Database, Food Safety Classification, AI Food Loading View (+17 more)
-
-### Community 2 - "Rag Supabase"
+### Community 2 - "Community 2"
 Cohesion: 0.08
 Nodes (24): @capgo/capacitor-updater SDK, MinIO Storage Backend, Self-Hosted Capgo Live Updates Plan, Self-Hosted Supabase (Community Helm Chart), ArgoCD GitOps Deployment, GitHub Actions CI/CD Workflow, PawBalance Helm Chart, k3s Cluster Infrastructure (+16 more)
 
-### Community 3 - "Youtube Api"
+### Community 3 - "Community 3"
 Cohesion: 0.14
 Nodes (20): Chunk, chunk_transcript(), create_youtube_session(), embed_texts(), estimate_tokens(), fetch_transcript(), get_all_video_ids(), get_auth_header() (+12 more)
 
-### Community 4 - "Food Search"
+### Community 4 - "Community 4"
 Cohesion: 0.14
 Nodes (17): AddToRecipeSheet component, AI food detail page reuse, AIFoodResult type, AI food search architecture rationale, AI Food Search Design Spec, AI Food Search Implementation Plan, AnalysisProgress component, CheckmarkCelebration component (+9 more)
 
-### Community 5 - "Profile Search"
-Cohesion: 0.14
-Nodes (15): Bottom Navigation Bar, Four-tab App Shell, Search Home and Categories Screen, Profile Flow Settings Hub, Food Search Cache, App Screen Navigation Community, Icon Registry, Authenticated Profile Menu (+7 more)
+### Community 5 - "Community 5"
+Cohesion: 0.16
+Nodes (4): handleDelete(), handleSubmit(), openMailto(), validateField()
 
-### Community 6 - "Pet Language"
+### Community 6 - "Community 6"
 Cohesion: 0.16
 Nodes (14): Bottom Navigation Bar, Daily Calories Display (1409 kcal/day), Free Plan Subscription Badge, English Language Option, Turkish Language Option, Language Selection Screen, Multi-Step Pet Edit Form (Name/Gender/Activity Level), Pet Card with Stats Badges (+6 more)
 
-### Community 7 - "Feature Welcome"
+### Community 7 - "Community 7"
 Cohesion: 0.22
 Nodes (13): Email/Password Authentication, Google OAuth Provider, Guest Welcome Screen, PawBalance Paw Icon (Login), Login Screen, Register Screen, Sage Green Primary Color (#7C9A82), Warm Beige Canvas Background (+5 more)
 
-### Community 8 - "Handleanalyze Handledelete"
-Cohesion: 0.18
-Nodes (3): handleDelete(), handleSubmit(), validateField()
-
-### Community 9 - "Skill Causes"
+### Community 8 - "Community 8"
 Cohesion: 0.2
 Nodes (12): browser-use CLI, Deploy Skill (/deploy), ios-debug Scripts, QA Automation Skill (/qa), Rationale: Rules Drive Behavior, Skills Codify Process, Screenshot Documentation v1 Plan, 147 UI/UX Issues (8 Systemic Root Causes), lucide-react Icon Library (+4 more)
 
-### Community 10 - "Billing Gate"
+### Community 9 - "Community 9"
 Cohesion: 0.2
 Nodes (11): Apple App Store Guideline 5.1.1 (Data Privacy), Terms & Privacy Policy Plan, Rationale: Blocking Acceptance Gate for App Store Compliance, PaywallSheet Component, Tiered Subscriptions Plan, Rationale: Two-Layer Access Control (Route Gate + Action Gate), RevenueCat SDK Integration, Web Billing via RC Billing + Stripe Plan (+3 more)
 
-### Community 11 - "Ingredient Invalid"
+### Community 10 - "Community 10"
 Cohesion: 0.18
 Nodes (11): Add ingredient bottom sheet, Inline ingredient row editing, Block switching rows on invalid unsaved edits, List-first ingredient editor, Manual ingredient entry remains allowed, New ingredients inserted at top, Recipe Ingredient UX Implementation Plan, Blocking invalid row switches prevents silent edit loss (+3 more)
 
-### Community 12 - "Getexpandedindex Handleadd"
+### Community 11 - "Community 11"
 Cohesion: 0.4
 Nodes (9): getExpandedIndex(), handleAdd(), handleCancel(), handleExpand(), handleOpenAddSheet(), handleRemove(), handleSave(), persistExpandedDraft() (+1 more)
 
-### Community 13 - "Paw Sage"
+### Community 12 - "Community 12"
 Cohesion: 0.44
 Nodes (10): AppIcon 512@2x - Paw-Leaf Logo, Apple Touch Icon - White Paw on Sage Circle, Leaf / Nature Symbol, Paw Print Symbol, PawBalance Brand Identity, Sage Green Brand Color (#7C9A82), Favicon - White Paw on Sage Circle, PWA Icon 192x192 - White Paw on Sage Circle (+2 more)
 
-### Community 14 - "Use-food-search Usecategories"
+### Community 13 - "Community 13"
 Cohesion: 0.25
 Nodes (0): 
 
-### Community 15 - "Food Categories"
+### Community 14 - "Community 14"
 Cohesion: 0.25
 Nodes (8): Food Categories (Meyve, Sebze, Et, Balık, etc.), Food Safety Classification (SAFE/MODERATE/TOXIC), Toxic Plants for Dogs (Zehirli Bitki), Category Browse Screen, Food Detail Screen, Food Request Dialog, Search Home / Categories Screen, Search Results Screen
 
-### Community 16 - "Extractcustomerinfo Initpurchases"
+### Community 15 - "Community 15"
 Cohesion: 0.48
 Nodes (5): extractCustomerInfo(), initPurchases(), mapEntitlements(), persistTierIfChanged(), syncEntitlements()
 
-### Community 17 - "Support About"
+### Community 16 - "Community 16"
 Cohesion: 0.29
 Nodes (7): Client-side mailto support flow, Dedicated Help & Support and About profile pages, Remove unused profile settings button, Support and About Implementation Plan, Use client-side mailto instead of backend endpoints, Keep change inside authenticated profile route tree, Support and About Design Spec
 
-### Community 18 - "Basic Free"
+### Community 17 - "Community 17"
 Cohesion: 0.33
 Nodes (6): AI-Powered Recipe Analysis Design Spec, AccessTier System (guest < free < basic < premium), Terms Acceptance Gate Logic, Action-Level Access Gate (useEntitlement hook), Subscription Tier Model (Guest/Free/Basic/Premium), Food Detail Redesign (Add to Recipe + Share)
 
-### Community 19 - "Route Maptier"
+### Community 18 - "Community 18"
 Cohesion: 0.7
 Nodes (3): mapTier(), OPTIONS(), POST()
 
-### Community 20 - "Disconnect Observe"
+### Community 19 - "Community 19"
 Cohesion: 0.4
 Nodes (1): ResizeObserverStub
 
-### Community 21 - "Initotaupdates Pickimage"
+### Community 20 - "Community 20"
 Cohesion: 0.4
 Nodes (0): 
 
-### Community 22 - "Access Canaccess"
+### Community 21 - "Community 21"
 Cohesion: 0.5
 Nodes (2): canAccess(), getAccessGateReason()
 
-### Community 23 - "Acceptterms Getacceptedtermsversion"
+### Community 22 - "Community 22"
 Cohesion: 0.5
 Nodes (2): getAcceptedTermsVersion(), shouldRequireTerms()
 
-### Community 24 - "Authentication Forgot"
+### Community 23 - "Community 23"
 Cohesion: 0.5
 Nodes (5): Forgot Password Screen, Login Screen, Register Screen, Guest Flow (Authentication Gate), Welcome Screen (Landing Page)
 
-### Community 25 - "Bottom Sheet"
+### Community 24 - "Community 24"
 Cohesion: 0.4
 Nodes (5): Rationale: Bottom Sheet Over Redirect for Login, LoginSheet Bottom Sheet Component, PaywallSheet Bottom Sheet UI, Scanner Placeholder Redesign, Platform-Aware Purchase SDK (Native vs Web)
 
-### Community 26 - "Analysis Persistence"
+### Community 25 - "Community 25"
 Cohesion: 0.5
 Nodes (5): Animated analysis progress flow, Cache-first rendering pattern, Global analysis manager, UX State Persistence and Analysis Progress Design, Zustand persistence rationale
 
-### Community 27 - "Handleapple Handleemail"
+### Community 26 - "Community 26"
 Cohesion: 0.5
 Nodes (0): 
 
-### Community 28 - "Action_entitlements Aisuggestionrow"
-Cohesion: 0.67
-Nodes (4): ACTION_ENTITLEMENTS map, AISuggestionRow component, PaywallSheet component, SubscriptionCard component
-
-### Community 29 - "Embeddings Embedquery"
+### Community 27 - "Community 27"
 Cohesion: 0.83
 Nodes (3): embedQuery(), getRelevantKnowledge(), searchVideoChunks()
 
-### Community 30 - "Edit Language"
+### Community 28 - "Community 28"
+Cohesion: 0.67
+Nodes (4): ACTION_ENTITLEMENTS map, AISuggestionRow component, PaywallSheet component, SubscriptionCard component
+
+### Community 29 - "Community 29"
 Cohesion: 0.5
 Nodes (4): Language Selector Screen, Profile Main Screen, Pet Edit Wizard, Pets List Screen
 
-### Community 31 - "Recipe Analysis"
+### Community 30 - "Community 30"
 Cohesion: 0.5
 Nodes (4): Recipe Analysis Screen (AI Report), Edit Recipe Screen, Recipe List Screen, New Recipe Screen
 
-### Community 32 - "Billing Revenuecat"
+### Community 31 - "Community 31"
 Cohesion: 0.5
 Nodes (4): Tiered Subscriptions Design Spec, RevenueCat Integration (iOS + Web), RevenueCat Webhook Endpoint, Web Billing via RC Billing + Stripe Design Spec
 
-### Community 33 - "Application Argocd"
+### Community 32 - "Community 32"
 Cohesion: 0.5
 Nodes (4): Self-Hosted Capgo Live Updates Design Spec, GitOps & CI/CD Design Spec, ArgoCD Application for PawBalance, Privacy Policy Data Collection Inventory
 
-### Community 34 - "Documentation Screenshot"
+### Community 33 - "Community 33"
 Cohesion: 0.5
 Nodes (4): /deploy Skill (Push + TestFlight), /qa Skill (Browser + iOS Verification), Screenshot Documentation Capture v1 Design Spec, Screenshot Documentation v2 Design Spec
 
-### Community 35 - "Motif Branding"
+### Community 34 - "Community 34"
 Cohesion: 0.67
 Nodes (4): App Icon, Leaf Motif, Natural Pet Wellness Branding, Paw Print Motif
 
-### Community 36 - "Motif Eco"
+### Community 35 - "Community 35"
 Cohesion: 1.0
 Nodes (4): App Icon, Eco Pet Wellness Identity, Leaf Motif, Paw Print Motif
 
-### Community 37 - "Authlayout Authlayoutinner"
+### Community 36 - "Community 36"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 38 - "Intl-provider Intlprovider"
+### Community 37 - "Community 37"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 39 - "Handleapple Handlegoogle"
+### Community 38 - "Community 38"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 40 - "Blog-featured-card Blogfeaturedcard"
+### Community 39 - "Community 39"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 41 - "Blog-post-row Blogpostrow"
+### Community 40 - "Community 40"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 42 - "Breed-selector Handleclick"
+### Community 41 - "Community 41"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 43 - "Use-auth Useauth"
+### Community 42 - "Community 42"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 44 - "Uploadpetphoto Use-pets"
+### Community 43 - "Community 43"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 45 - "Use-blog Useblogpost"
+### Community 44 - "Community 44"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 46 - "Backend Bundles"
+### Community 45 - "Community 45"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 46 - "Community 46"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 47 - "Community 47"
 Cohesion: 0.67
 Nodes (3): MinIO S3-Compatible Storage for Bundles, Self-Hosted Supabase for Capgo Backend, Learn Page Design Spec
 
-### Community 47 - "Actions Deploy"
+### Community 48 - "Community 48"
 Cohesion: 0.67
 Nodes (3): Smart Path Detection (OTA vs TestFlight), GitHub Actions Deploy Workflow, Self-Healing QA Loop (3 retries)
 
-### Community 48 - "Agent Recipe"
+### Community 49 - "Community 49"
 Cohesion: 0.67
 Nodes (3): Recipe Analysis Agent (pi-agent-core), lookup_food Agent Tool, YouTube-to-Knowledge-Base for Recipe Agent Design Spec
 
-### Community 49 - "Build Capacitor"
+### Community 50 - "Community 50"
 Cohesion: 0.67
 Nodes (3): Dual Build Mode, Query Params Instead of Dynamic Routes, Rationale: Static Export Required for Capacitor
 
-### Community 50 - "Layout Rootlayout"
+### Community 51 - "Community 51"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 51 - "Homepage"
+### Community 52 - "Community 52"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 52 - "Not-found Notfound"
+### Community 53 - "Community 53"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 53 - "Applayout Layout"
+### Community 54 - "Community 54"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 54 - "Handletagtoggle"
+### Community 55 - "Community 55"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 55 - "Formatdate"
+### Community 56 - "Community 56"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 56 - "Handlestartscan"
+### Community 57 - "Community 57"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 57 - "Editpetpage"
+### Community 58 - "Community 58"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 58 - "Handleaccept"
+### Community 59 - "Community 59"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 59 - "Card"
+### Community 60 - "Community 60"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 60 - "Progress-steps Progresssteps"
+### Community 61 - "Community 61"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 61 - "Dialog"
+### Community 62 - "Community 62"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 62 - "Badge"
+### Community 63 - "Community 63"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 63 - "Skeleton"
+### Community 64 - "Community 64"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 64 - "Requireaccess"
+### Community 65 - "Community 65"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 65 - "Handlesave Recipe-form"
+### Community 66 - "Community 66"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 66 - "Handletap Recipe-card"
+### Community 67 - "Community 67"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 67 - "Add-ingredient-sheet Handlesubmit"
+### Community 68 - "Community 68"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 68 - "Ingredient-list Ingredientlistharness"
+### Community 69 - "Community 69"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 69 - "Recipe-form Renderrecipeform"
+### Community 70 - "Community 70"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 70 - "Blog-article Blogarticle"
+### Community 71 - "Community 71"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 71 - "Handlepick Photo-picker"
+### Community 72 - "Community 72"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 72 - "Handlesubmit Pet-form"
+### Community 73 - "Community 73"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 73 - "Food-card Foodcard"
+### Community 74 - "Community 74"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 74 - "Safety-badge Safetybadge"
+### Community 75 - "Community 75"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 75 - "Category-grid Categorygrid"
+### Community 76 - "Community 76"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 76 - "Food-request-dialog Handlesubmit"
+### Community 77 - "Community 77"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 77 - "Use-sheet-drag Usesheetdrag"
+### Community 78 - "Community 78"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 78 - "Use-locale Uselocale"
+### Community 79 - "Community 79"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 79 - "Use-entitlement Useentitlement"
+### Community 80 - "Community 80"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 80 - "Navigation Shouldshowbottomnav"
+### Community 81 - "Community 81"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 81 - "Api Getapiurl"
+### Community 82 - "Community 82"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 82 - "Getsupabase Supabase"
+### Community 83 - "Community 83"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 83 - "Createlookupfoodtool Lookup-food"
+### Community 84 - "Community 84"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 84 - "Creategetpetprofiletool Get-pet-profile"
+### Community 85 - "Community 85"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 85 - "Createsearchknowledgetool Search-knowledge"
+### Community 86 - "Community 86"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 86 - "Buildlocalpet Pet-store"
+### Community 87 - "Community 87"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 87 - "Learn Article"
+### Community 88 - "Community 88"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 89 - "Community 89"
 Cohesion: 1.0
 Nodes (2): Learn Article Detail Screen, Learn Tab (Knowledge Base)
 
-### Community 88 - "Anti-patterns Forbidden"
+### Community 90 - "Community 90"
 Cohesion: 1.0
 Nodes (2): Design Anti-Patterns (Forbidden Patterns), Design System Master File
 
-### Community 89 - "Audit Improvements"
-Cohesion: 1.0
-Nodes (2): UI/UX Audit Remediation Roadmap (4 Phases), UI/UX Audit Improvements Design Spec (19 items)
-
-### Community 90 - "Actions Chat"
-Cohesion: 1.0
-Nodes (2): Follow-Up Actions System (recipe_edit + detail_card), Rationale: Structured Actions Over Conversational Chat
-
-### Community 91 - "Access Control"
-Cohesion: 1.0
-Nodes (2): Guest Access & Tiered Access Control Design Spec, Terms of Service & Privacy Policy Design Spec
-
-### Community 92 - "Static Build"
+### Community 91 - "Community 91"
 Cohesion: 1.0
 Nodes (2): Dual Build Mode (Static + Server), PawBalance Dockerfile (nginx static)
 
-### Community 93 - "Table Blog"
+### Community 92 - "Community 92"
+Cohesion: 1.0
+Nodes (2): Follow-Up Actions System (recipe_edit + detail_card), Rationale: Structured Actions Over Conversational Chat
+
+### Community 93 - "Community 93"
+Cohesion: 1.0
+Nodes (2): Guest Access & Tiered Access Control Design Spec, Terms of Service & Privacy Policy Design Spec
+
+### Community 94 - "Community 94"
 Cohesion: 1.0
 Nodes (2): blog_posts Supabase Table, Rationale: Single Flat Table for ~30 Blog Posts
 
-### Community 94 - "Blog Com"
+### Community 95 - "Community 95"
 Cohesion: 1.0
 Nodes (2): 2gurmepati.com Blog Scrape (One-Time), YouTube Transcription Pipeline (Python)
 
-### Community 95 - "Icons Category"
+### Community 96 - "Community 96"
+Cohesion: 1.0
+Nodes (2): UI/UX Audit Remediation Roadmap (4 Phases), UI/UX Audit Improvements Design Spec (19 items)
+
+### Community 97 - "Community 97"
 Cohesion: 1.0
 Nodes (2): Emoji Icons Systemic Issue, Category Grid Redesign (SVG Icons + Colors)
 
-### Community 96 - "Pgvector Embeddings"
+### Community 98 - "Community 98"
 Cohesion: 1.0
 Nodes (2): Rationale: RAG via pgvector for Knowledge Retrieval, video_chunks Table (pgvector embeddings)
 
-### Community 97 - "Chart Embedding"
+### Community 99 - "Community 99"
 Cohesion: 1.0
 Nodes (2): PawBalance Helm Chart, Ollama Sidecar for Query Embedding (K8s)
 
-### Community 98 - "Agent Backend"
+### Community 100 - "Community 100"
 Cohesion: 1.0
 Nodes (2): AI Agent Backend, AI Agent Pipeline Community
 
-### Community 99 - "Agents"
+### Community 101 - "Community 101"
 Cohesion: 1.0
 Nodes (2): graphify rule in AGENTS.md, Graph Report
 
-### Community 100 - "Version About"
+### Community 102 - "Community 102"
 Cohesion: 1.0
 Nodes (2): Shared app version metadata helper, Do not hardcode version in About page component
 
-### Community 101 - "Config Tailwind"
+### Community 103 - "Community 103"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 102 - "Next-env"
+### Community 104 - "Community 104"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 103 - "Config Tailwind"
+### Community 105 - "Community 105"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 104 - "Config Vitest"
+### Community 106 - "Community 106"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 105 - "Config Next"
+### Community 107 - "Community 107"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 106 - "Capacitor Config"
+### Community 108 - "Community 108"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 107 - "Basesettings"
+### Community 109 - "Community 109"
 Cohesion: 1.0
-Nodes (1): BaseSettings
+Nodes (0): 
 
-### Community 108 - "Basemodel"
+### Community 110 - "Community 110"
 Cohesion: 1.0
-Nodes (1): BaseModel
+Nodes (0): 
 
-### Community 109 - "Uiresponder"
-Cohesion: 1.0
-Nodes (1): UIResponder
-
-### Community 110 - "Uiapplicationdelegate"
-Cohesion: 1.0
-Nodes (1): UIApplicationDelegate
-
-### Community 111 - "Providers"
+### Community 111 - "Community 111"
 Cohesion: 1.0
 Nodes (0): 
 
@@ -695,263 +701,283 @@ Nodes (0):
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 118 - "Empty-state"
+### Community 118 - "Community 118"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 119 - "Button"
+### Community 119 - "Community 119"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 120 - "Input"
+### Community 120 - "Community 120"
+Cohesion: 1.0
+Nodes (1): Icon Registry
+
+### Community 121 - "Community 121"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 121 - "Analysis-report"
+### Community 122 - "Community 122"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 122 - "Ingredient-row"
+### Community 123 - "Community 123"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 123 - "Follow-up-actions"
+### Community 124 - "Community 124"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 124 - "Preparation-chips"
+### Community 125 - "Community 125"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 125 - "Blog-tag-chips"
+### Community 126 - "Community 126"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 126 - "Subscriptionbanner"
+### Community 127 - "Community 127"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 127 - "Pet-card"
+### Community 128 - "Community 128"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 128 - "Bcs-slider"
+### Community 129 - "Community 129"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 129 - "Activity-level-selector"
+### Community 130 - "Community 130"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 130 - "Validators"
+### Community 131 - "Community 131"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 131 - "Navigation Test"
+### Community 132 - "Community 132"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 132 - "Request"
+### Community 133 - "Community 133"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 133 - "Auth-store"
+### Community 134 - "Community 134"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 134 - "Bottom Navigation"
+### Community 135 - "Community 135"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 136 - "Community 136"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 137 - "Community 137"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 138 - "Community 138"
 Cohesion: 1.0
 Nodes (1): Bottom Navigation (5 Tabs)
 
-### Community 135 - "Placeholder Premium"
+### Community 139 - "Community 139"
 Cohesion: 1.0
 Nodes (1): Scan Tab (Premium Placeholder)
 
-### Community 136 - "Database Dog"
+### Community 140 - "Community 140"
 Cohesion: 1.0
 Nodes (1): Dog Food Safety Database (Turkish)
 
-### Community 137 - "Biophilic Color"
+### Community 141 - "Community 141"
 Cohesion: 1.0
 Nodes (1): Color Palette (Nature Distilled / Organic Biophilic)
 
-### Community 138 - "Lora Raleway"
+### Community 142 - "Community 142"
 Cohesion: 1.0
 Nodes (1): Typography (Lora + Raleway)
 
-### Community 139 - "Area Ios"
+### Community 143 - "Community 143"
 Cohesion: 1.0
 Nodes (1): iOS Safe Area Violations
 
-### Community 140 - "Accessibility Aria"
+### Community 144 - "Community 144"
 Cohesion: 1.0
 Nodes (1): Accessibility Failures (ARIA, Focus, Keyboard)
 
-### Community 141 - "Gaps I18n"
+### Community 145 - "Community 145"
 Cohesion: 1.0
 Nodes (1): Internationalization (i18n) Gaps
 
-### Community 142 - "Target Touch"
+### Community 146 - "Community 146"
 Cohesion: 1.0
 Nodes (1): Touch Target Violations (<44x44px)
 
-### Community 143 - "Button Contrast"
+### Community 147 - "Community 147"
 Cohesion: 1.0
 Nodes (1): Button Contrast WCAG Failure (3.1:1)
 
-### Community 144 - "Desktop Max-w-md"
+### Community 148 - "Community 148"
 Cohesion: 1.0
 Nodes (1): Desktop Wasted Space (max-w-md at 1440px)
 
-### Community 145 - "Branding Identity"
+### Community 149 - "Community 149"
 Cohesion: 1.0
 Nodes (1): No Branding or Visual Identity
 
-### Community 146 - "Agent Get_pet_profile"
+### Community 150 - "Community 150"
 Cohesion: 1.0
 Nodes (1): get_pet_profile Agent Tool
 
-### Community 147 - "Analysis Progress"
+### Community 151 - "Community 151"
 Cohesion: 1.0
 Nodes (1): SSE Streaming for Analysis Progress
 
-### Community 148 - "Guest Localstorage"
+### Community 152 - "Community 152"
 Cohesion: 1.0
 Nodes (1): Guest Onboarding (localStorage pet)
 
-### Community 149 - "Pawbalance Prices"
+### Community 153 - "Community 153"
 Cohesion: 1.0
 Nodes (1): Stripe Products & Prices for PawBalance
 
-### Community 150 - "Api Entitlement"
+### Community 154 - "Community 154"
 Cohesion: 1.0
 Nodes (1): Server-Side Entitlement Sync API Route
 
-### Community 151 - "Ota Update"
+### Community 155 - "Community 155"
 Cohesion: 1.0
 Nodes (1): OTA Update Data Flow
 
-### Community 152 - "Capgo Channel_self"
+### Community 156 - "Community 156"
 Cohesion: 1.0
 Nodes (1): Capgo Edge Functions (updates, stats, channel_self)
 
-### Community 153 - "Automation Deployment"
+### Community 157 - "Community 157"
 Cohesion: 1.0
 Nodes (1): QA Automation & Deployment Design Spec
 
-### Community 154 - "Bump Current_terms_version"
+### Community 158 - "Community 158"
 Cohesion: 1.0
 Nodes (1): Re-Consent Flow (CURRENT_TERMS_VERSION bump)
 
-### Community 155 - "Redesign Welcome"
+### Community 159 - "Community 159"
 Cohesion: 1.0
 Nodes (1): Welcome Screen Redesign
 
-### Community 156 - "Emptystate Reusable"
+### Community 160 - "Community 160"
 Cohesion: 1.0
 Nodes (1): Reusable EmptyState Component
 
-### Community 157 - "Edit Multi-step"
+### Community 161 - "Community 161"
 Cohesion: 1.0
 Nodes (1): Pet Edit Multi-Step Wizard Pattern
 
-### Community 158 - "Channel Judy"
+### Community 162 - "Community 162"
 Cohesion: 1.0
 Nodes (1): Dr. Judy Morgan YouTube Channel (~500 videos)
 
-### Community 159 - "Email Field"
+### Community 163 - "Community 163"
 Cohesion: 1.0
 Nodes (1): Email Input Field
 
-### Community 160 - "Field Input"
+### Community 164 - "Community 164"
 Cohesion: 1.0
 Nodes (1): Password Input Field
 
-### Community 161 - "Forgot Link"
+### Community 165 - "Community 165"
 Cohesion: 1.0
 Nodes (1): Forgot Password Link
 
-### Community 162 - "Button Green"
+### Community 166 - "Community 166"
 Cohesion: 1.0
 Nodes (1): Sign In Button (Sage Green)
 
-### Community 163 - "Button Google"
+### Community 167 - "Community 167"
 Cohesion: 1.0
 Nodes (1): Sign In with Google Button
 
-### Community 164 - "Link Navigation"
+### Community 168 - "Community 168"
 Cohesion: 1.0
 Nodes (1): Sign Up Navigation Link
 
-### Community 165 - "Display Field"
+### Community 169 - "Community 169"
 Cohesion: 1.0
 Nodes (1): Display Name Input Field
 
-### Community 166 - "Confirm Field"
+### Community 170 - "Community 170"
 Cohesion: 1.0
 Nodes (1): Confirm Password Input Field
 
-### Community 167 - "Button Green"
+### Community 171 - "Community 171"
 Cohesion: 1.0
 Nodes (1): Sign Up Button (Sage Green)
 
-### Community 168 - "Button Google"
+### Community 172 - "Community 172"
 Cohesion: 1.0
 Nodes (1): Sign In with Google Button (Register)
 
-### Community 169 - "Link Navigation"
+### Community 173 - "Community 173"
 Cohesion: 1.0
 Nodes (1): Sign In Navigation Link
 
-### Community 170 - "Headline Pawbalance"
+### Community 174 - "Community 174"
 Cohesion: 1.0
 Nodes (1): Welcome to PawBalance Headline
 
-### Community 171 - "Button Get"
+### Community 175 - "Community 175"
 Cohesion: 1.0
 Nodes (1): Get Started Button (Sage Green)
 
-### Community 172 - "Account Already"
+### Community 176 - "Community 176"
 Cohesion: 1.0
 Nodes (1): Already Have Account Sign In Link
 
-### Community 173 - "Profile Section"
+### Community 177 - "Community 177"
 Cohesion: 1.0
 Nodes (1): Profile Section
 
-### Community 174 - "Hide Rename"
+### Community 178 - "Community 178"
 Cohesion: 1.0
 Nodes (1): Hide Scanner and Rename Tiers Plan
 
-### Community 175 - "Hide Rename"
+### Community 179 - "Community 179"
 Cohesion: 1.0
 Nodes (1): Hide Scanner and Rename Tiers Design Spec
 
-### Community 176 - "Paywall Rationale"
+### Community 180 - "Community 180"
 Cohesion: 1.0
 Nodes (1): Single-plan paywall rationale
 
-### Community 177 - "Analysis Persistence"
+### Community 181 - "Community 181"
 Cohesion: 1.0
 Nodes (1): UX State Persistence and Analysis Progress Plan
 
-### Community 178 - "Overview Pawbalance"
+### Community 182 - "Community 182"
 Cohesion: 1.0
 Nodes (1): PawBalance Project Overview
 
-### Community 179 - "Community Profile"
+### Community 183 - "Community 183"
+Cohesion: 1.0
+Nodes (1): Profile Flow Settings Hub
+
+### Community 184 - "Community 184"
 Cohesion: 1.0
 Nodes (1): Profile and Settings UI Community
 
-### Community 180 - "Analysis Community"
+### Community 185 - "Community 185"
 Cohesion: 1.0
 Nodes (1): Recipe Analysis Page Community
 
-### Community 181 - "Pawbalance Web"
+### Community 186 - "Community 186"
 Cohesion: 1.0
 Nodes (1): PawBalance Web App
 
-### Community 182 - "Architecture Before"
+### Community 187 - "Community 187"
 Cohesion: 1.0
 Nodes (1): Read GRAPH_REPORT before architecture questions
 
@@ -962,129 +988,127 @@ Nodes (1): Read GRAPH_REPORT before architecture questions
 ## Knowledge Gaps
 - **191 isolated node(s):** `Create a requests session with Chrome YouTube cookies + SAPISIDHASH auth.`, `Generate SAPISIDHASH authorization header.`, `Resolve a YouTube handle to a channel ID.`, `Fetch all video IDs and titles from a channel's uploads playlist.`, `Fetch transcript via YouTube InnerTube API with authenticated session.` (+186 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Layout Rootlayout`** (2 nodes): `RootLayout()`, `layout.tsx`
+- **Thin community `Community 51`** (2 nodes): `RootLayout()`, `layout.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Homepage`** (2 nodes): `HomePage()`, `page.tsx`
+- **Thin community `Community 52`** (2 nodes): `HomePage()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Not-found Notfound`** (2 nodes): `NotFound()`, `not-found.tsx`
+- **Thin community `Community 53`** (2 nodes): `NotFound()`, `not-found.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Applayout Layout`** (2 nodes): `AppLayout()`, `layout.tsx`
+- **Thin community `Community 54`** (2 nodes): `AppLayout()`, `layout.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Handletagtoggle`** (2 nodes): `handleTagToggle()`, `page.tsx`
+- **Thin community `Community 55`** (2 nodes): `handleTagToggle()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Formatdate`** (2 nodes): `formatDate()`, `page.tsx`
+- **Thin community `Community 56`** (2 nodes): `formatDate()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Handlestartscan`** (2 nodes): `handleStartScan()`, `page.tsx`
+- **Thin community `Community 57`** (2 nodes): `handleStartScan()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Editpetpage`** (2 nodes): `EditPetPage()`, `page.tsx`
+- **Thin community `Community 58`** (2 nodes): `EditPetPage()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Handleaccept`** (2 nodes): `handleAccept()`, `page.tsx`
+- **Thin community `Community 59`** (2 nodes): `renderProfilePage()`, `profile-page.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Card`** (2 nodes): `Card()`, `card.tsx`
+- **Thin community `Community 60`** (2 nodes): `handleAccept()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Progress-steps Progresssteps`** (2 nodes): `ProgressSteps()`, `progress-steps.tsx`
+- **Thin community `Community 61`** (2 nodes): `Card()`, `card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Dialog`** (2 nodes): `Dialog()`, `dialog.tsx`
+- **Thin community `Community 62`** (2 nodes): `ProgressSteps()`, `progress-steps.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Badge`** (2 nodes): `Badge()`, `badge.tsx`
+- **Thin community `Community 63`** (2 nodes): `Dialog()`, `dialog.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Skeleton`** (2 nodes): `Skeleton()`, `skeleton.tsx`
+- **Thin community `Community 64`** (2 nodes): `Badge()`, `badge.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Requireaccess`** (2 nodes): `RequireAccess()`, `RequireAccess.tsx`
+- **Thin community `Community 65`** (2 nodes): `Skeleton()`, `skeleton.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Handlesave Recipe-form`** (2 nodes): `handleSave()`, `recipe-form.tsx`
+- **Thin community `Community 66`** (2 nodes): `RequireAccess()`, `RequireAccess.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Handletap Recipe-card`** (2 nodes): `handleTap()`, `recipe-card.tsx`
+- **Thin community `Community 67`** (2 nodes): `handleSave()`, `recipe-form.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Add-ingredient-sheet Handlesubmit`** (2 nodes): `handleSubmit()`, `add-ingredient-sheet.tsx`
+- **Thin community `Community 68`** (2 nodes): `handleTap()`, `recipe-card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Ingredient-list Ingredientlistharness`** (2 nodes): `IngredientListHarness()`, `ingredient-list.test.tsx`
+- **Thin community `Community 69`** (2 nodes): `handleSubmit()`, `add-ingredient-sheet.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Recipe-form Renderrecipeform`** (2 nodes): `renderRecipeForm()`, `recipe-form.test.tsx`
+- **Thin community `Community 70`** (2 nodes): `IngredientListHarness()`, `ingredient-list.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Blog-article Blogarticle`** (2 nodes): `BlogArticle()`, `blog-article.tsx`
+- **Thin community `Community 71`** (2 nodes): `renderRecipeForm()`, `recipe-form.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Handlepick Photo-picker`** (2 nodes): `handlePick()`, `photo-picker.tsx`
+- **Thin community `Community 72`** (2 nodes): `BlogArticle()`, `blog-article.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Handlesubmit Pet-form`** (2 nodes): `handleSubmit()`, `pet-form.tsx`
+- **Thin community `Community 73`** (2 nodes): `handlePick()`, `photo-picker.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Food-card Foodcard`** (2 nodes): `FoodCard()`, `food-card.tsx`
+- **Thin community `Community 74`** (2 nodes): `FoodCard()`, `food-card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Safety-badge Safetybadge`** (2 nodes): `SafetyBadge()`, `safety-badge.tsx`
+- **Thin community `Community 75`** (2 nodes): `SafetyBadge()`, `safety-badge.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Category-grid Categorygrid`** (2 nodes): `CategoryGrid()`, `category-grid.tsx`
+- **Thin community `Community 76`** (2 nodes): `CategoryGrid()`, `category-grid.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Food-request-dialog Handlesubmit`** (2 nodes): `handleSubmit()`, `food-request-dialog.tsx`
+- **Thin community `Community 77`** (2 nodes): `handleSubmit()`, `food-request-dialog.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Use-sheet-drag Usesheetdrag`** (2 nodes): `use-sheet-drag.ts`, `useSheetDrag()`
+- **Thin community `Community 78`** (2 nodes): `use-sheet-drag.ts`, `useSheetDrag()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Use-locale Uselocale`** (2 nodes): `use-locale.ts`, `useLocale()`
+- **Thin community `Community 79`** (2 nodes): `use-locale.ts`, `useLocale()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Use-entitlement Useentitlement`** (2 nodes): `use-entitlement.ts`, `useEntitlement()`
+- **Thin community `Community 80`** (2 nodes): `use-entitlement.ts`, `useEntitlement()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Navigation Shouldshowbottomnav`** (2 nodes): `shouldShowBottomNav()`, `navigation.ts`
+- **Thin community `Community 81`** (2 nodes): `getAppVersionLabel()`, `app-info.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Api Getapiurl`** (2 nodes): `getApiUrl()`, `api.ts`
+- **Thin community `Community 82`** (2 nodes): `shouldShowBottomNav()`, `navigation.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Getsupabase Supabase`** (2 nodes): `supabase.ts`, `getSupabase()`
+- **Thin community `Community 83`** (2 nodes): `getApiUrl()`, `api.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Createlookupfoodtool Lookup-food`** (2 nodes): `createLookupFoodTool()`, `lookup-food.ts`
+- **Thin community `Community 84`** (2 nodes): `supabase.ts`, `getSupabase()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Creategetpetprofiletool Get-pet-profile`** (2 nodes): `createGetPetProfileTool()`, `get-pet-profile.ts`
+- **Thin community `Community 85`** (2 nodes): `createLookupFoodTool()`, `lookup-food.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Createsearchknowledgetool Search-knowledge`** (2 nodes): `createSearchKnowledgeTool()`, `search-knowledge.ts`
+- **Thin community `Community 86`** (2 nodes): `createGetPetProfileTool()`, `get-pet-profile.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Buildlocalpet Pet-store`** (2 nodes): `buildLocalPet()`, `pet-store.ts`
+- **Thin community `Community 87`** (2 nodes): `createSearchKnowledgeTool()`, `search-knowledge.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Learn Article`** (2 nodes): `Learn Article Detail Screen`, `Learn Tab (Knowledge Base)`
+- **Thin community `Community 88`** (2 nodes): `buildLocalPet()`, `pet-store.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Anti-patterns Forbidden`** (2 nodes): `Design Anti-Patterns (Forbidden Patterns)`, `Design System Master File`
+- **Thin community `Community 89`** (2 nodes): `Learn Article Detail Screen`, `Learn Tab (Knowledge Base)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Audit Improvements`** (2 nodes): `UI/UX Audit Remediation Roadmap (4 Phases)`, `UI/UX Audit Improvements Design Spec (19 items)`
+- **Thin community `Community 90`** (2 nodes): `Design Anti-Patterns (Forbidden Patterns)`, `Design System Master File`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Actions Chat`** (2 nodes): `Follow-Up Actions System (recipe_edit + detail_card)`, `Rationale: Structured Actions Over Conversational Chat`
+- **Thin community `Community 91`** (2 nodes): `Dual Build Mode (Static + Server)`, `PawBalance Dockerfile (nginx static)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Access Control`** (2 nodes): `Guest Access & Tiered Access Control Design Spec`, `Terms of Service & Privacy Policy Design Spec`
+- **Thin community `Community 92`** (2 nodes): `Follow-Up Actions System (recipe_edit + detail_card)`, `Rationale: Structured Actions Over Conversational Chat`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Static Build`** (2 nodes): `Dual Build Mode (Static + Server)`, `PawBalance Dockerfile (nginx static)`
+- **Thin community `Community 93`** (2 nodes): `Guest Access & Tiered Access Control Design Spec`, `Terms of Service & Privacy Policy Design Spec`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Table Blog`** (2 nodes): `blog_posts Supabase Table`, `Rationale: Single Flat Table for ~30 Blog Posts`
+- **Thin community `Community 94`** (2 nodes): `blog_posts Supabase Table`, `Rationale: Single Flat Table for ~30 Blog Posts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Blog Com`** (2 nodes): `2gurmepati.com Blog Scrape (One-Time)`, `YouTube Transcription Pipeline (Python)`
+- **Thin community `Community 95`** (2 nodes): `2gurmepati.com Blog Scrape (One-Time)`, `YouTube Transcription Pipeline (Python)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Icons Category`** (2 nodes): `Emoji Icons Systemic Issue`, `Category Grid Redesign (SVG Icons + Colors)`
+- **Thin community `Community 96`** (2 nodes): `UI/UX Audit Remediation Roadmap (4 Phases)`, `UI/UX Audit Improvements Design Spec (19 items)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Pgvector Embeddings`** (2 nodes): `Rationale: RAG via pgvector for Knowledge Retrieval`, `video_chunks Table (pgvector embeddings)`
+- **Thin community `Community 97`** (2 nodes): `Emoji Icons Systemic Issue`, `Category Grid Redesign (SVG Icons + Colors)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Chart Embedding`** (2 nodes): `PawBalance Helm Chart`, `Ollama Sidecar for Query Embedding (K8s)`
+- **Thin community `Community 98`** (2 nodes): `Rationale: RAG via pgvector for Knowledge Retrieval`, `video_chunks Table (pgvector embeddings)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Agent Backend`** (2 nodes): `AI Agent Backend`, `AI Agent Pipeline Community`
+- **Thin community `Community 99`** (2 nodes): `PawBalance Helm Chart`, `Ollama Sidecar for Query Embedding (K8s)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Agents`** (2 nodes): `graphify rule in AGENTS.md`, `Graph Report`
+- **Thin community `Community 100`** (2 nodes): `AI Agent Backend`, `AI Agent Pipeline Community`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Version About`** (2 nodes): `Shared app version metadata helper`, `Do not hardcode version in About page component`
+- **Thin community `Community 101`** (2 nodes): `graphify rule in AGENTS.md`, `Graph Report`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Config Tailwind`** (1 nodes): `tailwind.config.js`
+- **Thin community `Community 102`** (2 nodes): `Shared app version metadata helper`, `Do not hardcode version in About page component`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Next-env`** (1 nodes): `next-env.d.ts`
+- **Thin community `Community 103`** (1 nodes): `tailwind.config.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Config Tailwind`** (1 nodes): `tailwind.config.ts`
+- **Thin community `Community 104`** (1 nodes): `next-env.d.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Config Vitest`** (1 nodes): `vitest.config.ts`
+- **Thin community `Community 105`** (1 nodes): `tailwind.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Config Next`** (1 nodes): `next.config.ts`
+- **Thin community `Community 106`** (1 nodes): `vitest.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Capacitor Config`** (1 nodes): `capacitor.config.ts`
+- **Thin community `Community 107`** (1 nodes): `next.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Basesettings`** (1 nodes): `BaseSettings`
+- **Thin community `Community 108`** (1 nodes): `capacitor.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Basemodel`** (1 nodes): `BaseModel`
+- **Thin community `Community 109`** (1 nodes): `providers.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Uiresponder`** (1 nodes): `UIResponder`
+- **Thin community `Community 110`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Uiapplicationdelegate`** (1 nodes): `UIApplicationDelegate`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Providers`** (1 nodes): `providers.tsx`
+- **Thin community `Community 111`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 112`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -1092,141 +1116,151 @@ Nodes (1): Read GRAPH_REPORT before architecture questions
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 114`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 115`** (1 nodes): `page.tsx`
+- **Thin community `Community 115`** (1 nodes): `page.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 116`** (1 nodes): `page.tsx`
+- **Thin community `Community 116`** (1 nodes): `page.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 117`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Empty-state`** (1 nodes): `empty-state.tsx`
+- **Thin community `Community 118`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Button`** (1 nodes): `button.tsx`
+- **Thin community `Community 119`** (1 nodes): `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Input`** (1 nodes): `input.tsx`
+- **Thin community `Community 120`** (1 nodes): `Icon Registry`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Analysis-report`** (1 nodes): `analysis-report.tsx`
+- **Thin community `Community 121`** (1 nodes): `empty-state.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Ingredient-row`** (1 nodes): `ingredient-row.tsx`
+- **Thin community `Community 122`** (1 nodes): `button.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Follow-up-actions`** (1 nodes): `follow-up-actions.tsx`
+- **Thin community `Community 123`** (1 nodes): `input.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Preparation-chips`** (1 nodes): `preparation-chips.tsx`
+- **Thin community `Community 124`** (1 nodes): `analysis-report.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Blog-tag-chips`** (1 nodes): `blog-tag-chips.tsx`
+- **Thin community `Community 125`** (1 nodes): `ingredient-row.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Subscriptionbanner`** (1 nodes): `SubscriptionBanner.tsx`
+- **Thin community `Community 126`** (1 nodes): `follow-up-actions.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Pet-card`** (1 nodes): `pet-card.tsx`
+- **Thin community `Community 127`** (1 nodes): `preparation-chips.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Bcs-slider`** (1 nodes): `bcs-slider.tsx`
+- **Thin community `Community 128`** (1 nodes): `blog-tag-chips.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Activity-level-selector`** (1 nodes): `activity-level-selector.tsx`
+- **Thin community `Community 129`** (1 nodes): `SubscriptionBanner.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Validators`** (1 nodes): `validators.ts`
+- **Thin community `Community 130`** (1 nodes): `pet-card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Navigation Test`** (1 nodes): `navigation.test.ts`
+- **Thin community `Community 131`** (1 nodes): `bcs-slider.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Request`** (1 nodes): `request.ts`
+- **Thin community `Community 132`** (1 nodes): `activity-level-selector.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Auth-store`** (1 nodes): `auth-store.ts`
+- **Thin community `Community 133`** (1 nodes): `pet-form.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Bottom Navigation`** (1 nodes): `Bottom Navigation (5 Tabs)`
+- **Thin community `Community 134`** (1 nodes): `validators.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Placeholder Premium`** (1 nodes): `Scan Tab (Premium Placeholder)`
+- **Thin community `Community 135`** (1 nodes): `navigation.test.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Database Dog`** (1 nodes): `Dog Food Safety Database (Turkish)`
+- **Thin community `Community 136`** (1 nodes): `request.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Biophilic Color`** (1 nodes): `Color Palette (Nature Distilled / Organic Biophilic)`
+- **Thin community `Community 137`** (1 nodes): `auth-store.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Lora Raleway`** (1 nodes): `Typography (Lora + Raleway)`
+- **Thin community `Community 138`** (1 nodes): `Bottom Navigation (5 Tabs)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Area Ios`** (1 nodes): `iOS Safe Area Violations`
+- **Thin community `Community 139`** (1 nodes): `Scan Tab (Premium Placeholder)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Accessibility Aria`** (1 nodes): `Accessibility Failures (ARIA, Focus, Keyboard)`
+- **Thin community `Community 140`** (1 nodes): `Dog Food Safety Database (Turkish)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Gaps I18n`** (1 nodes): `Internationalization (i18n) Gaps`
+- **Thin community `Community 141`** (1 nodes): `Color Palette (Nature Distilled / Organic Biophilic)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Target Touch`** (1 nodes): `Touch Target Violations (<44x44px)`
+- **Thin community `Community 142`** (1 nodes): `Typography (Lora + Raleway)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Button Contrast`** (1 nodes): `Button Contrast WCAG Failure (3.1:1)`
+- **Thin community `Community 143`** (1 nodes): `iOS Safe Area Violations`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Desktop Max-w-md`** (1 nodes): `Desktop Wasted Space (max-w-md at 1440px)`
+- **Thin community `Community 144`** (1 nodes): `Accessibility Failures (ARIA, Focus, Keyboard)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Branding Identity`** (1 nodes): `No Branding or Visual Identity`
+- **Thin community `Community 145`** (1 nodes): `Internationalization (i18n) Gaps`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Agent Get_pet_profile`** (1 nodes): `get_pet_profile Agent Tool`
+- **Thin community `Community 146`** (1 nodes): `Touch Target Violations (<44x44px)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Analysis Progress`** (1 nodes): `SSE Streaming for Analysis Progress`
+- **Thin community `Community 147`** (1 nodes): `Button Contrast WCAG Failure (3.1:1)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Guest Localstorage`** (1 nodes): `Guest Onboarding (localStorage pet)`
+- **Thin community `Community 148`** (1 nodes): `Desktop Wasted Space (max-w-md at 1440px)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Pawbalance Prices`** (1 nodes): `Stripe Products & Prices for PawBalance`
+- **Thin community `Community 149`** (1 nodes): `No Branding or Visual Identity`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Api Entitlement`** (1 nodes): `Server-Side Entitlement Sync API Route`
+- **Thin community `Community 150`** (1 nodes): `get_pet_profile Agent Tool`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Ota Update`** (1 nodes): `OTA Update Data Flow`
+- **Thin community `Community 151`** (1 nodes): `SSE Streaming for Analysis Progress`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Capgo Channel_self`** (1 nodes): `Capgo Edge Functions (updates, stats, channel_self)`
+- **Thin community `Community 152`** (1 nodes): `Guest Onboarding (localStorage pet)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Automation Deployment`** (1 nodes): `QA Automation & Deployment Design Spec`
+- **Thin community `Community 153`** (1 nodes): `Stripe Products & Prices for PawBalance`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Bump Current_terms_version`** (1 nodes): `Re-Consent Flow (CURRENT_TERMS_VERSION bump)`
+- **Thin community `Community 154`** (1 nodes): `Server-Side Entitlement Sync API Route`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Redesign Welcome`** (1 nodes): `Welcome Screen Redesign`
+- **Thin community `Community 155`** (1 nodes): `OTA Update Data Flow`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Emptystate Reusable`** (1 nodes): `Reusable EmptyState Component`
+- **Thin community `Community 156`** (1 nodes): `Capgo Edge Functions (updates, stats, channel_self)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Edit Multi-step`** (1 nodes): `Pet Edit Multi-Step Wizard Pattern`
+- **Thin community `Community 157`** (1 nodes): `QA Automation & Deployment Design Spec`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Channel Judy`** (1 nodes): `Dr. Judy Morgan YouTube Channel (~500 videos)`
+- **Thin community `Community 158`** (1 nodes): `Re-Consent Flow (CURRENT_TERMS_VERSION bump)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Email Field`** (1 nodes): `Email Input Field`
+- **Thin community `Community 159`** (1 nodes): `Welcome Screen Redesign`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Field Input`** (1 nodes): `Password Input Field`
+- **Thin community `Community 160`** (1 nodes): `Reusable EmptyState Component`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Forgot Link`** (1 nodes): `Forgot Password Link`
+- **Thin community `Community 161`** (1 nodes): `Pet Edit Multi-Step Wizard Pattern`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Button Green`** (1 nodes): `Sign In Button (Sage Green)`
+- **Thin community `Community 162`** (1 nodes): `Dr. Judy Morgan YouTube Channel (~500 videos)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Button Google`** (1 nodes): `Sign In with Google Button`
+- **Thin community `Community 163`** (1 nodes): `Email Input Field`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Link Navigation`** (1 nodes): `Sign Up Navigation Link`
+- **Thin community `Community 164`** (1 nodes): `Password Input Field`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Display Field`** (1 nodes): `Display Name Input Field`
+- **Thin community `Community 165`** (1 nodes): `Forgot Password Link`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Confirm Field`** (1 nodes): `Confirm Password Input Field`
+- **Thin community `Community 166`** (1 nodes): `Sign In Button (Sage Green)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Button Green`** (1 nodes): `Sign Up Button (Sage Green)`
+- **Thin community `Community 167`** (1 nodes): `Sign In with Google Button`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Button Google`** (1 nodes): `Sign In with Google Button (Register)`
+- **Thin community `Community 168`** (1 nodes): `Sign Up Navigation Link`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Link Navigation`** (1 nodes): `Sign In Navigation Link`
+- **Thin community `Community 169`** (1 nodes): `Display Name Input Field`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Headline Pawbalance`** (1 nodes): `Welcome to PawBalance Headline`
+- **Thin community `Community 170`** (1 nodes): `Confirm Password Input Field`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Button Get`** (1 nodes): `Get Started Button (Sage Green)`
+- **Thin community `Community 171`** (1 nodes): `Sign Up Button (Sage Green)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Account Already`** (1 nodes): `Already Have Account Sign In Link`
+- **Thin community `Community 172`** (1 nodes): `Sign In with Google Button (Register)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Profile Section`** (1 nodes): `Profile Section`
+- **Thin community `Community 173`** (1 nodes): `Sign In Navigation Link`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Hide Rename`** (1 nodes): `Hide Scanner and Rename Tiers Plan`
+- **Thin community `Community 174`** (1 nodes): `Welcome to PawBalance Headline`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Hide Rename`** (1 nodes): `Hide Scanner and Rename Tiers Design Spec`
+- **Thin community `Community 175`** (1 nodes): `Get Started Button (Sage Green)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Paywall Rationale`** (1 nodes): `Single-plan paywall rationale`
+- **Thin community `Community 176`** (1 nodes): `Already Have Account Sign In Link`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Analysis Persistence`** (1 nodes): `UX State Persistence and Analysis Progress Plan`
+- **Thin community `Community 177`** (1 nodes): `Profile Section`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Overview Pawbalance`** (1 nodes): `PawBalance Project Overview`
+- **Thin community `Community 178`** (1 nodes): `Hide Scanner and Rename Tiers Plan`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community Profile`** (1 nodes): `Profile and Settings UI Community`
+- **Thin community `Community 179`** (1 nodes): `Hide Scanner and Rename Tiers Design Spec`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Analysis Community`** (1 nodes): `Recipe Analysis Page Community`
+- **Thin community `Community 180`** (1 nodes): `Single-plan paywall rationale`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Pawbalance Web`** (1 nodes): `PawBalance Web App`
+- **Thin community `Community 181`** (1 nodes): `UX State Persistence and Analysis Progress Plan`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Architecture Before`** (1 nodes): `Read GRAPH_REPORT before architecture questions`
+- **Thin community `Community 182`** (1 nodes): `PawBalance Project Overview`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 183`** (1 nodes): `Profile Flow Settings Hub`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 184`** (1 nodes): `Profile and Settings UI Community`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 185`** (1 nodes): `Recipe Analysis Page Community`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 186`** (1 nodes): `PawBalance Web App`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 187`** (1 nodes): `Read GRAPH_REPORT before architecture questions`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
@@ -1234,15 +1268,15 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **What is the exact relationship between `AIFoodResult type` and `AI Food Search Design Spec`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `Self-Hosted Capgo Live Updates Plan` connect `Rag Supabase` to `Skill Causes`?**
+- **Why does `Self-Hosted Capgo Live Updates Plan` connect `Community 2` to `Community 8`?**
   _High betweenness centrality (0.002) - this node is a cross-community bridge._
 - **What connects `Create a requests session with Chrome YouTube cookies + SAPISIDHASH auth.`, `Generate SAPISIDHASH authorization header.`, `Resolve a YouTube handle to a channel ID.` to the rest of the system?**
   _191 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Food Recipe` be split into smaller, more focused modules?**
+- **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.09 - nodes in this community are weakly interconnected._
-- **Should `Food Recipe` be split into smaller, more focused modules?**
-  _Cohesion score 0.13 - nodes in this community are weakly interconnected._
-- **Should `Rag Supabase` be split into smaller, more focused modules?**
+- **Should `Community 1` be split into smaller, more focused modules?**
+  _Cohesion score 0.09 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._
-- **Should `Youtube Api` be split into smaller, more focused modules?**
+- **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.14 - nodes in this community are weakly interconnected._
