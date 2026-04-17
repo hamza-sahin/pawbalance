@@ -22,7 +22,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { pets, isLoading: petsLoading, fetchPets, loadGuestPet, syncGuestPet } = usePets();
   const router = useRouter();
   const pathname = usePathname();
-  const [showLoginSheet, setShowLoginSheet] = useState(false);
   const { manageSubscription } = usePurchases();
   const [paywallTier, setPaywallTier] = useState<AccessTier | null>(null);
   const showBottomNav = shouldShowBottomNav(pathname);
@@ -67,11 +66,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const userTier = resolveUserTier(session, subscriptionTier);
   const requiredTier = getRequiredTier(pathname);
   const gateReason = getAccessGateReason(session, userTier, requiredTier);
-
-  // Show/hide login sheet based on gate reason
-  useEffect(() => {
-    setShowLoginSheet(gateReason === "login");
-  }, [gateReason, pathname]);
+  const showLoginSheet = gateReason === "login";
 
   // Show spinner only during initial auth loading
   if (authLoading) {
@@ -84,7 +79,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className={`safe-top mx-auto min-h-screen max-w-md bg-canvas md:max-w-lg lg:max-w-2xl ${
+      className={`mx-auto min-h-screen max-w-md bg-canvas md:max-w-lg lg:max-w-2xl ${
         showBottomNav ? "pb-20" : ""
       }`}
     >
@@ -93,11 +88,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         onManageClick={manageSubscription}
       />
       {(gateReason === "none" || gateReason === "paywall") && children}
-      {showLoginSheet && (
+      {showLoginSheet ? (
         <LoginSheet onDismiss={() => router.replace("/search")} />
-      )}
+      ) : null}
       {paywallTier && (
-        <PaywallSheet requiredTier={paywallTier} onDismiss={() => setPaywallTier(null)} />
+        <PaywallSheet
+          requiredTier={paywallTier}
+          onDismiss={() => setPaywallTier(null)}
+        />
       )}
       {showBottomNav && <BottomNav />}
     </div>
