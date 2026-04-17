@@ -7,6 +7,11 @@ import { Capacitor } from "@capacitor/core";
 export const isNative =
   typeof window !== "undefined" && Capacitor.isNativePlatform();
 
+export const isIOSNative =
+  typeof window !== "undefined" &&
+  isNative &&
+  Capacitor.getPlatform() === "ios";
+
 /**
  * Pick an image via native camera (Capacitor) or file input (web).
  * Returns a data-URL string or null if cancelled.
