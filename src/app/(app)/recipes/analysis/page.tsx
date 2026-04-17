@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { XCircle, RefreshCw, Pencil, Loader2, AlertTriangle } from "lucide-react";
@@ -31,8 +31,15 @@ export default function AnalysisPage() {
     recipeId ? s.analyses[recipeId] : undefined,
   );
 
-  const { status, ingredientProgress, result, error, analyze } =
-    useRecipeAnalysis();
+  const [hasLiveAnalysisSession, setHasLiveAnalysisSession] = useState(false);
+  const {
+    recipeId: activeRecipeId,
+    status,
+    ingredientProgress,
+    result,
+    error,
+    analyze,
+  } = useRecipeAnalysis(recipeId);
   const { guardAction, canPerform, isPaywallOpen, paywallTier, dismissPaywall } = useEntitlement();
 
   // Fetch recipes if store is empty (direct navigation)
@@ -42,10 +49,21 @@ export default function AnalysisPage() {
     }
   }, [recipes.length, fetchRecipes]);
 
+  useEffect(() => {
+    setHasLiveAnalysisSession(false);
+  }, [recipeId, forceReanalyze]);
+
+  useEffect(() => {
+    if (activeRecipeId === recipeId && status === "pending") {
+      setHasLiveAnalysisSession(true);
+    }
+  }, [activeRecipeId, recipeId, status]);
+
   // Auto-start analysis on mount (if no completed analysis or forced reanalyze)
   useEffect(() => {
     if (recipeId && recipe && status === "idle" && (forceReanalyze || !storedAnalysis?.result)) {
       if (canPerform("recipes.analyze")) {
+        setHasLiveAnalysisSession(true);
         analyze(recipeId, recipe.pet_id, locale);
       }
     }
@@ -54,6 +72,7 @@ export default function AnalysisPage() {
   const handleRetry = () => {
     if (!guardAction("recipes.analyze")) return;
     if (recipeId && recipe) {
+      setHasLiveAnalysisSession(true);
       analyze(recipeId, recipe.pet_id, locale);
     }
   };
@@ -71,14 +90,29 @@ export default function AnalysisPage() {
       .getState()
       .recipes.find((r) => r.id === recipeId);
     if (updatedRecipe) {
+      setHasLiveAnalysisSession(true);
       analyze(recipeId, updatedRecipe.pet_id, locale);
     }
   };
 
-  // Use stored result if available and we haven't started a new analysis
-  const displayResult = normalizeAnalysisResult(result ?? storedAnalysis?.result);
-  const displayStatus =
-    status !== "idle" ? status : storedAnalysis?.result ? "completed" : "idle";
+  const shouldUseActiveAnalysis =
+    activeRecipeId === recipeId &&
+    (
+      status === "pending" ||
+      (!storedAnalysis?.result && status === "failed") ||
+      (hasLiveAnalysisSession && (status === "completed" || status === "failed"))
+    );
+
+  const displayResult = normalizeAnalysisResult(
+    shouldUseActiveAnalysis ? result ?? storedAnalysis?.result : storedAnalysis?.result,
+  );
+  const displayIngredientProgress = shouldUseActiveAnalysis ? ingredientProgress : [];
+  const displayError = shouldUseActiveAnalysis ? error : null;
+  const displayStatus = shouldUseActiveAnalysis
+    ? status
+    : storedAnalysis?.result
+      ? "completed"
+      : "idle";
 
   // Detect stale analysis — current ingredients differ from analyzed ingredients
   const isStale = (() => {
@@ -100,6 +134,32 @@ export default function AnalysisPage() {
     router.push("/recipes");
   };
 
+  const completedActions = displayResult ? (
+    <>
+      {displayResult.follow_up_actions.length > 0 && (
+        <FollowUpActions
+          actions={displayResult.follow_up_actions}
+          onRecipeEdit={handleRecipeEdit}
+        />
+      )}
+
+      <div className="flex gap-2.5">
+        <Button
+          variant="secondary"
+          fullWidth
+          onClick={() => router.push(`/recipes/edit?id=${recipeId}`)}
+        >
+          <Pencil className="mr-2 h-4 w-4" />
+          {t("editRecipe")}
+        </Button>
+        <Button fullWidth onClick={handleRetry}>
+          <RefreshCw className="mr-2 h-4 w-4" />
+          {t("reAnalyze")}
+        </Button>
+      </div>
+    </>
+  ) : null;
+
   return (
     <AppScreen
       title={t("recipeAnalysis")}
@@ -116,12 +176,13 @@ export default function AnalysisPage() {
         )}
 
         {/* Streaming progress + celebration + report (only during active analysis) */}
-        {(displayStatus === "pending" || (displayStatus === "completed" && ingredientProgress.length > 0)) && recipe && (
+        {(displayStatus === "pending" || (displayStatus === "completed" && displayIngredientProgress.length > 0)) && recipe && (
           <AnalysisProgress
             recipeName={recipe.name}
-            ingredients={ingredientProgress}
+            ingredients={displayIngredientProgress}
             result={displayResult}
             status={displayStatus}
+            reportFooter={completedActions}
           />
         )}
 
@@ -135,7 +196,7 @@ export default function AnalysisPage() {
               {t("analysisFailed")}
             </p>
             <p className="mb-6 text-sm text-txt-secondary">
-              {error ?? t("analysisFailedDescription")}
+              {displayError ?? t("analysisFailedDescription")}
             </p>
             <Button onClick={handleRetry}>
               <RefreshCw className="mr-2 h-4 w-4" />
@@ -145,7 +206,7 @@ export default function AnalysisPage() {
         )}
 
         {/* Action buttons — shown when viewing stored analysis (no active stream) */}
-        {displayStatus === "completed" && displayResult && ingredientProgress.length === 0 && (
+        {displayStatus === "completed" && displayResult && displayIngredientProgress.length === 0 && (
           <>
             {isStale && (
               <button
@@ -163,29 +224,7 @@ export default function AnalysisPage() {
 
             <AnalysisReport result={displayResult} />
 
-            {displayResult.follow_up_actions.length > 0 && (
-              <div className="mt-4">
-                <FollowUpActions
-                  actions={displayResult.follow_up_actions}
-                  onRecipeEdit={handleRecipeEdit}
-                />
-              </div>
-            )}
-
-            <div className="mt-4 flex gap-2.5">
-              <Button
-                variant="secondary"
-                fullWidth
-                onClick={() => router.push(`/recipes/edit?id=${recipeId}`)}
-              >
-                <Pencil className="mr-2 h-4 w-4" />
-                {t("editRecipe")}
-              </Button>
-              <Button fullWidth onClick={handleRetry}>
-                <RefreshCw className="mr-2 h-4 w-4" />
-                {t("reAnalyze")}
-              </Button>
-            </div>
+            <div className="mt-4 space-y-4">{completedActions}</div>
           </>
         )}
       {isPaywallOpen && paywallTier && (

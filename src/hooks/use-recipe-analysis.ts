@@ -6,11 +6,13 @@ import { useCallback } from "react";
 
 export type { IngredientProgress } from "@/lib/types";
 
-export function useRecipeAnalysis() {
+export function useRecipeAnalysis(recipeId?: string | null) {
   const activeAnalysis = useRecipeStore((s) => s.activeAnalysis);
   const startAnalysis = useRecipeStore((s) => s.startAnalysis);
   const abortAnalysis = useRecipeStore((s) => s.abortAnalysis);
   const { session } = useAuthStore();
+  const scopedAnalysis =
+    !recipeId || activeAnalysis?.recipeId === recipeId ? activeAnalysis : null;
 
   const analyze = useCallback(
     (recipeId: string, petId: string | null, locale: string) => {
@@ -21,10 +23,11 @@ export function useRecipeAnalysis() {
   );
 
   return {
-    status: activeAnalysis?.status ?? "idle",
-    ingredientProgress: activeAnalysis?.ingredientProgress ?? [],
-    result: activeAnalysis?.result ?? null,
-    error: activeAnalysis?.error ?? null,
+    recipeId: scopedAnalysis?.recipeId ?? null,
+    status: scopedAnalysis?.status ?? "idle",
+    ingredientProgress: scopedAnalysis?.ingredientProgress ?? [],
+    result: scopedAnalysis?.result ?? null,
+    error: scopedAnalysis?.error ?? null,
     analyze,
     abort: abortAnalysis,
   };

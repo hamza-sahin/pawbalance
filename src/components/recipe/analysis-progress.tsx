@@ -14,6 +14,7 @@ interface AnalysisProgressProps {
   ingredients: IngredientProgress[];
   result: AnalysisResult | null;
   status: "pending" | "completed" | "failed" | "idle";
+  reportFooter?: React.ReactNode;
 }
 
 type Phase = "progress" | "checkmark" | "report";
@@ -55,6 +56,7 @@ export function AnalysisProgress({
   ingredients,
   result,
   status,
+  reportFooter,
 }: AnalysisProgressProps) {
   const t = useTranslations();
   const [phase, setPhase] = useState<Phase>("progress");
@@ -105,7 +107,12 @@ export function AnalysisProgress({
   const currentTipKey = tipsRef.current[tipIndex] ?? NUTRITION_TIPS[0];
 
   if (phase === "report" && result) {
-    return <AnalysisReport result={result} />;
+    return (
+      <div>
+        <AnalysisReport result={result} />
+        {reportFooter ? <div className="mt-4">{reportFooter}</div> : null}
+      </div>
+    );
   }
 
   return (
