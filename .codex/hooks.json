@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".codex/hooks/user_prompt_rules.sh"
+            "command": "python3 .codex/hooks/user_prompt_rules.sh"
           }
         ]
       }
