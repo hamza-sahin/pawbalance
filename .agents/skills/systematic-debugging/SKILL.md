@@ -188,6 +188,7 @@ You MUST complete each phase before proceeding to the next.
    - Test passes now?
    - No other tests broken?
    - Issue actually resolved?
+   - If you changed qualifying code, invoke `/qa` before claiming the fix is done
 
 4. **If Fix Doesn't Work**
    - STOP

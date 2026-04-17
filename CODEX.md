@@ -205,39 +205,34 @@ Recipe analysis agent uses `@mariozechner/pi-agent-core` inside Next.js Route Ha
 
 ### When to Verify
 
-- **After implementing feature** — when brainstorming workflow reaches verification phase, invoke `/qa` before claiming done.
-- **After fixing bug** — when systematic-debugging workflow reaches verification phase, invoke `/qa` before claiming fix done.
+- **After implementing feature** — once qualifying code edits are made in a feature session, `/qa` is required before claiming done.
+- **After fixing bug** — once qualifying code edits are made in a bug-fix session, `/qa` is required before claiming the fix is done.
 - **When explicitly asked** — user can run `/qa` anytime.
 
 ### How Verification Works
 
-`/qa` skill (`.claude/skills/qa/SKILL.md`) runs:
+`/qa` skill (`.agents/skills/qa/SKILL.md`) runs:
 
-1. Analyze `git diff` → determine changed files, map to affected screens/flows
-2. Build static export (`npm run build`), serve `out/` locally
-3. Test affected flows in browser via `browser-use` skill
-4. Run full iOS build cycle (`npx cap sync ios` → Xcode build → simulator launch)
-5. Test same flows on iOS via `ios-debug`
-6. Report pass/fail per flow, per platform
+1. Analyze `git diff` to determine changed files and affected flows
+2. Build and serve the local app on `http://localhost:3001`
+   - `npm run build` + `npx serve out -p 3001` for static-only changes
+   - `npm run build:server` + `npm run start -- --hostname 127.0.0.1 --port 3001` for API/backend changes
+3. Launch browser-use in iPhone 16 Pro browser view via `./scripts/browser-use-iphone-16-pro.sh`
+4. Log in with `test@pawbalance.com` for protected flows
+5. Test affected flows locally in the browser only
+6. Persist QA result in `.codex/state/qa-sessions.json`
 
-Testing **context-aware** — only affected flows tested, not full sweep.
+Testing is **context-aware** — only affected flows are tested, not a full sweep.
 
-If check fails, autonomously diagnose, fix, re-run `/qa`. Stop after 3 failed attempts on same issue, ask user.
+If code was edited after the last QA pass, the old QA pass is invalid. A success claim requires a post-edit `/qa` pass.
+
+If QA cannot pass because the environment is blocked or the issue still fails after retries, report blocked/failing status explicitly instead of claiming completion.
 
 ### When to Deploy
 
-- **When finishing development branch** — after `/qa` passes, invoke `/deploy` to push and ship to TestFlight.
+- **When finishing development branch** — after `/qa` passes, invoke `/deploy`.
 - **When explicitly asked** — user can run `/deploy` anytime.
-
-### How Deployment Works
-
-`/deploy` skill (`.claude/skills/deploy/SKILL.md`) runs:
-
-1. Push current branch to remote (`git push -u origin HEAD`)
-2. Run `./scripts/deploy-testflight.sh` (build → archive → upload to App Store Connect)
-3. Report success or failure
-
-`/deploy` requires `/qa` passed first. If not, runs `/qa` automatically.
+`/deploy` requires `/qa` passed first. If not, run `/qa` before deployment.
 
 ### When to Use UI/UX Skill
 
@@ -246,7 +241,7 @@ If check fails, autonomously diagnose, fix, re-run `/qa`. Stop after 3 failed at
 
 ## Skill Invocation Rule
 
-When prompt references skills (e.g. `/brainstorming /ios-debug /ui-ux-pro-max implement feature A`), **ALL** referenced skills MUST be invoked via Skill tool before ANY other work. Zero exceptions. Count skills in message → invoke exactly that many. Invoke in parallel (single response with multiple Skill calls) when possible. Never skip because "already active via hook" or "covered by another skill."
+When prompt references skills (e.g. `/brainstorming /qa /ui-ux-pro-max implement feature A`), **ALL** referenced skills MUST be invoked via Skill tool before ANY other work. Zero exceptions. Count skills in message → invoke exactly that many. Invoke in parallel (single response with multiple Skill calls) when possible. Never skip because "already active via hook" or "covered by another skill."
 
 ## Out of Scope (deferred)
 
