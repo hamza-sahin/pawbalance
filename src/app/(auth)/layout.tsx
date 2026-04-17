@@ -3,6 +3,7 @@
 import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
+import { AppScreen } from "@/components/navigation/app-screen";
 
 function AuthLayoutInner({ children }: { children: React.ReactNode }) {
   const { session, isLoading } = useAuthStore();
@@ -27,11 +28,11 @@ function AuthLayoutInner({ children }: { children: React.ReactNode }) {
   if (session) return null;
 
   return (
-    <div className="safe-top flex min-h-screen items-center justify-center bg-canvas p-4">
+    <AppScreen title="PawBalance" contentClassName="flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-sm rounded-card border border-border bg-surface p-6 shadow-sm md:p-8">
         {children}
       </div>
-    </div>
+    </AppScreen>
   );
 }
 

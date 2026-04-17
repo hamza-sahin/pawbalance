@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/store/auth-store";
 import { usePets } from "@/hooks/use-pets";
+import { AppScreen } from "@/components/navigation/app-screen";
 import { PetForm } from "@/components/pet/pet-form";
 import type { PetFormValues } from "@/lib/validators";
 
@@ -38,30 +39,34 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="safe-top mx-auto min-h-screen max-w-md bg-canvas p-4">
+    <AppScreen
+      title={t("onboardingWelcome")}
+      contentClassName="p-4"
+      trailing={
+        <button
+          onClick={handleSkip}
+          className="text-sm font-medium text-txt-secondary transition-colors duration-150 active:opacity-70 focus-visible:underline focus-visible:outline-none"
+        >
+          {t("skip")}
+        </button>
+      }
+    >
       <div className="mb-6 flex flex-col items-center">
         <img
           src="/icons/icon-512x512.png"
           alt="PawBalance"
           className="mb-4 h-16 w-16 rounded-2xl"
         />
-        <div className="flex w-full items-start justify-between">
-        <div className="flex-1 text-center">
-          <h1 className="text-2xl font-bold text-txt">{t("onboardingWelcome")}</h1>
+        <div className="flex w-full justify-center">
+          <div className="max-w-sm text-center">
           <p className="mt-2 text-sm text-txt-secondary">
             {t("onboardingSubtitle")}
           </p>
         </div>
-        <button
-          onClick={handleSkip}
-          className="shrink-0 ml-2 mt-1 text-sm font-medium text-txt-secondary transition-colors duration-150 active:opacity-70 focus-visible:underline focus-visible:outline-none"
-        >
-          {t("skip")}
-        </button>
       </div>
       </div>
 
       <PetForm onSubmit={handleSubmit} isLoading={isLoading} />
-    </div>
+    </AppScreen>
   );
 }

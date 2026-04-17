@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { AppScreen } from "@/components/navigation/app-screen";
 import { Icons } from "@/components/ui/icon";
 
 const BENEFITS = [
@@ -15,7 +16,8 @@ export default function WelcomePage() {
   const router = useRouter();
 
   return (
-    <div className="safe-top flex min-h-dvh flex-col items-center justify-center bg-canvas px-6 py-12">
+    <AppScreen title={t("welcomeTitle")} contentClassName="px-6 py-12">
+      <div className="flex min-h-dvh flex-col items-center justify-center">
       {/* Branding */}
       <img
         src="/icons/icon-512x512.png"
@@ -23,9 +25,6 @@ export default function WelcomePage() {
         className="h-[72px] w-[72px] rounded-[18px] shadow-md"
       />
 
-      <h1 className="mt-6 text-center text-3xl font-bold text-txt">
-        {t("welcomeTitle")}
-      </h1>
       <p className="mt-2 max-w-sm text-center text-sm text-txt-secondary">
         {t("welcomeSubtitle")}
       </p>
@@ -68,6 +67,7 @@ export default function WelcomePage() {
           </button>
         </p>
       </div>
-    </div>
+      </div>
+    </AppScreen>
   );
 }
