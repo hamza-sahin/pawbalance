@@ -100,7 +100,10 @@ def load_state() -> dict:
     path = state_path()
     if not path.exists():
         return {"threads": {}}
-    return json.loads(path.read_text())
+    raw = path.read_text().strip()
+    if not raw:
+        return {"threads": {}}
+    return json.loads(raw)
 
 
 def save_state(state: dict) -> None:

@@ -24,27 +24,40 @@
         ]
       }
     ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
+  "PreToolUse": [
+    {
+      "matcher": ".*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "python3 .codex/hooks/qa_pretool.py"
+        }
+      ]
+    },
+    {
+      "matcher": "Bash",
+      "hooks": [
+        {
+          "type": "command",
             "command": "bash .codex/hooks/graphify_presearch.sh"
           }
         ]
       }
     ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write|MultiEdit|ApplyPatch",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".codex/hooks/graphify_posttool.sh"
-          }
-        ]
-      }
-    ]
-  }
+  "PostToolUse": [
+    {
+      "matcher": "Edit|Write|MultiEdit|ApplyPatch",
+      "hooks": [
+        {
+          "type": "command",
+          "command": ".codex/hooks/graphify_posttool.sh"
+        },
+        {
+          "type": "command",
+          "command": "python3 .codex/hooks/qa_posttool.py"
+        }
+      ]
+    }
+  ]
+}
 }
