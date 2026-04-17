@@ -2,7 +2,11 @@
 
 import { type InputHTMLAttributes, forwardRef, useId, useState } from "react";
 import { Icons } from "@/components/ui/icon";
-import { getDefaultAutoCapitalize } from "@/lib/input-capitalization";
+import {
+  getDefaultAutoCapitalize,
+  getDefaultAutoCorrect,
+  getDefaultSpellCheck,
+} from "@/lib/input-capitalization";
 
 interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   label?: string;
@@ -11,7 +15,16 @@ interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
 
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   (
-    { label, error, className = "", id: externalId, autoCapitalize, ...props },
+    {
+      label,
+      error,
+      className = "",
+      id: externalId,
+      autoCapitalize,
+      autoCorrect,
+      spellCheck,
+      ...props
+    },
     ref,
   ) => {
     const autoId = useId();
@@ -21,6 +34,16 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     const resolvedAutoCapitalize =
       autoCapitalize ??
       getDefaultAutoCapitalize({
+        type: "password",
+      });
+    const resolvedAutoCorrect =
+      autoCorrect ??
+      getDefaultAutoCorrect({
+        type: "password",
+      });
+    const resolvedSpellCheck =
+      spellCheck ??
+      getDefaultSpellCheck({
         type: "password",
       });
 
@@ -37,6 +60,8 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             id={id}
             type={visible ? "text" : "password"}
             autoCapitalize={resolvedAutoCapitalize}
+            autoCorrect={resolvedAutoCorrect}
+            spellCheck={resolvedSpellCheck}
             aria-invalid={error ? true : undefined}
             aria-describedby={errorId}
             className={`w-full rounded-input border border-border bg-surface-variant px-4 py-3 pr-12 text-txt outline-none placeholder:text-txt-tertiary focus:border-primary focus:ring-1 focus:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${error ? "border-error" : ""} ${className}`}

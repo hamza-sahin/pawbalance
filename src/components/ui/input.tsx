@@ -1,5 +1,9 @@
 import { type InputHTMLAttributes, forwardRef, useId } from "react";
-import { getDefaultAutoCapitalize } from "@/lib/input-capitalization";
+import {
+  getDefaultAutoCapitalize,
+  getDefaultAutoCorrect,
+  getDefaultSpellCheck,
+} from "@/lib/input-capitalization";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -14,6 +18,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       className = "",
       id: externalId,
       autoCapitalize,
+      autoCorrect,
+      spellCheck,
       inputMode,
       type,
       ...props
@@ -26,6 +32,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const resolvedAutoCapitalize =
       autoCapitalize ??
       getDefaultAutoCapitalize({
+        type,
+        inputMode,
+      });
+    const resolvedAutoCorrect =
+      autoCorrect ??
+      getDefaultAutoCorrect({
+        type,
+        inputMode,
+      });
+    const resolvedSpellCheck =
+      spellCheck ??
+      getDefaultSpellCheck({
         type,
         inputMode,
       });
@@ -43,6 +61,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           inputMode={inputMode}
           autoCapitalize={resolvedAutoCapitalize}
+          autoCorrect={resolvedAutoCorrect}
+          spellCheck={resolvedSpellCheck}
           aria-invalid={error ? true : undefined}
           aria-describedby={errorId}
           className={`rounded-input border border-border bg-surface-variant px-4 py-3 text-txt outline-none placeholder:text-txt-tertiary focus:border-primary focus:ring-1 focus:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${error ? "border-error" : ""} ${className}`}

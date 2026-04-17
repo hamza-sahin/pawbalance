@@ -11,7 +11,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SEARCH_DEBOUNCE_MS, MIN_SEARCH_LENGTH } from "@/lib/constants";
 import { Icons } from "@/components/ui/icon";
 import { AISuggestionRow } from "@/components/food/ai-suggestion-row";
-import { getDefaultAutoCapitalize } from "@/lib/input-capitalization";
+import {
+  getDefaultAutoCapitalize,
+  getDefaultAutoCorrect,
+  getDefaultSpellCheck,
+} from "@/lib/input-capitalization";
 
 export default function SearchPage() {
   const t = useTranslations();
@@ -74,6 +78,8 @@ export default function SearchPage() {
         <input
           type="text"
           autoCapitalize={getDefaultAutoCapitalize()}
+          autoCorrect={getDefaultAutoCorrect()}
+          spellCheck={getDefaultSpellCheck()}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("searchFoods")}

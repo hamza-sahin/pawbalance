@@ -24,6 +24,14 @@ describe("text input capitalization", () => {
       "autocapitalize",
       "words",
     );
+    expect(screen.getByLabelText(/pet name/i)).toHaveAttribute(
+      "autocorrect",
+      "on",
+    );
+    expect(screen.getByLabelText(/pet name/i)).toHaveAttribute(
+      "spellcheck",
+      "true",
+    );
 
     rerender(
       <Input
@@ -39,6 +47,14 @@ describe("text input capitalization", () => {
       "autocapitalize",
       "none",
     );
+    expect(screen.getByLabelText(/pet age/i)).toHaveAttribute(
+      "autocorrect",
+      "off",
+    );
+    expect(screen.getByLabelText(/pet age/i)).toHaveAttribute(
+      "spellcheck",
+      "false",
+    );
 
     rerender(
       <Input label="Email" type="email" value="" onChange={() => undefined} />,
@@ -47,6 +63,14 @@ describe("text input capitalization", () => {
     expect(screen.getByLabelText(/email/i)).toHaveAttribute(
       "autocapitalize",
       "none",
+    );
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute(
+      "autocorrect",
+      "off",
+    );
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute(
+      "spellcheck",
+      "false",
     );
   });
 
@@ -59,6 +83,14 @@ describe("text input capitalization", () => {
       "autocapitalize",
       "none",
     );
+    expect(screen.getByLabelText(/^password$/i)).toHaveAttribute(
+      "autocorrect",
+      "off",
+    );
+    expect(screen.getByLabelText(/^password$/i)).toHaveAttribute(
+      "spellcheck",
+      "false",
+    );
   });
 
   it("capitalizes breed lookups as words", () => {
@@ -67,6 +99,14 @@ describe("text input capitalization", () => {
     expect(screen.getByRole("combobox")).toHaveAttribute(
       "autocapitalize",
       "words",
+    );
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "autocorrect",
+      "on",
+    );
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "spellcheck",
+      "true",
     );
   });
 });

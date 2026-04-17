@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-04-17)
 
 ## Corpus Check
-- 130 files · ~263,074 words
+- 130 files · ~263,223 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 574 nodes · 469 edges · 192 communities detected
+- 577 nodes · 475 edges · 192 communities detected
 - Extraction: 86% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 65 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
 
@@ -322,64 +322,64 @@ Cohesion: 0.5
 Nodes (2): canAccess(), getAccessGateReason()
 
 ### Community 22 - "Community 22"
-Cohesion: 0.5
-Nodes (2): getAcceptedTermsVersion(), shouldRequireTerms()
+Cohesion: 0.7
+Nodes (4): getDefaultAutoCapitalize(), getDefaultAutoCorrect(), getDefaultSpellCheck(), shouldDisableTypingAssistance()
 
 ### Community 23 - "Community 23"
 Cohesion: 0.5
-Nodes (5): Forgot Password Screen, Login Screen, Register Screen, Guest Flow (Authentication Gate), Welcome Screen (Landing Page)
+Nodes (2): getAcceptedTermsVersion(), shouldRequireTerms()
 
 ### Community 24 - "Community 24"
+Cohesion: 0.5
+Nodes (5): Forgot Password Screen, Login Screen, Register Screen, Guest Flow (Authentication Gate), Welcome Screen (Landing Page)
+
+### Community 25 - "Community 25"
 Cohesion: 0.4
 Nodes (5): Rationale: Bottom Sheet Over Redirect for Login, LoginSheet Bottom Sheet Component, PaywallSheet Bottom Sheet UI, Scanner Placeholder Redesign, Platform-Aware Purchase SDK (Native vs Web)
 
-### Community 25 - "Community 25"
+### Community 26 - "Community 26"
 Cohesion: 0.5
 Nodes (5): Animated analysis progress flow, Cache-first rendering pattern, Global analysis manager, UX State Persistence and Analysis Progress Design, Zustand persistence rationale
 
-### Community 26 - "Community 26"
+### Community 27 - "Community 27"
 Cohesion: 0.5
 Nodes (0): 
 
-### Community 27 - "Community 27"
+### Community 28 - "Community 28"
 Cohesion: 0.83
 Nodes (3): embedQuery(), getRelevantKnowledge(), searchVideoChunks()
 
-### Community 28 - "Community 28"
+### Community 29 - "Community 29"
 Cohesion: 0.67
 Nodes (4): ACTION_ENTITLEMENTS map, AISuggestionRow component, PaywallSheet component, SubscriptionCard component
 
-### Community 29 - "Community 29"
+### Community 30 - "Community 30"
 Cohesion: 0.5
 Nodes (4): Language Selector Screen, Profile Main Screen, Pet Edit Wizard, Pets List Screen
 
-### Community 30 - "Community 30"
+### Community 31 - "Community 31"
 Cohesion: 0.5
 Nodes (4): Recipe Analysis Screen (AI Report), Edit Recipe Screen, Recipe List Screen, New Recipe Screen
 
-### Community 31 - "Community 31"
+### Community 32 - "Community 32"
 Cohesion: 0.5
 Nodes (4): Tiered Subscriptions Design Spec, RevenueCat Integration (iOS + Web), RevenueCat Webhook Endpoint, Web Billing via RC Billing + Stripe Design Spec
 
-### Community 32 - "Community 32"
+### Community 33 - "Community 33"
 Cohesion: 0.5
 Nodes (4): Self-Hosted Capgo Live Updates Design Spec, GitOps & CI/CD Design Spec, ArgoCD Application for PawBalance, Privacy Policy Data Collection Inventory
 
-### Community 33 - "Community 33"
+### Community 34 - "Community 34"
 Cohesion: 0.5
 Nodes (4): /deploy Skill (Push + TestFlight), /qa Skill (Browser + iOS Verification), Screenshot Documentation Capture v1 Design Spec, Screenshot Documentation v2 Design Spec
 
-### Community 34 - "Community 34"
+### Community 35 - "Community 35"
 Cohesion: 0.67
 Nodes (4): App Icon, Leaf Motif, Natural Pet Wellness Branding, Paw Print Motif
 
-### Community 35 - "Community 35"
+### Community 36 - "Community 36"
 Cohesion: 1.0
 Nodes (4): App Icon, Eco Pet Wellness Identity, Leaf Motif, Paw Print Motif
-
-### Community 36 - "Community 36"
-Cohesion: 0.67
-Nodes (0): 
 
 ### Community 37 - "Community 37"
 Cohesion: 0.67
@@ -423,23 +423,23 @@ Nodes (0):
 
 ### Community 47 - "Community 47"
 Cohesion: 0.67
-Nodes (3): Smart Path Detection (OTA vs TestFlight), GitHub Actions Deploy Workflow, Self-Healing QA Loop (3 retries)
+Nodes (0): 
 
 ### Community 48 - "Community 48"
 Cohesion: 0.67
-Nodes (3): MinIO S3-Compatible Storage for Bundles, Self-Hosted Supabase for Capgo Backend, Learn Page Design Spec
+Nodes (3): Recipe Analysis Agent (pi-agent-core), lookup_food Agent Tool, YouTube-to-Knowledge-Base for Recipe Agent Design Spec
 
 ### Community 49 - "Community 49"
 Cohesion: 0.67
-Nodes (3): Recipe Analysis Agent (pi-agent-core), lookup_food Agent Tool, YouTube-to-Knowledge-Base for Recipe Agent Design Spec
+Nodes (3): MinIO S3-Compatible Storage for Bundles, Self-Hosted Supabase for Capgo Backend, Learn Page Design Spec
 
 ### Community 50 - "Community 50"
 Cohesion: 0.67
-Nodes (3): Dual Build Mode, Query Params Instead of Dynamic Routes, Rationale: Static Export Required for Capacitor
+Nodes (3): Smart Path Detection (OTA vs TestFlight), GitHub Actions Deploy Workflow, Self-Healing QA Loop (3 retries)
 
 ### Community 51 - "Community 51"
-Cohesion: 1.0
-Nodes (0): 
+Cohesion: 0.67
+Nodes (3): Dual Build Mode, Query Params Instead of Dynamic Routes, Rationale: Static Export Required for Capacitor
 
 ### Community 52 - "Community 52"
 Cohesion: 1.0
@@ -611,7 +611,7 @@ Nodes (2): Emoji Icons Systemic Issue, Category Grid Redesign (SVG Icons + Color
 
 ### Community 94 - "Community 94"
 Cohesion: 1.0
-Nodes (2): Dual Build Mode (Static + Server), PawBalance Dockerfile (nginx static)
+Nodes (2): UI/UX Audit Remediation Roadmap (4 Phases), UI/UX Audit Improvements Design Spec (19 items)
 
 ### Community 95 - "Community 95"
 Cohesion: 1.0
@@ -623,19 +623,19 @@ Nodes (2): Guest Access & Tiered Access Control Design Spec, Terms of Service & 
 
 ### Community 97 - "Community 97"
 Cohesion: 1.0
-Nodes (2): PawBalance Helm Chart, Ollama Sidecar for Query Embedding (K8s)
+Nodes (2): Dual Build Mode (Static + Server), PawBalance Dockerfile (nginx static)
 
 ### Community 98 - "Community 98"
 Cohesion: 1.0
-Nodes (2): blog_posts Supabase Table, Rationale: Single Flat Table for ~30 Blog Posts
+Nodes (2): 2gurmepati.com Blog Scrape (One-Time), YouTube Transcription Pipeline (Python)
 
 ### Community 99 - "Community 99"
 Cohesion: 1.0
-Nodes (2): UI/UX Audit Remediation Roadmap (4 Phases), UI/UX Audit Improvements Design Spec (19 items)
+Nodes (2): blog_posts Supabase Table, Rationale: Single Flat Table for ~30 Blog Posts
 
 ### Community 100 - "Community 100"
 Cohesion: 1.0
-Nodes (2): 2gurmepati.com Blog Scrape (One-Time), YouTube Transcription Pipeline (Python)
+Nodes (2): PawBalance Helm Chart, Ollama Sidecar for Query Embedding (K8s)
 
 ### Community 101 - "Community 101"
 Cohesion: 1.0
@@ -1008,75 +1008,73 @@ Nodes (1): Read GRAPH_REPORT before architecture questions
 ## Knowledge Gaps
 - **189 isolated node(s):** `Create a requests session with Chrome YouTube cookies + SAPISIDHASH auth.`, `Generate SAPISIDHASH authorization header.`, `Resolve a YouTube handle to a channel ID.`, `Fetch all video IDs and titles from a channel's uploads playlist.`, `Fetch transcript via YouTube InnerTube API with authenticated session.` (+184 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 51`** (2 nodes): `RootLayout()`, `layout.tsx`
+- **Thin community `Community 52`** (2 nodes): `RootLayout()`, `layout.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 52`** (2 nodes): `HomePage()`, `page.tsx`
+- **Thin community `Community 53`** (2 nodes): `HomePage()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 53`** (2 nodes): `NotFound()`, `not-found.tsx`
+- **Thin community `Community 54`** (2 nodes): `NotFound()`, `not-found.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 54`** (2 nodes): `AppLayout()`, `layout.tsx`
+- **Thin community `Community 55`** (2 nodes): `AppLayout()`, `layout.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 55`** (2 nodes): `handleTagToggle()`, `page.tsx`
+- **Thin community `Community 56`** (2 nodes): `handleTagToggle()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 56`** (2 nodes): `formatDate()`, `page.tsx`
+- **Thin community `Community 57`** (2 nodes): `formatDate()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 57`** (2 nodes): `handleStartScan()`, `page.tsx`
+- **Thin community `Community 58`** (2 nodes): `handleStartScan()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 58`** (2 nodes): `EditPetPage()`, `page.tsx`
+- **Thin community `Community 59`** (2 nodes): `EditPetPage()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 59`** (2 nodes): `renderProfilePage()`, `profile-page.test.tsx`
+- **Thin community `Community 60`** (2 nodes): `renderProfilePage()`, `profile-page.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 60`** (2 nodes): `handleAccept()`, `page.tsx`
+- **Thin community `Community 61`** (2 nodes): `handleAccept()`, `page.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 61`** (2 nodes): `Card()`, `card.tsx`
+- **Thin community `Community 62`** (2 nodes): `Card()`, `card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 62`** (2 nodes): `ProgressSteps()`, `progress-steps.tsx`
+- **Thin community `Community 63`** (2 nodes): `ProgressSteps()`, `progress-steps.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 63`** (2 nodes): `Dialog()`, `dialog.tsx`
+- **Thin community `Community 64`** (2 nodes): `Dialog()`, `dialog.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 64`** (2 nodes): `Badge()`, `badge.tsx`
+- **Thin community `Community 65`** (2 nodes): `Badge()`, `badge.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 65`** (2 nodes): `Skeleton()`, `skeleton.tsx`
+- **Thin community `Community 66`** (2 nodes): `Skeleton()`, `skeleton.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 66`** (2 nodes): `text-input-capitalization.test.tsx`, `renderWithIntl()`
+- **Thin community `Community 67`** (2 nodes): `text-input-capitalization.test.tsx`, `renderWithIntl()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 67`** (2 nodes): `RequireAccess()`, `RequireAccess.tsx`
+- **Thin community `Community 68`** (2 nodes): `RequireAccess()`, `RequireAccess.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 68`** (2 nodes): `handleSave()`, `recipe-form.tsx`
+- **Thin community `Community 69`** (2 nodes): `handleSave()`, `recipe-form.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 69`** (2 nodes): `handleTap()`, `recipe-card.tsx`
+- **Thin community `Community 70`** (2 nodes): `handleTap()`, `recipe-card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 70`** (2 nodes): `handleSubmit()`, `add-ingredient-sheet.tsx`
+- **Thin community `Community 71`** (2 nodes): `handleSubmit()`, `add-ingredient-sheet.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 71`** (2 nodes): `IngredientListHarness()`, `ingredient-list.test.tsx`
+- **Thin community `Community 72`** (2 nodes): `IngredientListHarness()`, `ingredient-list.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 72`** (2 nodes): `renderRecipeForm()`, `recipe-form.test.tsx`
+- **Thin community `Community 73`** (2 nodes): `renderRecipeForm()`, `recipe-form.test.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 73`** (2 nodes): `BlogArticle()`, `blog-article.tsx`
+- **Thin community `Community 74`** (2 nodes): `BlogArticle()`, `blog-article.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 74`** (2 nodes): `handlePick()`, `photo-picker.tsx`
+- **Thin community `Community 75`** (2 nodes): `handlePick()`, `photo-picker.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 75`** (2 nodes): `FoodCard()`, `food-card.tsx`
+- **Thin community `Community 76`** (2 nodes): `FoodCard()`, `food-card.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 76`** (2 nodes): `SafetyBadge()`, `safety-badge.tsx`
+- **Thin community `Community 77`** (2 nodes): `SafetyBadge()`, `safety-badge.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 77`** (2 nodes): `CategoryGrid()`, `category-grid.tsx`
+- **Thin community `Community 78`** (2 nodes): `CategoryGrid()`, `category-grid.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 78`** (2 nodes): `handleSubmit()`, `food-request-dialog.tsx`
+- **Thin community `Community 79`** (2 nodes): `handleSubmit()`, `food-request-dialog.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 79`** (2 nodes): `use-sheet-drag.ts`, `useSheetDrag()`
+- **Thin community `Community 80`** (2 nodes): `use-sheet-drag.ts`, `useSheetDrag()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 80`** (2 nodes): `use-locale.ts`, `useLocale()`
+- **Thin community `Community 81`** (2 nodes): `use-locale.ts`, `useLocale()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 81`** (2 nodes): `use-entitlement.ts`, `useEntitlement()`
+- **Thin community `Community 82`** (2 nodes): `use-entitlement.ts`, `useEntitlement()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 82`** (2 nodes): `getAppVersionLabel()`, `app-info.ts`
+- **Thin community `Community 83`** (2 nodes): `getAppVersionLabel()`, `app-info.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 83`** (2 nodes): `shouldShowBottomNav()`, `navigation.ts`
+- **Thin community `Community 84`** (2 nodes): `shouldShowBottomNav()`, `navigation.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 84`** (2 nodes): `getApiUrl()`, `api.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 85`** (2 nodes): `getDefaultAutoCapitalize()`, `input-capitalization.ts`
+- **Thin community `Community 85`** (2 nodes): `getApiUrl()`, `api.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 86`** (2 nodes): `supabase.ts`, `getSupabase()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -1094,19 +1092,19 @@ Nodes (1): Read GRAPH_REPORT before architecture questions
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 93`** (2 nodes): `Emoji Icons Systemic Issue`, `Category Grid Redesign (SVG Icons + Colors)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 94`** (2 nodes): `Dual Build Mode (Static + Server)`, `PawBalance Dockerfile (nginx static)`
+- **Thin community `Community 94`** (2 nodes): `UI/UX Audit Remediation Roadmap (4 Phases)`, `UI/UX Audit Improvements Design Spec (19 items)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 95`** (2 nodes): `Follow-Up Actions System (recipe_edit + detail_card)`, `Rationale: Structured Actions Over Conversational Chat`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 96`** (2 nodes): `Guest Access & Tiered Access Control Design Spec`, `Terms of Service & Privacy Policy Design Spec`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 97`** (2 nodes): `PawBalance Helm Chart`, `Ollama Sidecar for Query Embedding (K8s)`
+- **Thin community `Community 97`** (2 nodes): `Dual Build Mode (Static + Server)`, `PawBalance Dockerfile (nginx static)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 98`** (2 nodes): `blog_posts Supabase Table`, `Rationale: Single Flat Table for ~30 Blog Posts`
+- **Thin community `Community 98`** (2 nodes): `2gurmepati.com Blog Scrape (One-Time)`, `YouTube Transcription Pipeline (Python)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 99`** (2 nodes): `UI/UX Audit Remediation Roadmap (4 Phases)`, `UI/UX Audit Improvements Design Spec (19 items)`
+- **Thin community `Community 99`** (2 nodes): `blog_posts Supabase Table`, `Rationale: Single Flat Table for ~30 Blog Posts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 100`** (2 nodes): `2gurmepati.com Blog Scrape (One-Time)`, `YouTube Transcription Pipeline (Python)`
+- **Thin community `Community 100`** (2 nodes): `PawBalance Helm Chart`, `Ollama Sidecar for Query Embedding (K8s)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 101`** (2 nodes): `Rationale: RAG via pgvector for Knowledge Retrieval`, `video_chunks Table (pgvector embeddings)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
