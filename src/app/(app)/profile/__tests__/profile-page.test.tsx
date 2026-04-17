@@ -4,6 +4,16 @@ import { describe, expect, it, vi } from "vitest";
 import messages from "@/messages/en.json";
 import ProfilePage from "../page";
 
+const back = vi.fn();
+const push = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    back,
+    push,
+  }),
+}));
+
 vi.mock("@/hooks/use-auth", () => ({
   useAuth: () => ({
     displayName: "Hamza",
@@ -32,6 +42,12 @@ function renderProfilePage() {
 }
 
 describe("ProfilePage", () => {
+  it("renders the global screen heading for the profile root", () => {
+    renderProfilePage();
+
+    expect(screen.getByRole("heading", { name: /profile/i, level: 1 })).toBeInTheDocument();
+  });
+
   it("removes dead settings button and links support rows to real destinations", () => {
     renderProfilePage();
 

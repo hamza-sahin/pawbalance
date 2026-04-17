@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SEARCH_DEBOUNCE_MS, MIN_SEARCH_LENGTH } from "@/lib/constants";
 import { Icons } from "@/components/ui/icon";
 import { AISuggestionRow } from "@/components/food/ai-suggestion-row";
+import { AppScreen } from "@/components/navigation/app-screen";
 import {
   getDefaultAutoCapitalize,
   getDefaultAutoCorrect,
@@ -41,36 +42,27 @@ export default function SearchPage() {
 
   const hasQuery = query.length >= MIN_SEARCH_LENGTH;
 
-  return (
-    <div className="p-4">
-      {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold text-txt">
-            {selectedPet
-              ? t("canEat", { petName: selectedPet.name })
-              : t("searchFoods")}
-          </h1>
-          <p className="text-sm text-txt-secondary">
-            {t("searchFoods")}
-          </p>
-        </div>
-        {selectedPet && (
-          <div className="flex flex-col items-center">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-variant text-lg">
-              {selectedPet.avatar_url ? (
-                <img src={selectedPet.avatar_url} alt="" className="h-10 w-10 rounded-full object-cover" />
-              ) : (
-                <Icons.paw className="h-5 w-5 text-txt-tertiary" aria-hidden="true" />
-              )}
-            </div>
-            <span className="text-xs text-txt-secondary">{selectedPet.name}</span>
-            {selectedPet.breed && (
-              <span className="text-[10px] text-txt-tertiary">{selectedPet.breed}</span>
+  const pageTitle = selectedPet ? t("canEat", { petName: selectedPet.name }) : t("searchFoods");
+
+  const searchContent = (
+    <>
+      {selectedPet && (
+        <div className="mb-4 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-variant text-lg">
+            {selectedPet.avatar_url ? (
+              <img src={selectedPet.avatar_url} alt="" className="h-10 w-10 rounded-full object-cover" />
+            ) : (
+              <Icons.paw className="h-5 w-5 text-txt-tertiary" aria-hidden="true" />
             )}
           </div>
-        )}
-      </div>
+          <div className="flex flex-col">
+            <p className="font-medium text-sm text-txt">{selectedPet.name}</p>
+            {selectedPet.breed && (
+              <p className="text-[10px] leading-snug text-txt-tertiary">{selectedPet.breed}</p>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Search input */}
       <div className="relative mb-6">
@@ -154,6 +146,12 @@ export default function SearchPage() {
         onClose={() => setShowRequestDialog(false)}
         initialFoodName={query}
       />
-    </div>
+    </>
+  );
+
+  return (
+    <AppScreen title={pageTitle} withBottomNavSpacing contentClassName="p-4">
+      {searchContent}
+    </AppScreen>
   );
 }

@@ -11,6 +11,7 @@ import { useRecipes } from "@/hooks/use-recipes";
 import { usePetStore } from "@/store/pet-store";
 import { useEntitlement } from "@/hooks/use-entitlement";
 import { PaywallSheet } from "@/components/subscription/PaywallSheet";
+import { AppScreen } from "@/components/navigation/app-screen";
 
 export default function RecipesPage() {
   const t = useTranslations();
@@ -35,17 +36,19 @@ export default function RecipesPage() {
 
   if (isLoading && recipes.length === 0) {
     return (
-      <div className="space-y-3 p-4">
-        <Skeleton className="h-8 w-40" />
-        <Skeleton className="h-24 w-full" />
-        <Skeleton className="h-24 w-full" />
-      </div>
+      <AppScreen title={t("myRecipes")} withBottomNavSpacing contentClassName="p-4">
+        <div className="space-y-3">
+          <Skeleton className="h-8 w-40" />
+          <Skeleton className="h-24 w-full" />
+          <Skeleton className="h-24 w-full" />
+        </div>
+      </AppScreen>
     );
   }
 
   if (recipes.length === 0) {
     return (
-      <>
+      <AppScreen title={t("myRecipes")} withBottomNavSpacing contentClassName="p-4">
         <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
           <div className="mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-primary/10">
             <UtensilsCrossed className="h-8 w-8 text-primary" />
@@ -64,13 +67,12 @@ export default function RecipesPage() {
         {isPaywallOpen && paywallTier && (
           <PaywallSheet requiredTier={paywallTier} onDismiss={dismissPaywall} />
         )}
-      </>
+      </AppScreen>
     );
   }
 
   return (
-    <div className="p-4">
-      <h1 className="mb-4 text-xl font-bold text-txt">{t("myRecipes")}</h1>
+    <AppScreen title={t("myRecipes")} withBottomNavSpacing contentClassName="p-4">
       <div className="space-y-3">
         {recipes.map((recipe) => (
           <RecipeCard
@@ -90,6 +92,6 @@ export default function RecipesPage() {
       {isPaywallOpen && paywallTier && (
         <PaywallSheet requiredTier={paywallTier} onDismiss={dismissPaywall} />
       )}
-    </div>
+    </AppScreen>
   );
 }
