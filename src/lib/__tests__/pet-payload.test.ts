@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { buildPetWriteInput } from "@/lib/pet-payload";
+import {
+  buildLegacyPetWriteInput,
+  buildPetWriteInput,
+  shouldRetryPetWriteWithoutCalorieFields,
+} from "@/lib/pet-payload";
 
 describe("buildPetWriteInput", () => {
   it("clears reproductive fields for neutered pets", () => {
@@ -78,5 +82,55 @@ describe("buildPetWriteInput", () => {
       lactation_week: 2,
       litter_size: 7,
     });
+  });
+
+  it("builds a legacy payload without the new calorie-profile columns", () => {
+    expect(
+      buildLegacyPetWriteInput({
+        name: "Milo",
+        breed: "Beagle",
+        age_months: 24,
+        birth_date: "2025-01-01",
+        weight_kg: 12,
+        gender: "MALE",
+        is_neutered: true,
+        body_condition_score: 5,
+        activity_level: "MODERATE_LOW_IMPACT",
+        expected_adult_weight_kg: 20,
+        reproductive_state: "GESTATION",
+        gestation_week: 4,
+        lactation_week: null,
+        litter_size: null,
+      }),
+    ).toEqual({
+      name: "Milo",
+      breed: "Beagle",
+      age_months: 24,
+      weight_kg: 12,
+      gender: "MALE",
+      is_neutered: true,
+      body_condition_score: 5,
+      activity_level: "MODERATE_LOW_IMPACT",
+    });
+  });
+});
+
+describe("shouldRetryPetWriteWithoutCalorieFields", () => {
+  it("returns true for missing new pet-column errors", () => {
+    expect(
+      shouldRetryPetWriteWithoutCalorieFields({
+        code: "PGRST204",
+        message: "Could not find the 'birth_date' column of 'pets' in the schema cache",
+      }),
+    ).toBe(true);
+  });
+
+  it("returns false for unrelated errors", () => {
+    expect(
+      shouldRetryPetWriteWithoutCalorieFields({
+        code: "23505",
+        message: "duplicate key value violates unique constraint",
+      }),
+    ).toBe(false);
   });
 });

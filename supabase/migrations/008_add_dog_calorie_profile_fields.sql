@@ -6,6 +6,9 @@ alter table public.pets
   add column if not exists lactation_week integer,
   add column if not exists litter_size integer;
 
+alter table public.pets
+  drop constraint if exists pets_activity_level_check;
+
 update public.pets
 set activity_level = case activity_level
   when 'LOW' then 'LOW'
@@ -15,6 +18,25 @@ set activity_level = case activity_level
   else activity_level
 end
 where activity_level in ('LOW', 'MODERATE', 'HIGH', 'WORKING');
+
+alter table public.pets
+  alter column activity_level set default 'MODERATE_LOW_IMPACT';
+
+alter table public.pets
+  add constraint pets_activity_level_check
+  check (
+    activity_level is null
+    or activity_level in (
+      'LOW',
+      'MODERATE_LOW_IMPACT',
+      'MODERATE_HIGH_IMPACT',
+      'HIGH_WORKING'
+    )
+  )
+  not valid;
+
+alter table public.pets
+  validate constraint pets_activity_level_check;
 
 alter table public.pets
   add constraint pets_reproductive_state_check

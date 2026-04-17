@@ -7,7 +7,11 @@ import { useAuthStore } from "@/store/auth-store";
 import type { Pet } from "@/lib/types";
 import type { PetFormValues } from "@/lib/validators";
 import { MAX_PETS } from "@/lib/constants";
-import { buildPetWriteInput } from "@/lib/pet-payload";
+import {
+  buildLegacyPetWriteInput,
+  buildPetWriteInput,
+  shouldRetryPetWriteWithoutCalorieFields,
+} from "@/lib/pet-payload";
 
 export function usePets() {
   const {
@@ -49,7 +53,7 @@ export function usePets() {
       if (!user) throw new Error("Not authenticated");
       const supabase = getSupabase();
 
-      const { data, error } = await supabase
+      let { data, error } = await supabase
         .from("pets")
         .insert({
           owner_id: user.id,
@@ -58,6 +62,17 @@ export function usePets() {
         })
         .select()
         .single();
+      if (error && shouldRetryPetWriteWithoutCalorieFields(error)) {
+        ({ data, error } = await supabase
+          .from("pets")
+          .insert({
+            owner_id: user.id,
+            ...buildLegacyPetWriteInput(values),
+            known_allergies: null,
+          })
+          .select()
+          .single());
+      }
       if (error) throw error;
 
       let pet = data as Pet;
@@ -89,7 +104,7 @@ export function usePets() {
         }
       }
 
-      const { data, error } = await supabase
+      let { data, error } = await supabase
         .from("pets")
         .update({
           ...buildPetWriteInput(values),
@@ -98,6 +113,17 @@ export function usePets() {
         .eq("id", petId)
         .select()
         .single();
+      if (error && shouldRetryPetWriteWithoutCalorieFields(error)) {
+        ({ data, error } = await supabase
+          .from("pets")
+          .update({
+            ...buildLegacyPetWriteInput(values),
+            ...(removePhoto ? { avatar_url: null } : {}),
+          })
+          .eq("id", petId)
+          .select()
+          .single());
+      }
       if (error) throw error;
 
       let pet = data as Pet;
