@@ -150,7 +150,7 @@ export default function SearchPage() {
   );
 
   return (
-    <AppScreen title={pageTitle} withBottomNavSpacing contentClassName="p-4">
+    <AppScreen title={pageTitle} shellMode="tabbed" contentClassName="p-4">
       {searchContent}
     </AppScreen>
   );

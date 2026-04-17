@@ -64,8 +64,8 @@ export default function LearnPage() {
 
   if (isLoading) {
     return (
-      <AppScreen title={t("learnTitle")} withBottomNavSpacing contentClassName="p-4">
-        <div className="flex flex-col gap-4 pb-20">
+      <AppScreen title={t("learnTitle")} shellMode="tabbed" contentClassName="p-4">
+        <div className="flex flex-col gap-4">
           <Skeleton className="h-8 w-24" />
           <Skeleton className="h-11 w-full rounded-input" />
           <div className="flex gap-2">
@@ -83,8 +83,8 @@ export default function LearnPage() {
   }
 
   return (
-    <AppScreen title={t("learnTitle")} withBottomNavSpacing contentClassName="p-4">
-      <div className="flex flex-col gap-4 pb-20">
+    <AppScreen title={t("learnTitle")} shellMode="tabbed" contentClassName="p-4">
+      <div className="flex flex-col gap-4">
         {/* Search */}
         <div className="relative">
           <Icons.search

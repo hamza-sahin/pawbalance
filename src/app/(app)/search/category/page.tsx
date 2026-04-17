@@ -28,7 +28,7 @@ export default function CategoryPage() {
       title={categoryName || t("search")}
       showBack
       backHref="/search"
-      withBottomNavSpacing
+      shellMode="stacked"
     >
       <div className="p-4">
         <div className="mb-6 flex flex-col items-center gap-2">

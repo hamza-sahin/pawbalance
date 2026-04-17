@@ -18,8 +18,8 @@ export default function ScanPage() {
   };
 
   return (
-    <AppScreen title={t("scannerTitle")} withBottomNavSpacing contentClassName="p-4">
-      <div className="flex min-h-[calc(100vh-5rem)] flex-col">
+    <AppScreen title={t("scannerTitle")} shellMode="tabbed" contentClassName="p-4">
+      <div className="flex min-h-full flex-col">
         {/* Scan preview card */}
         <div className="mb-4 overflow-hidden rounded-card border border-border bg-surface p-6">
           {/* Viewfinder */}

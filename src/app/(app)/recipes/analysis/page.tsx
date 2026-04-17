@@ -165,7 +165,7 @@ export default function AnalysisPage() {
       title={t("recipeAnalysis")}
       showBack
       onBack={handleBack}
-      withBottomNavSpacing
+      shellMode="stacked"
       contentClassName="p-4"
     >
         {/* Loading recipe data */}

@@ -75,7 +75,7 @@ export default function EditRecipePage() {
         title={t("editRecipe")}
         showBack
         onBack={handleBack}
-        withBottomNavSpacing
+        shellMode="stacked"
         contentClassName="p-4"
       >
         <div className="space-y-3">
@@ -100,7 +100,7 @@ export default function EditRecipePage() {
       title={t("editRecipe")}
       showBack
       onBack={handleBack}
-      withBottomNavSpacing
+      shellMode="stacked"
       contentClassName="p-4"
       trailing={
         <button

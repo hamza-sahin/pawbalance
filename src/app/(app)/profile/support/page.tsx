@@ -59,7 +59,7 @@ export default function SupportPage() {
         title={t("helpAndSupport")}
         onBack={() => router.back()}
         showBack
-        withBottomNavSpacing
+        shellMode="stacked"
       >
       <div className="space-y-6 px-4 py-6">
         <section>

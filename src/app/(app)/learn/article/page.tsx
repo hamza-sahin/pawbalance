@@ -46,9 +46,9 @@ export default function ArticlePage() {
         title={t("learnTitle")}
         showBack
         onBack={() => router.back()}
-        withBottomNavSpacing
+        shellMode="stacked"
       >
-        <div className="flex flex-col gap-4 p-4 pb-20">
+        <div className="flex flex-col gap-4 p-4">
           <Skeleton className="h-9 w-32" />
           <Skeleton className="h-[200px] w-full rounded-card" />
           <div className="flex gap-2">
@@ -70,9 +70,9 @@ export default function ArticlePage() {
       title={t("learnTitle")}
       showBack
       onBack={() => router.back()}
-      withBottomNavSpacing
+      shellMode="stacked"
     >
-      <div className="flex flex-col pb-20">
+      <div className="flex flex-col">
         {/* Featured image */}
         {post.featured_image_url && (
           <div className="mx-4 mb-4 overflow-hidden rounded-card">

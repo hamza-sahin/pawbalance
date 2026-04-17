@@ -33,7 +33,7 @@ export default function PetsPage() {
       title={t("pets")}
       showBack
       backHref="/profile"
-      withBottomNavSpacing
+      shellMode="stacked"
       contentClassName="p-4"
       trailing={canAddMore ? (
         <Link

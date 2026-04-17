@@ -14,7 +14,7 @@ export default function AboutPage() {
   const version = getAppVersionLabel();
 
   return (
-    <AppScreen title={t("about")} showBack onBack={() => router.back()} withBottomNavSpacing>
+    <AppScreen title={t("about")} showBack onBack={() => router.back()} shellMode="stacked">
       <div className="space-y-6 px-4 py-6">
         <section>
           <h2 className="text-base font-semibold text-txt">{t("aboutSummaryTitle")}</h2>

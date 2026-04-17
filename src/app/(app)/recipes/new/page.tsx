@@ -37,7 +37,7 @@ export default function NewRecipePage() {
       title={t("newRecipe")}
       showBack
       onBack={handleBack}
-      withBottomNavSpacing
+      shellMode="stacked"
       contentClassName="p-4"
     >
       <RecipeForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />

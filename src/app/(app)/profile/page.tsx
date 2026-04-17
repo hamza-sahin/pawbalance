@@ -177,7 +177,7 @@ export default function ProfilePage() {
   const profileContent = isAuthenticated ? authenticatedProfile : guestProfile;
 
   return (
-    <AppScreen title={t("profile")} withBottomNavSpacing contentClassName="p-4">
+    <AppScreen title={t("profile")} shellMode="tabbed" contentClassName="p-4">
       {profileContent}
     </AppScreen>
   );

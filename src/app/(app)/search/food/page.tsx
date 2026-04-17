@@ -268,7 +268,7 @@ export default function FoodDetailPage() {
         title={pageTitle}
         showBack
         backHref="/search"
-        withBottomNavSpacing
+        shellMode="stacked"
       >
         <div className="p-4">
           <AILoadingView query={aiQuery} statusText={statusText} />
@@ -284,7 +284,7 @@ export default function FoodDetailPage() {
         title={pageTitle}
         showBack
         backHref="/search"
-        withBottomNavSpacing
+        shellMode="stacked"
       >
         <div className="p-4">
           <div className="flex flex-col items-center gap-3 py-12">
@@ -311,7 +311,7 @@ export default function FoodDetailPage() {
         title={pageTitle}
         showBack
         backHref="/search"
-        withBottomNavSpacing
+        shellMode="stacked"
       >
         <FoodDetailSkeleton />
       </AppScreen>
@@ -325,7 +325,7 @@ export default function FoodDetailPage() {
         title={pageTitle}
         showBack
         backHref="/search"
-        withBottomNavSpacing
+        shellMode="stacked"
       >
         <FoodDetailSkeleton />
       </AppScreen>
@@ -359,7 +359,7 @@ export default function FoodDetailPage() {
       title={pageTitle}
       showBack
       backHref="/search"
-      withBottomNavSpacing
+      shellMode="stacked"
     >
       <div className="p-4 pb-6">
         <div className="mb-6 flex flex-col items-center gap-2">

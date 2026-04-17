@@ -36,7 +36,7 @@ export default function RecipesPage() {
 
   if (isLoading && recipes.length === 0) {
     return (
-      <AppScreen title={t("myRecipes")} withBottomNavSpacing contentClassName="p-4">
+      <AppScreen title={t("myRecipes")} shellMode="tabbed" contentClassName="p-4">
         <div className="space-y-3">
           <Skeleton className="h-8 w-40" />
           <Skeleton className="h-24 w-full" />
@@ -48,7 +48,7 @@ export default function RecipesPage() {
 
   if (recipes.length === 0) {
     return (
-      <AppScreen title={t("myRecipes")} withBottomNavSpacing contentClassName="p-4">
+      <AppScreen title={t("myRecipes")} shellMode="tabbed" contentClassName="p-4">
         <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
           <div className="mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-primary/10">
             <UtensilsCrossed className="h-8 w-8 text-primary" />
@@ -72,7 +72,7 @@ export default function RecipesPage() {
   }
 
   return (
-    <AppScreen title={t("myRecipes")} withBottomNavSpacing contentClassName="p-4">
+    <AppScreen title={t("myRecipes")} shellMode="tabbed" contentClassName="p-4">
       <div className="space-y-3">
         {recipes.map((recipe) => (
           <RecipeCard
