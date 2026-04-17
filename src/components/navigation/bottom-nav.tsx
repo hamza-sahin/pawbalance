@@ -39,8 +39,11 @@ export function BottomNav() {
   const t = useTranslations();
 
   return (
-    <nav aria-label="Main navigation" className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-surface shadow-[0_-2px_12px_rgba(0,0,0,0.06)]">
-      <div className="mx-auto grid max-w-md md:max-w-lg lg:max-w-2xl grid-cols-4 px-2 pb-[env(safe-area-inset-bottom)] pt-1">
+    <nav
+      aria-label="Main navigation"
+      className="bottom-nav fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-surface shadow-[0_-2px_12px_rgba(0,0,0,0.06)]"
+    >
+      <div className="bottom-nav__inner mx-auto grid max-w-md md:max-w-lg lg:max-w-2xl grid-cols-4 px-2 pt-1">
         {tabs.map((tab) => {
           const isActive = pathname.startsWith(tab.href);
 

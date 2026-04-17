@@ -98,6 +98,26 @@ describe("AppLayout", () => {
     expect(screen.getByText("Child").parentElement).not.toHaveClass("safe-top");
   });
 
+  it("marks tab roots as tabbed shell without route-level pb-20", () => {
+    currentPathname = "/search";
+
+    renderLayout(<div>Child</div>);
+
+    const shell = screen.getByTestId("app-shell");
+    expect(shell).toHaveAttribute("data-shell-mode", "tabbed");
+    expect(shell).not.toHaveClass("pb-20");
+    expect(screen.getByRole("navigation", { name: /main navigation/i })).toBeInTheDocument();
+  });
+
+  it("uses stacked shell for nested profile routes", () => {
+    currentPathname = "/profile/about";
+
+    renderLayout(<div>Child</div>);
+
+    expect(screen.getByTestId("app-shell")).toHaveAttribute("data-shell-mode", "stacked");
+    expect(screen.queryByRole("navigation", { name: /main navigation/i })).not.toBeInTheDocument();
+  });
+
   it("renders BottomNav on normal app routes", () => {
     currentPathname = "/search";
 
@@ -122,12 +142,13 @@ describe("AppLayout", () => {
     expect(screen.queryByRole("navigation", { name: /main navigation/i })).not.toBeInTheDocument();
   });
 
-  it("keeps BottomNav on /profile/pets/editing", () => {
+  it("uses stacked shell on /profile/pets/editing", () => {
     currentPathname = "/profile/pets/editing";
 
     renderLayout(<div>Child</div>);
 
-    expect(screen.getByRole("navigation", { name: /main navigation/i })).toBeInTheDocument();
+    expect(screen.getByTestId("app-shell")).toHaveAttribute("data-shell-mode", "stacked");
+    expect(screen.queryByRole("navigation", { name: /main navigation/i })).not.toBeInTheDocument();
   });
 
   it("shows LoginSheet for login-gated routes", () => {

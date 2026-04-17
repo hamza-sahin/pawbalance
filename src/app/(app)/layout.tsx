@@ -11,7 +11,7 @@ import { PaywallSheet } from "@/components/subscription/PaywallSheet";
 import { usePurchases } from "@/hooks/use-purchases";
 import { resolveUserTier, getRequiredTier, getAccessGateReason } from "@/lib/access";
 import type { AccessTier } from "@/lib/access";
-import { shouldShowBottomNav } from "@/lib/navigation";
+import { getAppShellMode, shouldShowBottomNav } from "@/lib/navigation";
 import { shouldRequireTerms } from "@/lib/terms";
 
 const ONBOARDING_KEY = "onboarding_completed";
@@ -24,6 +24,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { manageSubscription } = usePurchases();
   const [paywallTier, setPaywallTier] = useState<AccessTier | null>(null);
+  const shellMode = getAppShellMode(pathname);
   const showBottomNav = shouldShowBottomNav(pathname);
 
   // Fetch pets when authenticated, load guest pet otherwise
@@ -79,9 +80,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className={`mx-auto min-h-screen max-w-md bg-canvas md:max-w-lg lg:max-w-2xl ${
-        showBottomNav ? "pb-20" : ""
-      }`}
+      data-testid="app-shell"
+      data-shell-mode={shellMode}
+      className="app-shell mx-auto flex min-h-[100dvh] max-w-md flex-col bg-canvas md:max-w-lg lg:max-w-2xl"
     >
       <SubscriptionBanner
         onSubscribeClick={() => setPaywallTier("basic")}

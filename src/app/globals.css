@@ -134,6 +134,14 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: max(1rem, var(--safe-top));
 }
 
+.bottom-nav {
+  padding-bottom: var(--safe-bottom);
+}
+
+.bottom-nav__inner {
+  min-height: var(--tabbar-visual-height);
+}
+
 /* Autofill override to match design system */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
