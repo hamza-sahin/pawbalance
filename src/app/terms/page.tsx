@@ -33,9 +33,10 @@ export default function TermsPage() {
   return (
     <AppScreen
       title={isReConsent ? t("termsUpdatedTitle") : t("termsTitle")}
-      contentClassName="px-6 py-12"
+      shellMode="immersive"
+      contentClassName="px-6 py-6"
     >
-      <div className="flex min-h-dvh flex-col items-center justify-between">
+      <div className="flex min-h-full flex-col items-center justify-between">
         {/* Top: branding + info */}
         <div className="flex flex-1 flex-col items-center justify-center">
         {/* App icon */}

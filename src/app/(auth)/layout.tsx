@@ -19,7 +19,7 @@ function AuthLayoutInner({ children }: { children: React.ReactNode }) {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-canvas">
+      <div className="app-shell flex min-h-[100dvh] items-center justify-center bg-canvas">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
@@ -28,7 +28,12 @@ function AuthLayoutInner({ children }: { children: React.ReactNode }) {
   if (session) return null;
 
   return (
-    <AppScreen title="PawBalance" contentClassName="flex min-h-screen items-center justify-center p-4">
+    <AppScreen
+      title="PawBalance"
+      shellMode="immersive"
+      showHeader={false}
+      contentClassName="flex min-h-full items-center justify-center p-4"
+    >
       <div className="w-full max-w-sm rounded-card border border-border bg-surface p-6 shadow-sm md:p-8">
         {children}
       </div>
@@ -40,7 +45,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-canvas">
+        <div className="app-shell flex min-h-[100dvh] items-center justify-center bg-canvas">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
         </div>
       }

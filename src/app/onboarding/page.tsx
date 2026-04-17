@@ -41,6 +41,7 @@ export default function OnboardingPage() {
   return (
     <AppScreen
       title={t("onboardingWelcome")}
+      shellMode="immersive"
       contentClassName="p-4"
       trailing={
         <button

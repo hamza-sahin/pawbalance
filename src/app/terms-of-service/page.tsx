@@ -26,6 +26,7 @@ export default function TermsOfServicePage() {
         title={t("termsOfService")}
         onBack={() => router.back()}
         showBack
+        shellMode="stacked"
       >
       <div className="px-4 py-6 space-y-6">
         <p className="text-sm text-txt-secondary">{t("tosIntro")}</p>

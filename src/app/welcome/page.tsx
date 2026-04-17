@@ -16,8 +16,8 @@ export default function WelcomePage() {
   const router = useRouter();
 
   return (
-    <AppScreen title={t("welcomeTitle")} contentClassName="px-6 py-12">
-      <div className="flex min-h-dvh flex-col items-center justify-center">
+    <AppScreen shellMode="immersive" showHeader={false} contentClassName="px-6 py-6">
+      <div className="flex min-h-full flex-col items-center justify-center">
       {/* Branding */}
       <img
         src="/icons/icon-512x512.png"
