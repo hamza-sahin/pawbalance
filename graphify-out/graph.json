@@ -38,7 +38,7 @@
       "source_file": "tailwind.config.js",
       "source_location": "L1",
       "id": "tailwind_config_js",
-      "community": 103
+      "community": 105
     },
     {
       "label": "next-env.d.ts",
@@ -46,7 +46,7 @@
       "source_file": "next-env.d.ts",
       "source_location": "L1",
       "id": "next_env_d_ts",
-      "community": 104
+      "community": 106
     },
     {
       "label": "tailwind.config.ts",
@@ -54,7 +54,7 @@
       "source_file": "tailwind.config.ts",
       "source_location": "L1",
       "id": "tailwind_config_ts",
-      "community": 105
+      "community": 107
     },
     {
       "label": "vitest.config.ts",
@@ -62,7 +62,7 @@
       "source_file": "vitest.config.ts",
       "source_location": "L1",
       "id": "vitest_config_ts",
-      "community": 106
+      "community": 108
     },
     {
       "label": "next.config.ts",
@@ -70,7 +70,7 @@
       "source_file": "next.config.ts",
       "source_location": "L1",
       "id": "next_config_ts",
-      "community": 107
+      "community": 109
     },
     {
       "label": "capacitor.config.ts",
@@ -78,7 +78,7 @@
       "source_file": "capacitor.config.ts",
       "source_location": "L1",
       "id": "capacitor_config_ts",
-      "community": 108
+      "community": 110
     },
     {
       "label": "ingest.py",
@@ -302,7 +302,7 @@
       "source_file": "src/app/providers.tsx",
       "source_location": "L1",
       "id": "src_app_providers_tsx",
-      "community": 109
+      "community": 111
     },
     {
       "label": "layout.tsx",
@@ -332,7 +332,7 @@
       "label": "handleTagToggle()",
       "file_type": "code",
       "source_file": "src/app/(app)/learn/page.tsx",
-      "source_location": "L25",
+      "source_location": "L26",
       "id": "page_handletagtoggle",
       "community": 55
     },
@@ -369,40 +369,12 @@
       "community": 57
     },
     {
-      "label": "Food Search Screen",
+      "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(app)/search/page.tsx",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "search_page_food_search_screen",
-      "community": 0
-    },
-    {
-      "label": "Category Browse Mode",
-      "file_type": "code",
-      "source_file": "src/app/(app)/search/page.tsx",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "search_page_category_browse_mode",
-      "community": 0
-    },
-    {
-      "label": "AI Suggestion Entry Row",
-      "file_type": "code",
-      "source_file": "src/app/(app)/search/page.tsx",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "search_page_ai_suggestion_entry",
-      "community": 0
+      "source_location": "L1",
+      "id": "src_app_app_search_page_tsx",
+      "community": 1
     },
     {
       "label": "page.tsx",
@@ -410,7 +382,7 @@
       "source_file": "src/app/(app)/search/category/page.tsx",
       "source_location": "L1",
       "id": "src_app_app_search_category_page_tsx",
-      "community": 110
+      "community": 112
     },
     {
       "label": "Food Detail Screen",
@@ -466,7 +438,7 @@
       "source_file": "src/app/(app)/profile/page.tsx",
       "source_location": "L1",
       "id": "src_app_app_profile_page_tsx",
-      "community": 111
+      "community": 113
     },
     {
       "label": "page.tsx",
@@ -506,7 +478,7 @@
       "source_file": "src/app/(app)/profile/scan-history/page.tsx",
       "source_location": "L1",
       "id": "src_app_app_profile_scan_history_page_tsx",
-      "community": 112
+      "community": 114
     },
     {
       "label": "page.tsx",
@@ -514,7 +486,7 @@
       "source_file": "src/app/(app)/profile/language/page.tsx",
       "source_location": "L1",
       "id": "src_app_app_profile_language_page_tsx",
-      "community": 113
+      "community": 115
     },
     {
       "label": "page.tsx",
@@ -522,7 +494,7 @@
       "source_file": "src/app/(app)/profile/about/page.tsx",
       "source_location": "L1",
       "id": "src_app_app_profile_about_page_tsx",
-      "community": 114
+      "community": 116
     },
     {
       "label": "page.test.tsx",
@@ -530,7 +502,7 @@
       "source_file": "src/app/(app)/profile/about/__tests__/page.test.tsx",
       "source_location": "L1",
       "id": "src_app_app_profile_about_tests_page_test_tsx",
-      "community": 115
+      "community": 117
     },
     {
       "label": "profile-page.test.tsx",
@@ -560,7 +532,7 @@
       "label": "openMailto()",
       "file_type": "code",
       "source_file": "src/app/(app)/profile/support/page.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "id": "page_openmailto",
       "community": 5
     },
@@ -578,7 +550,7 @@
       "source_file": "src/app/(app)/profile/support/__tests__/page.test.tsx",
       "source_location": "L1",
       "id": "src_app_app_profile_support_tests_page_test_tsx",
-      "community": 116
+      "community": 118
     },
     {
       "label": "Recipe List Screen",
@@ -678,7 +650,7 @@
       "source_file": "src/app/privacy-policy/page.tsx",
       "source_location": "L1",
       "id": "src_app_privacy_policy_page_tsx",
-      "community": 117
+      "community": 119
     },
     {
       "label": "page.tsx",
@@ -702,7 +674,7 @@
       "source_file": "src/app/welcome/page.tsx",
       "source_location": "L1",
       "id": "src_app_welcome_page_tsx",
-      "community": 118
+      "community": 120
     },
     {
       "label": "page.tsx",
@@ -710,7 +682,7 @@
       "source_file": "src/app/terms-of-service/page.tsx",
       "source_location": "L1",
       "id": "src_app_terms_of_service_page_tsx",
-      "community": 119
+      "community": 121
     },
     {
       "label": "route.ts",
@@ -978,7 +950,7 @@
       "author": null,
       "contributor": null,
       "id": "icon_icon_registry",
-      "community": 120
+      "community": 122
     },
     {
       "label": "empty-state.tsx",
@@ -986,7 +958,7 @@
       "source_file": "src/components/ui/empty-state.tsx",
       "source_location": "L1",
       "id": "src_components_ui_empty_state_tsx",
-      "community": 121
+      "community": 123
     },
     {
       "label": "progress-steps.tsx",
@@ -1042,7 +1014,7 @@
       "source_file": "src/components/ui/button.tsx",
       "source_location": "L1",
       "id": "src_components_ui_button_tsx",
-      "community": 122
+      "community": 124
     },
     {
       "label": "input.tsx",
@@ -1050,7 +1022,7 @@
       "source_file": "src/components/ui/input.tsx",
       "source_location": "L1",
       "id": "src_components_ui_input_tsx",
-      "community": 123
+      "community": 125
     },
     {
       "label": "skeleton.tsx",
@@ -1067,6 +1039,22 @@
       "source_location": "L5",
       "id": "skeleton_skeleton",
       "community": 65
+    },
+    {
+      "label": "text-input-capitalization.test.tsx",
+      "file_type": "code",
+      "source_file": "src/components/ui/__tests__/text-input-capitalization.test.tsx",
+      "source_location": "L1",
+      "id": "src_components_ui_tests_text_input_capitalization_test_tsx",
+      "community": 66
+    },
+    {
+      "label": "renderWithIntl()",
+      "file_type": "code",
+      "source_file": "src/components/ui/__tests__/text-input-capitalization.test.tsx",
+      "source_location": "L9",
+      "id": "text_input_capitalization_test_renderwithintl",
+      "community": 66
     },
     {
       "label": "social-login-buttons.tsx",
@@ -1130,7 +1118,7 @@
       "source_file": "src/components/auth/RequireAccess.tsx",
       "source_location": "L1",
       "id": "src_components_auth_requireaccess_tsx",
-      "community": 66
+      "community": 67
     },
     {
       "label": "RequireAccess()",
@@ -1138,7 +1126,7 @@
       "source_file": "src/components/auth/RequireAccess.tsx",
       "source_location": "L15",
       "id": "requireaccess_requireaccess",
-      "community": 66
+      "community": 67
     },
     {
       "label": "AnalysisProgress component",
@@ -1158,7 +1146,7 @@
       "source_file": "src/components/recipe/analysis-report.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_analysis_report_tsx",
-      "community": 124
+      "community": 126
     },
     {
       "label": "ScatteredPaws component",
@@ -1178,7 +1166,7 @@
       "source_file": "src/components/recipe/ingredient-row.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_ingredient_row_tsx",
-      "community": 125
+      "community": 127
     },
     {
       "label": "recipe-form.tsx",
@@ -1186,7 +1174,7 @@
       "source_file": "src/components/recipe/recipe-form.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_recipe_form_tsx",
-      "community": 67
+      "community": 68
     },
     {
       "label": "handleSave()",
@@ -1194,7 +1182,7 @@
       "source_file": "src/components/recipe/recipe-form.tsx",
       "source_location": "L44",
       "id": "recipe_form_handlesave",
-      "community": 67
+      "community": 68
     },
     {
       "label": "ingredient-list.tsx",
@@ -1282,7 +1270,7 @@
       "source_file": "src/components/recipe/follow-up-actions.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_follow_up_actions_tsx",
-      "community": 126
+      "community": 128
     },
     {
       "label": "recipe-card.tsx",
@@ -1290,7 +1278,7 @@
       "source_file": "src/components/recipe/recipe-card.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_recipe_card_tsx",
-      "community": 68
+      "community": 69
     },
     {
       "label": "handleTap()",
@@ -1298,7 +1286,7 @@
       "source_file": "src/components/recipe/recipe-card.tsx",
       "source_location": "L27",
       "id": "recipe_card_handletap",
-      "community": 68
+      "community": 69
     },
     {
       "label": "CheckmarkCelebration component",
@@ -1318,7 +1306,7 @@
       "source_file": "src/components/recipe/add-ingredient-sheet.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_add_ingredient_sheet_tsx",
-      "community": 69
+      "community": 70
     },
     {
       "label": "handleSubmit()",
@@ -1326,7 +1314,7 @@
       "source_file": "src/components/recipe/add-ingredient-sheet.tsx",
       "source_location": "L46",
       "id": "add_ingredient_sheet_handlesubmit",
-      "community": 69
+      "community": 70
     },
     {
       "label": "preparation-chips.tsx",
@@ -1334,7 +1322,7 @@
       "source_file": "src/components/recipe/preparation-chips.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_preparation_chips_tsx",
-      "community": 127
+      "community": 129
     },
     {
       "label": "ingredient-list.test.tsx",
@@ -1342,7 +1330,7 @@
       "source_file": "src/components/recipe/__tests__/ingredient-list.test.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_tests_ingredient_list_test_tsx",
-      "community": 70
+      "community": 71
     },
     {
       "label": "IngredientListHarness()",
@@ -1350,7 +1338,7 @@
       "source_file": "src/components/recipe/__tests__/ingredient-list.test.tsx",
       "source_location": "L20",
       "id": "ingredient_list_test_ingredientlistharness",
-      "community": 70
+      "community": 71
     },
     {
       "label": "recipe-form.test.tsx",
@@ -1358,7 +1346,7 @@
       "source_file": "src/components/recipe/__tests__/recipe-form.test.tsx",
       "source_location": "L1",
       "id": "src_components_recipe_tests_recipe_form_test_tsx",
-      "community": 71
+      "community": 72
     },
     {
       "label": "renderRecipeForm()",
@@ -1366,7 +1354,7 @@
       "source_file": "src/components/recipe/__tests__/recipe-form.test.tsx",
       "source_location": "L16",
       "id": "recipe_form_test_renderrecipeform",
-      "community": 71
+      "community": 72
     },
     {
       "label": "Bottom Navigation Bar",
@@ -1398,7 +1386,7 @@
       "source_file": "src/components/blog/blog-tag-chips.tsx",
       "source_location": "L1",
       "id": "src_components_blog_blog_tag_chips_tsx",
-      "community": 128
+      "community": 130
     },
     {
       "label": "blog-article.tsx",
@@ -1406,7 +1394,7 @@
       "source_file": "src/components/blog/blog-article.tsx",
       "source_location": "L1",
       "id": "src_components_blog_blog_article_tsx",
-      "community": 72
+      "community": 73
     },
     {
       "label": "BlogArticle()",
@@ -1414,7 +1402,7 @@
       "source_file": "src/components/blog/blog-article.tsx",
       "source_location": "L8",
       "id": "blog_article_blogarticle",
-      "community": 72
+      "community": 73
     },
     {
       "label": "blog-featured-card.tsx",
@@ -1482,7 +1470,7 @@
       "source_file": "src/components/subscription/SubscriptionBanner.tsx",
       "source_location": "L1",
       "id": "src_components_subscription_subscriptionbanner_tsx",
-      "community": 129
+      "community": 131
     },
     {
       "label": "SubscriptionCard component",
@@ -1502,7 +1490,7 @@
       "source_file": "src/components/pet/pet-card.tsx",
       "source_location": "L1",
       "id": "src_components_pet_pet_card_tsx",
-      "community": 130
+      "community": 132
     },
     {
       "label": "bcs-slider.tsx",
@@ -1510,7 +1498,7 @@
       "source_file": "src/components/pet/bcs-slider.tsx",
       "source_location": "L1",
       "id": "src_components_pet_bcs_slider_tsx",
-      "community": 131
+      "community": 133
     },
     {
       "label": "activity-level-selector.tsx",
@@ -1518,7 +1506,7 @@
       "source_file": "src/components/pet/activity-level-selector.tsx",
       "source_location": "L1",
       "id": "src_components_pet_activity_level_selector_tsx",
-      "community": 132
+      "community": 134
     },
     {
       "label": "photo-picker.tsx",
@@ -1526,7 +1514,7 @@
       "source_file": "src/components/pet/photo-picker.tsx",
       "source_location": "L1",
       "id": "src_components_pet_photo_picker_tsx",
-      "community": 73
+      "community": 74
     },
     {
       "label": "handlePick()",
@@ -1534,7 +1522,7 @@
       "source_file": "src/components/pet/photo-picker.tsx",
       "source_location": "L17",
       "id": "photo_picker_handlepick",
-      "community": 73
+      "community": 74
     },
     {
       "label": "pet-form.tsx",
@@ -1572,7 +1560,7 @@
       "label": "handleClick()",
       "file_type": "code",
       "source_file": "src/components/pet/breed-selector.tsx",
-      "source_location": "L30",
+      "source_location": "L31",
       "id": "breed_selector_handleclick",
       "community": 42
     },
@@ -1580,7 +1568,7 @@
       "label": "handleKeyDown()",
       "file_type": "code",
       "source_file": "src/components/pet/breed-selector.tsx",
-      "source_location": "L47",
+      "source_location": "L48",
       "id": "breed_selector_handlekeydown",
       "community": 42
     },
@@ -1590,7 +1578,7 @@
       "source_file": "src/components/pet/__tests__/pet-form.test.tsx",
       "source_location": "L1",
       "id": "src_components_pet_tests_pet_form_test_tsx",
-      "community": 133
+      "community": 135
     },
     {
       "label": "AISuggestionRow component",
@@ -1622,7 +1610,7 @@
       "source_file": "src/components/food/food-card.tsx",
       "source_location": "L1",
       "id": "src_components_food_food_card_tsx",
-      "community": 74
+      "community": 75
     },
     {
       "label": "FoodCard()",
@@ -1630,7 +1618,7 @@
       "source_file": "src/components/food/food-card.tsx",
       "source_location": "L14",
       "id": "food_card_foodcard",
-      "community": 74
+      "community": 75
     },
     {
       "label": "safety-badge.tsx",
@@ -1638,7 +1626,7 @@
       "source_file": "src/components/food/safety-badge.tsx",
       "source_location": "L1",
       "id": "src_components_food_safety_badge_tsx",
-      "community": 75
+      "community": 76
     },
     {
       "label": "SafetyBadge()",
@@ -1646,7 +1634,7 @@
       "source_file": "src/components/food/safety-badge.tsx",
       "source_location": "L23",
       "id": "safety_badge_safetybadge",
-      "community": 75
+      "community": 76
     },
     {
       "label": "category-grid.tsx",
@@ -1654,7 +1642,7 @@
       "source_file": "src/components/food/category-grid.tsx",
       "source_location": "L1",
       "id": "src_components_food_category_grid_tsx",
-      "community": 76
+      "community": 77
     },
     {
       "label": "CategoryGrid()",
@@ -1662,7 +1650,7 @@
       "source_file": "src/components/food/category-grid.tsx",
       "source_location": "L12",
       "id": "category_grid_categorygrid",
-      "community": 76
+      "community": 77
     },
     {
       "label": "food-request-dialog.tsx",
@@ -1670,7 +1658,7 @@
       "source_file": "src/components/food/food-request-dialog.tsx",
       "source_location": "L1",
       "id": "src_components_food_food_request_dialog_tsx",
-      "community": 77
+      "community": 78
     },
     {
       "label": "handleSubmit()",
@@ -1678,7 +1666,7 @@
       "source_file": "src/components/food/food-request-dialog.tsx",
       "source_location": "L26",
       "id": "food_request_dialog_handlesubmit",
-      "community": 77
+      "community": 78
     },
     {
       "label": "use-auth.ts",
@@ -1710,7 +1698,7 @@
       "source_file": "src/hooks/use-sheet-drag.ts",
       "source_location": "L1",
       "id": "src_hooks_use_sheet_drag_ts",
-      "community": 78
+      "community": 79
     },
     {
       "label": "useSheetDrag()",
@@ -1718,7 +1706,7 @@
       "source_file": "src/hooks/use-sheet-drag.ts",
       "source_location": "L20",
       "id": "use_sheet_drag_usesheetdrag",
-      "community": 78
+      "community": 79
     },
     {
       "label": "use-food-search.ts",
@@ -1732,7 +1720,7 @@
       "label": "useFoodSearch()",
       "file_type": "code",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "id": "use_food_search_usefoodsearch",
       "community": 13
     },
@@ -1740,7 +1728,7 @@
       "label": "useFoodSuggestions()",
       "file_type": "code",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L43",
+      "source_location": "L44",
       "id": "use_food_search_usefoodsuggestions",
       "community": 13
     },
@@ -1748,7 +1736,7 @@
       "label": "useSimilarFoods()",
       "file_type": "code",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L89",
+      "source_location": "L90",
       "id": "use_food_search_usesimilarfoods",
       "community": 13
     },
@@ -1756,7 +1744,7 @@
       "label": "useCategories()",
       "file_type": "code",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L105",
+      "source_location": "L106",
       "id": "use_food_search_usecategories",
       "community": 13
     },
@@ -1764,7 +1752,7 @@
       "label": "useFoodsByCategory()",
       "file_type": "code",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L128",
+      "source_location": "L129",
       "id": "use_food_search_usefoodsbycategory",
       "community": 13
     },
@@ -1772,7 +1760,7 @@
       "label": "useFoodDetail()",
       "file_type": "code",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L160",
+      "source_location": "L161",
       "id": "use_food_search_usefooddetail",
       "community": 13
     },
@@ -1780,7 +1768,7 @@
       "label": "useFoodRequest()",
       "file_type": "code",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L192",
+      "source_location": "L193",
       "id": "use_food_search_usefoodrequest",
       "community": 13
     },
@@ -1790,7 +1778,7 @@
       "source_file": "src/hooks/use-locale.ts",
       "source_location": "L1",
       "id": "src_hooks_use_locale_ts",
-      "community": 79
+      "community": 80
     },
     {
       "label": "useLocale()",
@@ -1798,7 +1786,7 @@
       "source_file": "src/hooks/use-locale.ts",
       "source_location": "L5",
       "id": "use_locale_uselocale",
-      "community": 79
+      "community": 80
     },
     {
       "label": "useAIFoodLookup hook",
@@ -1854,7 +1842,7 @@
       "source_file": "src/hooks/use-entitlement.ts",
       "source_location": "L1",
       "id": "src_hooks_use_entitlement_ts",
-      "community": 80
+      "community": 81
     },
     {
       "label": "useEntitlement()",
@@ -1862,7 +1850,7 @@
       "source_file": "src/hooks/use-entitlement.ts",
       "source_location": "L8",
       "id": "use_entitlement_useentitlement",
-      "community": 80
+      "community": 81
     },
     {
       "label": "useRecipeAnalysis hook",
@@ -1957,12 +1945,20 @@
       "community": 15
     },
     {
+      "label": "use-food-search.food-request.test.tsx",
+      "file_type": "code",
+      "source_file": "src/hooks/__tests__/use-food-search.food-request.test.tsx",
+      "source_location": "L1",
+      "id": "src_hooks_tests_use_food_search_food_request_test_tsx",
+      "community": 136
+    },
+    {
       "label": "app-info.ts",
       "file_type": "code",
       "source_file": "src/lib/app-info.ts",
       "source_location": "L1",
       "id": "src_lib_app_info_ts",
-      "community": 81
+      "community": 82
     },
     {
       "label": "getAppVersionLabel()",
@@ -1970,7 +1966,7 @@
       "source_file": "src/lib/app-info.ts",
       "source_location": "L11",
       "id": "app_info_getappversionlabel",
-      "community": 81
+      "community": 82
     },
     {
       "label": "navigation.ts",
@@ -1978,7 +1974,7 @@
       "source_file": "src/lib/navigation.ts",
       "source_location": "L1",
       "id": "src_lib_navigation_ts",
-      "community": 82
+      "community": 83
     },
     {
       "label": "shouldShowBottomNav()",
@@ -1986,7 +1982,7 @@
       "source_file": "src/lib/navigation.ts",
       "source_location": "L1",
       "id": "navigation_shouldshowbottomnav",
-      "community": 82
+      "community": 83
     },
     {
       "label": "support-mailto.ts",
@@ -2050,7 +2046,7 @@
       "source_file": "src/lib/api.ts",
       "source_location": "L1",
       "id": "src_lib_api_ts",
-      "community": 83
+      "community": 84
     },
     {
       "label": "getApiUrl()",
@@ -2058,7 +2054,7 @@
       "source_file": "src/lib/api.ts",
       "source_location": "L1",
       "id": "api_getapiurl",
-      "community": 83
+      "community": 84
     },
     {
       "label": "platform.ts",
@@ -2194,7 +2190,23 @@
       "source_file": "src/lib/validators.ts",
       "source_location": "L1",
       "id": "src_lib_validators_ts",
-      "community": 134
+      "community": 137
+    },
+    {
+      "label": "input-capitalization.ts",
+      "file_type": "code",
+      "source_file": "src/lib/input-capitalization.ts",
+      "source_location": "L1",
+      "id": "src_lib_input_capitalization_ts",
+      "community": 85
+    },
+    {
+      "label": "getDefaultAutoCapitalize()",
+      "file_type": "code",
+      "source_file": "src/lib/input-capitalization.ts",
+      "source_location": "L24",
+      "id": "input_capitalization_getdefaultautocapitalize",
+      "community": 85
     },
     {
       "label": "supabase.ts",
@@ -2202,7 +2214,7 @@
       "source_file": "src/lib/supabase.ts",
       "source_location": "L1",
       "id": "src_lib_supabase_ts",
-      "community": 84
+      "community": 86
     },
     {
       "label": "getSupabase()",
@@ -2210,7 +2222,7 @@
       "source_file": "src/lib/supabase.ts",
       "source_location": "L6",
       "id": "supabase_getsupabase",
-      "community": 84
+      "community": 86
     },
     {
       "label": "terms.ts",
@@ -2318,7 +2330,7 @@
       "source_file": "src/lib/agent/tools/lookup-food.ts",
       "source_location": "L1",
       "id": "src_lib_agent_tools_lookup_food_ts",
-      "community": 85
+      "community": 87
     },
     {
       "label": "createLookupFoodTool()",
@@ -2326,7 +2338,7 @@
       "source_file": "src/lib/agent/tools/lookup-food.ts",
       "source_location": "L22",
       "id": "lookup_food_createlookupfoodtool",
-      "community": 85
+      "community": 87
     },
     {
       "label": "get-pet-profile.ts",
@@ -2334,7 +2346,7 @@
       "source_file": "src/lib/agent/tools/get-pet-profile.ts",
       "source_location": "L1",
       "id": "src_lib_agent_tools_get_pet_profile_ts",
-      "community": 86
+      "community": 88
     },
     {
       "label": "createGetPetProfileTool()",
@@ -2342,7 +2354,7 @@
       "source_file": "src/lib/agent/tools/get-pet-profile.ts",
       "source_location": "L23",
       "id": "get_pet_profile_creategetpetprofiletool",
-      "community": 86
+      "community": 88
     },
     {
       "label": "search-knowledge.ts",
@@ -2350,7 +2362,7 @@
       "source_file": "src/lib/agent/tools/search-knowledge.ts",
       "source_location": "L1",
       "id": "src_lib_agent_tools_search_knowledge_ts",
-      "community": 87
+      "community": 89
     },
     {
       "label": "createSearchKnowledgeTool()",
@@ -2358,7 +2370,7 @@
       "source_file": "src/lib/agent/tools/search-knowledge.ts",
       "source_location": "L16",
       "id": "search_knowledge_createsearchknowledgetool",
-      "community": 87
+      "community": 89
     },
     {
       "label": "navigation.test.ts",
@@ -2366,7 +2378,7 @@
       "source_file": "src/lib/__tests__/navigation.test.ts",
       "source_location": "L1",
       "id": "src_lib_tests_navigation_test_ts",
-      "community": 135
+      "community": 138
     },
     {
       "label": "request.ts",
@@ -2374,7 +2386,7 @@
       "source_file": "src/i18n/request.ts",
       "source_location": "L1",
       "id": "src_i18n_request_ts",
-      "community": 136
+      "community": 139
     },
     {
       "label": "Food Store",
@@ -2454,7 +2466,7 @@
       "source_file": "src/store/auth-store.ts",
       "source_location": "L1",
       "id": "src_store_auth_store_ts",
-      "community": 137
+      "community": 140
     },
     {
       "label": "pet-store.ts",
@@ -2462,7 +2474,7 @@
       "source_file": "src/store/pet-store.ts",
       "source_location": "L1",
       "id": "src_store_pet_store_ts",
-      "community": 88
+      "community": 90
     },
     {
       "label": "buildLocalPet()",
@@ -2470,7 +2482,7 @@
       "source_file": "src/store/pet-store.ts",
       "source_location": "L24",
       "id": "pet_store_buildlocalpet",
-      "community": 88
+      "community": 90
     },
     {
       "label": "Bottom Navigation (5 Tabs)",
@@ -2481,7 +2493,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 138,
+      "community": 141,
       "id": "tabs_readme_bottom_nav"
     },
     {
@@ -2493,7 +2505,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 139,
+      "community": 142,
       "id": "tabs_readme_scan_tab"
     },
     {
@@ -2505,7 +2517,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 89,
+      "community": 91,
       "id": "tabs_readme_learn_tab"
     },
     {
@@ -2517,7 +2529,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 89,
+      "community": 91,
       "id": "learn_readme_article_detail"
     },
     {
@@ -2745,7 +2757,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 140,
+      "community": 143,
       "id": "foods_db_dog_food_safety"
     },
     {
@@ -2793,7 +2805,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 90,
+      "community": 92,
       "id": "master_design_system"
     },
     {
@@ -2805,7 +2817,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 141,
+      "community": 144,
       "id": "master_color_palette"
     },
     {
@@ -2817,7 +2829,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 142,
+      "community": 145,
       "id": "master_typography"
     },
     {
@@ -2829,7 +2841,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 90,
+      "community": 92,
       "id": "master_anti_patterns"
     },
     {
@@ -3405,7 +3417,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 97,
+      "community": 93,
       "id": "ui_ux_audit_design_emoji_icons_issue"
     },
     {
@@ -3417,7 +3429,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 143,
+      "community": 146,
       "id": "ui_ux_audit_design_ios_safe_area"
     },
     {
@@ -3429,7 +3441,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 144,
+      "community": 147,
       "id": "ui_ux_audit_design_accessibility_failures"
     },
     {
@@ -3441,7 +3453,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 145,
+      "community": 148,
       "id": "ui_ux_audit_design_i18n_gaps"
     },
     {
@@ -3453,7 +3465,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 146,
+      "community": 149,
       "id": "ui_ux_audit_design_touch_targets"
     },
     {
@@ -3465,7 +3477,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 147,
+      "community": 150,
       "id": "ui_ux_audit_design_button_contrast"
     },
     {
@@ -3477,7 +3489,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 148,
+      "community": 151,
       "id": "ui_ux_audit_design_desktop_wasted_space"
     },
     {
@@ -3489,7 +3501,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 149,
+      "community": 152,
       "id": "ui_ux_audit_design_no_branding"
     },
     {
@@ -3501,7 +3513,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 96,
+      "community": 99,
       "id": "ui_ux_audit_design_remediation_roadmap"
     },
     {
@@ -3549,7 +3561,7 @@
       "captured_at": "2026-04-03",
       "author": null,
       "contributor": null,
-      "community": 150,
+      "community": 153,
       "id": "ai_recipe_analysis_design_get_pet_profile_tool"
     },
     {
@@ -3561,7 +3573,7 @@
       "captured_at": "2026-04-03",
       "author": null,
       "contributor": null,
-      "community": 92,
+      "community": 95,
       "id": "ai_recipe_analysis_design_follow_up_system"
     },
     {
@@ -3573,7 +3585,7 @@
       "captured_at": "2026-04-03",
       "author": null,
       "contributor": null,
-      "community": 91,
+      "community": 94,
       "id": "ai_recipe_analysis_design_dual_build_mode"
     },
     {
@@ -3585,7 +3597,7 @@
       "captured_at": "2026-04-03",
       "author": null,
       "contributor": null,
-      "community": 92,
+      "community": 95,
       "id": "ai_recipe_analysis_design_structured_not_chat_rationale"
     },
     {
@@ -3597,7 +3609,7 @@
       "captured_at": "2026-04-03",
       "author": null,
       "contributor": null,
-      "community": 151,
+      "community": 154,
       "id": "ai_recipe_analysis_design_sse_streaming"
     },
     {
@@ -3681,7 +3693,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 93,
+      "community": 96,
       "id": "guest_access_design"
     },
     {
@@ -3717,7 +3729,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 152,
+      "community": 155,
       "id": "guest_access_design_guest_onboarding"
     },
     {
@@ -3765,7 +3777,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 99,
+      "community": 97,
       "id": "gitops_cicd_design_helm_chart"
     },
     {
@@ -3777,7 +3789,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 48,
+      "community": 47,
       "id": "gitops_cicd_design_github_actions"
     },
     {
@@ -3789,7 +3801,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 91,
+      "community": 94,
       "id": "gitops_cicd_design_dockerfile"
     },
     {
@@ -3813,7 +3825,7 @@
       "captured_at": "2026-04-07",
       "author": null,
       "contributor": null,
-      "community": 153,
+      "community": 156,
       "id": "web_billing_design_stripe_products"
     },
     {
@@ -3825,7 +3837,7 @@
       "captured_at": "2026-04-07",
       "author": null,
       "contributor": null,
-      "community": 154,
+      "community": 157,
       "id": "web_billing_design_sync_entitlements"
     },
     {
@@ -3861,7 +3873,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 47,
+      "community": 48,
       "id": "capgo_design_supabase_self_hosted"
     },
     {
@@ -3873,7 +3885,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 47,
+      "community": 48,
       "id": "capgo_design_minio"
     },
     {
@@ -3885,7 +3897,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 155,
+      "community": 158,
       "id": "capgo_design_ota_flow"
     },
     {
@@ -3897,7 +3909,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 48,
+      "community": 47,
       "id": "capgo_design_smart_path_detection"
     },
     {
@@ -3909,7 +3921,7 @@
       "captured_at": "2026-03-30",
       "author": null,
       "contributor": null,
-      "community": 156,
+      "community": 159,
       "id": "capgo_design_edge_functions"
     },
     {
@@ -3921,7 +3933,7 @@
       "captured_at": "2026-03-31",
       "author": null,
       "contributor": null,
-      "community": 47,
+      "community": 48,
       "id": "learn_page_design"
     },
     {
@@ -3933,7 +3945,7 @@
       "captured_at": "2026-03-31",
       "author": null,
       "contributor": null,
-      "community": 94,
+      "community": 98,
       "id": "learn_page_design_blog_posts_table"
     },
     {
@@ -3945,7 +3957,7 @@
       "captured_at": "2026-03-31",
       "author": null,
       "contributor": null,
-      "community": 95,
+      "community": 100,
       "id": "learn_page_design_2gurmepati_scrape"
     },
     {
@@ -3957,7 +3969,7 @@
       "captured_at": "2026-03-31",
       "author": null,
       "contributor": null,
-      "community": 94,
+      "community": 98,
       "id": "learn_page_design_flat_table_rationale"
     },
     {
@@ -3969,7 +3981,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 157,
+      "community": 160,
       "id": "qa_automation_design"
     },
     {
@@ -4005,7 +4017,7 @@
       "captured_at": "2026-03-29",
       "author": null,
       "contributor": null,
-      "community": 48,
+      "community": 47,
       "id": "qa_automation_design_self_healing"
     },
     {
@@ -4029,7 +4041,7 @@
       "captured_at": "2026-03-31",
       "author": null,
       "contributor": null,
-      "community": 93,
+      "community": 96,
       "id": "terms_privacy_design"
     },
     {
@@ -4053,7 +4065,7 @@
       "captured_at": "2026-03-31",
       "author": null,
       "contributor": null,
-      "community": 158,
+      "community": 161,
       "id": "terms_privacy_design_reconsent"
     },
     {
@@ -4077,7 +4089,7 @@
       "captured_at": "2026-04-04",
       "author": null,
       "contributor": null,
-      "community": 96,
+      "community": 99,
       "id": "ui_ux_improvements_design"
     },
     {
@@ -4089,7 +4101,7 @@
       "captured_at": "2026-04-04",
       "author": null,
       "contributor": null,
-      "community": 159,
+      "community": 162,
       "id": "ui_ux_improvements_design_welcome_redesign"
     },
     {
@@ -4101,7 +4113,7 @@
       "captured_at": "2026-04-04",
       "author": null,
       "contributor": null,
-      "community": 97,
+      "community": 93,
       "id": "ui_ux_improvements_design_category_grid_redesign"
     },
     {
@@ -4137,7 +4149,7 @@
       "captured_at": "2026-04-04",
       "author": null,
       "contributor": null,
-      "community": 160,
+      "community": 163,
       "id": "ui_ux_improvements_design_empty_states"
     },
     {
@@ -4149,7 +4161,7 @@
       "captured_at": "2026-04-04",
       "author": null,
       "contributor": null,
-      "community": 161,
+      "community": 164,
       "id": "ui_ux_improvements_design_pet_wizard"
     },
     {
@@ -4173,7 +4185,7 @@
       "captured_at": "2026-04-09",
       "author": null,
       "contributor": null,
-      "community": 95,
+      "community": 100,
       "id": "youtube_kb_design_transcription_pipeline"
     },
     {
@@ -4185,7 +4197,7 @@
       "captured_at": "2026-04-09",
       "author": null,
       "contributor": null,
-      "community": 98,
+      "community": 101,
       "id": "youtube_kb_design_video_chunks_table"
     },
     {
@@ -4197,7 +4209,7 @@
       "captured_at": "2026-04-09",
       "author": null,
       "contributor": null,
-      "community": 99,
+      "community": 97,
       "id": "youtube_kb_design_ollama_sidecar"
     },
     {
@@ -4209,7 +4221,7 @@
       "captured_at": "2026-04-09",
       "author": null,
       "contributor": null,
-      "community": 98,
+      "community": 101,
       "id": "youtube_kb_design_rag_rationale"
     },
     {
@@ -4221,7 +4233,7 @@
       "captured_at": "2026-04-09",
       "author": null,
       "contributor": null,
-      "community": 162,
+      "community": 165,
       "id": "youtube_kb_design_dr_judy_morgan"
     },
     {
@@ -4269,7 +4281,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 163,
+      "community": 166,
       "id": "login_email_field"
     },
     {
@@ -4281,7 +4293,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 164,
+      "community": 167,
       "id": "login_password_field"
     },
     {
@@ -4293,7 +4305,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 165,
+      "community": 168,
       "id": "login_forgot_password_link"
     },
     {
@@ -4305,7 +4317,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 166,
+      "community": 169,
       "id": "login_sign_in_button"
     },
     {
@@ -4317,7 +4329,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 167,
+      "community": 170,
       "id": "login_google_sign_in"
     },
     {
@@ -4329,7 +4341,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 168,
+      "community": 171,
       "id": "login_sign_up_link"
     },
     {
@@ -4353,7 +4365,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 169,
+      "community": 172,
       "id": "register_display_name_field"
     },
     {
@@ -4365,7 +4377,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 170,
+      "community": 173,
       "id": "register_confirm_password_field"
     },
     {
@@ -4377,7 +4389,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 171,
+      "community": 174,
       "id": "register_sign_up_button"
     },
     {
@@ -4389,7 +4401,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 172,
+      "community": 175,
       "id": "register_google_sign_in"
     },
     {
@@ -4401,7 +4413,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 173,
+      "community": 176,
       "id": "register_sign_in_link"
     },
     {
@@ -4437,7 +4449,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 174,
+      "community": 177,
       "id": "welcome_headline"
     },
     {
@@ -4485,7 +4497,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 175,
+      "community": 178,
       "id": "welcome_get_started_button"
     },
     {
@@ -4497,7 +4509,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 176,
+      "community": 179,
       "id": "welcome_sign_in_link"
     },
     {
@@ -4749,7 +4761,7 @@
       "file_type": "image",
       "source_file": "docs/screenshots/iphone-16/profile/main.png",
       "source_location": null,
-      "community": 177,
+      "community": 180,
       "id": "profile_section"
     },
     {
@@ -5085,7 +5097,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 178,
+      "community": 181,
       "id": "hide_scanner_plan"
     },
     {
@@ -5097,7 +5109,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 179,
+      "community": 182,
       "id": "hide_scanner_design"
     },
     {
@@ -5109,7 +5121,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 180,
+      "community": 183,
       "id": "single_plan_paywall_rationale"
     },
     {
@@ -5121,7 +5133,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 181,
+      "community": 184,
       "id": "ux_state_persistence_plan"
     },
     {
@@ -5193,7 +5205,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 182,
+      "community": 185,
       "id": "codex_project_overview"
     },
     {
@@ -5241,7 +5253,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 100,
+      "community": 102,
       "id": "codex_ai_agent_backend"
     },
     {
@@ -5253,7 +5265,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 186,
       "id": "codex_food_search_screen"
     },
     {
@@ -5265,7 +5277,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 183,
+      "community": 187,
       "id": "codex_profile_flow"
     },
     {
@@ -5277,7 +5289,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 100,
+      "community": 102,
       "id": "graph_report_ai_agent_pipeline"
     },
     {
@@ -5301,7 +5313,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 184,
+      "community": 188,
       "id": "graph_report_profile_settings_ui"
     },
     {
@@ -5313,7 +5325,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 185,
+      "community": 189,
       "id": "graph_report_recipe_analysis_page"
     },
     {
@@ -5445,7 +5457,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 101,
+      "community": 103,
       "id": "agents_graphify_rule"
     },
     {
@@ -5457,7 +5469,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 186,
+      "community": 190,
       "id": "codex_pawbalance_web_app"
     },
     {
@@ -5469,7 +5481,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 101,
+      "community": 103,
       "id": "graph_report_summary"
     },
     {
@@ -5529,7 +5541,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 187,
+      "community": 191,
       "id": "concept_read_graph_report_before_architecture_questions"
     },
     {
@@ -5565,7 +5577,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 102,
+      "community": 104,
       "id": "concept_support_about_shared_version_helper"
     },
     {
@@ -5685,7 +5697,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 102,
+      "community": 104,
       "id": "rationale_support_version_helper_no_hardcode"
     },
     {
@@ -6138,7 +6150,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(app)/learn/page.tsx",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0,
       "_src": "src_app_app_learn_page_tsx",
       "_tgt": "page_handletagtoggle",
@@ -6171,64 +6183,16 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "references",
+      "relation": "imports_from",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
       "source_file": "src/app/(app)/search/page.tsx",
-      "source_location": null,
+      "source_location": "L9",
       "weight": 1.0,
-      "_src": "search_page_food_search_screen",
-      "_tgt": "search_page_category_browse_mode",
-      "source": "search_page_food_search_screen",
-      "target": "search_page_category_browse_mode"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/app/(app)/search/page.tsx",
-      "source_location": null,
-      "weight": 1.0,
-      "_src": "search_page_food_search_screen",
-      "_tgt": "search_page_ai_suggestion_entry",
-      "source": "search_page_food_search_screen",
-      "target": "search_page_ai_suggestion_entry"
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "INFERRED",
-      "confidence_score": 0.79,
-      "source_file": "src/app/(app)/search/page.tsx",
-      "source_location": null,
-      "weight": 1.0,
-      "_src": "search_page_food_search_screen",
-      "_tgt": "food_store_last_search_cache",
-      "source": "search_page_food_search_screen",
-      "target": "food_store_last_search_cache"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.84,
-      "source_file": "src/app/(app)/search/page.tsx",
-      "source_location": null,
-      "weight": 1.0,
-      "_src": "search_page_food_search_screen",
-      "_tgt": "codex_food_search_screen",
-      "source": "search_page_food_search_screen",
-      "target": "codex_food_search_screen"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/navigation/bottom-nav.tsx",
-      "source_location": null,
-      "weight": 1.0,
-      "_src": "bottom_nav_tab_shell",
-      "_tgt": "search_page_food_search_screen",
-      "source": "search_page_food_search_screen",
-      "target": "bottom_nav_tab_shell"
+      "_src": "src_app_app_search_page_tsx",
+      "_tgt": "food_request_dialog",
+      "source": "src_app_app_search_page_tsx",
+      "target": "food_request_dialog",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -6378,7 +6342,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(app)/profile/support/page.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "_src": "src_app_app_profile_support_page_tsx",
       "_tgt": "page_openmailto",
@@ -6390,7 +6354,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(app)/profile/support/page.tsx",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1.0,
       "_src": "src_app_app_profile_support_page_tsx",
       "_tgt": "page_handlesubmit",
@@ -6402,7 +6366,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(app)/profile/support/page.tsx",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1.0,
       "_src": "page_handlesubmit",
       "_tgt": "page_openmailto",
@@ -7061,6 +7025,18 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/__tests__/text-input-capitalization.test.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "src_components_ui_tests_text_input_capitalization_test_tsx",
+      "_tgt": "text_input_capitalization_test_renderwithintl",
+      "source": "src_components_ui_tests_text_input_capitalization_test_tsx",
+      "target": "text_input_capitalization_test_renderwithintl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/components/auth/social-login-buttons.tsx",
       "source_location": "L15",
       "weight": 1.0,
@@ -7614,7 +7590,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/pet/breed-selector.tsx",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1.0,
       "_src": "src_components_pet_breed_selector_tsx",
       "_tgt": "breed_selector_handleclick",
@@ -7626,7 +7602,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/pet/breed-selector.tsx",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "_src": "src_components_pet_breed_selector_tsx",
       "_tgt": "breed_selector_handlekeydown",
@@ -7746,7 +7722,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0,
       "_src": "src_hooks_use_food_search_ts",
       "_tgt": "use_food_search_usefoodsearch",
@@ -7758,7 +7734,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L43",
+      "source_location": "L44",
       "weight": 1.0,
       "_src": "src_hooks_use_food_search_ts",
       "_tgt": "use_food_search_usefoodsuggestions",
@@ -7770,7 +7746,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L89",
+      "source_location": "L90",
       "weight": 1.0,
       "_src": "src_hooks_use_food_search_ts",
       "_tgt": "use_food_search_usesimilarfoods",
@@ -7782,7 +7758,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L105",
+      "source_location": "L106",
       "weight": 1.0,
       "_src": "src_hooks_use_food_search_ts",
       "_tgt": "use_food_search_usecategories",
@@ -7794,7 +7770,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L128",
+      "source_location": "L129",
       "weight": 1.0,
       "_src": "src_hooks_use_food_search_ts",
       "_tgt": "use_food_search_usefoodsbycategory",
@@ -7806,7 +7782,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L160",
+      "source_location": "L161",
       "weight": 1.0,
       "_src": "src_hooks_use_food_search_ts",
       "_tgt": "use_food_search_usefooddetail",
@@ -7818,7 +7794,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/hooks/use-food-search.ts",
-      "source_location": "L192",
+      "source_location": "L193",
       "weight": 1.0,
       "_src": "src_hooks_use_food_search_ts",
       "_tgt": "use_food_search_usefoodrequest",
@@ -8304,6 +8280,18 @@
       "_tgt": "access_canaccess",
       "source": "access_canaccess",
       "target": "access_getaccessgatereason",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/input-capitalization.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "src_lib_input_capitalization_ts",
+      "_tgt": "input_capitalization_getdefaultautocapitalize",
+      "source": "src_lib_input_capitalization_ts",
+      "target": "input_capitalization_getdefaultautocapitalize",
       "confidence_score": 1.0
     },
     {

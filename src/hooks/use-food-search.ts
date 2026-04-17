@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { getSupabase } from "@/lib/supabase";
+import { useAuthStore } from "@/store/auth-store";
 import { useFoodStore } from "@/store/food-store";
 import type { Food, FoodCategory } from "@/lib/types";
 
@@ -194,12 +195,16 @@ export function useFoodRequest() {
 
   const submitRequest = useCallback(async (foodName: string) => {
     setIsSubmitting(true);
-    const supabase = getSupabase();
-    const { error } = await supabase
-      .from("food_requests")
-      .insert({ food_name: foodName });
-    setIsSubmitting(false);
-    if (error) throw error;
+    try {
+      const supabase = getSupabase();
+      const userId = useAuthStore.getState().user?.id ?? null;
+      const { error } = await supabase
+        .from("food_requests")
+        .insert({ food_name: foodName, user_id: userId });
+      if (error) throw error;
+    } finally {
+      setIsSubmitting(false);
+    }
   }, []);
 
   return { isSubmitting, submitRequest };
