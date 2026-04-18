@@ -17,3 +17,4 @@ build/
 refs/
 supabase/.tempscripts/youtube-knowledge-base/.env
 graphify-out/cache/
+docs/debug
